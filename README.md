@@ -24,7 +24,7 @@ npm install -g polymer-cli
 To start a [local web server](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#serve) that hosts the demo page and tests:
 
 ```shell
-polymer analyze > analysis.json && polymer serve
+npm start
 ```
 
 To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#lint)):

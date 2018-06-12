@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
     <title>d2l-sequences-topic-name test</title>
     <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
+	<script src="../../web-component-tester/browser.js"></script>
+	<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
     <link rel="import" href="../components/d2l-sequences-topic-name.html">
 </head>
 
@@ -24,31 +25,18 @@
     </test-fixture>
 
     <script>
-        describe('d2l-sequences-topic-name', function() {
-        	let elem;
-        	describe('basic', function() {
-        		it('should instantiate the element', function() {
-        			elem = fixture('basic');
-        			expect(elem.tagName).to.equal('D2L-SEQUENCES-TOPIC-NAME');
-        		});
-        	});
+		/* globals SirenFixture */
+		describe('d2l-sequences-topic-name', () => {
+			it('should instantiate the element', () => {
+				const elem = fixture('basic');
+				expect(elem.tagName).to.equal('D2L-SEQUENCES-TOPIC-NAME');
+			});
 
-        	describe('lessBasic', function() {
-        		before(function(done) {
-        			elem = fixture('lessBasic');
-        			const interval = setInterval(() => {
-        				if (elem.loaded) {
-        					clearInterval(interval);
-        					done();
-        				}
-        			}, 10);
-        		});
-
-        		it('should display the title', function() {
-        			expect(elem.title).to.equal('Accessible Word Document');
-        		});
-        	});
-        });
+			it('should display the title', async() => {
+				const elem = await SirenFixture.load('../demo/data/l2-m1-activity1.json', fixture('lessBasic'));
+				expect(elem.title).to.equal('Accessible Word Document');
+			});
+		});
     </script>
 </body>
 
