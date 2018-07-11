@@ -56,10 +56,10 @@
                 if (!this.next && !this.previous && !this.up) {
                     return true;
                 }
-                if (this.next && !entity.getLinkByRel('next')) {
+                if (this.next && !entity.getLinkByRel('next-activity')) {
                     return true;
                 }
-                if (this.previous && !entity.getLinkByRel('prev')) {
+                if (this.previous && !entity.getLinkByRel('prev-activity')) {
                     return true;
                 }
                 if (this.up && !entity.getLinkByRel('up')) {
@@ -69,15 +69,19 @@
                 return false;
             }
             _onClick() {
+                if (!this.entity) {
+                    return;
+                }
+
                 var link;
 
-                if (this.next && this.entity.getLinkByRel('next')) {
-                    link = this.entity.getLinkByRel('next');
+                if (this.next) {
+                    link = this.entity.getLinkByRel('next-activity');
                 }
-                else if(this.previous && this.entity.getLinkByRel('prev')) {
-                    link = this.entity.getLinkByRel('prev');
+                else if(this.previous) {
+                    link = this.entity.getLinkByRel('prev-activity');
                 }
-                else if(this.up && this.entity.getLinkByRel('up')) {
+                else if(this.up) {
                     link = this.entity.getLinkByRel('up');
                 }
 
