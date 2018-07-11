@@ -1,0 +1,73 @@
+{
+	"properties": {
+		"title": "HTML Sample"
+	},
+	"rel": ["item"],
+	"entities": [{
+		"class": ["activity", "file-activity"],
+		"rel": ["about"],
+		"properties": {
+			"name": "HTML Sample.html",
+			"title": "HTML Sample.html"
+		},
+		"entities": [{
+			"class": ["file"],
+			"rel": ["about"],
+			"properties": {
+				"name": "HTML Sample.html",
+				"title": "HTML Sample.html",
+				"type": "text/html"
+			},
+			"links": [{
+				"rel": ["alternate"],
+				"type": "text/html",
+				"href": "http://example.com/d2l/api/le/1.12/6614/content/topics/97671/file?stream=true"
+			}, {
+				"rel": ["alternate"],
+				"class": ["view"],
+				"type": "text/html",
+				"href": "http://example.com/d2l/le/content/6614/viewContent/97671/View"
+			}],
+			"entities": [{
+				"rel": ["item"],
+				"class": ["last-modified", "date"],
+				"properties": {
+					"date": "2018-07-10T14:12:09.140Z"
+				}
+			}]
+		}, {
+			"rel": ["item", "https://api.brightspace.com/rels/completion"],
+			"links": [{
+				"rel": ["alternate"],
+				"href": "https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97671/completion"
+			}],
+			"class": ["completion", "incomplete"]
+		}],
+		"actions": [{
+			"name": "view-activity",
+			"method": "POST",
+			"href": "https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97671/view"
+		}, {
+			"name": "view-activity-duration",
+			"method": "PUT",
+			"href": "https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97671/view"
+		}]
+	}],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97671"
+	}, {
+		"rel": ["next"],
+		"href": "https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97672"
+	}, {
+		"rel": ["prev-activity"],
+		"href": "https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97669"
+	}, {
+		"rel": ["next-activity"],
+		"href": "https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97672"
+	}, {
+		"rel": ["up"],
+		"href": "https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97670"
+	}],
+	"class": ["sequenced-activity"]
+}

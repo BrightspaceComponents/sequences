@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+	<title>d2l-sequences-iterator test</title>
+	<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
+    <script src="../node_modules/chai-dom/chai-dom.js"></script>
+	<link rel="import" href="../components/d2l-sequences-iterator.html">
+</head>
+
+<body>
+	<test-fixture id="next">
+		<template>
+			<d2l-sequences-iterator next></d2l-sequences-iterator>
+		</template>
+	</test-fixture>
+
+	<test-fixture id="previous">
+		<template>
+			<d2l-sequences-iterator previous></d2l-sequences-iterator>
+		</template>
+    </test-fixture>
+    
+    <test-fixture id="up">
+		<template>
+			<d2l-sequences-iterator up></d2l-sequences-iterator>
+		</template>
+	</test-fixture>
+
+	<script>
+        /* global SirenFixture */
+		describe('d2l-sequences-iterator', () => {
+            it('next icon should not be disabled', async() => {
+                const element = await SirenFixture.load('data/file-activity.json', fixture('next'));
+                const button = element.shadowRoot.querySelector('d2l-icon-button');
+                expect(button).not.to.have.attribute('disabled');
+            });
+
+            it('clicking next button should set the next-activity href', async() => {
+                const element = await SirenFixture.load('data/file-activity.json', fixture('next'));
+                const button = element.shadowRoot.querySelector('d2l-icon-button');
+                button.click();
+                expect(element).to.have.attribute('href', 'https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97672');
+            });
+
+            it('previous icon should not be disabled', async() => {
+                const element = await SirenFixture.load('data/file-activity.json', fixture('previous'));
+                const button = element.shadowRoot.querySelector('d2l-icon-button');
+                expect(button).not.to.have.attribute('disabled');
+            });
+
+            it('clicking previous button should set the prev-activity href', async() => {
+                const element = await SirenFixture.load('data/file-activity.json', fixture('previous'));
+                const button = element.shadowRoot.querySelector('d2l-icon-button');
+                button.click();
+                expect(element).to.have.attribute('href', 'https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97669');
+            });
+
+            it('up icon should not be disabled', async() => {
+                const element = await SirenFixture.load('data/file-activity.json', fixture('up'));
+                const button = element.shadowRoot.querySelector('d2l-icon-button');
+                expect(button).not.to.have.attribute('disabled');
+            });
+
+            it('clicking up button should set the up href', async() => {
+                const element = await SirenFixture.load('data/file-activity.json', fixture('up'));
+                const button = element.shadowRoot.querySelector('d2l-icon-button');
+                button.click();
+                expect(element).to.have.attribute('href', 'https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97670');
+            });
+		});
+	</script>
+</body>
+
+</html>

@@ -22,5 +22,9 @@
     "eslint-config-brightspace": "^0.4.0",
     "eslint-plugin-html": "^4.0.1",
     "polymer-cli": "^1.5.7"
+  },
+  "dependencies": {
+    "chai-dom": "^1.8.0",
+    "polymer-siren-test-helpers": "^1.0.0"
   }
 }
