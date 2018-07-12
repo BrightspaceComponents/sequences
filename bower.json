@@ -17,7 +17,7 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^2.6.0",
     "polymer-siren-mixins": "Brightspace/polymer-siren-mixins",
-    "d2l-icons": "^4.12.1"
+    "d2l-icons": "^4.12.1 || ^5.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.0",
