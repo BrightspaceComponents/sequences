@@ -1,7 +1,7 @@
 <link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="../../d2l-icons/d2l-icon.html">
-<link rel="import" href="../../d2l-button/d2l-button-icon.html">
+<link rel="import" href="../../d2l-icons/d2l-icon-button.html">
 <link rel="import" href="../../d2l-icons/tier1-icons.html">
 <link rel="import" href="../../d2l-icons/tier2-icons.html">
 <link rel="import" href="../../d2l-icons/tier3-icons.html">
@@ -15,13 +15,12 @@
                 display: inline-block;
             }
         </style>
-        <d2l-button-icon
+        <d2l-icon-button
             disabled="[[disabled]]"
             icon="[[icon]]"
             type="button"
-			text="Activity"
             on-click="_onClick"
-        ></d2l-button-icon>
+        ></d2l-icon-button>
     </template>
 
     <script>
@@ -40,8 +39,7 @@
                         computed: '_isDisabled(entity)'
                     },
                     icon: {
-                        type: String,
-						reflectToAttribute: true
+                        type: String
                     },
                     next: {
                         type: Boolean
