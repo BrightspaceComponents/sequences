@@ -26,7 +26,7 @@
 				});
 
 				it('iframe content is displayed once spinner is hidden', done => {
-					SirenFixture.load('data/activity-link.json', fixture('LinkFixture')).then( element => {
+					SirenFixture.load('data/activity-link.json', fixture('LinkFixture')).then(element => {
 						const iframe = element.shadowRoot.querySelector('iframe');
 						setTimeout(() => {
 							expect(iframe).not.to.have.class('hide');
