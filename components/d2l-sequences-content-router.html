@@ -1,0 +1,42 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../polymer/lib/utils/debounce.html">
+<link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="../mixins/RouterMixin.html">
+<link rel="import" href="d2l-sequences-content-file-router.html">
+<link rel="import" href="d2l-sequences-content-link.html">
+<link rel="import" href="d2l-sequences-content-unknown.html">
+
+<dom-module id="d2l-sequences-content-router">
+	<template></template>
+	<script>
+		/*
+					@mixes SirenEntityMixin
+		        */
+		class D2LSequencesContentRouter extends D2L.Polymer.Mixins.SirenEntityMixin(D2L.Polymer.Mixins.RouterMixin(Polymer.Element, getEntityType)) {
+			static get is() {
+				return 'd2l-sequences-content-router';
+			}
+			static get map() {
+				return new Map([
+					[D2LSequencesContentFileRouter.contentClass, D2LSequencesContentFileRouter.is],
+					[D2LSequencesContentLink.contentClass, D2LSequencesContentLink.is],
+				]);
+			}
+		}
+		customElements.define(D2LSequencesContentRouter.is, D2LSequencesContentRouter);
+
+		function getEntityType(entity) {
+			for (let i = 0; i < entity.entities.length; i++) {
+				// hypermedia classes tend to be more specific at the end of the array
+				for (let j = entity.entities[i].class.length - 1; j >= 0; --j) {
+					const mappedType = D2LSequencesContentRouter.map.get(entity.entities[i].class[j]);
+					if (mappedType) {
+						return mappedType;
+					}
+				}
+			}
+			return D2LSequencesContentUnknown.is;
+		}
+
+	</script>
+</dom-module>

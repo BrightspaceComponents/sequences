@@ -1,0 +1,50 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../polymer/lib/utils/debounce.html">
+<link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="../mixins/RouterMixin.html">
+<link rel="import" href="d2l-sequences-content-file-html.html">
+<link rel="import" href="d2l-sequences-content-file-download.html">
+
+<dom-module id="d2l-sequences-content-file-router">
+	<template></template>
+	<script>
+		/*
+            @mixes SirenEntityMixin
+        */
+		class D2LSequencesContentFileRouter extends D2L.Polymer.Mixins.SirenEntityMixin(D2L.Polymer.Mixins.RouterMixin(Polymer.Element, getElementsByMimeType)) {
+            static get is() {
+                return 'd2l-sequences-content-file-router';
+            }
+
+            static get map() {
+                return new Map([
+                    ['text/html', D2LSequencesContentFileHtml.is],
+                    ['application/pdf', D2LSequencesContentFileHtml.is],
+                    ['image/bmp', D2LSequencesContentFileHtml.is],
+                    ['image/gif', D2LSequencesContentFileHtml.is],
+                    ['image/jpeg', D2LSequencesContentFileHtml.is],
+                    ['image/png', D2LSequencesContentFileHtml.is],
+                    ['image/svg+xml', D2LSequencesContentFileHtml.is]
+                ]);
+            }
+
+            static get contentClass() {
+                return 'file-activity';
+            }
+        }
+
+        customElements.define(D2LSequencesContentFileRouter.is, D2LSequencesContentFileRouter);
+
+        function getElementsByMimeType(entity) {
+            const unknownMimeType = 'd2l-sequences-content-file-download';
+            try {
+                const fileActivity = this._getSubEntityByClass(entity, 'file-activity');
+                const file = this._getSubEntityByClass(fileActivity, 'file');
+
+                return D2LSequencesContentFileRouter.map.get(file.properties.type) || unknownMimeType;
+            } catch(e) {
+                return unknownMimeType;
+            }
+        }
+    </script>
+</dom-module>
