@@ -71,7 +71,6 @@
 				<!-- TODO: make d2l-content-icons public or import the file icon directly into this project
 				<d2l-content-icons icon="file"></d2l-content-icons>
 				-->
-				<d2l-icon
 			</div>
 			<div>
 				[[localize('fileSize','size',_fileSize)]]
@@ -89,6 +88,7 @@
 	<script>
 		/*
 			@mixes SirenEntityMixin
+			@extends D2L.PolymerBehaviors.LocalizeBehavior
 		*/
 		class D2LSequencesContentFileDownload extends Polymer.mixinBehaviors(D2L.PolymerBehaviors.LocalizeBehavior, D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)) {
 			static get is() {
