@@ -1,21 +1,88 @@
 <link rel="import" href="../../polymer/polymer-element.html">
 <link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
+<link rel="import" href="../../d2l-localize-behavior/d2l-localize-behavior.html">
+<link rel="import" href="../../d2l-button/d2l-button.html">
 
 <dom-module id="d2l-sequences-content-link-mixed">
-    <template>
-        <style>
-        </style>
-        Open in new window
-    </template>
-    <script>
+	<template>
+		<style>
+			:host {
+				display: block;
+				font-family: 'Lato', sans-serif;
+				color: var(--d2l-color-ferrite);
+
+				/* Body Text - Lato Regular 19 */
+				font-size: 19px;
+				line-height: 24px;
+				font-weight: 400; /* normal */
+				letter-spacing: 0.2px;
+			}
+
+			.container {
+				padding-top: 100px;
+				text-align: center;
+				width: 550px;
+				margin: auto;
+			}
+
+			.heading3 {
+				/* Heading 3 - Lato Bold 20 */
+				font-size: 20px;
+				line-height: 30px;
+				font-weight: 700; /* bold */
+				letter-spacing: 0.2px;
+			}
+
+			.title {
+				color: var(--d2l-color-celestine-plus-1);
+				margin-bottom: 10px;
+			}
+
+			.open-new-button {
+				border-radius: 6px;
+ 				height: 52px;
+ 				margin-top: 50px;
+				padding: 0px;
+				border: none;
+				background: transparent;
+			}
+
+			.open-new-button-content {
+				width: 300px;
+ 			}
+		</style>
+		<div class="container">
+			<div class="title heading3">
+				[[localize('undisplayableContent')]]
+			</div>
+			<div>
+				[[localize('openUnsecureContent')]]
+			</div>
+			<button type="submit" class="open-new-button heading3">
+				<d2l-button primary>
+					<div class="heading3 open-new-button-content">
+						[[localize('openNew')]]
+					</div>
+				</d2l-button>
+			</button>
+		</div>
+	</template>
+	<script>
 		/*
 			@mixes SirenEntityMixin
-        */
-        class D2LSequencesContentLinkMixed extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
-            static get is() {
-                return 'd2l-sequences-content-link-mixed';
-            }
-        }
-        customElements.define(D2LSequencesContentLinkMixed.is, D2LSequencesContentLinkMixed);
-    </script>
+			@extends D2L.PolymerBehaviors.LocalizeBehavior
+		*/
+		class D2LSequencesContentLinkMixed extends Polymer.mixinBehaviors(D2L.PolymerBehaviors.LocalizeBehavior, D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)) {
+			static get is() {
+				return 'd2l-sequences-content-link-mixed';
+			}
+			connectedCallback() {
+				super.connectedCallback();
+				this.loadResources(this.resolveUrl('../locales.json'));
+				this._language = window.document.getElementsByTagName('html')[0]
+					.getAttribute('lang');
+			}
+		}
+		customElements.define(D2LSequencesContentLinkMixed.is, D2LSequencesContentLinkMixed);
+	</script>
 </dom-module>
