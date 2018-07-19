@@ -3,7 +3,7 @@
 <link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="../mixins/RouterMixin.html">
 <link rel="import" href="d2l-sequences-content-file-router.html">
-<link rel="import" href="d2l-sequences-content-link.html">
+<link rel="import" href="d2l-sequences-content-link-router.html">
 <link rel="import" href="d2l-sequences-content-unknown.html">
 
 <dom-module id="d2l-sequences-content-router">
@@ -19,7 +19,7 @@
 			static get map() {
 				return new Map([
 					[D2LSequencesContentFileRouter.contentClass, D2LSequencesContentFileRouter.is],
-					[D2LSequencesContentLink.contentClass, D2LSequencesContentLink.is],
+					[D2LSequencesContentLinkRouter.contentClass, D2LSequencesContentLinkRouter.is],
 				]);
 			}
 		}
