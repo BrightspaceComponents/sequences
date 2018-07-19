@@ -3,6 +3,8 @@
   "description": "",
   "private": true,
   "scripts": {
+    "build:lang": "gulp build-locales",
+    "build": "npm run build:lang",
     "postinstall": "polymer install",
     "lint:fix": "eslint *.html demo/*.html test/*.html --fix",
     "lint:html": "eslint *.html demo/*.html test/*.html",
@@ -19,9 +21,12 @@
   "author": "D2L Corporation",
   "license": "Apache-2.0",
   "devDependencies": {
+    "chai-dom": "^1.8.0",
     "eslint": "^4.2.0",
     "eslint-config-brightspace": "^0.4.0",
     "eslint-plugin-html": "^4.0.1",
+    "gulp": "^3.9.1",
+    "gulp-merge-json": "^1.3.1",
     "polymer-cli": "^1.7.2",
     "polymer-siren-test-helpers": "^1.0.0"
   }

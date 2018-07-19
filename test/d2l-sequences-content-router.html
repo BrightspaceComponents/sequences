@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-sequences-content-router test</title>
+		<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../../web-component-tester/browser.js"></script>
+		<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
+		<link rel="import" href="loadFileWithDelay.html">
+		<link rel="import" href="../components/d2l-sequences-content-router.html">
+	</head>
+	<body>
+		<test-fixture id="RouterFixture">
+			<template>
+				<d2l-sequences-content-router></d2l-sequences-content-router>
+			</template>
+		</test-fixture>
+		<script>
+			/* global loadFileWithDelay */
+			describe('d2l-sequences-content-router', () => {
+				it('should create a d2l-sequences-content-file-router for file-activity types', async() => {
+					const element = await  loadFileWithDelay('data/activity-file-html.json', fixture('RouterFixture'));
+					expect(element.shadowRoot.querySelector('d2l-sequences-content-file-router')).to.exist;
+					expect(element.shadowRoot.querySelector('d2l-sequences-content-unknown')).not.to.exist;
+				});
+
+				it('should create a d2l-sequences-content-unknown for unknown activity types', async() => {
+					const element = await loadFileWithDelay('data/activity-file-unknown.json', fixture('RouterFixture'));
+					expect(element.shadowRoot.querySelector('d2l-sequences-content-file-router')).not.to.exist;
+					expect(element.shadowRoot.querySelector('d2l-sequences-content-unknown')).to.exist;
+				});
+			});
+		</script>
+	</body>
+</html>
