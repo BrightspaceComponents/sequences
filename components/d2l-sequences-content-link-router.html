@@ -9,37 +9,32 @@
 	<template></template>
 	<script>
 		/*
-            @mixes SirenEntityMixin
-        */
+			@mixes SirenEntityMixin
+		*/
 		class D2LSequencesContentLinkRouter extends D2L.Polymer.Mixins.SirenEntityMixin(D2L.Polymer.Mixins.RouterMixin(Polymer.Element, getEntityType)) {
-            static get is() {
-                return 'd2l-sequences-content-link-router';
-            }
+			static get is() {
+				return 'd2l-sequences-content-link-router';
+			}
 
-            static get map() {
-                return new Map([
-                ]);
-            }
+			static get contentClass() {
+				return 'link-activity';
+			}
+		}
 
-            static get contentClass() {
-                return 'link-activity';
-            }
-        }
+		customElements.define(D2LSequencesContentLinkRouter.is, D2LSequencesContentLinkRouter);
 
-        customElements.define(D2LSequencesContentLinkRouter.is, D2LSequencesContentLinkRouter);
-
-        function getEntityType(entity) {
-            try {
-                const linkActivity = this._getSubEntityByClass(entity, D2LSequencesContentLink.contentClass);
-                const link = this._getLinkByRel(linkActivity, 'about');
-                if ( link.href.startsWith('https://') ) {
-                    return D2LSequencesContentLink.is;
-                } else {
-                    return D2LSequencesContentLinkMixed.is;
-                }
-            } catch(e) {
-                return D2LSequencesContentLink.is;
-            }
-        }
-    </script>
+		function getEntityType(entity) {
+			try {
+				const linkActivity = this._getSubEntityByClass(entity, D2LSequencesContentLink.contentClass);
+				const link = this._getLinkByRel(linkActivity, 'about');
+				if ( link.href.startsWith('https://') ) {
+					return D2LSequencesContentLink.is;
+				} else {
+					return D2LSequencesContentLinkMixed.is;
+				}
+			} catch(e) {
+				return D2LSequencesContentLink.is;
+			}
+		}
+	</script>
 </dom-module>
