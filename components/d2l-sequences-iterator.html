@@ -16,10 +16,13 @@
             }
         </style>
         <d2l-icon-button
+            id="iteratorButton"
             disabled="[[disabled]]"
             icon="[[icon]]"
             type="button"
             on-click="_onClick"
+            role='button'
+            aria-label$="[[iterateTo]]"
         ></d2l-icon-button>
     </template>
 
@@ -49,45 +52,60 @@
                     },
                     up: {
                         type: Boolean
+                    },
+                    link: {
+                        type: Object
+                    },
+                    iterateTo: {
+                        type: String,
+                        computed: '_setIterateTo(entity)'
                     }
                 };
             }
             _isDisabled(entity) {
                 if (!this.next && !this.previous && !this.up) {
+
                     return true;
                 }
                 if (this.next && !entity.getLinkByRel('next-activity')) {
+
                     return true;
                 }
                 if (this.previous && !entity.getLinkByRel('prev-activity')) {
+
                     return true;
                 }
                 if (this.up && !entity.getLinkByRel('up')) {
+
+
                     return true;
                 }
 
                 return false;
             }
             _onClick() {
-                if (!this.entity) {
-                    return;
+                if (this.link && this.link.href) {
+                    this.href = this.link.href;
+                    this.link = null;
                 }
+            }
+            _setIterateTo() {
+                this.setAttribute('tabindex', '-1');
 
-                var link;
 
                 if (this.next) {
-                    link = this.entity.getLinkByRel('next-activity');
+                    this.link = this.entity.getLinkByRel('next-activity');
+                    return 'Go to next activity';
                 }
                 else if(this.previous) {
-                    link = this.entity.getLinkByRel('prev-activity');
+                    this.link = this.entity.getLinkByRel('prev-activity');
+                    return 'Go to previous activity';
                 }
                 else if(this.up) {
-                    link = this.entity.getLinkByRel('up');
+                    this.link = this.entity.getLinkByRel('up');
+                    return 'Go to parent activity';
                 }
-
-                if (link && link.href) {
-                    this.href = link.href;
-                }
+                return '';
             }
         }
         customElements.define(D2LSequencesIterator.is, D2LSequencesIterator);
