@@ -58,7 +58,8 @@
                         type: Object
                     },
                     iterateTo: {
-                        type: String
+                        type: String,
+                        computed: 'getIterateTo()'
                     }
                 };
             }
@@ -67,17 +68,19 @@
             }
             connectedCallback() {
 				super.connectedCallback();
-				this.loadResources(this.resolveUrl('../locales.json'));
-                 if (this.next) {
-                    this.iterateTo = 'iterateToNext';
+				this.loadResources(this.resolveUrl('../locales.json'));    
+			}
+            getIterateTo() {
+                if (this.next) {
+                    return 'iterateToNext';
                 }
                 else if(this.previous) {
-                    this.iterateTo =  'iterateToPrevious';
+                    return 'iterateToPrevious';
                 }
                 else if(this.up) {
-                    this.iterateTo =  'iterateToParent';
+                    return 'iterateToParent';
                 }
-			}
+            }
             _isDisabled(entity) {
                 if (!this.next && !this.previous && !this.up) {
                     return true;
