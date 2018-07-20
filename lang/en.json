@@ -5,5 +5,8 @@
 	"download": "Download",
 	"iterateToNext": "Go to next activity",
 	"iterateToPrevious": "Go to previous activity",
-	"iterateToParent": "Go to parent activity"
+	"iterateToParent": "Go to parent activity",
+	"undisplayableContent": "This content can't be displayed in this viewer",
+	"openUnsecureContent": "Your browser thinks this content is published in a less secure location. Don't worry, just open the content in a new window.",
+	"openNew": "Open in a new window"
 }
