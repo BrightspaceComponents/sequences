@@ -58,13 +58,11 @@
 			<div>
 				[[localize('openUnsecureContent')]]
 			</div>
-			<button type="submit" class="open-new-button heading3">
-				<d2l-button primary>
-					<div class="heading3 open-new-button-content">
-						[[localize('openNew')]]
-					</div>
-				</d2l-button>
-			</button>
+			<d2l-button primary type="submit" class="open-new-button heading3" onClick$="window.open('[[_linkLocation]]')">
+				<div class="heading3 open-new-button-content">
+					[[localize('openNew')]]
+				</div>
+			</d2l-button>
 		</div>
 	</template>
 	<script>
@@ -76,11 +74,28 @@
 			static get is() {
 				return 'd2l-sequences-content-link-mixed';
 			}
+			static get properties() {
+				return {
+					_linkLocation: {
+						type: String,
+						computed: '_getLinkLocation(entity)'
+					}
+				}
+			}
 			connectedCallback() {
 				super.connectedCallback();
 				this.loadResources(this.resolveUrl('../locales.json'));
 				this._language = window.document.getElementsByTagName('html')[0]
 					.getAttribute('lang');
+			}
+			_getLinkLocation(entity) {
+				try {
+					const linkActivity = this._getSubEntityByClass(entity, D2LSequencesContentLink.contentClass);
+					const link = this._getLinkByRel(linkActivity, 'about');
+					return link.href;
+				} catch(e) {
+					return '';
+				}
 			}
 		}
 		customElements.define(D2LSequencesContentLinkMixed.is, D2LSequencesContentLinkMixed);
