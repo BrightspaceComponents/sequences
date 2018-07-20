@@ -19,6 +19,7 @@
         <d2l-icon-button
             id="iteratorButton"
             disabled="[[disabled]]"
+            aria-disabled$="[[disabled]]"
             icon="[[icon]]"
             type="button"
             on-click="_onClick"
@@ -39,8 +40,7 @@
                 return {
                     disabled: {
                         type: Boolean,
-                        computed: '_isDisabled(entity)',
-                        observer: '_ariaDisable'
+                        computed: '_isDisabled(entity)'
                     },
                     icon: {
                         type: String
@@ -78,13 +78,6 @@
                     this.iterateTo =  'iterateToParent';
                 }
 			}
-            _ariaDisable() {
-                if (this.disabled) {
-                    this.$.iteratorButton.setAttribute('aria-disabled', true);
-                } else {
-                    this.$.iteratorButton.setAttribute('aria-disabled', false);
-                }
-            }
             _isDisabled(entity) {
                 if (!this.next && !this.previous && !this.up) {
                     return true;
