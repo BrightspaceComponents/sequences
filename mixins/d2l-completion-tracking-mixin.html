@@ -1,0 +1,94 @@
+<link rel="import" href="../../polymer-siren-mixins/siren-action-mixin.html">
+<script>
+	(function() {
+		function CompletionTrackingMixin(superClass) {
+			return class extends D2L.Polymer.Mixins.SirenActionMixin(superClass) {
+				static get properties() {
+					return {
+						_completionEntity: {
+							type: Object
+						},
+						_skipCompletion: {
+							type: Boolean,
+							computed: '_isImpersonating(token)'
+						}
+					};
+				}
+
+				static get observers() {
+					return ['_entityUpdated(entity)'];
+				}
+
+				disconnectedCallback() {
+					super.disconnectedCallback();
+
+					if (this._skipCompletion) {
+						return;
+					}
+
+					this._finishCompletion();
+				}
+
+				_entityUpdated(entity) {
+					if (this._skipCompletion) {
+						return;
+					}
+
+					this._finishCompletion();
+					this._startCompletion(entity);
+				}
+
+				_finishCompletion() {
+					if (!this._completionEntity) {
+						return;
+					}
+
+					this._performCompletion(this._completionEntity, 'finish-view-activity');
+					this._completionEntity = null;
+				}
+
+				async _startCompletion(entity) {
+					this._completionEntity = await this._performCompletion(entity, 'view-activity-duration');
+				}
+
+				async _performCompletion(entity, actionName) {
+					const activitySubEntity = entity.getSubEntityByClass('activity');
+					if (!activitySubEntity) {
+						return null;
+					}
+
+					const action = activitySubEntity.getActionByName(actionName);
+					if (!action) {
+						return null;
+					}
+
+					// DEBUG WITH console.log('performing completion action', actionName, 'on', entity.properties.title);
+					const data = await this.performSirenAction(action);
+
+					// TODO: move the parse step to siren-action-mixin?  Do we want plain data in this siren world?
+					return D2L.Hypermedia.Siren.Parse(data);
+				}
+
+				_isImpersonating(token) {
+					try {
+						const payload = token.split('.')[1];
+						const b64 = payload
+							.replace(/-/g, '+')
+							.replace(/_/g, '/');
+						const jwt = JSON.parse(atob(b64));
+						return jwt.hasOwnProperty('actualsub') &&
+							jwt.hasOwnProperty('sub') &&
+							jwt.actualsub !== jwt.sub;
+					} catch (e) {
+						return false;
+					}
+				}
+			};
+		}
+
+		window.D2L = window.D2L || {};
+		window.D2L.Polymer = window.D2L.Polymer || {};
+		window.D2L.Polymer.Mixins = window.D2L.Polymer.Mixins || {};
+		window.D2L.Polymer.Mixins.CompletionTrackingMixin = CompletionTrackingMixin;
+	})();
+</script>
