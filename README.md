@@ -1,4 +1,5 @@
 # d2l-sequences
+[![Build Status](https://www.travis-ci.com/BrightspaceHypermediaComponents/sequences.svg?branch=master)](https://www.travis-ci.com/BrightspaceHypermediaComponents/sequences)
 
 [Polymer](https://www.polymer-project.org)-based web component for D2L sequences.
 
