@@ -25,7 +25,7 @@
 					expect(src).to.equal('data/quicklink.html');
 				});
 
-				it('iframe content is displayed once spinner is hidden', done => {
+				it('displays iframe content once spinner is hidden', done => {
 					SirenFixture.load('data/activity-link.json', fixture('LinkFixture')).then(element => {
 						const iframe = element.shadowRoot.querySelector('iframe');
 						setTimeout(() => {

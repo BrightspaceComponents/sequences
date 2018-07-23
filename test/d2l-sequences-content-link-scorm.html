@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+	<title>d2l-sequences-content-link test</title>
+	<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+	<script src="../../web-component-tester/browser.js"></script>
+	<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
+	<script src="../node_modules/chai-dom/chai-dom.js"></script>
+	<link rel="import" href="../components/d2l-sequences-content-link-scorm.html">
+</head>
+<body>
+<test-fixture id="LinkFixture">
+	<template>
+		<d2l-sequences-content-link-scorm href="data/activity-link-scorm.json" token="asdf"></d2l-sequences-content-link-scorm>
+	</template>
+</test-fixture>
+<script>
+	/* global SirenFixture */
+	describe('d2l-sequences-content-link-scorm', () => {
+		it('should have the correct onclick function', async() => {
+			const element = await SirenFixture.load('data/activity-link-scorm.json', fixture('LinkFixture'));
+			const button = element.shadowRoot.querySelector('button')
+			expect(button).to.exist;
+			expect(button).to.have.attribute('onclick', 'window.open(\'https://example.bspc.com/d2l/le/content/contentservice/Forward/00000000-0000-0000-000000000000?linkId=1354&ou=%7BorgUnitId%7D\')');
+		});
+	});
+</script>
+</body>
+</html>
