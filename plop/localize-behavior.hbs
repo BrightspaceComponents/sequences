@@ -1,0 +1,30 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../d2l-localize-behavior/d2l-localize-behavior.html">
+<script>
+    /* eslint-disable */
+    window.D2L = window.D2L || {};
+    window.D2L.PolymerBehaviors = window.D2L.PolymerBehaviors || {};
+    window.D2L.PolymerBehaviors.Sequences = window.D2L.PolymerBehaviors.Sequences || {};
+    /**
+     * THIS FILE IS GENERATED. RUN `npm run locales` TO REGENERATE.
+	 * Localizes the sequences component.
+	 * @polymerBehavior D2L.PolymerBehaviors.Sequences.LocalizeBehavior
+	 */
+    D2L.PolymerBehaviors.Sequences.LocalizeBehaviorImpl = {
+    	properties: {
+    		/**
+             * Localization resources.
+             */
+    		resources: {
+    			value: function() {
+                    return {{> locales }};
+                }
+    		}
+    	}
+    };
+    /** @polymerBehavior D2L.PolymerBehaviors.Sequences.LocalizeBehavior */
+    D2L.PolymerBehaviors.Sequences.LocalizeBehavior = [
+    	D2L.PolymerBehaviors.LocalizeBehavior,
+    	D2L.PolymerBehaviors.Sequences.LocalizeBehaviorImpl
+    ];
+</script>

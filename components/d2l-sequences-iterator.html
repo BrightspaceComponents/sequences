@@ -7,6 +7,7 @@
 <link rel="import" href="../../d2l-icons/tier3-icons.html">
 <link rel="import" href="../../d2l-icons/html-editor-icons.html">
 <link rel="import" href="../../d2l-icons/emoji-icons.html">
+<link rel="import" href="../../d2l-localize-behavior/d2l-localize-behavior.html">
 
 <dom-module id="d2l-sequences-iterator">
     <template>
@@ -16,19 +17,22 @@
             }
         </style>
         <d2l-icon-button
+            id="iteratorButton"
             disabled="[[disabled]]"
+            aria-disabled$="[[disabled]]"
             icon="[[icon]]"
             type="button"
             on-click="_onClick"
-        ></d2l-icon-button>
+        >[[localize(iterateTo)]]</d2l-icon-button>
     </template>
 
     <script>
 		/*
 			@mixes SirenEntityMixin
+            @extends D2L.PolymerBehaviors.LocalizeBehavior
 			@demo demos/index.html
         */
-        class D2LSequencesIterator extends D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element) {
+        class D2LSequencesIterator extends Polymer.mixinBehaviors(D2L.PolymerBehaviors.LocalizeBehavior, D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)) {
             static get is() {
                 return 'd2l-sequences-iterator';
             }
@@ -49,8 +53,32 @@
                     },
                     up: {
                         type: Boolean
+                    },
+                    link: {
+                        type: Object
+                    },
+                    iterateTo: {
+                        type: String,
+                        computed: 'getIterateTo()'
                     }
                 };
+            }
+            static get observers() {
+                return ['_setLink(entity)']
+            }
+            connectedCallback() {
+				super.connectedCallback();
+			}
+            getIterateTo() {
+                if (this.next) {
+                    return 'iterateToNext';
+                }
+                else if(this.previous) {
+                    return 'iterateToPrevious';
+                }
+                else if(this.up) {
+                    return 'iterateToParent';
+                }
             }
             _isDisabled(entity) {
                 if (!this.next && !this.previous && !this.up) {
@@ -65,28 +93,24 @@
                 if (this.up && !entity.getLinkByRel('up')) {
                     return true;
                 }
-
                 return false;
             }
             _onClick() {
-                if (!this.entity) {
-                    return;
+                if (this.link && this.link.href) {
+                    this.href = this.link.href;
                 }
-
-                var link;
+            }
+            _setLink(entity) {
+                this.link = null;
 
                 if (this.next) {
-                    link = this.entity.getLinkByRel('next-activity');
+                    this.link = entity.getLinkByRel('next-activity');
                 }
                 else if(this.previous) {
-                    link = this.entity.getLinkByRel('prev-activity');
+                    this.link = entity.getLinkByRel('prev-activity');
                 }
                 else if(this.up) {
-                    link = this.entity.getLinkByRel('up');
-                }
-
-                if (link && link.href) {
-                    this.href = link.href;
+                    this.link = entity.getLinkByRel('up');
                 }
             }
         }

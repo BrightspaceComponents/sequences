@@ -9,8 +9,11 @@
     "lint:fix": "eslint *.html demo/*.html test/*.html --fix",
     "lint:html": "eslint *.html demo/*.html test/*.html",
     "lint": "npm run lint:html && polymer lint --input ./{components,test}/*.html",
+    "pretest": "npm run lint",
     "test": "polymer test --skip-plugin sauce",
     "test-p": "polymer test --skip-plugin sauce -p",
+    "locales": "gulp build-locales && npm run gen:localize",
+    "gen:localize": "plop localize",
     "start": "polymer analyze > analysis.json && polymer serve"
   },
   "repository": {
@@ -23,9 +26,10 @@
     "chai-dom": "^1.8.0",
     "eslint": "^4.2.0",
     "eslint-config-brightspace": "^0.4.0",
-    "eslint-plugin-html": "^4.0.5",
+    "eslint-plugin-html": "^4.0.1",
     "gulp": "^3.9.1",
     "gulp-merge-json": "^1.3.1",
+    "plop": "^2.0.0",
     "polymer-cli": "^1.7.2",
     "polymer-siren-test-helpers": "^1.0.0"
   }
