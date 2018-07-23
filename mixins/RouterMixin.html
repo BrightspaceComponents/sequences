@@ -27,6 +27,7 @@
                         Polymer.Async.timeOut.after(20),
                         () => {
                             const entityType = getEntityType(entity);
+
                             // Check if we should reuse the existing content element
                             if (entityType !== this._contentType) {
                                 const nodeTemplate = Polymer.DomModule.import(entityType, 'template');
