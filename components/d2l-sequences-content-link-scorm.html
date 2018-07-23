@@ -38,6 +38,16 @@
 				margin-bottom: 10px;
 			}
 
+			:host-context([dir="rtl"]) .icon{
+				margin-right: 52px;
+				margin-left: 0px;
+			}
+
+			.icon {
+				margin-left: 52px;
+				margin-right: 0px;
+			}
+
 			.open-new-button {
 				border-radius: 6px;
 				height: 52px;
@@ -47,18 +57,17 @@
 				background: transparent;
 			}
 
-			.open-new-button-content {
-				width: 300px;
-			}
 		</style>
 		<div class="container">
-			<d2l-scorm-icon></d2l-scorm-icon>
-			<div>
-				[[localize('viewThisActivity')]]
+			<div class="icon">
+				<d2l-scorm-icon></d2l-scorm-icon>
 			</div>
-			<button type="submit" class="open-new-button heading3">
+			<div>
+				<h3>[[localize('viewThisActivity')]]</h3>
+			</div>
+			<button type="submit" class="open-new-button">
 				<d2l-button primary>
-					<div class="heading3 open-new-button-content">
+					<div>
 						[[localize('goToActivity')]]
 					</div>
 				</d2l-button>
