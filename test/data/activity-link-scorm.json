@@ -1,0 +1,116 @@
+{
+	"properties": {
+		"title": "SCORM module"
+	},
+	"rel": [
+		"item"
+	],
+	"entities": [
+		{
+			"links": [
+				{
+					"rel": [
+						"about"
+					],
+					"href": "https:\/\/qa108512528g.bspc.com\/d2l\/le\/content\/contentservice\/Forward\/96abf938-71a7-4ac6-ab62-eefab8dc2d83?linkId=1354&ou=%7BorgUnitId%7D"
+				},
+				{
+					"rel": [
+						"alternate"
+					],
+					"class": [
+						"view"
+					],
+					"href": "https:\/\/qa108512528g.bspc.com\/d2l\/le\/content\/123187\/viewContent\/117524\/View"
+				}
+			],
+			"class": [
+				"activity",
+				"link-activity",
+				"open-in-new-tab"
+			],
+			"properties": {
+				"title": "SCORM module"
+			},
+			"rel": [
+				"about",
+				"item"
+			],
+			"entities": [
+				{
+					"rel": [
+						"item"
+					],
+					"class": [
+						"last-viewed",
+						"date"
+					],
+					"properties": {
+						"date": "2018-07-23T14:57:53.477Z"
+					}
+				},
+				{
+					"rel": [
+						"item",
+						"https:\/\/api.brightspace.com\/rels\/completion"
+					],
+					"links": [
+						{
+							"rel": [
+								"alternate"
+							],
+							"href": "https:\/\/6a8162e4-9d34-4e1d-ad87-132434669bd1.sequences.api.dev.brightspace.com\/123187\/activity\/117524\/completion"
+						}
+					],
+					"class": [
+						"completion",
+						"incomplete",
+						"manual"
+					]
+				}
+			],
+			"actions": [
+				{
+					"name": "view-activity",
+					"method": "POST",
+					"href": "https:\/\/6a8162e4-9d34-4e1d-ad87-132434669bd1.sequences.api.dev.brightspace.com\/123187\/activity\/117524\/view"
+				},
+				{
+					"name": "view-activity-duration",
+					"method": "PUT",
+					"href": "https:\/\/6a8162e4-9d34-4e1d-ad87-132434669bd1.sequences.api.dev.brightspace.com\/123187\/activity\/117524\/view"
+				}
+			]
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"describes"
+			],
+			"href": "data/m2-activity7-scorm.json"
+		},
+		{
+			"rel": [
+				"prev"
+			],
+			"href": "data/m2-activity5.json"
+		},
+		{
+			"rel": [
+				"prev-activity"
+			],
+			"href": "data/m2-activity5.json"
+		},
+		{
+			"rel": [
+				"up"
+			],
+			"href": "data/l1-module2.json"
+		}
+	],
+	"class": [
+		"sequenced-activity"
+	]
+}

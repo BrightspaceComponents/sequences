@@ -4,6 +4,7 @@
 <link rel="import" href="../mixins/RouterMixin.html">
 <link rel="import" href="d2l-sequences-content-link.html">
 <link rel="import" href="d2l-sequences-content-link-mixed.html">
+<link rel="import" href="d2l-sequences-content-link-scorm.html">
 
 <dom-module id="d2l-sequences-content-link-router">
 	<template></template>
@@ -27,12 +28,20 @@
 			try {
 				const linkActivity = this._getSubEntityByClass(entity, D2LSequencesContentLink.contentClass);
 				const link = this._getLinkByRel(linkActivity, 'about');
+				console.log(link.href);
+				if (link.href.indexOf('Forward') >= 0){ // replace this with a real class in the hm route
+					console.log('scorm');
+					return D2LSequencesContentLinkScorm.is;
+				}
 				if ( link.href.startsWith('https://') ) {
+					console.log('secure');
 					return D2LSequencesContentLink.is;
 				} else {
+					console.log('mixed');
 					return D2LSequencesContentLinkMixed.is;
 				}
 			} catch(e) {
+				console.log(e);
 				return D2LSequencesContentLink.is;
 			}
 		}

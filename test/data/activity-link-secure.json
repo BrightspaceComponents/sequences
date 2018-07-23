@@ -6,7 +6,7 @@
 	"entities": [{
 		"links": [{
 			"rel": ["about"],
-			"href": "data/quicklink.html"
+			"href": "https://example.com/data/quicklink.html"
 		}, {
 			"rel": ["alternate"],
 			"class": ["view"],
