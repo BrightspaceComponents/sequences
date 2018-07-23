@@ -10,7 +10,7 @@
 		}, {
 			"rel": ["alternate"],
 			"class": ["view"],
-			"href": "https://qa108111243g.bspc.com/d2l/le/content/123187/viewContent/104499/View"
+			"href": "https://example.bspc.com/d2l/le/content/123456/viewContent/456789/View"
 		}],
 		"class": ["activity", "link-activity", "link-plain", "external"],
 		"properties": {
@@ -27,7 +27,7 @@
 			"rel": ["item"],
 			"links": [{
 				"rel": ["alternate"],
-				"href": "123187/activity/104499/completion"
+				"href": "123456/activity/456789/completion"
 			}],
 			"entities": [{
 				"class": ["auto", "completion", "date"],

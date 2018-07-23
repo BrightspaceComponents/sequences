@@ -12,7 +12,7 @@
 					"rel": [
 						"about"
 					],
-					"href": "https:\/\/qa108512528g.bspc.com\/d2l\/le\/content\/contentservice\/Forward\/96abf938-71a7-4ac6-ab62-eefab8dc2d83?linkId=1354&ou=%7BorgUnitId%7D"
+					"href": "https:\/\/example.bspc.com\/d2l\/le\/content\/contentservice\/Forward\/00000000-0000-0000-000000000000?linkId=1354&ou=%7BorgUnitId%7D"
 				},
 				{
 					"rel": [
@@ -21,7 +21,7 @@
 					"class": [
 						"view"
 					],
-					"href": "https:\/\/qa108512528g.bspc.com\/d2l\/le\/content\/123187\/viewContent\/117524\/View"
+					"href": "https:\/\/example.bspc.com\/d2l\/le\/content\/123187\/viewContent\/117524\/View"
 				}
 			],
 			"class": [
@@ -59,7 +59,7 @@
 							"rel": [
 								"alternate"
 							],
-							"href": "https:\/\/6a8162e4-9d34-4e1d-ad87-132434669bd1.sequences.api.dev.brightspace.com\/123187\/activity\/117524\/completion"
+							"href": "https:\/\/00000000-0000-0000-000000000000.sequences.api.dev.brightspace.com\/123456\/activity\/456789\/completion"
 						}
 					],
 					"class": [
@@ -73,12 +73,12 @@
 				{
 					"name": "view-activity",
 					"method": "POST",
-					"href": "https:\/\/6a8162e4-9d34-4e1d-ad87-132434669bd1.sequences.api.dev.brightspace.com\/123187\/activity\/117524\/view"
+					"href": "https:\/\/00000000-0000-0000-000000000000.sequences.api.dev.brightspace.com\/123456\/activity\/456789\/view"
 				},
 				{
 					"name": "view-activity-duration",
 					"method": "PUT",
-					"href": "https:\/\/6a8162e4-9d34-4e1d-ad87-132434669bd1.sequences.api.dev.brightspace.com\/123187\/activity\/117524\/view"
+					"href": "https:\/\/00000000-0000-0000-000000000000.sequences.api.dev.brightspace.com\/123456\/activity\/456789\/view"
 				}
 			]
 		}
