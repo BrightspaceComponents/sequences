@@ -67,8 +67,8 @@
 					// DEBUG WITH console.log('performing completion action', actionName, 'on', entity.properties.title);
 					// TODO: move the parse step to siren-action-mixin?  Do we want plain data in this siren world?
 					return this.performSirenAction(action)
-						.then( data => D2L.Hypermedia.Siren.Parse(data) )
-						.catch( data => D2L.Hypermedia.Siren.Parse(data) )
+						.then(data => D2L.Hypermedia.Siren.Parse(data))
+						.catch(data => D2L.Hypermedia.Siren.Parse(data));
 				}
 
 				_isImpersonating(token) {
