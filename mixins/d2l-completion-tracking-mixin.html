@@ -47,8 +47,10 @@
 					this._completionEntity = null;
 				}
 
-				async _startCompletion(entity) {
-					this._completionEntity = await this._performCompletion(entity, 'view-activity-duration');
+				_startCompletion(entity) {
+
+					this._performCompletion(entity, 'view-activity-duration')
+						.then(completion => this._completionEntity = completion);
 				}
 
 				async _performCompletion(entity, actionName) {
@@ -63,10 +65,10 @@
 					}
 
 					// DEBUG WITH console.log('performing completion action', actionName, 'on', entity.properties.title);
-					const data = await this.performSirenAction(action);
-
 					// TODO: move the parse step to siren-action-mixin?  Do we want plain data in this siren world?
-					return D2L.Hypermedia.Siren.Parse(data);
+					return this.performSirenAction(action)
+						.then( data => D2L.Hypermedia.Siren.Parse(data) )
+						.catch( data => D2L.Hypermedia.Siren.Parse(data) )
 				}
 
 				_isImpersonating(token) {
