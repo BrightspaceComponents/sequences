@@ -44,6 +44,8 @@
 				it('should be disabled when entity does not contain next', async() => {
 					elem = await SirenFixture.load('../demo/data/l2-m1-activity2.json', basicFixture);
 					expect(elem.disabled).to.be.true;
+					expect(elem.shadowRoot.querySelector('#iteratorButton').getAttribute('aria-disabled')).to.be.exist;
+
 				});
 			});
 
@@ -62,6 +64,7 @@
 				it('should be disabled when entity does not contain previous', async() => {
 					elem = await SirenFixture.load('../demo/data/l2-m1-activity1.json', basicFixture);
 					expect(elem.disabled).to.be.true;
+					expect(elem.shadowRoot.querySelector('#iteratorButton').getAttribute('aria-disabled')).to.be.exist;
 				});
 			});
 
@@ -80,6 +83,7 @@
 				it('should be disabled when entity does not contain up', async() => {
 					elem = await SirenFixture.load('../demo/data/l2-module1.json', basicFixture);
 					expect(elem.disabled).to.be.true;
+					expect(elem.shadowRoot.querySelector('#iteratorButton').getAttribute('aria-disabled')).to.be.exist;
 				});
 			});
 
