@@ -2,6 +2,7 @@
 <link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="../localize-behavior.html">
 <link rel="import" href="../../d2l-button/d2l-button.html">
+<link rel="import" href="../mixins/d2l-completion-tracking-mixin.html">
 <link rel="import" href="d2l-sequences-content-link.html">
 
 <dom-module id="d2l-sequences-content-link-mixed">
@@ -71,7 +72,12 @@
 			@mixes SirenEntityMixin
 			@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 		*/
-		class D2LSequencesContentLinkMixed extends Polymer.mixinBehaviors(D2L.PolymerBehaviors.Sequences.LocalizeBehavior, D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)) {
+		class D2LSequencesContentLinkMixed extends Polymer.mixinBehaviors(
+			D2L.PolymerBehaviors.Sequences.LocalizeBehavior,
+			D2L.Polymer.Mixins.CompletionTrackingMixin(
+				D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)
+			)
+		) {
 			static get is() {
 				return 'd2l-sequences-content-link-mixed';
 			}
