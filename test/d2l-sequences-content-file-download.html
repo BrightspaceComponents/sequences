@@ -19,6 +19,17 @@
 		<script>
 			/* global SirenFixture */
 			describe('d2l-sequences-content-file-download', () => {
+				before(() => {
+					// skip completion tracking, preventing extraneous HTTP requests
+					/* global D2LSequencesContentFileDownload */
+					D2LSequencesContentFileDownload.prototype._skipCompletion = true;
+
+					// override _setRawFileSize to prevent extraneous HTTP requests
+					D2LSequencesContentFileDownload.prototype._setRawFileSize = function() {
+						this._rawFileSize = 0;
+					};
+				});
+
 				it('should have a form action matching the link href', async() => {
 					const element = await SirenFixture.load('data/activity-file-zip.json', fixture('FileFixture'));
 					const form = element.shadowRoot.querySelector('form');

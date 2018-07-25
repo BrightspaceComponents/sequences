@@ -19,6 +19,12 @@
 <script>
 	/* global SirenFixture */
 	describe('d2l-sequences-content-link-scorm', () => {
+		before(() => {
+			// skip completion tracking, preventing extraneous HTTP requests
+			/* global D2LSequencesContentLinkScorm */
+			D2LSequencesContentLinkScorm.prototype._skipCompletion = true;
+		});
+
 		it('should have the correct onclick function', async() => {
 			const element = await SirenFixture.load('data/activity-link-scorm.json', fixture('LinkFixture'));
 			const button = element.shadowRoot.querySelector('button');

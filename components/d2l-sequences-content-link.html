@@ -1,6 +1,6 @@
 <link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="../../d2l-loading-spinner/d2l-loading-spinner.html">
-<link rel="import" href="../mixins/d2l-completion-tracking-mixin.html">
+<link rel="import" href="../mixins/d2l-sequences-automatic-completion-tracking-mixin.html">
 
 <dom-module id="d2l-sequences-content-link">
     <template>
@@ -29,7 +29,7 @@
         /*
             @mixes SirenEntityMixin
         */
-        class D2LSequencesContentLink extends D2L.Polymer.Mixins.CompletionTrackingMixin(
+        class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin(
             D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)
         ) {
             static get is() {

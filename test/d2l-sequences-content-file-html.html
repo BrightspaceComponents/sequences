@@ -19,6 +19,12 @@
 		<script>
 			/* global SirenFixture */
 			describe('d2l-sequences-content-file-html', () => {
+				before(() => {
+					// skip completion tracking, preventing extraneous HTTP requests
+					/* global D2LSequencesContentFileHtml */
+					D2LSequencesContentFileHtml.prototype._skipCompletion = true;
+				});
+
 				it('iframe srcource must match the file-activity src', async() => {
 					const element = await SirenFixture.load('data/activity-file-html.json', fixture('FileFixture'));
 					const iframe = element.shadowRoot.querySelector('iframe');

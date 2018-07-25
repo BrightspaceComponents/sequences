@@ -15,31 +15,8 @@
 					};
 				}
 
-				static get observers() {
-					return ['_entityUpdated(entity)'];
-				}
-
-				disconnectedCallback() {
-					super.disconnectedCallback();
-
-					if (this._skipCompletion) {
-						return;
-					}
-
-					this._finishCompletion();
-				}
-
-				_entityUpdated(entity) {
-					if (this._skipCompletion) {
-						return;
-					}
-
-					this._finishCompletion();
-					this._startCompletion(entity);
-				}
-
-				_finishCompletion() {
-					if (!this._completionEntity) {
+				finishCompletion() {
+					if (!this._completionEntity || this._skipCompletion) {
 						return;
 					}
 
@@ -47,9 +24,12 @@
 					this._completionEntity = null;
 				}
 
-				_startCompletion(entity) {
+				startCompletion() {
+					if (this._skipCompletion) {
+						return;
+					}
 
-					this._performCompletion(entity, 'view-activity-duration')
+					this._performCompletion(this.entity, 'view-activity-duration')
 						.then(completion => this._completionEntity = completion);
 				}
 
@@ -67,8 +47,7 @@
 					// DEBUG WITH console.log('performing completion action', actionName, 'on', entity.properties.title);
 					// TODO: move the parse step to siren-action-mixin?  Do we want plain data in this siren world?
 					return this.performSirenAction(action)
-						.then(data => D2L.Hypermedia.Siren.Parse(data))
-						.catch(data => D2L.Hypermedia.Siren.Parse(data));
+						.then(data => D2L.Hypermedia.Siren.Parse(data));
 				}
 
 				_isImpersonating(token) {
@@ -90,7 +69,7 @@
 
 		window.D2L = window.D2L || {};
 		window.D2L.Polymer = window.D2L.Polymer || {};
-		window.D2L.Polymer.Mixins = window.D2L.Polymer.Mixins || {};
-		window.D2L.Polymer.Mixins.CompletionTrackingMixin = CompletionTrackingMixin;
+		window.D2L.Polymer.Mixins.Sequences = window.D2L.Polymer.Mixins.Sequences || {};
+		window.D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin = CompletionTrackingMixin;
 	})();
 </script>

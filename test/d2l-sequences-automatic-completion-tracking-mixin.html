@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+	<title>d2l-completion-tracking-mixin test</title>
+	<script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+	<script src="../../web-component-tester/browser.js"></script>
+	<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
+	<script src="../node_modules/chai-dom/chai-dom.js"></script>
+	<link rel="import" href="../../polymer/polymer-element.html">
+	<link rel="import" href="../mixins/d2l-sequences-automatic-completion-tracking-mixin.html">
+</head>
+
+<body>
+	<script>
+		class AutomaticCompletionTrackingTest extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin(Polymer.Element) {
+			static get is() {
+				return 'automatic-completion-tracking-test';
+			}
+
+			// override siren-action-mixin to prevent fetching actual hrefs
+			performSirenAction() {
+				return fetch('data/activity-completion-all.json')
+					.then(response => response.json());
+			}
+		}
+		customElements.define(AutomaticCompletionTrackingTest.is, AutomaticCompletionTrackingTest);
+	</script>
+	<test-fixture id="MixinFixture">
+		<template>
+			<automatic-completion-tracking-test></automatic-completion-tracking-test>
+		</template>
+	</test-fixture>
+	<script>
+		/* global SirenFixture */
+		describe('d2l-sequences-automatic-completion-tracking-mixin', () => {
+			let element;
+
+			beforeEach(() => {
+				element = fixture('MixinFixture');
+			});
+
+			it('startCompletion must be called when element is updated', async() => {
+				const startCompletion = sinon.spy(element, 'startCompletion');
+				await SirenFixture.load('data/activity-completion-all.json', element);
+				expect(startCompletion).to.have.been.called;
+			});
+
+			it('finishCompletion must be called when element is updated', async() => {
+				const finishCompletion = sinon.spy(element, 'finishCompletion');
+				await SirenFixture.load('data/activity-completion-all.json', element);
+				expect(finishCompletion).to.have.been.called;
+			});
+		});
+	</script>
+</body>
+
+</html>

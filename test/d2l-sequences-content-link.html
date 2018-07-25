@@ -19,6 +19,12 @@
 		<script>
 			/* global SirenFixture */
 			describe('d2l-sequences-content-link', () => {
+				before(() => {
+					// skip completion tracking, preventing extraneous HTTP requests
+					/* global D2LSequencesContentLink */
+					D2LSequencesContentLink.prototype._skipCompletion = true;
+				});
+
 				it('iframe src must match the link-activity src', async() => {
 					const element = await SirenFixture.load('data/activity-link.json', fixture('LinkFixture'));
 					const src = element.shadowRoot.querySelector('iframe').getAttribute('src');
@@ -31,7 +37,7 @@
 						setTimeout(() => {
 							expect(iframe).not.to.have.class('hide');
 							done();
-						}, 300);
+						}, 500);
 					});
 				});
 			});

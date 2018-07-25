@@ -1,0 +1,29 @@
+<link rel="import" href="d2l-sequences-completion-tracking-mixin.html">
+<script>
+	(function() {
+		function AutomaticCompletionTrackingMixin(superClass) {
+			return class extends D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin(superClass) {
+
+				static get observers() {
+					return ['_entityUpdated(entity)'];
+				}
+
+				disconnectedCallback() {
+					super.disconnectedCallback();
+					this.finishCompletion();
+				}
+
+				_entityUpdated(entity) {
+					this.finishCompletion();
+					this.startCompletion(entity);
+				}
+			};
+		}
+
+		window.D2L = window.D2L || {};
+		window.D2L.Polymer = window.D2L.Polymer || {};
+		window.D2L.Polymer.Mixins = window.D2L.Polymer.Mixins || {};
+		window.D2L.Polymer.Mixins.Sequences = window.D2L.Polymer.Mixins.Sequences || {};
+		window.D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin = AutomaticCompletionTrackingMixin;
+	})();
+</script>
