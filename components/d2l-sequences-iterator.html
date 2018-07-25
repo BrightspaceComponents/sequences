@@ -68,6 +68,7 @@
             }
             connectedCallback() {
 				super.connectedCallback();
+                this.loadResources(this.resolveUrl('./locales.json'));
 			}
             getIterateTo() {
                 if (this.next) {
