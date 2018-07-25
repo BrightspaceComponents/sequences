@@ -7,7 +7,7 @@
 <link rel="import" href="../../d2l-icons/tier3-icons.html">
 <link rel="import" href="../../d2l-icons/html-editor-icons.html">
 <link rel="import" href="../../d2l-icons/emoji-icons.html">
-<link rel="import" href="../../d2l-localize-behavior/d2l-localize-behavior.html">
+<link rel="import" href="../localize-behavior.html">
 
 <dom-module id="d2l-sequences-iterator">
     <template>
@@ -29,10 +29,10 @@
     <script>
 		/*
 			@mixes SirenEntityMixin
-            @extends D2L.PolymerBehaviors.LocalizeBehavior
+            @extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 			@demo demos/index.html
         */
-        class D2LSequencesIterator extends Polymer.mixinBehaviors(D2L.PolymerBehaviors.LocalizeBehavior, D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)) {
+        class D2LSequencesIterator extends Polymer.mixinBehaviors(D2L.PolymerBehaviors.Sequences.LocalizeBehavior, D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)) {
             static get is() {
                 return 'd2l-sequences-iterator';
             }
@@ -68,7 +68,6 @@
             }
             connectedCallback() {
 				super.connectedCallback();
-                this.loadResources(this.resolveUrl('./locales.json'));
 			}
             getIterateTo() {
                 if (this.next) {
