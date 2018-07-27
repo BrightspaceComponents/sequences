@@ -30,24 +30,33 @@
 					}
 
 					this._performCompletion(this.entity, 'view-activity-duration')
-						.then(completion => this._completionEntity = completion);
+						.then(completion => this._completionEntity = completion)
+						.catch(() => {});
 				}
 
 				_performCompletion(entity, actionName) {
-					const activitySubEntity = entity.getSubEntityByClass('activity');
-					if (!activitySubEntity) {
-						return null;
-					}
+					return new Promise((resolve, reject) => {
+						const activitySubEntity = entity.getSubEntityByClass('activity');
+						if (!activitySubEntity) {
+							return reject('no activity subentity found');
+						}
 
-					const action = activitySubEntity.getActionByName(actionName);
-					if (!action) {
-						return null;
-					}
+						const action = activitySubEntity.getActionByName(actionName);
+						if (!action) {
+							return reject('no action found');
+						}
 
-					// DEBUG WITH console.log('performing completion action', actionName, 'on', entity.properties.title);
-					// TODO: move the parse step to siren-action-mixin?  Do we want plain data in this siren world?
-					return this.performSirenAction(action)
-						.then(data => D2L.Hypermedia.Siren.Parse(data));
+						const self = entity.getLinkByRel('self');
+						if (!self) {
+							return reject('no self link found');
+						}
+
+						// DEBUG WITH console.log('performing completion action', actionName, 'on', entity.properties.title);
+						// TODO: move the parse step to siren-action-mixin?  Do we want plain data in this siren world?
+						return this.performSirenAction(action, null, self.href)
+							.then(data => D2L.Hypermedia.Siren.Parse(data))
+							.then(resolve);
+					});
 				}
 
 				_isImpersonating(token) {
