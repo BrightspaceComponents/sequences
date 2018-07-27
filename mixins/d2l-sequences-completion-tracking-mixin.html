@@ -46,14 +46,9 @@
 							return reject('no action found');
 						}
 
-						const self = entity.getLinkByRel('self');
-						if (!self) {
-							return reject('no self link found');
-						}
-
 						// DEBUG WITH console.log('performing completion action', actionName, 'on', entity.properties.title);
 						// TODO: move the parse step to siren-action-mixin?  Do we want plain data in this siren world?
-						return this.performSirenAction(action, null, self.href)
+						return this.performSirenAction(action)
 							.then(data => D2L.Hypermedia.Siren.Parse(data))
 							.then(resolve);
 					});
