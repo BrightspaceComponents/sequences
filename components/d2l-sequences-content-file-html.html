@@ -11,7 +11,7 @@
                 overflow: hidden;
             }
         </style>
-        <iframe frameBorder="0" src$="[[_fileLocation]]"></iframe>
+        <iframe frameBorder="0" src$="[[_fileLocation]]" title$="[[title]]"></iframe>
     </template>
     <script>
 		/*
@@ -28,6 +28,10 @@
                     _fileLocation: {
                         type: String,
                         computed: '_getFileLocation(entity)'
+                    },
+                    title: {
+                        type: String,
+                        computed: '_getTitle(entity)'
                     }
                 }
             }
@@ -40,6 +44,9 @@
                 } catch(e) {
                     return '';
                 }
+            }
+            _getTitle(entity) {
+                return entity && entity.properties && entity.properties.title || '';
             }
         }
         customElements.define(D2LSequencesContentFileHtml.is, D2LSequencesContentFileHtml);
