@@ -23,6 +23,11 @@
             static get is() {
                 return 'd2l-sequences-content-unknown';
             }
+            connectedCallback() {
+				super.connectedCallback();
+				this._language = window.document.getElementsByTagName('html')[0]
+					.getAttribute('lang');
+			}
         }
         customElements.define(D2LSequencesContentUnknown.is, D2LSequencesContentUnknown);
     </script>
