@@ -28,7 +28,7 @@
 			try {
 				const linkActivity = this._getSubEntityByClass(entity, D2LSequencesContentLink.contentClass);
 				const link = this._getLinkByRel(linkActivity, 'about');
-				if (link.href.indexOf('Forward') >= 0){ // replace this with a real class in the hm route
+				if (this._hasClass(linkActivity, D2LSequencesContentLinkScorm.contentClass)){
 					return D2LSequencesContentLinkScorm.is;
 				}
 				if ( link.href.startsWith('https://') ) {
