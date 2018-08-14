@@ -85,7 +85,10 @@
                 }
             }
             _isDisabled(entity) {
-                if (!this.next && !this.previous && !this.up && !entity) {
+                if (!entity) {
+                    return true;
+                }
+                if (!this.next && !this.previous && !this.up) {
                     return true;
                 }
                 if (this.next && !entity.getLinkByRel('next-activity')) {
@@ -105,6 +108,9 @@
                 }
             }
             _setLink(entity) {
+                if (!entity) {
+                    return;
+                }
                 this.link = null;
 
                 if (this.next) {
