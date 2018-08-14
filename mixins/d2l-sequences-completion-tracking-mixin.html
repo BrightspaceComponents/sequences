@@ -1,8 +1,17 @@
-<link rel="import" href="../../polymer-siren-mixins/siren-action-mixin.html">
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../d2l-polymer-siren-behaviors/store/entity-behavior.html">
+<link rel="import" href="../../d2l-polymer-siren-behaviors/store/siren-action-behavior.html">
+<link rel="import" href="../localize-behavior.html">
 <script>
 	(function() {
-		function CompletionTrackingMixin(superClass) {
-			return class extends D2L.Polymer.Mixins.SirenActionMixin(superClass) {
+		function CompletionTrackingMixin() {
+			return class extends Polymer.mixinBehaviors([
+				D2L.PolymerBehaviors.Siren.EntityBehavior,
+				D2L.PolymerBehaviors.Siren.SirenActionBehaviorImpl,
+				D2L.PolymerBehaviors.Sequences.LocalizeBehavior
+			],
+			Polymer.Element
+			) {
 				static get properties() {
 					return {
 						_completionEntity: {
@@ -47,9 +56,7 @@
 						}
 
 						// DEBUG WITH console.log('performing completion action', actionName, 'on', entity.properties.title);
-						// TODO: move the parse step to siren-action-mixin?  Do we want plain data in this siren world?
 						return this.performSirenAction(action)
-							.then(data => D2L.Hypermedia.Siren.Parse(data))
 							.then(resolve);
 					});
 				}
@@ -73,6 +80,7 @@
 
 		window.D2L = window.D2L || {};
 		window.D2L.Polymer = window.D2L.Polymer || {};
+		window.D2L.Polymer.Mixins = window.D2L.Polymer.Mixins || {};
 		window.D2L.Polymer.Mixins.Sequences = window.D2L.Polymer.Mixins.Sequences || {};
 		window.D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin = CompletionTrackingMixin;
 	})();

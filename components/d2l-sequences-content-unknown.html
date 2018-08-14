@@ -1,7 +1,4 @@
-<link rel="import" href="../../polymer/polymer-element.html">
-<link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="../mixins/d2l-sequences-automatic-completion-tracking-mixin.html">
-<link rel="import" href="../localize-behavior.html">
 
 <dom-module id="d2l-sequences-content-unknown">
     <template>
@@ -11,15 +8,9 @@
     </template>
     <script>
 		/*
-			@mixes SirenEntityMixin
             @extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
         */
-        class D2LSequencesContentUnknown extends Polymer.mixinBehaviors(
-			D2L.PolymerBehaviors.Sequences.LocalizeBehavior,
-			D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin(
-				D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)
-			)
-        ) {
+        class D2LSequencesContentUnknown extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
             static get is() {
                 return 'd2l-sequences-content-unknown';
             }

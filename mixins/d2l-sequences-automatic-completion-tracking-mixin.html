@@ -1,8 +1,8 @@
 <link rel="import" href="d2l-sequences-completion-tracking-mixin.html">
 <script>
 	(function() {
-		function AutomaticCompletionTrackingMixin(superClass) {
-			return class extends D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin(superClass) {
+		function AutomaticCompletionTrackingMixin() {
+			return class extends D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin() {
 
 				static get observers() {
 					return ['_entityUpdated(entity)'];

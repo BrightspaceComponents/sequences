@@ -42,15 +42,11 @@
 				element = fixture('MixinFixture');
 			});
 
-			it('startCompletion must be called when element is updated', async() => {
-				const startCompletion = sinon.spy(element, 'startCompletion');
+			it('startCompletion and finishCompletion must be called when element is updated', async() => {
+				const startCompletion = sinon.stub(element, 'startCompletion', () => {});
+				const finishCompletion = sinon.stub(element, 'finishCompletion', () => {});
 				await SirenFixture.load('data/activity-completion-all.json', element);
 				expect(startCompletion).to.have.been.called;
-			});
-
-			it('finishCompletion must be called when element is updated', async() => {
-				const finishCompletion = sinon.spy(element, 'finishCompletion');
-				await SirenFixture.load('data/activity-completion-all.json', element);
 				expect(finishCompletion).to.have.been.called;
 			});
 		});

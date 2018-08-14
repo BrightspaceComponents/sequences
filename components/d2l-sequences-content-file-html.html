@@ -1,5 +1,3 @@
-<link rel="import" href="../../polymer/polymer-element.html">
-<link rel="import" href="../../polymer-siren-mixins/siren-entity-mixin.html">
 <link rel="import" href="../mixins/d2l-sequences-automatic-completion-tracking-mixin.html">
 
 <dom-module id="d2l-sequences-content-file-html">
@@ -14,12 +12,7 @@
         <iframe frameBorder="0" src$="[[_fileLocation]]" title$="[[title]]"></iframe>
     </template>
     <script>
-		/*
-			@mixes SirenEntityMixin
-        */
-        class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin(
-            D2L.Polymer.Mixins.SirenEntityMixin(Polymer.Element)
-        ) {
+        class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
             static get is() {
                 return 'd2l-sequences-content-file-html';
             }
@@ -37,9 +30,9 @@
             }
             _getFileLocation(entity) {
                 try {
-                    const fileActivity = this._getSubEntityByClass(entity, "file-activity");
-                    const file = this._getSubEntityByClass(fileActivity, "file");
-                    const link = this._getLinkByRel(file, "alternate");
+                    const fileActivity = entity.getSubEntityByClass("file-activity");
+                    const file = fileActivity.getSubEntityByClass("file");
+                    const link = file.getLinkByRel("alternate");
                     return link.href;
                 } catch(e) {
                     return '';
