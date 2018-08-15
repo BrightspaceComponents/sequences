@@ -26,7 +26,7 @@
 
 		function getEntityType(entity) {
 			try {
-				const linkActivity = this._getSubEntityByClass(entity, D2LSequencesContentLink.contentClass);
+				const linkActivity = entity && entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
 				const link = this._getLinkByRel(linkActivity, 'about');
 				if (this._hasClass(linkActivity, D2LSequencesContentLinkScorm.contentClass)){
 					return D2LSequencesContentLinkScorm.is;
