@@ -42,6 +42,11 @@
             }
             static get properties() {
                 return {
+                    href: {
+                        type: String,
+                        reflectToAttribute: true,
+                        notify: true
+                    },
                     disabled: {
                         type: Boolean,
                         computed: '_isDisabled(entity)'
