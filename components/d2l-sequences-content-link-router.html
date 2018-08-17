@@ -20,11 +20,12 @@
 
 		function getEntityType(entity) {
 			try {
-				const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
-				const link = linkActivity.getLinkByRel(linkActivity, 'about');
-				if (link.href.indexOf('Forward') >= 0){ // TODO: replace this with a real class in the hm route
+				const linkActivity = entity && entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
+				if (linkActivity.hasClass(D2LSequencesContentLinkScorm.contentClass)){
 					return D2LSequencesContentLinkScorm.is;
 				}
+
+				const link = linkActivity.getLinkByRel('about');
 				if (link.href.startsWith('https://')) {
 					return D2LSequencesContentLink.is;
 				} else {

@@ -27,6 +27,7 @@
 			"class": [
 				"activity",
 				"link-activity",
+				"link-content-service",
 				"open-in-new-tab"
 			],
 			"properties": {

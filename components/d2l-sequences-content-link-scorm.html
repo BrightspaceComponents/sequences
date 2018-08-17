@@ -79,6 +79,9 @@
 					}
 				}
 			}
+			static get contentClass() {
+				return 'link-content-service';
+			}
 			connectedCallback() {
 				super.connectedCallback();
 				this._language = window.document.getElementsByTagName('html')[0]
