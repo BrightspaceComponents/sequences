@@ -19,16 +19,64 @@
 		<script>
 			/* global loadFileWithDelay */
 			describe('d2l-sequences-content-router', () => {
-				it('should create a d2l-sequences-content-file-router for file-activity types', async() => {
-					const element = await  loadFileWithDelay('data/activity-file-html.json', fixture('RouterFixture'));
-					expect(element.shadowRoot.querySelector('d2l-sequences-content-file-router')).to.exist;
-					expect(element.shadowRoot.querySelector('d2l-sequences-content-unknown')).not.to.exist;
+				describe('should handle a file activity for the mimetype:', () => {
+					it('application/pdf', async() => {
+						const element = await loadFileWithDelay('data/activity-file-pdf.json');
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+					});
+
+					it('image/bmp', async() => {
+						const element = await loadFileWithDelay('data/activity-file-bmp.json');
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+					});
+
+					it('should handle image/gif', async() => {
+						const element = await loadFileWithDelay('data/activity-file-gif.json');
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+					});
+
+					it('should handle image/jpeg', async() => {
+						const element = await loadFileWithDelay('data/activity-file-jpeg.json');
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+					});
+
+					it('should handle image/png', async() => {
+						const element = await loadFileWithDelay('data/activity-file-png.json');
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+					});
+
+					it('should handle image/svg+xml', async() => {
+						const element = await loadFileWithDelay('data/activity-file-svg.json');
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+					});
+
+					it('text/html', async() => {
+						const element = await loadFileWithDelay('data/activity-file-html.json');
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).to.exist;
+					});
 				});
 
-				it('should create a d2l-sequences-content-unknown for unknown activity types', async() => {
-					const element = await loadFileWithDelay('data/activity-file-unknown.json', fixture('RouterFixture'));
-					expect(element.shadowRoot.querySelector('d2l-sequences-content-file-router')).not.to.exist;
-					expect(element.shadowRoot.querySelector('d2l-sequences-content-unknown')).to.exist;
+				describe('should handle file activity types for unregistered mimetypes:', () => {
+					it('such as application/zip', async() => {
+						const element = await loadFileWithDelay('data/activity-file-zip.json');
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-html')).not.to.exist;
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-file-download')).to.exist;
+					});
+				});
+
+				describe('should handle link activities', () => {
+					it('should handle mixed security links', async() => {
+						const element = await loadFileWithDelay('data/activity-link-insecure.json');
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-link-mixed')).to.exist;
+					});
+					it('should handle normal links', async() => {
+						const element = await loadFileWithDelay('data/activity-link-secure.json');
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-link')).to.exist;
+					});
+					it('should handle scorm links', async() => {
+						const element = await loadFileWithDelay('data/activity-link-scorm.json');
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-link-scorm')).to.exist;
+					});
 				});
 			});
 		</script>
