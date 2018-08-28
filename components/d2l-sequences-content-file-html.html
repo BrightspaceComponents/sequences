@@ -9,7 +9,7 @@
                 overflow: hidden;
             }
         </style>
-        <iframe frameBorder="0" src$="[[_fileLocation]]" title$="[[title]]"></iframe>
+        <iframe frameBorder="0" src$="[[_fileLocation]]" title$="[[title]]" on-load="_scrollToTop"></iframe>
     </template>
     <script>
         class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
@@ -28,6 +28,11 @@
                     }
                 }
             }
+
+            _scrollToTop() {
+                window.top.scrollTo(0,0);
+            }
+
             _getFileLocation(entity) {
                 try {
                     const fileActivity = entity.getSubEntityByClass("file-activity");
