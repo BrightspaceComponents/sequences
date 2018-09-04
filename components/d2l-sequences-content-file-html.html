@@ -9,7 +9,7 @@
                 overflow: hidden;
             }
         </style>
-        <iframe frameBorder="0" src$="[[_fileLocation]]" title$="[[title]]" on-load="_scrollToTop"></iframe>
+        <iframe frameBorder="0" src$="[[_fileLocation]]" title$="[[title]]" id="viewer"></iframe>
     </template>
     <script>
         class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
@@ -27,6 +27,11 @@
                         computed: '_getTitle(entity)'
                     }
                 }
+            }
+
+            ready() {
+                super.ready();
+                this.$.viewer.addEventListener('load', this._scrollToTop.bind(this));
             }
 
             _scrollToTop() {
