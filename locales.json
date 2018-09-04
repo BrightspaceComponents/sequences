@@ -17,7 +17,12 @@
 		"cannotBeRendered": "This content item cannot be rendered.",
 		"congratulations": "Congratulations",
 		"activitiesFinishedGreatJob": "You have completed all of the activities in this lesson. Great job!",
-		"imDone": "I'm Done"
+		"imDone": "I'm Done",
+		"niceWork": "Nice work so far!",
+		"youMayHave": "You may have",
+		"missedActivities": "missed {count} activities.",
+		"noNeedToFinish": "If you don't need to finish them, no problem.",
+		"showMissed": "Show Me What I Missed"
 	},
 	"es": {},
 	"fr": {},
