@@ -11,5 +11,8 @@
 	"viewThisActivity": "View this Activity.",
 	"goToActivity": "Go to Activity",
 	"openNew": "Open in a new window",
-	"cannotBeRendered": "This content item cannot be rendered."
+	"cannotBeRendered": "This content item cannot be rendered.",
+	"congratulations": "Congratulations",
+	"activitiesFinishedGreatJob": "You have completed all of the activities in this lesson. Great job!",
+	"imDone": "I'm Done"
 }
