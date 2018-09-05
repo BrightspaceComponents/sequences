@@ -1,57 +1,57 @@
 <link rel="import" href="../mixins/d2l-sequences-automatic-completion-tracking-mixin.html">
 
 <dom-module id="d2l-sequences-content-file-html">
-    <template>
-        <style>
-            iframe {
-                width: 100%;
-                height: calc(100% - 12px);
-                overflow: hidden;
-            }
-        </style>
-        <iframe frameBorder="0" src$="[[_fileLocation]]" title$="[[title]]" id="viewer"></iframe>
-    </template>
-    <script>
-        class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
-            static get is() {
-                return 'd2l-sequences-content-file-html';
-            }
-            static get properties() {
-                return {
-                    _fileLocation: {
-                        type: String,
-                        computed: '_getFileLocation(entity)'
-                    },
-                    title: {
-                        type: String,
-                        computed: '_getTitle(entity)'
-                    }
-                }
-            }
+	<template>
+		<style>
+			iframe {
+				width: 100%;
+				height: calc(100% - 12px);
+				overflow: hidden;
+			}
+		</style>
+		<iframe id="content" frameBorder="0" src$="[[_fileLocation]]" title$="[[title]]"></iframe>
+	</template>
+	<script>
+		class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
+			static get is() {
+				return 'd2l-sequences-content-file-html';
+			}
+			static get properties() {
+				return {
+					_fileLocation: {
+						type: String,
+						computed: '_getFileLocation(entity)'
+					},
+					title: {
+						type: String,
+						computed: '_getTitle(entity)'
+					}
+				}
+			}
 
-            ready() {
-                super.ready();
-                this.$.viewer.addEventListener('load', this._scrollToTop.bind(this));
-            }
+			ready() {
+				super.ready();
+				this.$.content.addEventListener('load', this._scrollToTop.bind(this));
+			}
 
-            _scrollToTop() {
-                window.top.scrollTo(0,0);
-            }
+			_scrollToTop() {
+				window.top.scrollTo(0,0);
+			}
 
-            _getFileLocation(entity) {
-                try {
-                    const fileActivity = entity.getSubEntityByClass("file-activity");
-                    const file = fileActivity.getSubEntityByClass("file");
-                    const link = file.getLinkByRel("alternate");
-                    return link.href;
-                } catch(e) {
-                    return '';
-                }
-            }
-            _getTitle(entity) {
-                return entity && entity.properties && entity.properties.title || '';
-            }
-        }
-        customElements.define(D2LSequencesContentFileHtml.is, D2LSequencesContentFileHtml);
-    </script>
+			_getFileLocation(entity) {
+				try {
+					const fileActivity = entity.getSubEntityByClass("file-activity");
+					const file = fileActivity.getSubEntityByClass("file");
+					const link = file.getLinkByRel("alternate");
+					return link.href;
+				} catch(e) {
+					return '';
+				}
+			}
+			_getTitle(entity) {
+				return entity && entity.properties && entity.properties.title || '';
+			}
+		}
+		customElements.define(D2LSequencesContentFileHtml.is, D2LSequencesContentFileHtml);
+	</script>
 </dom-module>

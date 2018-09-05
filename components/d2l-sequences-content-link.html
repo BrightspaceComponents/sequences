@@ -2,73 +2,83 @@
 <link rel="import" href="../mixins/d2l-sequences-automatic-completion-tracking-mixin.html">
 
 <dom-module id="d2l-sequences-content-link">
-    <template>
-        <style>
-            iframe {
-                width: 100%;
-                height: calc(100% - 12px);
-                overflow: hidden;
-            }
-            .hide {
-                display: none;
-            }
-            d2l-loading-spinner {
-                position: fixed;
-                top: 33%;
-                left: 50%;
-                background-color: rgba(255, 255, 255, 0.4);
-                z-index: 9999;
-                --d2l-loading-spinner-size: 75px;
-            }
-        </style>
-        <d2l-loading-spinner id="spinner"></d2l-loading-spinner>
-        <iframe id="content" class="hide" frameBorder="0" scrolling="no" src$="[[_linkLocation]]"></iframe>
-    </template>
-    <script>
-        class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
-            static get is() {
-                return 'd2l-sequences-content-link';
-            }
-            static get contentClass() {
-                return 'link-activity';
-            }
-            static get properties() {
-                return {
-                    _linkLocation: {
-                        type: String,
-                        computed: '_getLinkLocation(entity)'
-                    }
-                }
-            }
-            static get observers() {
-                return ['_render(entity)']
-            }
-            _getLinkLocation(entity) {
-                try {
-                    const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
-                    const link = linkActivity.getLinkByRel('about');
-                    return link.href;
-                } catch(e) {
-                    return '';
-                }
-            }
-            _render(entity) {
-                const content = this.shadowRoot.getElementById('content');
-                const spinner = this.shadowRoot.getElementById('spinner');
+	<template>
+		<style>
+			iframe {
+				width: 100%;
+				height: calc(100% - 12px);
+				overflow: hidden;
+			}
+			.hide {
+				display: none;
+			}
+			d2l-loading-spinner {
+				position: fixed;
+				top: 33%;
+				left: 50%;
+				background-color: rgba(255, 255, 255, 0.4);
+				z-index: 9999;
+				--d2l-loading-spinner-size: 75px;
+			}
+		</style>
+		<d2l-loading-spinner id="spinner"></d2l-loading-spinner>
+		<iframe id="content" class="hide" frameBorder="0" scrolling="no" src$="[[_linkLocation]]"></iframe>
+	</template>
+	<script>
+		class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
+			static get is() {
+				return 'd2l-sequences-content-link';
+			}
+			static get contentClass() {
+				return 'link-activity';
+			}
+			static get properties() {
+				return {
+					_linkLocation: {
+						type: String,
+						computed: '_getLinkLocation(entity)'
+					}
+				}
+			}
+			static get observers() {
+				return ['_render(entity)']
+			}
 
-                // initially hide the content, show the spinner
-                content.classList.add('hide');
-                spinner.classList.remove('hide');
+			ready() {
+				super.ready();
+				this.$.content.addEventListener('load', this._scrollToTop.bind(this));
+			}
 
-                content.onload = function() {
-                    // give the LMS some time to jiggle and shake...
-                    setTimeout(() => {
-                        content.classList.remove('hide');
-                        spinner.classList.add('hide')
-                    }, 200);
-                }
-            }
-        }
-        customElements.define(D2LSequencesContentLink.is, D2LSequencesContentLink);
-    </script>
+			_scrollToTop() {
+				window.top.scrollTo(0,0);
+			}
+
+			_getLinkLocation(entity) {
+				try {
+					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
+					const link = linkActivity.getLinkByRel('about');
+					return link.href;
+				} catch(e) {
+					return '';
+				}
+			}
+			_render(entity) {
+				const content = this.shadowRoot.getElementById('content');
+				const spinner = this.shadowRoot.getElementById('spinner');
+
+				// initially hide the content, show the spinner
+				content.classList.add('hide');
+				spinner.classList.remove('hide');
+
+				content.onload = function() {
+					// give the LMS some time to jiggle and shake...
+					setTimeout(() => {
+						content.classList.remove('hide');
+						spinner.classList.add('hide');
+					}, 200);
+				}
+			}
+		}
+		customElements.define(D2LSequencesContentLink.is, D2LSequencesContentLink);
+	</script>
 </dom-module>
