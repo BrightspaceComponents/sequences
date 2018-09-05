@@ -1,0 +1,194 @@
+<link rel="import" href="../../d2l-button/d2l-button.html">
+<link rel="import" href="../mixins/d2l-sequences-completion-tracking-mixin.html">
+<link rel="import" href="d2l-sequences-content-link.html">
+
+<dom-module id="d2l-sequences-content-eol-main">
+	<template>
+		<style>
+			:host {
+				display: block;
+				font-family: 'Lato', sans-serif;
+				color: var(--d2l-color-ferrite);
+
+				/* Body Text - Lato Regular 19 */
+				font-size: 19px;
+				line-height: 24px;
+				font-weight: 400; /* normal */
+				letter-spacing: 0.2px;
+			}
+
+			.container {
+				text-align: center;
+				margin: auto;
+			}
+
+			.image {
+				width: 514px;
+				height: 289px;
+				background-color: #d8d8d8;
+				border: solid 1px #979797;
+				margin: 68px auto;
+			}
+
+			.heading2 {
+				/* Heading 2 - Lato Bold 30 */
+				font-size: 30px;
+				line-height: 36px;
+				font-weight: 400; /* normal */
+				letter-spacing: 0.2px;
+			}
+
+			.label-text {
+				/* Label Text - Lato Bold 14 */
+				font-size: 14px;
+				line-height: 20px; 
+				font-weight: 700; /* bold */
+				letter-spacing: 0.2px;
+			}
+
+			.title {
+				margin: 25px 0px;
+			}
+
+			.content {
+				margin: 5px 0px;
+			}
+
+			.button {
+				border-radius: 6px;
+ 				height: 52px;
+				margin: 30px 8px;
+				padding: 0px;
+				border: none;
+				background: transparent;
+			}
+		</style>
+		<div class="container">
+			<div class="image"></div>
+
+			<template is="dom-if" if="[[!hasMissing]]">
+				<div class="heading2 title">
+					[[localize('congratulations')]]
+				</div>
+			</template>
+			<template is="dom-if" if="[[hasMissing]]">
+				<div class="heading2 title">
+					[[localize('niceWork')]]
+				</div>
+			</template>
+
+			<template is="dom-if" if="[[!hasMissing]]">
+				<div class="content">
+					[[localize('activitiesFinishedGreatJob')]]
+				</div>
+			</template>
+			<template is="dom-if" if="[[hasMissing]]">
+				<div class="content">
+					<span>
+						[[localize('youMayHave')]]
+					</span>
+					<d2l-link>[[localize('missedActivities','count',missingCount)]]</d2l-link>
+				</div>
+				<div class="content">
+					[[localize('noNeedToFinish')]]
+				</div>
+			</template>
+
+			<template is="dom-if" if="[[!hasMissing]]">
+				<d2l-button primary class="button" on-click="_onclick">
+					<div class="label-text">
+						[[localize('imDone')]]
+					</div>
+				</d2l-button>
+			</template>
+			<template is="dom-if" if="[[hasMissing]]">
+				<d2l-button class="button" on-click="_onclick">
+					<div class="label-text">
+						[[localize('showMissed')]]
+					</div>
+				</d2l-button>
+				<d2l-button primary class="button" on-click="_onclick">
+					<div class="label-text">
+						[[localize('imDone')]]
+					</div>
+				</d2l-button>
+			</template>
+		</div>
+	</template>
+	<script>
+		/*
+			@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
+		*/
+		class D2LSequencesContentEoLMain extends D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin() {
+			static get is() {
+				return 'd2l-sequences-content-eol-main';
+			}
+			static get properties() {
+				return {
+					_location: {
+						type: String,
+						computed: '_getLocation(entity)'
+					},
+					completionCount: {
+						type: Object,
+						computed: '_getStatus(entity)'
+					},
+					missingCount: {
+						type: Number,
+						computed: '_getMissingCount(completionCount)'
+					},
+					hasMissing: {
+						Boolean,
+						computed: '_getHasMissing(missingCount)'
+					}
+				}
+			}
+			connectedCallback() {
+				super.connectedCallback();
+				this._language = window.document.getElementsByTagName('html')[0]
+					.getAttribute('lang');
+			}
+			disconnectedCallback() {
+				super.disconnectedCallback();
+				this.finishCompletion();
+			}
+			_getLocation(entity) {
+				try {
+					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
+					const link = linkActivity.getLinkByRel('about');
+					return link.href;
+				} catch(e) {
+					return '';
+				}
+			}
+			_getStatus(entity) {
+				const completionEntity = entity && entity.getSubEntityByClass('completion');
+				if ( !completionEntity || !completionEntity.properties) {
+					return {
+						completed: 0,
+						optionalViewed: 0,
+						optionalTotal: 0,
+						total: 0
+					};
+				}
+				return completionEntity.properties;
+			}
+			_getHasMissing(missingCount) {
+				return missingCount !== 0;
+			}
+			_getMissingCount(completionCount) {
+				return completionCount.total - completionCount.completed;
+			}
+			_onclick() {
+				const location = this._getLinkLocation(this.entity);
+				if (!location) {
+					return;
+				}
+
+				this.startCompletion();
+				return window.open(location);
+			}
+		}
+		customElements.define(D2LSequencesContentEoLMain.is, D2LSequencesContentEoLMain);
+	</script>
+</dom-module>

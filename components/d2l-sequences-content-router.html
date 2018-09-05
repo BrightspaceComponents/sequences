@@ -5,6 +5,7 @@
 <link rel="import" href="d2l-sequences-content-link-scorm.html">
 <link rel="import" href="d2l-sequences-content-link.html">
 <link rel="import" href="d2l-sequences-content-unknown.html">
+<link rel="import" href="d2l-sequences-content-eol-main.html">
 
 <dom-module id="d2l-sequences-content-router">
 	<template></template>
@@ -21,6 +22,9 @@
 			}
 			static get linkActivity() {
 				return 'link-activity';
+			}
+			static get endOfLessonActivity() {
+				return 'end-of-lesson-activity';
 			}
 			static get mimeType() {
                 return new Map([
@@ -49,6 +53,8 @@
 							return getFileEntityType(subEntity);
 						case D2LSequencesContentRouter.linkActivity:
 							return getLinkEntityType(subEntity);
+						case D2LSequencesContentRouter.endOfLessonActivity:
+							return getEndOfLessonType(subEntity);
 						case D2LSequencesContentLinkScorm.contentClass:
 							return D2LSequencesContentLinkScorm.is;
 					}
@@ -69,6 +75,10 @@
 				return D2LSequencesContentLink.is;
 			}
 			return D2LSequencesContentLinkMixed.is;
+		}
+
+		function getEndOfLessonType(endOfLessonActivity) {
+			return D2LSequencesContentEoLMain.is;
 		}
 
 	</script>
