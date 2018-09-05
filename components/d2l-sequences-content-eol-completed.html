@@ -18,10 +18,16 @@
 			}
 
 			.container {
-				padding-top: 100px;
 				text-align: center;
-				width: 550px;
 				margin: auto;
+			}
+
+			.image {
+				width: 514px;
+				height: 289px;
+				background-color: #d8d8d8;
+				border: solid 1px #979797;
+				margin: 68px auto;
 			}
 
 			.heading2 {
@@ -32,36 +38,41 @@
 				letter-spacing: 0.2px;
 			}
 
-			.small-body-text {
-				/* Small Body Text - Lato Regular 14 */
+			.label-text {
+				/* Label Text - Lato Bold 14 */
 				font-size: 14px;
 				line-height: 20px; 
-				font-weight: 400; /* normal */
+				font-weight: 700; /* bold */
 				letter-spacing: 0.2px;
 			}
 
 			.title {
-				margin-bottom: 25px;
+				margin: 25px 0px;
+			}
+
+			.content {
+				margin: 5px 0px;
 			}
 
 			.button {
 				border-radius: 6px;
  				height: 52px;
- 				margin-top: 30px;
+				margin: 30px 8px;
 				padding: 0px;
 				border: none;
 				background: transparent;
 			}
 		</style>
 		<div class="container">
+			<div class="image"></div>
 			<div class="heading2 title">
 				[[localize('congratulations')]]
 			</div>
-			<div>
+			<div class="content">
 				[[localize('activitiesFinishedGreatJob')]]
 			</div>
 			<d2l-button primary class="button" on-click="_onclick">
-				<div class="small-body-text">
+				<div class="label-text">
 					[[localize('imDone')]]
 				</div>
 			</d2l-button>
