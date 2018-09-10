@@ -81,7 +81,18 @@
 					.getAttribute('lang');
 			}
 			disconnectedCallback() {
-				const href = this._getLinkLocation(this.entity)
+				const activityEntity = this.entity && this.entity.getSubEntityByClass('activity');
+				const isComplete = activityEntity && activityEntity.getSubEntityByClass('completed');
+
+				if( !isComplete ) {
+					this._fireToastEvent();
+					this.finishCompletion();
+				}
+
+				super.disconnectedCallback();
+			}
+			_fireToastEvent() {
+				const href = this._getLinkLocation(this.entity);
 
 				if (href && href.indexOf('dropbox') > -1) {
 					const event = new CustomEvent('toast', {
@@ -95,9 +106,6 @@
 					});
 					window.dispatchEvent(event);
 				}
-				this.finishCompletion();
-
-				super.disconnectedCallback();
 			}
 			_getLinkLocation(entity) {
 				try {
