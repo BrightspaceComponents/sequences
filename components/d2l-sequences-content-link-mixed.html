@@ -13,7 +13,8 @@
 				/* Body Text - Lato Regular 19 */
 				font-size: 19px;
 				line-height: 24px;
-				font-weight: 400; /* normal */
+				font-weight: 400;
+				/* normal */
 				letter-spacing: 0.2px;
 			}
 
@@ -28,7 +29,8 @@
 				/* Heading 3 - Lato Bold 20 */
 				font-size: 20px;
 				line-height: 30px;
-				font-weight: 700; /* bold */
+				font-weight: 700;
+				/* bold */
 				letter-spacing: 0.2px;
 			}
 
@@ -39,8 +41,8 @@
 
 			.open-new-button {
 				border-radius: 6px;
- 				height: 52px;
- 				margin-top: 50px;
+				height: 52px;
+				margin-top: 50px;
 				padding: 0px;
 				border: none;
 				background: transparent;
@@ -48,7 +50,7 @@
 
 			.open-new-button-content {
 				width: 300px;
- 			}
+			}
 		</style>
 		<div class="container">
 			<div class="title heading3">
@@ -79,15 +81,30 @@
 					.getAttribute('lang');
 			}
 			disconnectedCallback() {
-				super.disconnectedCallback();
+				const href = this._getLinkLocation(this.entity)
+
+				if (href && href.indexOf('dropbox') > -1) {
+					const event = new CustomEvent('toast', {
+						detail: {
+							message: 'There was more to do in the last activity.',
+							name: this.entity.properties.title,
+							url: this.entity.getLinkByRel('self').href
+						},
+						bubbles: true,
+						composed: true,
+					});
+					window.dispatchEvent(event);
+				}
 				this.finishCompletion();
+
+				super.disconnectedCallback();
 			}
 			_getLinkLocation(entity) {
 				try {
 					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
 					const link = linkActivity.getLinkByRel('about');
 					return link.href;
-				} catch(e) {
+				} catch (e) {
 					return '';
 				}
 			}
