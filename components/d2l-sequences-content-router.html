@@ -27,16 +27,16 @@
 				return 'end-of-lesson-activity';
 			}
 			static get mimeType() {
-                return new Map([
-                    ['application/pdf', D2LSequencesContentFileHtml.is],
-                    ['image/bmp', D2LSequencesContentFileHtml.is],
-                    ['image/gif', D2LSequencesContentFileHtml.is],
-                    ['image/jpeg', D2LSequencesContentFileHtml.is],
-                    ['image/png', D2LSequencesContentFileHtml.is],
+				return new Map([
+					['application/pdf', D2LSequencesContentFileHtml.is],
+					['image/bmp', D2LSequencesContentFileHtml.is],
+					['image/gif', D2LSequencesContentFileHtml.is],
+					['image/jpeg', D2LSequencesContentFileHtml.is],
+					['image/png', D2LSequencesContentFileHtml.is],
 					['image/svg+xml', D2LSequencesContentFileHtml.is],
 					['text/html', D2LSequencesContentFileHtml.is]
-                ]);
-            }
+				]);
+			}
 		}
 		customElements.define(D2LSequencesContentRouter.is, D2LSequencesContentRouter);
 

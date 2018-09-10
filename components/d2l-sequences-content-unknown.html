@@ -1,25 +1,26 @@
 <link rel="import" href="../mixins/d2l-sequences-automatic-completion-tracking-mixin.html">
 
 <dom-module id="d2l-sequences-content-unknown">
-    <template>
-        <style>
-        </style>
-        [[localize('cannotBeRendered')]]
-    </template>
-    <script>
+	<template>
+		<style>
+		</style>
+		[[localize('cannotBeRendered')]]
+	</template>
+	<script>
 		/*
-            @extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
-        */
-        class D2LSequencesContentUnknown extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
-            static get is() {
-                return 'd2l-sequences-content-unknown';
-            }
-            connectedCallback() {
+			@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
+		*/
+		class D2LSequencesContentUnknown extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
+			static get is() {
+				return 'd2l-sequences-content-unknown';
+			}
+			connectedCallback() {
 				super.connectedCallback();
+				window.top.scrollTo(0,0);
 				this._language = window.document.getElementsByTagName('html')[0]
 					.getAttribute('lang');
 			}
-        }
-        customElements.define(D2LSequencesContentUnknown.is, D2LSequencesContentUnknown);
-    </script>
+		}
+		customElements.define(D2LSequencesContentUnknown.is, D2LSequencesContentUnknown);
+	</script>
 </dom-module>
