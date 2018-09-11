@@ -7,23 +7,15 @@
 	<template>
 		<style>
 			:host {
-				display: block;
-				font-family: 'Lato', sans-serif;
 				color: var(--d2l-color-ferrite);
-
-				/* Body Text - Lato Regular 19 */
-				font-size: 19px;
-				line-height: 24px;
-				font-weight: 400; /* normal */
-				letter-spacing: 0.2px;
 			}
 
-			.container {
+			.eol-container {
 				text-align: center;
 				margin: auto;
 			}
 
-			.image {
+			.eol-image {
 				width: 514px;
 				height: 289px;
 				background-color: #d8d8d8;
@@ -31,15 +23,7 @@
 				margin: 68px auto;
 			}
 
-			.heading2 {
-				/* Heading 2 - Lato Bold 30 */
-				font-size: 30px;
-				line-height: 36px;
-				font-weight: 400; /* normal */
-				letter-spacing: 0.2px;
-			}
-
-			.label-text {
+			.eol-button-text {
 				/* Label Text - Lato Bold 14 */
 				font-size: 14px;
 				line-height: 20px; 
@@ -47,15 +31,28 @@
 				letter-spacing: 0.2px;
 			}
 
-			.title {
+			.eol-title {
+				/* Heading 2 - Lato Bold 30 */
+				font-size: 30px;
+				line-height: 36px;
+				font-weight: 400; /* normal */
+				letter-spacing: 0.2px;
+
 				margin: 25px 0px;
 			}
 
-			.content {
+			.eol-content {
+				/* Body Text - Lato Regular 19 */
+				font-size: 19px;
+				line-height: 24px;
+				font-weight: 400; /* normal */
+				letter-spacing: 0.2px;
+
 				margin: 5px 0px;
+				line-height: 30px;
 			}
 
-			.button {
+			.eol-button {
 				border-radius: 6px;
  				height: 52px;
 				margin: 30px 8px;
@@ -64,45 +61,42 @@
 				background: transparent;
 			}
 		</style>
-		<div class="container">
-			<div class="image"></div>
+		<div class="eol-container">
+			<div class="eol-image"></div>
 
 			<template is="dom-if" if="[[!hasMissing]]">
-				<div class="heading2 title">
+				<h2 class="eol-title">
 					[[localize('congratulations')]]
-				</div>
-				<div class="content">
+				</h2>
+				<p class="eol-content">
 					[[localize('activitiesFinishedGreatJob')]]
-				</div>
-				<d2l-button primary class="button" on-click="_onclick">
-					<div class="label-text">
+				</p>
+				<d2l-button primary class="eol-button" on-click="_onclick">
+					<div class="eol-button-text">
 						[[localize('imDone')]]
 					</div>
 				</d2l-button>
 			</template>
 
 			<template is="dom-if" if="[[hasMissing]]">
-				<div class="heading2 title">
+				<h2 class="eol-title">
 					[[localize('niceWork')]]
-				</div>
-				<div class="content">
-					<span>
-						[[localize('youMayHave')]]
-					</span>
+				</h2>
+				<p class="eol-content">
+					[[localize('youMayHave')]]
 					<d2l-link>[[localize('missedActivities','count',missingCount)]]</d2l-link>
-				</div>
-				<div class="content">
+					<br/>
 					[[localize('noNeedToFinish')]]
-				</div>
-				<d2l-button class="button" on-click="_onclick">
-					<div class="label-text">
+				</p>
+				<d2l-button class="eol-button" on-click="_onclick">
+					<label class="eol-button-text">
 						[[localize('showMissed')]]
-					</div>
+					</label>
 				</d2l-button>
-				<d2l-button primary class="button" on-click="_onclick">
-					<div class="label-text">
+				<d2l-button primary class="eol-button" on-click="_onclick">
+					<label class="eol-button-text">
 						[[localize('imDone')]]
-					</div>
+					</label>
 				</d2l-button>
 			</template>
 		</div>
