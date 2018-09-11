@@ -71,19 +71,20 @@
 				<div class="heading2 title">
 					[[localize('congratulations')]]
 				</div>
+				<div class="content">
+					[[localize('activitiesFinishedGreatJob')]]
+				</div>
+				<d2l-button primary class="button" on-click="_onclick">
+					<div class="label-text">
+						[[localize('imDone')]]
+					</div>
+				</d2l-button>
 			</template>
+
 			<template is="dom-if" if="[[hasMissing]]">
 				<div class="heading2 title">
 					[[localize('niceWork')]]
 				</div>
-			</template>
-
-			<template is="dom-if" if="[[!hasMissing]]">
-				<div class="content">
-					[[localize('activitiesFinishedGreatJob')]]
-				</div>
-			</template>
-			<template is="dom-if" if="[[hasMissing]]">
 				<div class="content">
 					<span>
 						[[localize('youMayHave')]]
@@ -93,16 +94,6 @@
 				<div class="content">
 					[[localize('noNeedToFinish')]]
 				</div>
-			</template>
-
-			<template is="dom-if" if="[[!hasMissing]]">
-				<d2l-button primary class="button" on-click="_onclick">
-					<div class="label-text">
-						[[localize('imDone')]]
-					</div>
-				</d2l-button>
-			</template>
-			<template is="dom-if" if="[[hasMissing]]">
 				<d2l-button class="button" on-click="_onclick">
 					<div class="label-text">
 						[[localize('showMissed')]]
