@@ -25,26 +25,8 @@
 					title: {
 						type: String,
 						computed: '_getTitle(entity)'
-					},
-					_loadListener: {
-						type: Object
 					}
 				}
-			}
-
-			connectedCallback() {
-				super.connectedCallback();
-				this._loadListener = this.$.content.addEventListener('load', this._scrollToTop.bind(this));
-			}
-
-			disconnectedCallback() {
-				super.disconnectedCallback();
-				this.$.content.removeEventListener('load', this._loadListener);
-				this._loadListener = null;
-			}
-
-			_scrollToTop() {
-				window.top.scrollTo(0,0);
 			}
 
 			_getFileLocation(entity) {

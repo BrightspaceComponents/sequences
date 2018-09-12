@@ -37,29 +37,11 @@
 					_linkLocation: {
 						type: String,
 						computed: '_getLinkLocation(entity)'
-					},
-					_loadListener: {
-						type: Object
 					}
 				}
 			}
 			static get observers() {
 				return ['_render(entity)']
-			}
-
-			connectedCallback() {
-				super.connectedCallback();
-				this._loadListener = this.$.content.addEventListener('load', this._scrollToTop.bind(this));
-			}
-
-			disconnectedCallback() {
-				super.disconnectedCallback();
-				this.$.content.removeEventListener('load', this._loadListener);
-				this._loadListener = null;
-			}
-
-			_scrollToTop() {
-				window.top.scrollTo(0,0);
 			}
 
 			_getLinkLocation(entity) {
