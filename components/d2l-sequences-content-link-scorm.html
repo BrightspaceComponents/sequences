@@ -5,60 +5,43 @@
 <dom-module id="d2l-sequences-content-link-scorm">
 	<template>
 		<style>
-			:host {
-				display: block;
-				font-family: 'Lato', sans-serif;
-				color: var(--d2l-color-ferrite);
-
-				/* Body Text - Lato Regular 19 */
-				font-size: 19px;
-				line-height: 24px;
-				font-weight: 400; /* normal */
-				letter-spacing: 0.2px;
-			}
-
-			.container {
+			.content-link-scorm-container {
 				padding-top: 100px;
 				text-align: center;
 				width: 550px;
 				margin: auto;
 			}
 
-			.description{
-				padding: 20px;
+			.content-link-scorm-container > * {
+				margin: 25px 0;
 			}
 
-			:host-context([dir="rtl"]) .icon{
+			:host-context([dir="rtl"]) .content-link-scorm-container .icon {
 				margin-right: 52px;
 				margin-left: 0px;
 			}
 
-			.icon {
+			.content-link-scorm-container .icon {
 				margin-left: 52px;
 				margin-right: 0px;
 			}
 
-			.open-new-button {
-				border-radius: 6px;
-				height: 52px;
-				padding: 0px;
+			.content-link-scorm-container .button {
 				border: none;
 				background: transparent;
 			}
 
 		</style>
-		<div class="container">
+		<div class="content-link-scorm-container">
 			<div class="icon">
 				<d2l-scorm-icon></d2l-scorm-icon>
 			</div>
-			<div class="description">
+			<p>
 				[[localize('viewThisActivity')]]
-			</div>
-			<button class="open-new-button" onClick$="window.open('[[_linkLocation]]')">
+			</p>
+			<button class="button" onClick$="window.open('[[_linkLocation]]')">
 				<d2l-button primary="true">
-					<div>
-						[[localize('goToActivity')]]
-					</div>
+					[[localize('goToActivity')]]
 				</d2l-button>
 			</button>
 		</div>

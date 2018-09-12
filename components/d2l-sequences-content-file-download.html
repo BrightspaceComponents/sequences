@@ -6,76 +6,48 @@
 <dom-module id="d2l-sequences-content-file-download">
 	<template>
 		<style>
-			:host {
-				display: block;
-				font-family: 'Lato', sans-serif;
-				color: var(--d2l-color-ferrite);
-
-				/* Body Text - Lato Regular 19 */
-				font-size: 19px;
-				line-height: 24px;
-				font-weight: 400; /* normal */
-				letter-spacing: 0.2px;
-			}
-
-			.container {
+			.content-file-download-container {
 				padding-top: 100px;
 				text-align: center;
 			}
 
-			.heading3 {
-				/* Heading 3 - Lato Bold 20 */
-				font-size: 20px;
-				line-height: 30px;
-				font-weight: 700; /* bold */
-				letter-spacing: 0.2px;
-			}
-
-			.title {
+			.content-file-download-container h3 {
 				color: var(--d2l-color-celestine-plus-1);
-				margin-bottom: 10px;
 			}
 
-			.file-icon {
+			.content-file-download-container .container > * {
+				margin: 25px 0;
+			}
+
+			.content-file-download-container .file-icon {
  				width: 90px;
  				height: 120px;
- 				margin: 50px auto;
+ 				margin: auto;
  			}
 
-			.download-button {
-				border-radius: 6px;
- 				width: 257px;
- 				height: 52px;
- 				margin-top: 50px;
-				padding: 0px;
+			.content-file-download-container .button {
 				border: none;
 				background: transparent;
 			}
-
-			.download-button-content {
-				width: 207px;
- 			}
 		</style>
-		<div class="container">
-			<div class="title heading3">
+		<div class="content-file-download-container">
+			<h3>
 				[[localize('invalidFile')]]
-			</div>
-			<div>
+			</h3>
+			<p>
 				[[localize('downloadInvalidFile')]]
-			</div>
+			</p>
 			<div class="file-icon">
 				<d2l-content-icons icon="file"></d2l-content-icons>
 			</div>
-			<div>
+			<p>
 				[[localize('fileSize','size',_fileSize)]]
-			</div>
+			</p>
 			<template is="dom-if" if="[[_fileLocation]]">
 				<form method="get" action$="[[_fileLocation]]">
-					<button type="submit" class="download-button">
+					<button type="submit" class="button">
 						<d2l-button primary>
-							<div class="heading3 download-button-content">
-								[[localize('download')]]
-							</div>
+							[[localize('download')]]
 						</d2l-button>
 					</button>
 				</form>

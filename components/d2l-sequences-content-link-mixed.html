@@ -5,64 +5,30 @@
 <dom-module id="d2l-sequences-content-link-mixed">
 	<template>
 		<style>
-			:host {
-				display: block;
-				font-family: 'Lato', sans-serif;
-				color: var(--d2l-color-ferrite);
-
-				/* Body Text - Lato Regular 19 */
-				font-size: 19px;
-				line-height: 24px;
-				font-weight: 400;
-				/* normal */
-				letter-spacing: 0.2px;
-			}
-
-			.container {
+			.content-link-mixed-container {
 				padding-top: 100px;
 				text-align: center;
 				width: 550px;
 				margin: auto;
 			}
 
-			.heading3 {
-				/* Heading 3 - Lato Bold 20 */
-				font-size: 20px;
-				line-height: 30px;
-				font-weight: 700;
-				/* bold */
-				letter-spacing: 0.2px;
+			.content-link-mixed-container > * {
+				margin: 25px 0;
 			}
 
-			.title {
+			.content-link-mixed-container h3 {
 				color: var(--d2l-color-celestine-plus-1);
-				margin-bottom: 10px;
-			}
-
-			.open-new-button {
-				border-radius: 6px;
-				height: 52px;
-				margin-top: 50px;
-				padding: 0px;
-				border: none;
-				background: transparent;
-			}
-
-			.open-new-button-content {
-				width: 300px;
 			}
 		</style>
-		<div class="container">
-			<div class="title heading3">
+		<div class="content-link-mixed-container">
+			<h3>
 				[[localize('undisplayableContent')]]
-			</div>
-			<div>
+			</h3>
+			<p>
 				[[localize('openUnsecureContent')]]
-			</div>
-			<d2l-button primary class="open-new-button heading3" on-click="_onclick">
-				<div class="heading3 open-new-button-content">
-					[[localize('openNew')]]
-				</div>
+			</p>
+			<d2l-button primary on-click="_onclick">
+				[[localize('openNew')]]
 			</d2l-button>
 		</div>
 	</template>
