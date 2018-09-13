@@ -79,32 +79,19 @@
 				this._language = window.document.getElementsByTagName('html')[0]
 					.getAttribute('lang');
 			}
+
 			disconnectedCallback() {
-				const activityEntity = this.entity && this.entity.getSubEntityByClass('activity');
-				const isComplete = activityEntity && activityEntity.getSubEntityByClass('completed');
-
-				if( !isComplete ) {
-					this._fireToastEvent();
-					this.finishCompletion();
-				}
-
 				super.disconnectedCallback();
+				this.finishCompletion();
 			}
-			_fireToastEvent() {
-				const href = this._getLinkLocation(this.entity);
 
-				if (href && href.indexOf('dropbox') > -1) {
-					const event = new CustomEvent('toast', {
-						detail: {
-							message: 'There was more to do in the last activity.',
-							name: this.entity.properties.title,
-							url: this.entity.getLinkByRel('self').href
-						},
-						bubbles: true,
-						composed: true,
-					});
-					window.dispatchEvent(event);
+			attributeChangedCallback(attr, oldValue, newValue) {
+				super.attributeChangedCallback()
+				if( attr !== 'href' ){
+					return;
 				}
+
+				this.finishCompletion();
 			}
 			_getLinkLocation(entity) {
 				try {

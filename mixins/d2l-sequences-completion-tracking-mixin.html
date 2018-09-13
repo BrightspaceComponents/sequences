@@ -2,6 +2,7 @@
 <link rel="import" href="../../d2l-polymer-siren-behaviors/store/entity-behavior.html">
 <link rel="import" href="../../d2l-polymer-siren-behaviors/store/siren-action-behavior.html">
 <link rel="import" href="../localize-behavior.html">
+<link rel="import" href="../maybe.html">
 <script>
 	(function() {
 		function CompletionTrackingMixin() {
@@ -25,6 +26,8 @@
 				}
 
 				finishCompletion() {
+					this._fireToastEvent();
+
 					if (!this._completionEntity || this._skipCompletion) {
 						return;
 					}
@@ -45,18 +48,18 @@
 
 				_performCompletion(entity, actionName) {
 					return new Promise((resolve, reject) => {
-						const activitySubEntity = entity.getSubEntityByClass('activity');
-						if (!activitySubEntity) {
-							return reject('no activity subentity found');
-						}
+						const action = Maybe.of(entity)
+							.chain(
+								e => e.getSubEntityByClass('activity'),
+								a => a.getActionByName(actionName),
+							);
 
-						const action = activitySubEntity.getActionByName(actionName);
-						if (!action) {
+						if (action.isNothing()) {
 							return reject('no action found');
 						}
 
 						// DEBUG WITH console.log('performing completion action', actionName, 'on', entity.properties.title);
-						return this.performSirenAction(action)
+						return this.performSirenAction(action.value)
 							.then(resolve);
 					});
 				}
@@ -73,6 +76,38 @@
 							jwt.actualsub !== jwt.sub;
 					} catch (e) {
 						return false;
+					}
+				}
+
+				_fireToastEvent() {
+					const href = Maybe.of(this.entity)
+						.chain(
+							e => e.getSubEntityByClass('activity'),
+							a => a.getLinkByRel('about'),
+							a => a.href
+						).value;
+
+					if (!href) {
+						return;
+					}
+
+					const notifyActivityTypes = [
+						'dropbox',
+						'quiz',
+						'discuss'
+					];
+
+					if (notifyActivityTypes.some(t => href.includes(t))) {
+						const event = new CustomEvent('toast', {
+							detail: {
+								message: 'There was more to do in the last activity.',
+								name: this.entity.properties.title,
+								url: this.entity.getLinkByRel('self').href
+							},
+							bubbles: true,
+							composed: true,
+						});
+						window.dispatchEvent(event);
 					}
 				}
 			};

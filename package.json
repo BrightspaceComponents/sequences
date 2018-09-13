@@ -32,5 +32,8 @@
     "plop": "^2.0.0",
     "polymer-cli": "^1.7.2",
     "polymer-siren-test-helpers": "^1.0.0"
+  },
+  "dependencies": {
+    "maybe-small": "^1.0.2"
   }
 }
