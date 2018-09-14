@@ -7,8 +7,7 @@
 <link rel="import" href="d2l-sequences-content-unknown.html">
 
 <dom-module id="d2l-sequences-content-router">
-	<template>
-	</template>
+	<template></template>
 	<script>
 		class D2LSequencesContentRouter extends D2L.Polymer.Mixins.Sequences.RouterMixin(getEntityType) {
 			static get is() {
@@ -69,8 +68,7 @@
 			if (link && link.href.startsWith('https://')) {
 				return D2LSequencesContentLink.is;
 			}
-			//return D2LSequencesContentLinkMixed.is;
-			return D2LSequencesContentUnknown.is;
+			return D2LSequencesContentLinkMixed.is;
 		}
 
 	</script>
