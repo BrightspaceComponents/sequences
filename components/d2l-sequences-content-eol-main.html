@@ -28,7 +28,7 @@
 			}
 		</style>
 		<div class="content-eol-main-container">
- 			<template is="dom-if" if="[[!hasMissing]]">
+ 			<template is="dom-if" if="[[!hasMissed]]">
 				<div class="content-eol-main-container-image"></div>
 				<h2>
 					[[localize('congratulations')]]
@@ -42,14 +42,14 @@
 					</label>
 				</d2l-button>
 			</template>
- 			<template is="dom-if" if="[[hasMissing]]">
+ 			<template is="dom-if" if="[[hasMissed]]">
 				<div class="content-eol-main-container-image"></div>
 				<h2>
 					[[localize('niceWork')]]
 				</h2>
 				<p>
 					[[localize('youMayHave')]]
-					<d2l-link>[[localize('missedActivities','count',missingCount)]]</d2l-link>
+					<d2l-link>[[localize('missedActivities','count',missedCount)]]</d2l-link>
 					<br/>
 					[[localize('noNeedToFinish')]]
 				</p>
@@ -63,7 +63,7 @@
 						[[localize('imDone')]]
 					</label>
 				</d2l-button>
-			</template>
+			</template>	
 		</div>
 	</template>
 	<script>
@@ -86,13 +86,13 @@
 						type: String,
 						computed: '_getLocation(entity)'
 					},
-					missingCount: {
+					missedCount: {
 						type: Number,
-						computed: '_getMissingCount(entity)'
+						computed: '_getMissedCount(entity)'
 					},
-					hasMissing: {
-						Boolean,
-						computed: '_getHasMissing(missingCount)'
+					hasMissed: {
+						type: Boolean,
+						computed: '_getHasMissed(missedCount)'
 					}
 				}
 			}
@@ -105,10 +105,10 @@
 					return '';
 				}
 			}
-			_getHasMissing(missingCount) {
-				return missingCount !== 0;
+			_getHasMissed(missedCount) {
+				return missedCount !== 0;
 			}
-			_getMissingCount(entity) {
+			_getMissedCount(entity) {
 				if (!entity) return 0;
 				return entity.entities.length;
 			}
