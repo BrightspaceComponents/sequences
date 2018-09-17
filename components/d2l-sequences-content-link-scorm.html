@@ -38,12 +38,10 @@
 			</div>
 			<p>
 				[[localize('viewThisActivity')]]
-			</p>
-			<button onClick$="window.open('[[_linkLocation]]')">
-				<d2l-button primary="true">
-					[[localize('goToActivity')]]
-				</d2l-button>
-			</button>
+			</p>			
+			<d2l-button primary="true" onclick$="window.open('[[_linkLocation]]')">
+				[[localize('goToActivity')]]
+			</d2l-button>
 		</div>
 	</template>
 	<script>
