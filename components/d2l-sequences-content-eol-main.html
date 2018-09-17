@@ -123,15 +123,6 @@
 					}
 				}
 			}
-			connectedCallback() {
-				super.connectedCallback();
-				this._language = window.document.getElementsByTagName('html')[0]
-				.getAttribute('lang');
-			}
-			disconnectedCallback() {
-				super.disconnectedCallback();
-				this.finishCompletion();
-			}
 			_getLocation(entity) {
 				try {
 					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
