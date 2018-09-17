@@ -19,5 +19,6 @@
 	"youMayHave": "You may have",
 	"missedActivities": "missed {count} activities.",
 	"noNeedToFinish": "If you don't need to finish them, no problem.",
-	"showMissed": "Show Me What I Missed"
+	"showMissed": "Show Me What I Missed",
+	"youMissedThese": "You may have missed these activities:"
 }

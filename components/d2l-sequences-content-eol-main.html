@@ -1,6 +1,7 @@
 <link rel="import" href="../../d2l-button/d2l-button.html">
 <link rel="import" href="../../d2l-link/d2l-link.html">
 <link rel="import" href="d2l-sequences-content-link.html">
+<link rel="import" href="d2l-sequences-content-eol-missed.html">
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../d2l-polymer-siren-behaviors/store/entity-behavior.html">
 <link rel="import" href="../../d2l-polymer-siren-behaviors/store/siren-action-behavior.html">
@@ -43,26 +44,34 @@
 				</d2l-button>
 			</template>
  			<template is="dom-if" if="[[hasMissed]]">
-				<div class="content-eol-main-container-image"></div>
-				<h2>
-					[[localize('niceWork')]]
-				</h2>
-				<p>
-					[[localize('youMayHave')]]
-					<d2l-link>[[localize('missedActivities','count',missedCount)]]</d2l-link>
-					<br/>
-					[[localize('noNeedToFinish')]]
-				</p>
-				<d2l-button on-click="_onclick">
-					<label>
-						[[localize('showMissed')]]
-					</label>
-				</d2l-button>
-				<d2l-button primary on-click="_onclick">
-					<label>
-						[[localize('imDone')]]
-					</label>
-				</d2l-button>
+				<template is="dom-if" if="[[!showMissed]]">
+					<div class="content-eol-main-container-image"></div>
+					<h2>
+						[[localize('niceWork')]]
+					</h2>
+					<p>
+						[[localize('youMayHave')]]
+						<d2l-link>[[localize('missedActivities','count',missedCount)]]</d2l-link>
+						<br/>
+						[[localize('noNeedToFinish')]]
+					</p>
+					<d2l-button on-click="_setShowMissed">
+						<label>
+							[[localize('showMissed')]]
+						</label>
+					</d2l-button>
+					<d2l-button primary on-click="_onclick">
+						<label>
+							[[localize('imDone')]]
+						</label>
+					</d2l-button>
+				</template>
+				<template is="dom-if" if="[[showMissed]]">
+					<d2l-sequences-content-eol-missed
+						href=[[href]]
+						token=[[token]]>
+					</d2l-sequences-content-eol-missed>
+				</template>
 			</template>	
 		</div>
 	</template>
@@ -93,6 +102,10 @@
 					hasMissed: {
 						type: Boolean,
 						computed: '_getHasMissed(missedCount)'
+					},
+					showMissed: {
+						type: Boolean,
+						value: false
 					}
 				}
 			}
@@ -119,6 +132,9 @@
 				}
  				this.startCompletion();
 				return window.open(location);
+			}
+			_setShowMissed(entity) {
+				this.showMissed = true;
 			}
 		}
 		customElements.define(D2LSequencesContentEoLMain.is, D2LSequencesContentEoLMain);
