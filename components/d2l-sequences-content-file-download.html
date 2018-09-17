@@ -15,17 +15,17 @@
 				color: var(--d2l-color-celestine-plus-1);
 			}
 
-			.content-file-download-container .container > * {
+			.content-file-download-container > * {
 				margin: 25px 0;
 			}
 
-			.content-file-download-container .file-icon {
+			.content-file-download-container-file-icon {
  				width: 90px;
  				height: 120px;
  				margin: auto;
  			}
 
-			.content-file-download-container .button {
+			.content-file-download-container button {
 				border: none;
 				background: transparent;
 			}
@@ -37,7 +37,7 @@
 			<p>
 				[[localize('downloadInvalidFile')]]
 			</p>
-			<div class="file-icon">
+			<div class="content-file-download-container-file-icon">
 				<d2l-content-icons icon="file"></d2l-content-icons>
 			</div>
 			<p>
@@ -45,7 +45,7 @@
 			</p>
 			<template is="dom-if" if="[[_fileLocation]]">
 				<form method="get" action$="[[_fileLocation]]">
-					<button type="submit" class="button">
+					<button type="submit">
 						<d2l-button primary>
 							[[localize('download')]]
 						</d2l-button>

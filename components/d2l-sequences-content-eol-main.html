@@ -11,70 +11,55 @@
 			:host {
 				color: var(--d2l-color-ferrite);
 			}
- 			.eol-container {
+			.content-eol-main-container {
 				text-align: center;
 				margin: auto;
 			}
- 			.eol-image {
+			.content-eol-main-container-image {
 				width: 514px;
 				height: 289px;
 				background-color: #d8d8d8;
 				border: solid 1px #979797;
-				margin: 68px auto;
+				margin: 68px auto !important;
 			}
- 			.eol-button-text {
-				@apply --d2l-label-text;
-			}
- 			.eol-title {
-				@apply --d2l-heading-2;
- 				margin: 25px 0px;
-			}
- 			.eol-content {
-				@apply --d2l-body-standard-text;
- 				margin: 5px 0px;
-				line-height: 30px;
-			}
- 			.eol-button {
-				border-radius: 6px;
- 				height: 52px;
-				margin: 30px 8px;
-				padding: 0px;
-				border: none;
-				background: transparent;
+
+			.content-eol-main-container > * {
+				margin: 25px 0;
 			}
 		</style>
-		<div class="eol-container">
-			<div class="eol-image"></div>
+		<div class="content-eol-main-container">
  			<template is="dom-if" if="[[!hasMissing]]">
-				<h2 class="eol-title">
+				<div class="content-eol-main-container-image"></div>
+				<h2>
 					[[localize('congratulations')]]
 				</h2>
-				<p class="eol-content">
+				<p>
 					[[localize('activitiesFinishedGreatJob')]]
 				</p>
-				<d2l-button primary class="eol-button" on-click="_onclick">
-					<div class="eol-button-text">
+				<d2l-button primary on-click="_onclick">
+					<label>
 						[[localize('imDone')]]
-					</div>
+					</label>
 				</d2l-button>
 			</template>
  			<template is="dom-if" if="[[hasMissing]]">
-				<h2 class="eol-title">
+				<div class="content-eol-main-container-image"></div>
+				<h2>
 					[[localize('niceWork')]]
 				</h2>
-				<p class="eol-content">
+				<p>
 					[[localize('youMayHave')]]
 					<d2l-link>[[localize('missedActivities','count',missingCount)]]</d2l-link>
 					<br/>
 					[[localize('noNeedToFinish')]]
 				</p>
-				<d2l-button class="eol-button" on-click="_onclick">
-					<label class="eol-button-text">
+				<d2l-button on-click="_onclick">
+					<label>
 						[[localize('showMissed')]]
 					</label>
 				</d2l-button>
-				<d2l-button primary class="eol-button" on-click="_onclick">
-					<label class="eol-button-text">
+				<d2l-button primary on-click="_onclick">
+					<label>
 						[[localize('imDone')]]
 					</label>
 				</d2l-button>

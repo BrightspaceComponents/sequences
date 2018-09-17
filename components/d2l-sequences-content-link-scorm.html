@@ -16,30 +16,30 @@
 				margin: 25px 0;
 			}
 
-			:host-context([dir="rtl"]) .content-link-scorm-container .icon {
+			:host-context([dir="rtl"]) .content-link-scorm-container-icon {
 				margin-right: 52px;
 				margin-left: 0px;
 			}
 
-			.content-link-scorm-container .icon {
+			.content-link-scorm-container-icon {
 				margin-left: 52px;
 				margin-right: 0px;
 			}
 
-			.content-link-scorm-container .button {
+			.content-link-scorm-container button {
 				border: none;
 				background: transparent;
 			}
 
 		</style>
 		<div class="content-link-scorm-container">
-			<div class="icon">
+			<div class="content-link-scorm-container-icon">
 				<d2l-scorm-icon></d2l-scorm-icon>
 			</div>
 			<p>
 				[[localize('viewThisActivity')]]
 			</p>
-			<button class="button" onClick$="window.open('[[_linkLocation]]')">
+			<button onClick$="window.open('[[_linkLocation]]')">
 				<d2l-button primary="true">
 					[[localize('goToActivity')]]
 				</d2l-button>
