@@ -40,8 +40,8 @@
 				<template is="dom-repeat" items="[[_getSubEntities(entity)]]" as="childLink">
 					<li>
 						<d2l-sequences-content-eol-activity-link
-							href={{childLink.href}}
-							token=[[token]]
+							href="[[childLink.href]]"
+							token="[[token]]"
 							on-click="_onClickChildLink">
 						</d2l-sequences-content-eol-activity-link>
 					</li>
@@ -70,6 +70,11 @@
 			}
 			static get properties() {
 				return {
+					href: {
+						type: String,
+						reflectToAttribute: true,
+						notify: true
+					},
 					_location: {
 						type: String,
 						computed: '_getLocation(entity)'
@@ -85,14 +90,9 @@
 				}
 			}
 			_onClickChildLink(e) {
-				console.log(e);
-				console.log(e.model.__data);
-				console.log(e.model.__data.childLink);
-				console.log(e.model.__data.childLink.href);
 				console.log('href = ', this.href);
-				if (!e.model.__data.childLink.href) {
 					this.href = e.model.__data.childLink.href;
-				}
+				console.log('changed href = ', this.href);
 				// if (this.entity && this.entity.getLinkByRel('self').href) {
 				// 	this.href = this.entity.getLinkByRel('self').href;
 				// }

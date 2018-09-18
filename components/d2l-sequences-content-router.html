@@ -41,9 +41,7 @@
 			if (!entity || !entity.entities) {
 				return D2LSequencesContentUnknown.is;
 			}
-			if (entity.hasClass('end-of-sequence')) {
-				return D2LSequencesContentEoLMain.is;
-			}
+
 			for (let i = 0; i < entity.entities.length; i++) {
 				const subEntity = entity.entities[i];
 				// hypermedia classes tend to be more specific at the end of the array

@@ -68,8 +68,8 @@
 				</template>
 				<template is="dom-if" if="[[showMissed]]">
 					<d2l-sequences-content-eol-missed
-						href={{href}}
-						token=[[token]]>
+						href="{{href}}"
+						token="[[token]]">
 					</d2l-sequences-content-eol-missed>
 				</template>
 			</template>	
@@ -94,8 +94,7 @@
 					href: {
 						type: String,
 						reflectToAttribute: true,
-						notify: true,
-						observer: '_myObserver(href)'
+						notify: true
 					},
 					_location: {
 						type: String,
@@ -115,12 +114,14 @@
 					}
 				}
 			}
-			static get observers() {
-				return ['_myObserver(href)'];
-			}
 
-			_myObserver(href) {
-				console.log('contentElement.href = ', this._contentElement);
+			static get observers() {
+				return ['_changed(entity)'];
+			}
+			_changed(entity) {
+				if( entity && entity.hasClass('sequenced-activity')) {
+					this.showMissed = false
+				}
 			}
 
 			_getLocation(entity) {
