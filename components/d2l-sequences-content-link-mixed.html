@@ -40,6 +40,7 @@
 			static get is() {
 				return 'd2l-sequences-content-link-mixed';
 			}
+
 			connectedCallback() {
 				super.connectedCallback();
 				this._language = window.document.getElementsByTagName('html')[0]
@@ -51,14 +52,6 @@
 				this.finishCompletion();
 			}
 
-			attributeChangedCallback(attr, oldValue, newValue) {
-				super.attributeChangedCallback()
-				if( attr !== 'href' ){
-					return;
-				}
-
-				this.finishCompletion();
-			}
 			_getLinkLocation(entity) {
 				try {
 					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);

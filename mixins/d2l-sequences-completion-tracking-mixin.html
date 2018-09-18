@@ -18,6 +18,9 @@
 						_completionEntity: {
 							type: Object
 						},
+						_failedCompletion: {
+							type: Object
+						},
 						_skipCompletion: {
 							type: Boolean,
 							computed: '_isImpersonating(token)'
@@ -43,7 +46,7 @@
 
 					this._performCompletion(this.entity, 'view-activity-duration')
 						.then(completion => this._completionEntity = completion)
-						.catch(() => {});
+						.catch(entity => this._failedCompletion = entity);
 				}
 
 				_performCompletion(entity, actionName) {
@@ -55,7 +58,7 @@
 							);
 
 						if (action.isNothing()) {
-							return reject('no action found');
+							return reject(entity, 'no action found');
 						}
 
 						// DEBUG WITH console.log('performing completion action', actionName, 'on', entity.properties.title);
@@ -80,7 +83,7 @@
 				}
 
 				_fireToastEvent() {
-					const href = Maybe.of(this.entity)
+					const href = Maybe.of(this._failedCompletion)
 						.chain(
 							e => e.getSubEntityByClass('activity'),
 							a => a.getLinkByRel('about'),
@@ -88,6 +91,7 @@
 						).value;
 
 					if (!href) {
+						this._failedCompletion = null;
 						return;
 					}
 
@@ -101,14 +105,15 @@
 						const event = new CustomEvent('toast', {
 							detail: {
 								message: 'There was more to do in the last activity.',
-								name: this.entity.properties.title,
-								url: this.entity.getLinkByRel('self').href
+								name: this._failedCompletion.properties.title,
+								url: this._failedCompletion.getLinkByRel('self').href
 							},
 							bubbles: true,
 							composed: true,
 						});
 						window.dispatchEvent(event);
 					}
+					this._failedCompletion = null;
 				}
 			};
 		}
