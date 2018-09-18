@@ -15,7 +15,7 @@
 		</style>
 		<div>
 			<d2l-link on-click="_onClick">
-				[[entity.properties.title]]
+				[[title]]
 			</d2l-link>
 		</div>
 		</template>
@@ -37,6 +37,18 @@
 			}
 			static get properties() {
 				return {
+					title: {
+						type: Object,
+						computed: '_getTitle(entity)'
+					},
+					href: {
+						type: String,
+						reflectToAttribute: true,
+						notify: true
+					},
+					token: {
+						type: String
+					},
 					currentActivity: {
 						type: String,
 						value: '',
@@ -69,6 +81,10 @@
 					return 'optional';
 				}
 				else return 'required';
+			}
+
+			_getTitle(entity) {
+				return entity && entity.properties && entity.properties.title || '';
 			}
 		}
 		customElements.define(D2LSequencesContentEoLActivityLink.is, D2LSequencesContentEoLActivityLink);

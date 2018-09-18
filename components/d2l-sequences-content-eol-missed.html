@@ -37,7 +37,7 @@
 				[[localize('youMissedThese')]]
 			</h2>
 			<ol class="module-item-list">
-				<template is="dom-repeat" items="[[_getSubEntities(entity)]]" as="childLink">
+				<template is="dom-repeat" items="[[subEntities]]" as="childLink">
 					<li>
 						<d2l-sequences-content-eol-activity-link
 							href="[[childLink.href]]"
@@ -75,6 +75,13 @@
 						reflectToAttribute: true,
 						notify: true
 					},
+					token: {
+						type: String
+					},
+					subEntities: {
+						type: Object,
+						computed: '_getSubEntities(entity)'
+					},
 					_location: {
 						type: String,
 						computed: '_getLocation(entity)'
@@ -84,7 +91,7 @@
 						computed: '_getMissedCount(entity)'
 					},
 					hasMissed: {
-						Boolean,
+						type: Boolean,
 						computed: '_getHasMissed(missedCount)'
 					}
 				}

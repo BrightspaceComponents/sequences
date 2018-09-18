@@ -4,7 +4,6 @@
 <link rel="import" href="d2l-sequences-content-eol-missed.html">
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../d2l-polymer-siren-behaviors/store/entity-behavior.html">
-<link rel="import" href="../../d2l-polymer-siren-behaviors/store/siren-action-behavior.html">
 <link rel="import" href="../localize-behavior.html">
  <dom-module id="d2l-sequences-content-eol-main">
 	<template>
@@ -26,6 +25,10 @@
 
 			.content-eol-main-container > * {
 				margin: 25px 0;
+			}
+
+			.missed-count-text {
+				color: var(--d2l-color-celestine);
 			}
 		</style>
 		<div class="content-eol-main-container">
@@ -51,7 +54,7 @@
 					</h2>
 					<p>
 						[[localize('youMayHave')]]
-						<d2l-link>[[localize('missedActivities','count',missedCount)]]</d2l-link>
+						<span class="missed-count-text">[[localize('missedActivities','count',missedCount)]]</span>
 						<br/>
 						[[localize('noNeedToFinish')]]
 					</p>
@@ -81,7 +84,6 @@
 		*/
 		class D2LSequencesContentEoLMain extends Polymer.mixinBehaviors([
 				D2L.PolymerBehaviors.Siren.EntityBehavior,
-				D2L.PolymerBehaviors.Siren.SirenActionBehaviorImpl,
 				D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 			],
 			Polymer.Element
@@ -95,6 +97,9 @@
 						type: String,
 						reflectToAttribute: true,
 						notify: true
+					},
+					token: {
+						type: String
 					},
 					_location: {
 						type: String,
@@ -119,7 +124,7 @@
 				return ['_onActivitySelected(entity)'];
 			}
 			_onActivitySelected(entity) {
-				if (entity && entity.hasClass('sequenced-activity')) {
+				if ( entity && entity.hasClass('sequenced-activity')) {
 					this.showMissed = false
 				}
 			}
