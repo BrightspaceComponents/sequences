@@ -42,7 +42,7 @@
 						<d2l-sequences-content-eol-activity-link
 							href="[[childLink.href]]"
 							token="[[token]]"
-							on-click="_onClickChildLink">
+							on-click="_onChildLinkClick">
 						</d2l-sequences-content-eol-activity-link>
 					</li>
 				</template>
@@ -89,13 +89,8 @@
 					}
 				}
 			}
-			_onClickChildLink(e) {
-				console.log('href = ', this.href);
-					this.href = e.model.__data.childLink.href;
-				console.log('changed href = ', this.href);
-				// if (this.entity && this.entity.getLinkByRel('self').href) {
-				// 	this.href = this.entity.getLinkByRel('self').href;
-				// }
+			_onChildLinkClick(e) {
+				this.href = e.model.__data.childLink.href;
 			}
 			_getLocation(entity) {
 				try {

@@ -116,10 +116,10 @@
 			}
 
 			static get observers() {
-				return ['_changed(entity)'];
+				return ['_onActivitySelected(entity)'];
 			}
-			_changed(entity) {
-				if( entity && entity.hasClass('sequenced-activity')) {
+			_onActivitySelected(entity) {
+				if (entity && entity.hasClass('sequenced-activity')) {
 					this.showMissed = false
 				}
 			}
