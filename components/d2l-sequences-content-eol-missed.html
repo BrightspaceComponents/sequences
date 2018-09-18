@@ -25,6 +25,12 @@
 				list-style-type: none;
 				padding-left: 0px;
 			}
+
+			.module-item-list li {
+				padding-top: 15px;
+				padding-bottom: 15px;
+				border-bottom: 1px solid var(--d2l-color-mica);
+			}
 		</style>
 		<div class="content-eol-missed-container">
 			<h2>
@@ -34,8 +40,9 @@
 				<template is="dom-repeat" items="[[_getSubEntities(entity)]]" as="childLink">
 					<li>
 						<d2l-sequences-content-eol-activity-link
-							href=[[childLink.href]]
-							token=[[token]]>
+							href={{childLink.href}}
+							token=[[token]]
+							on-click="_onClickChildLink">
 						</d2l-sequences-content-eol-activity-link>
 					</li>
 				</template>
@@ -76,6 +83,19 @@
 						computed: '_getHasMissed(missedCount)'
 					}
 				}
+			}
+			_onClickChildLink(e) {
+				console.log(e);
+				console.log(e.model.__data);
+				console.log(e.model.__data.childLink);
+				console.log(e.model.__data.childLink.href);
+				console.log('href = ', this.href);
+				if (!e.model.__data.childLink.href) {
+					this.href = e.model.__data.childLink.href;
+				}
+				// if (this.entity && this.entity.getLinkByRel('self').href) {
+				// 	this.href = this.entity.getLinkByRel('self').href;
+				// }
 			}
 			_getLocation(entity) {
 				try {

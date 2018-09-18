@@ -68,7 +68,7 @@
 				</template>
 				<template is="dom-if" if="[[showMissed]]">
 					<d2l-sequences-content-eol-missed
-						href=[[href]]
+						href={{href}}
 						token=[[token]]>
 					</d2l-sequences-content-eol-missed>
 				</template>
@@ -91,6 +91,12 @@
 			}
 			static get properties() {
 				return {
+					href: {
+						type: String,
+						reflectToAttribute: true,
+						notify: true,
+						observer: '_myObserver(href)'
+					},
 					_location: {
 						type: String,
 						computed: '_getLocation(entity)'
@@ -109,6 +115,14 @@
 					}
 				}
 			}
+			static get observers() {
+				return ['_myObserver(href)'];
+			}
+
+			_myObserver(href) {
+				console.log('contentElement.href = ', this._contentElement);
+			}
+
 			_getLocation(entity) {
 				try {
 					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
