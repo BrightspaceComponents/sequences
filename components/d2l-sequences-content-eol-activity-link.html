@@ -11,14 +11,10 @@
 			:host {
 				display: block;
 			}
-			/* label {
-				@apply --d2l-body-small-text;
-				color: var(--d2l-color-ferrite);
-			} */
 
 		</style>
 		<div>
-			<d2l-link id="activityTitle" on-click="_onClick">
+			<d2l-link on-click="_onClick">
 				[[entity.properties.title]]
 			</d2l-link>
 		</div>
@@ -54,8 +50,6 @@
 			}
 
 			_onClick() {
-				//console.log(this.entity);
-				//console.log(this.entity.getLinkByRel('self').href);
 				if (this.entity && this.entity.getLinkByRel('self').href) {
 					this.href = this.entity.getLinkByRel('self').href;
 				}
