@@ -40,7 +40,7 @@
 				<p>
 					[[localize('activitiesFinishedGreatJob')]]
 				</p>
-				<d2l-button primary on-click="_onclick">
+				<d2l-button primary on-click="_onClickBack">
 					<label>
 						[[localize('imDone')]]
 					</label>
@@ -53,7 +53,7 @@
 						[[localize('niceWork')]]
 					</h2>
 					<p>
-						[[localize('youMayHave')]]
+						[[localize('you')]]
 						<span class="missed-count-text">[[localize('missedActivities','count',missedCount)]]</span>
 						<br/>
 						[[localize('noNeedToFinish')]]
@@ -63,7 +63,7 @@
 							[[localize('showMissed')]]
 						</label>
 					</d2l-button>
-					<d2l-button primary on-click="_onclick">
+					<d2l-button primary on-click="_onClickBack">
 						<label>
 							[[localize('imDone')]]
 						</label>
@@ -72,7 +72,8 @@
 				<template is="dom-if" if="[[showMissed]]">
 					<d2l-sequences-content-eol-missed
 						href="{{href}}"
-						token="[[token]]">
+						token="[[token]]"
+						return-url="[[returnUrl]]">
 					</d2l-sequences-content-eol-missed>
 				</template>
 			</template>	
@@ -101,9 +102,9 @@
 					token: {
 						type: String
 					},
-					_location: {
+					returnUrl: {
 						type: String,
-						computed: '_getLocation(entity)'
+						value: false
 					},
 					missedCount: {
 						type: Number,
@@ -128,16 +129,6 @@
 					this.showMissed = false
 				}
 			}
-
-			_getLocation(entity) {
-				try {
-					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
-					const link = linkActivity.getLinkByRel('about');
-					return link.href;
-				} catch(e) {
-					return '';
-				}
-			}
 			_getHasMissed(missedCount) {
 				return missedCount !== 0;
 			}
@@ -145,13 +136,20 @@
 				if (!entity) return 0;
 				return entity.entities.length;
 			}
-			_onclick() {
-				const location = this._getLinkLocation(this.entity);
-				if (!location) {
+			_onClickBack() {
+				if ( !this.returnUrl ) {
 					return;
 				}
- 				this.startCompletion();
-				return window.open(location);
+				if ( window.parent === window ) {
+					window.location.href = this.returnUrl;
+					return;
+				}
+
+				// If we're in an iframe we need to post a message to do the navigation for us
+				window.parent.postMessage(JSON.stringify({
+					eventType: 'd2l-sequence-viewer-return',
+					returnUrl: this.returnUrl
+				}), '*');
 			}
 			_setShowMissed(entity) {
 				this.showMissed = true;

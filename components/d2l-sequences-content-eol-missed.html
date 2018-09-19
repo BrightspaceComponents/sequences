@@ -47,7 +47,7 @@
 					</li>
 				</template>
 			</ol>
-			<d2l-button primary on-click="_onclick">
+			<d2l-button primary on-click="_onClickBack">
 				<label>
 					[[localize('imDone')]]
 				</label>
@@ -78,42 +78,18 @@
 					token: {
 						type: String
 					},
+					returnUrl: {
+						type: String,
+						value: false
+					},
 					subEntities: {
 						type: Object,
 						computed: '_getSubEntities(entity)'
-					},
-					_location: {
-						type: String,
-						computed: '_getLocation(entity)'
-					},
-					missedCount: {
-						type: Number,
-						computed: '_getMissedCount(entity)'
-					},
-					hasMissed: {
-						type: Boolean,
-						computed: '_getHasMissed(missedCount)'
 					}
 				}
 			}
 			_onChildLinkClick(e) {
 				this.href = e.model.__data.childLink.href;
-			}
-			_getLocation(entity) {
-				try {
-					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
-					const link = linkActivity.getLinkByRel('about');
-					return link.href;
-				} catch(e) {
-					return '';
-				}
-			}
-			_getHasMissed(missedCount) {
-				return missedCount !== 0;
-			}
-			_getMissedCount(entity) {
-				if (!entity) return 0;
-				return entity.entities.length;
 			}
 			_getSubEntities(entity) {
 				if (!entity) {
@@ -121,13 +97,20 @@
 				}
 				return entity.entities;
 			}
-			_onclick() {
-				const location = this._getLinkLocation(this.entity);
-				if (!location) {
+			_onClickBack() {
+				if ( !this.returnUrl ) {
 					return;
 				}
- 				this.startCompletion();
-				return window.open(location);
+				if ( window.parent === window ) {
+					window.location.href = this.returnUrl;
+					return;
+				}
+
+				// If we're in an iframe we need to post a message to do the navigation for us
+				window.parent.postMessage(JSON.stringify({
+					eventType: 'd2l-sequence-viewer-return',
+					returnUrl: this.returnUrl
+				}), '*');
 			}
 		}
 		customElements.define(D2LSequencesContentEoLMissed.is, D2LSequencesContentEoLMissed);

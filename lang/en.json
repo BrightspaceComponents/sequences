@@ -16,9 +16,9 @@
 	"activitiesFinishedGreatJob": "You have completed all of the activities in this lesson. Great job!",
 	"imDone": "I'm Done",
 	"niceWork": "Nice work so far!",
-	"youMayHave": "You may have",
+	"you": "You",
 	"missedActivities": "missed {count} activities.",
 	"noNeedToFinish": "If you don't need to finish them, no problem.",
 	"showMissed": "Show Me What I Missed",
-	"youMissedThese": "You may have missed these activities:"
+	"youMissedThese": "You missed these activities:"
 }
