@@ -1,6 +1,5 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../d2l-polymer-siren-behaviors/store/entity-behavior.html">
-<link rel="import" href="../localize-behavior.html">
 <link rel="import" href="../../d2l-link/d2l-link.html">
 
 <dom-module id="d2l-sequences-content-eol-activity-link">
@@ -19,11 +18,10 @@
 	</template>
 	<script>
 		/*
-			@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
+			@extends D2L.PolymerBehaviors.Siren.EntityBehavior
 		*/
 		class D2LSequencesContentEoLActivityLink extends Polymer.mixinBehaviors([
-				D2L.PolymerBehaviors.Siren.EntityBehavior,
-				D2L.PolymerBehaviors.Sequences.LocalizeBehavior
+				D2L.PolymerBehaviors.Siren.EntityBehavior
 			],
 			Polymer.Element
 			) {
@@ -40,9 +38,6 @@
 						type: String,
 						reflectToAttribute: true,
 						notify: true
-					},
-					token: {
-						type: String
 					}
 				};
 			}
