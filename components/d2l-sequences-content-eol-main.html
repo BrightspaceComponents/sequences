@@ -1,9 +1,7 @@
 <link rel="import" href="../../d2l-button/d2l-button.html">
-<link rel="import" href="../../d2l-link/d2l-link.html">
-<link rel="import" href="d2l-sequences-content-link.html">
+<link rel="import" href="d2l-sequences-content-eol-missed.html">
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../d2l-polymer-siren-behaviors/store/entity-behavior.html">
-<link rel="import" href="../../d2l-polymer-siren-behaviors/store/siren-action-behavior.html">
 <link rel="import" href="../localize-behavior.html">
  <dom-module id="d2l-sequences-content-eol-main">
 	<template>
@@ -26,6 +24,10 @@
 			.content-eol-main-container > * {
 				margin: 25px 0;
 			}
+
+			.missed-count-text {
+				color: var(--d2l-color-celestine);
+			}
 		</style>
 		<div class="content-eol-main-container">
  			<template is="dom-if" if="[[!hasMissed]]">
@@ -36,33 +38,42 @@
 				<p>
 					[[localize('activitiesFinishedGreatJob')]]
 				</p>
-				<d2l-button primary on-click="_onclick">
+				<d2l-button primary on-click="_onClickBack">
 					<label>
 						[[localize('imDone')]]
 					</label>
 				</d2l-button>
 			</template>
  			<template is="dom-if" if="[[hasMissed]]">
-				<div class="content-eol-main-container-image"></div>
-				<h2>
-					[[localize('niceWork')]]
-				</h2>
-				<p>
-					[[localize('youMayHave')]]
-					<d2l-link>[[localize('missedActivities','count',missedCount)]]</d2l-link>
-					<br/>
-					[[localize('noNeedToFinish')]]
-				</p>
-				<d2l-button on-click="_onclick">
-					<label>
-						[[localize('showMissed')]]
-					</label>
-				</d2l-button>
-				<d2l-button primary on-click="_onclick">
-					<label>
-						[[localize('imDone')]]
-					</label>
-				</d2l-button>
+				<template is="dom-if" if="[[!showMissed]]">
+					<div class="content-eol-main-container-image"></div>
+					<h2>
+						[[localize('niceWork')]]
+					</h2>
+					<p>
+						[[localize('you')]]
+						<span class="missed-count-text">[[localize('missedActivities','count',missedCount)]]</span>
+						<br/>
+						[[localize('noNeedToFinish')]]
+					</p>
+					<d2l-button on-click="_setShowMissed">
+						<label>
+							[[localize('showMissed')]]
+						</label>
+					</d2l-button>
+					<d2l-button primary on-click="_onClickBack">
+						<label>
+							[[localize('imDone')]]
+						</label>
+					</d2l-button>
+				</template>
+				<template is="dom-if" if="[[showMissed]]">
+					<d2l-sequences-content-eol-missed
+						href="{{href}}"
+						token="[[token]]"
+						return-url="[[returnUrl]]">
+					</d2l-sequences-content-eol-missed>
+				</template>
 			</template>	
 		</div>
 	</template>
@@ -72,7 +83,6 @@
 		*/
 		class D2LSequencesContentEoLMain extends Polymer.mixinBehaviors([
 				D2L.PolymerBehaviors.Siren.EntityBehavior,
-				D2L.PolymerBehaviors.Siren.SirenActionBehaviorImpl,
 				D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 			],
 			Polymer.Element
@@ -82,9 +92,17 @@
 			}
 			static get properties() {
 				return {
-					_location: {
+					href: {
 						type: String,
-						computed: '_getLocation(entity)'
+						reflectToAttribute: true,
+						notify: true
+					},
+					token: {
+						type: String
+					},
+					returnUrl: {
+						type: String,
+						value: false
 					},
 					missedCount: {
 						type: Number,
@@ -93,16 +111,20 @@
 					hasMissed: {
 						type: Boolean,
 						computed: '_getHasMissed(missedCount)'
+					},
+					showMissed: {
+						type: Boolean,
+						value: false
 					}
 				}
 			}
-			_getLocation(entity) {
-				try {
-					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
-					const link = linkActivity.getLinkByRel('about');
-					return link.href;
-				} catch(e) {
-					return '';
+
+			static get observers() {
+				return ['_onActivitySelected(entity)'];
+			}
+			_onActivitySelected(entity) {
+				if ( entity && entity.hasClass('sequenced-activity')) {
+					this.showMissed = false
 				}
 			}
 			_getHasMissed(missedCount) {
@@ -112,13 +134,23 @@
 				if (!entity) return 0;
 				return entity.entities.length;
 			}
-			_onclick() {
-				const location = this._getLinkLocation(this.entity);
-				if (!location) {
+			_onClickBack() {
+				if ( !this.returnUrl ) {
 					return;
 				}
- 				this.startCompletion();
-				return window.open(location);
+				if ( window.parent === window ) {
+					window.location.href = this.returnUrl;
+					return;
+				}
+
+				// If we're in an iframe we need to post a message to do the navigation for us
+				window.parent.postMessage(JSON.stringify({
+					eventType: 'd2l-sequence-viewer-return',
+					returnUrl: this.returnUrl
+				}), '*');
+			}
+			_setShowMissed(entity) {
+				this.showMissed = true;
 			}
 		}
 		customElements.define(D2LSequencesContentEoLMain.is, D2LSequencesContentEoLMain);
