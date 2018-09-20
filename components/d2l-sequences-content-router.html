@@ -1,4 +1,5 @@
 <link rel="import" href="../mixins/d2l-sequences-router-mixin.html">
+<link rel="import" href="d2l-sequences-content-eol-main.html">
 <link rel="import" href="d2l-sequences-content-file-download.html">
 <link rel="import" href="d2l-sequences-content-file-html.html">
 <link rel="import" href="d2l-sequences-content-link-mixed.html">
@@ -40,7 +41,6 @@
 			if (!entity || !entity.entities) {
 				return D2LSequencesContentUnknown.is;
 			}
-
 			for (let i = 0; i < entity.entities.length; i++) {
 				const subEntity = entity.entities[i];
 				// hypermedia classes tend to be more specific at the end of the array
