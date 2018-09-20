@@ -1,6 +1,5 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../d2l-polymer-siren-behaviors/store/entity-behavior.html">
-<link rel="import" href="../../d2l-polymer-siren-behaviors/store/siren-action-behavior.html">
 <link rel="import" href="../localize-behavior.html">
 <link rel="import" href="../../d2l-link/d2l-link.html">
 <link rel="import" href="../../d2l-colors/d2l-colors.html">
@@ -13,11 +12,9 @@
 			}
 
 		</style>
-		<div>
-			<d2l-link on-click="_onClick">
-				[[title]]
-			</d2l-link>
-		</div>
+		<d2l-link on-click="_onClick">
+			[[title]]
+		</d2l-link>
 		</template>
 
 	</template>
@@ -27,7 +24,6 @@
 		*/
 		class D2LSequencesContentEoLActivityLink extends Polymer.mixinBehaviors([
 				D2L.PolymerBehaviors.Siren.EntityBehavior,
-				D2L.PolymerBehaviors.Siren.SirenActionBehaviorImpl,
 				D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 			],
 			Polymer.Element
@@ -48,15 +44,6 @@
 					},
 					token: {
 						type: String
-					},
-					currentActivity: {
-						type: String,
-						value: '',
-						notify: true
-					},
-					completionRequirement: {
-						type: String,
-						computed: '_getCompletionRequirement(entity)'
 					}
 				};
 			}
@@ -65,22 +52,6 @@
 				if (this.entity && this.entity.getLinkByRel('self').href) {
 					this.href = this.entity.getLinkByRel('self').href;
 				}
-			}
-
-			_getCompletionRequirement(entity) {
-				if (!entity) {
-					return;
-				}
-				var subEntity = entity.getSubEntityByClass('link-activity') || entity.getSubEntityByClass('file-activity');
-				if (subEntity
-					&& subEntity.getSubEntityByClass('exemption')
-					&& subEntity.getSubEntityByClass('exemption').hasClass('exempted')) {
-					return 'exempt';
-				}
-				if (subEntity && !subEntity.getSubEntityByClass('completion')) {
-					return 'optional';
-				}
-				else return 'required';
 			}
 
 			_getTitle(entity) {
