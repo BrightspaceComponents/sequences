@@ -4,6 +4,7 @@
 <link rel="import" href="d2l-sequences-content-file-html.html">
 <link rel="import" href="d2l-sequences-content-link-mixed.html">
 <link rel="import" href="d2l-sequences-content-link-scorm.html">
+<link rel="import" href="d2l-sequences-content-link-onedrive.html">
 <link rel="import" href="d2l-sequences-content-link.html">
 <link rel="import" href="d2l-sequences-content-unknown.html">
 
@@ -46,6 +47,8 @@
 				// hypermedia classes tend to be more specific at the end of the array
 				for (let j = subEntity.class.length - 1; j >= 0; --j) {
 					switch (subEntity.class[j]) {
+						case D2LSequencesContentLinkOnedrive.contentClass:
+							return D2LSequencesContentLinkOnedrive.is;
 						case D2LSequencesContentRouter.fileActivity:
 							return getFileEntityType(subEntity);
 						case D2LSequencesContentRouter.linkActivity:
