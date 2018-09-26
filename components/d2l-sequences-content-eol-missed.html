@@ -69,7 +69,8 @@
 					href: {
 						type: String,
 						reflectToAttribute: true,
-						notify: true
+						notify: true,
+						observer: '_scrollToTop'
 					},
 					token: {
 						type: String
@@ -85,8 +86,7 @@
 				}
 			}
 
-			connectedCallback() {
-				super.connectedCallback();
+			_scrollToTop() {
 				window.top.scrollTo(0,0);
 			}
 

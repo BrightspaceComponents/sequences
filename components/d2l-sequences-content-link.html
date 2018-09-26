@@ -34,6 +34,12 @@
 			}
 			static get properties() {
 				return {
+					href: {
+						type: String,
+						reflectToAttribute: true,
+						notify: true,
+						observer: '_scrollToTop'
+					},
 					_linkLocation: {
 						type: String,
 						computed: '_getLinkLocation(entity)'
@@ -44,9 +50,9 @@
 				return ['_render(entity)']
 			}
 
-			connectedCallback() {
-				super.connectedCallback();
+			_scrollToTop() {
 				window.top.scrollTo(0,0);
+				console.log('scroll');
 			}
 
 			_getLinkLocation(entity) {

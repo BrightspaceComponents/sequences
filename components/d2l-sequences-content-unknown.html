@@ -14,9 +14,23 @@
 			static get is() {
 				return 'd2l-sequences-content-unknown';
 			}
+			static get properties() {
+				return {
+					href: {
+						type: String,
+						reflectToAttribute: true,
+						notify: true,
+						observer: '_scrollToTop'
+					}
+				}
+			}
+
+			_scrollToTop() {
+				window.top.scrollTo(0,0);
+			}
+
 			connectedCallback() {
 				super.connectedCallback();
-				window.top.scrollTo(0,0);
 				this._language = window.document.getElementsByTagName('html')[0]
 					.getAttribute('lang');
 			}

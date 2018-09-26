@@ -49,6 +49,12 @@
 			}
 			static get properties() {
 				return {
+					href: {
+						type: String,
+						reflectToAttribute: true,
+						notify: true,
+						observer: '_scrollToTop'
+					},
 					_linkLocation: {
 						type: String,
 						computed: '_getLinkLocation(entity)'
@@ -58,9 +64,13 @@
 			static get contentClass() {
 				return 'link-content-service';
 			}
+
+			_scrollToTop() {
+				window.top.scrollTo(0,0);
+			}
+
 			connectedCallback() {
 				super.connectedCallback();
-				window.top.scrollTo(0,0);
 				this._language = window.document.getElementsByTagName('html')[0]
 					.getAttribute('lang');
 			}

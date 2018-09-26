@@ -41,9 +41,19 @@
 				return 'd2l-sequences-content-link-mixed';
 			}
 
+			static get properties() {
+				return {
+					href: {
+						type: String,
+						reflectToAttribute: true,
+						notify: true,
+						observer: '_scrollToTop'
+					}
+				}
+			}
+
 			connectedCallback() {
 				super.connectedCallback();
-				window.top.scrollTo(0,0);
 				this._language = window.document.getElementsByTagName('html')[0]
 					.getAttribute('lang');
 			}
@@ -51,6 +61,10 @@
 			disconnectedCallback() {
 				super.disconnectedCallback();
 				this.finishCompletion();
+			}
+
+			_scrollToTop() {
+				window.top.scrollTo(0,0);
 			}
 
 			_getLinkLocation(entity) {
