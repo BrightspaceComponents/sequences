@@ -77,6 +77,10 @@
 						const element = await loadFileWithDelay('data/activity-link-scorm.json');
 						expect(element.shadowRoot.querySelector('d2l-sequences-content-link-scorm')).to.exist;
 					});
+					it('should handle onedrive links', async() => {
+						const element = await loadFileWithDelay('data/activity-link-onedrive.json');
+						expect(element.shadowRoot.querySelector('d2l-sequences-content-link-onedrive')).to.exist;
+					});
 				});
 			});
 		</script>
