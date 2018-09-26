@@ -66,7 +66,7 @@
 
 		function getLinkEntityType(linkActivity) {
 			const link = linkActivity.getLinkByRel('about');
-			if (link && link.href.startsWith('https://')) {
+			if (link && link.href.startsWith(window.location.protocol)) {
 				return D2LSequencesContentLink.is;
 			}
 			return D2LSequencesContentLinkMixed.is;
