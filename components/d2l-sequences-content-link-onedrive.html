@@ -60,6 +60,7 @@
 			}
 			connectedCallback() {
 				super.connectedCallback();
+				window.top.scrollTo(0,0);
 				this._language = window.document.getElementsByTagName('html')[0]
 					.getAttribute('lang');
 			}

@@ -29,6 +29,11 @@
 				}
 			}
 
+			connectedCallback() {
+				super.connectedCallback();
+				window.top.scrollTo(0,0);
+			}
+
 			_getFileLocation(entity) {
 				try {
 					const fileActivity = entity.getSubEntityByClass("file-activity");

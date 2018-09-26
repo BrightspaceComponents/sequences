@@ -84,6 +84,12 @@
 					}
 				}
 			}
+
+			connectedCallback() {
+				super.connectedCallback();
+				window.top.scrollTo(0,0);
+			}
+
 			_onChildLinkClick(e) {
 				this.href = e.model.__data.childLink.href;
 			}

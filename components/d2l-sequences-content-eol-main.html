@@ -122,6 +122,12 @@
 			static get observers() {
 				return ['_onActivitySelected(entity)'];
 			}
+
+			connectedCallback() {
+				super.connectedCallback();
+				window.top.scrollTo(0,0);
+			}
+
 			_onActivitySelected(entity) {
 				if ( entity && entity.hasClass('sequenced-activity')) {
 					this.showMissed = false
