@@ -83,12 +83,44 @@
 				}
 
 				_fireToastEvent() {
-					const href = Maybe.of(this._failedCompletion)
+					const activity = Maybe.of(this._failedCompletion)
+						.map(e => e.getSubEntityByClass('activity'));
+
+					if (activity.isNothing()) {
+						this._failedCompletion = null;
+						return;
+					}
+
+					const complete = activity.map(
+						a => a.getSubEntityByClass('completed')
+					);
+
+					if (!complete.isNothing()) {
+						this._failedCompletion = null;
+						return;
+					}
+
+					const currentTitle = Maybe.of(this.entity)
 						.chain(
 							e => e.getSubEntityByClass('activity'),
-							a => a.getLinkByRel('about'),
-							a => a.href
-						).value;
+							a => a.properties,
+							p => p.title
+						);
+
+					const oldTitle = activity.chain(
+						a => a.properties,
+						p => p.title
+					);
+
+					if (currentTitle.value === oldTitle.value) {
+						this._failedCompletion = null;
+						return;
+					}
+
+					const href = activity.chain(
+						a => a.getLinkByRel('about'),
+						a => a.href
+					).value;
 
 					if (!href) {
 						this._failedCompletion = null;
