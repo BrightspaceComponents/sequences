@@ -100,16 +100,20 @@
 						return;
 					}
 
+					// Due to the router / entity store, we may run this
+					// twice during initial load and we don't want to fire
+					// the toast event if we're just refreshing out own
+					// data.
 					const currentTitle = Maybe.of(this.entity)
 						.chain(
 							e => e.getSubEntityByClass('activity'),
-							a => a.properties,
-							p => p.title
+							a => a.getLinkByRel('about'),
+							p => p.href
 						);
 
 					const oldTitle = activity.chain(
-						a => a.properties,
-						p => p.title
+						a => a.getLinkByRel('about'),
+						p => p.href
 					);
 
 					if (currentTitle.value === oldTitle.value) {
