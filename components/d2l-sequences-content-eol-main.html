@@ -3,6 +3,8 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../d2l-polymer-siren-behaviors/store/entity-behavior.html">
 <link rel="import" href="../localize-behavior.html">
+<link rel="import" href="end-of-lesson-complete-image.html">
+<link rel="import" href="end-of-lesson-incomplete-image.html">
  <dom-module id="d2l-sequences-content-eol-main">
 	<template>
 		<style>
@@ -11,27 +13,20 @@
 			}
 			.content-eol-main-container {
 				text-align: center;
-				margin: auto;
-			}
-			.content-eol-main-container-image {
-				width: 514px;
-				height: 289px;
-				background-color: #d8d8d8;
-				border: solid 1px #979797;
-				margin: 68px auto !important;
+				margin:  68px auto;
 			}
 
 			.content-eol-main-container > * {
 				margin: 25px 0;
 			}
-      
+
 			.missed-count-text {
 				color: var(--d2l-color-celestine);
 			}
 		</style>
 		<div class="content-eol-main-container">
  			<template is="dom-if" if="[[!hasMissed]]">
-				<div class="content-eol-main-container-image"></div>
+				<end-of-lesson-complete-image></end-of-lesson-complete-image>
 				<h2>
 					[[localize('congratulations')]]
 				</h2>
@@ -46,7 +41,7 @@
 			</template>
  			<template is="dom-if" if="[[hasMissed]]">
 				<template is="dom-if" if="[[!showMissed]]">
-					<div class="content-eol-main-container-image"></div>
+						<end-of-lesson-incomplete-image></end-of-lesson-incomplete-image>
 					<h2>
 						[[localize('niceWork')]]
 					</h2>
