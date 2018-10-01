@@ -98,7 +98,7 @@
 					const el = await SirenFixture.load('../demo/data/l2-m1-activity1.json', basicFixture);
 					expect(el.href).to.equal('../demo/data/l2-m1-activity1.json');
 
-					el.shadowRoot.querySelector('d2l-icon-button')
+					el.shadowRoot.querySelector('d2l-navigation-button-notification-icon')
 						.click();
 					expect(el.href).to.equal('data/l2-m1-activity2.json');
 				});
@@ -107,7 +107,7 @@
 					const el = await SirenFixture.load('../demo/data/l2-m1-activity2.json', basicFixture);
 					expect(el.href).to.equal('../demo/data/l2-m1-activity2.json');
 
-					el.shadowRoot.querySelector('d2l-icon-button')
+					el.shadowRoot.querySelector('d2l-navigation-button-notification-icon')
 						.click();
 					expect(el.href).to.equal('../demo/data/l2-m1-activity2.json');
 				});

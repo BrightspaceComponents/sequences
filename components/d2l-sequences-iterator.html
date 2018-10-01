@@ -1,134 +1,128 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../d2l-polymer-siren-behaviors/store/entity-behavior.html">
-<link rel="import" href="../../d2l-icons/d2l-icon.html">
-<link rel="import" href="../../d2l-icons/d2l-icon-button.html">
-<link rel="import" href="../../d2l-icons/tier1-icons.html">
-<link rel="import" href="../../d2l-icons/tier2-icons.html">
-<link rel="import" href="../../d2l-icons/tier3-icons.html">
-<link rel="import" href="../../d2l-icons/html-editor-icons.html">
-<link rel="import" href="../../d2l-icons/emoji-icons.html">
+<link rel="import" href="../../d2l-navigation/d2l-navigation-button-notification-icon.html">
 <link rel="import" href="../localize-behavior.html">
 
 <dom-module id="d2l-sequences-iterator">
-    <template>
-        <style>
-            :host {
-                display: inline-block;
-            }
-        </style>
-        <d2l-icon-button
-            id="iteratorButton"
-            disabled="[[disabled]]"
-            aria-disabled$="[[disabled]]"
-            icon="[[icon]]"
-            type="button"
-            on-click="_onClick"
-        >[[localize(iterateTo)]]</d2l-icon-button>
-    </template>
+	<template>
+		<style>
+			:host {
+				display: inline-block;
+			}
+		</style>
+		<d2l-navigation-button-notification-icon
+			id="iteratorButton"
+			disabled="[[disabled]]"
+			aria-disabled$="[[disabled]]"
+			icon="[[icon]]"
+			type="button"
+			on-click="_onClick"
+		>[[localize(iterateTo)]]</d2l-navigation-button-notification-icon>
+	</template>
 
-    <script>
+	<script>
 		/*
-            @extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
+			@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 			@demo demos/index.html
-        */
-        class D2LSequencesIterator extends Polymer.mixinBehaviors([
-            D2L.PolymerBehaviors.Siren.EntityBehavior,
-            D2L.PolymerBehaviors.Sequences.LocalizeBehavior
-            ],
-            Polymer.Element
-        ) {
-            static get is() {
-                return 'd2l-sequences-iterator';
-            }
-            static get properties() {
-                return {
-                    href: {
-                        type: String,
-                        reflectToAttribute: true,
-                        notify: true
-                    },
-                    disabled: {
-                        type: Boolean,
-                        computed: '_isDisabled(entity)'
-                    },
-                    icon: {
-                        type: String
-                    },
-                    next: {
-                        type: Boolean
-                    },
-                    previous: {
-                        type: Boolean
-                    },
-                    up: {
-                        type: Boolean
-                    },
-                    link: {
-                        type: Object
-                    },
-                    iterateTo: {
-                        type: String,
-                        computed: 'getIterateTo()'
-                    }
-                };
-            }
-            static get observers() {
-                return ['_setLink(entity)']
-            }
-            connectedCallback() {
+		*/
+		class D2LSequencesIterator extends Polymer.mixinBehaviors([
+			D2L.PolymerBehaviors.Siren.EntityBehavior,
+			D2L.PolymerBehaviors.Sequences.LocalizeBehavior
+			],
+			Polymer.Element
+		) {
+			static get is() {
+				return 'd2l-sequences-iterator';
+			}
+			static get properties() {
+				return {
+					href: {
+						type: String,
+						reflectToAttribute: true,
+						notify: true
+					},
+					disabled: {
+						type: Boolean,
+						computed: '_isDisabled(entity)'
+					},
+					icon: {
+						type: String
+					},
+					next: {
+						type: Boolean
+					},
+					previous: {
+						type: Boolean
+					},
+					up: {
+						type: Boolean
+					},
+					link: {
+						type: Object
+					},
+					iterateTo: {
+						type: String,
+						computed: 'getIterateTo()'
+					}
+				};
+			}
+			static get observers() {
+				return ['_setLink(entity)']
+			}
+			connectedCallback() {
 				super.connectedCallback();
 			}
-            getIterateTo() {
-                if (this.next) {
-                    return 'iterateToNext';
-                }
-                else if(this.previous) {
-                    return 'iterateToPrevious';
-                }
-                else if(this.up) {
-                    return 'iterateToParent';
-                }
-            }
-            _isDisabled(entity) {
-                if (!entity) {
-                    return true;
-                }
-                if (!this.next && !this.previous && !this.up) {
-                    return true;
-                }
-                if (this.next && !entity.getLinkByRel('next-activity')) {
-                    return true;
-                }
-                if (this.previous && !entity.getLinkByRel('prev-activity')) {
-                    return true;
-                }
-                if (this.up && !entity.getLinkByRel('up')) {
-                    return true;
-                }
-                return false;
-            }
-            _onClick() {
-                if (this.link && this.link.href) {
-                    this.href = this.link.href;
-                }
-            }
-            _setLink(entity) {
-                if (!entity) {
-                    return;
-                }
-                this.link = null;
+			getIterateTo() {
+				if (this.next) {
+					return 'iterateToNext';
+				}
+				else if(this.previous) {
+					return 'iterateToPrevious';
+				}
+				else if(this.up) {
+					return 'iterateToParent';
+				}
+			}
+			_isDisabled(entity) {
+				if (!entity) {
+					return true;
+				}
+				if (!this.next && !this.previous && !this.up) {
+					return true;
+				}
+				if (this.next && !entity.getLinkByRel('next-activity')) {
+					return true;
+				}
+				if (this.previous && !entity.getLinkByRel('prev-activity')) {
+					return true;
+				}
+				if (this.up && !entity.getLinkByRel('up')) {
+					return true;
+				}
+				return false;
+			}
+			_onClick() {
+				if (this.link && this.link.href) {
+					this.href = this.link.href;
+				}
+			}
+			_setLink(entity) {
+				if (!entity) {
+					return;
+				}
+				this.link = null;
 
-                if (this.next) {
-                    this.link = entity.getLinkByRel('next-activity');
-                }
-                else if(this.previous) {
-                    this.link = entity.getLinkByRel('prev-activity');
-                }
-                else if(this.up) {
-                    this.link = entity.getLinkByRel('up');
-                }
-            }
-        }
-        customElements.define(D2LSequencesIterator.is, D2LSequencesIterator);
-    </script>
+				if (this.next) {
+					this.link = entity.getLinkByRel('next-activity');
+				}
+				else if(this.previous) {
+					this.link = entity.getLinkByRel('prev-activity');
+				}
+				else if(this.up) {
+					this.link = entity.getLinkByRel('up');
+				}
+			}
+		}
+		customElements.define(D2LSequencesIterator.is, D2LSequencesIterator);
+	</script>
 </dom-module>
