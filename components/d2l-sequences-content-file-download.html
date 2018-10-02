@@ -128,7 +128,7 @@
 					})
 				}).then(({headers}) => {
 					this._rawFileSize = headers.get('content-length');
-				}).catch(err => {
+				}).catch(() => {
 					this._rawFileSize = 0;
 				});
 			}
