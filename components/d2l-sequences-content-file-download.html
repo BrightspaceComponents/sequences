@@ -86,30 +86,30 @@
 						type: String,
 						computed: '_getHumanFileSize(_rawFileSize)'
 					}
-				}
+				};
 			}
 			connectedCallback() {
 				super.connectedCallback();
 			}
 
 			_scrollToTop() {
-				window.top.scrollTo(0,0);
+				window.top.scrollTo(0, 0);
 			}
 
 			_getFileLocation(entity) {
 				try {
-					const fileActivity = entity.getSubEntityByClass("file-activity");
-					const file = fileActivity.getSubEntityByClass("file");
-					const link = file.getLinkByRel("alternate");
+					const fileActivity = entity.getSubEntityByClass('file-activity');
+					const file = fileActivity.getSubEntityByClass('file');
+					const link = file.getLinkByRel('alternate');
 					return link.href;
-				} catch(e) {
+				} catch (e) {
 					return '';
 				}
 			}
 
 			_getHumanFileSize(bytes) {
 				const thresh = 1000;
-				const units = ['B','kB','MB','GB','TB'];
+				const units = ['B', 'kB', 'MB', 'GB', 'TB'];
 
 				let i;
 				for (i = 0; Math.abs(bytes) >= thresh && i < units.length - 1; i++) {
@@ -129,7 +129,7 @@
 				}).then(({headers}) => {
 					this._rawFileSize = headers.get('content-length');
 				}).catch(err => {
-					this._rawFileSize = 0
+					this._rawFileSize = 0;
 				});
 			}
 		}

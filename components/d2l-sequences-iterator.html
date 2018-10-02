@@ -28,8 +28,8 @@
 		class D2LSequencesIterator extends Polymer.mixinBehaviors([
 			D2L.PolymerBehaviors.Siren.EntityBehavior,
 			D2L.PolymerBehaviors.Sequences.LocalizeBehavior
-			],
-			Polymer.Element
+		],
+		Polymer.Element
 		) {
 			static get is() {
 				return 'd2l-sequences-iterator';
@@ -67,7 +67,7 @@
 				};
 			}
 			static get observers() {
-				return ['_setLink(entity)']
+				return ['_setLink(entity)'];
 			}
 			connectedCallback() {
 				super.connectedCallback();
@@ -76,10 +76,10 @@
 				if (this.next) {
 					return 'iterateToNext';
 				}
-				else if(this.previous) {
+				else if (this.previous) {
 					return 'iterateToPrevious';
 				}
-				else if(this.up) {
+				else if (this.up) {
 					return 'iterateToParent';
 				}
 			}
@@ -115,10 +115,10 @@
 				if (this.next) {
 					this.link = entity.getLinkByRel('next-activity');
 				}
-				else if(this.previous) {
+				else if (this.previous) {
 					this.link = entity.getLinkByRel('prev-activity');
 				}
-				else if(this.up) {
+				else if (this.up) {
 					this.link = entity.getLinkByRel('up');
 				}
 			}

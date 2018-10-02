@@ -44,14 +44,14 @@
 						type: String,
 						computed: '_getLinkLocation(entity)'
 					}
-				}
+				};
 			}
 			static get observers() {
-				return ['_render(entity)']
+				return ['_render(entity)'];
 			}
 
 			_scrollToTop() {
-				window.top.scrollTo(0,0);
+				window.top.scrollTo(0, 0);
 			}
 
 			_getLinkLocation(entity) {
@@ -59,7 +59,7 @@
 					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
 					const link = linkActivity.getLinkByRel('about');
 					return link.href;
-				} catch(e) {
+				} catch (e) {
 					return '';
 				}
 			}
@@ -77,7 +77,7 @@
 						content.classList.remove('hide');
 						spinner.classList.add('hide');
 					}, 200);
-				}
+				};
 			}
 		}
 		customElements.define(D2LSequencesContentLink.is, D2LSequencesContentLink);

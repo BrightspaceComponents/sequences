@@ -56,11 +56,11 @@
 			@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 		*/
 		class D2LSequencesContentEoLMissed extends Polymer.mixinBehaviors([
-				D2L.PolymerBehaviors.Siren.EntityBehavior,
-				D2L.PolymerBehaviors.Sequences.LocalizeBehavior
-			],
-			Polymer.Element
-			) {
+			D2L.PolymerBehaviors.Siren.EntityBehavior,
+			D2L.PolymerBehaviors.Sequences.LocalizeBehavior
+		],
+		Polymer.Element
+		) {
 			static get is() {
 				return 'd2l-sequences-content-eol-missed';
 			}
@@ -83,11 +83,11 @@
 						type: Object,
 						computed: '_getSubEntities(entity)'
 					}
-				}
+				};
 			}
 
 			_scrollToTop() {
-				window.top.scrollTo(0,0);
+				window.top.scrollTo(0, 0);
 			}
 
 			_onChildLinkClick(e) {
@@ -100,10 +100,10 @@
 				return entity.entities;
 			}
 			_onClickBack() {
-				if ( !this.returnUrl ) {
+				if (!this.returnUrl) {
 					return;
 				}
-				if ( window.parent === window ) {
+				if (window.parent === window) {
 					window.location.href = this.returnUrl;
 					return;
 				}

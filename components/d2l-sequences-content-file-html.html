@@ -32,20 +32,20 @@
 						type: String,
 						computed: '_getTitle(entity)'
 					}
-				}
+				};
 			}
 
 			_scrollToTop() {
-				window.top.scrollTo(0,0);
+				window.top.scrollTo(0, 0);
 			}
 
 			_getFileLocation(entity) {
 				try {
-					const fileActivity = entity.getSubEntityByClass("file-activity");
-					const file = fileActivity.getSubEntityByClass("file");
-					const link = file.getLinkByRel("alternate");
+					const fileActivity = entity.getSubEntityByClass('file-activity');
+					const file = fileActivity.getSubEntityByClass('file');
+					const link = file.getLinkByRel('alternate');
 					return link.href;
-				} catch(e) {
+				} catch (e) {
 					return '';
 				}
 			}

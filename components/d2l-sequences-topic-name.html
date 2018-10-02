@@ -14,26 +14,26 @@
 		/*
 			@demo demos/index.html
 	 	*/
-        class D2LSequencesTopicName extends Polymer.mixinBehaviors([
-            D2L.PolymerBehaviors.Siren.EntityBehavior
-            ],
-            Polymer.Element
-        ) {
-            static get is() {
-                return 'd2l-sequences-topic-name';
-            }
-            static get properties() {
-                return {
-                    title: {
-                        type: Object,
-                        computed: '_getTitle(entity)'
-                    }
-                };
-            }
-            _getTitle(entity) {
-                return entity && entity.properties && entity.properties.title || '';
-            }
-        }
-        customElements.define(D2LSequencesTopicName.is, D2LSequencesTopicName);
+class D2LSequencesTopicName extends Polymer.mixinBehaviors([
+	D2L.PolymerBehaviors.Siren.EntityBehavior
+],
+Polymer.Element
+) {
+	static get is() {
+		return 'd2l-sequences-topic-name';
+	}
+	static get properties() {
+		return {
+					title: {
+						type: Object,
+						computed: '_getTitle(entity)'
+					}
+		};
+	}
+	_getTitle(entity) {
+		return entity && entity.properties && entity.properties.title || '';
+	}
+}
+customElements.define(D2LSequencesTopicName.is, D2LSequencesTopicName);
     </script>
 </dom-module>

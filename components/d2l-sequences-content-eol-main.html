@@ -77,11 +77,11 @@
 			@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 		*/
 		class D2LSequencesContentEoLMain extends Polymer.mixinBehaviors([
-				D2L.PolymerBehaviors.Siren.EntityBehavior,
-				D2L.PolymerBehaviors.Sequences.LocalizeBehavior
-			],
-			Polymer.Element
-			) {
+			D2L.PolymerBehaviors.Siren.EntityBehavior,
+			D2L.PolymerBehaviors.Sequences.LocalizeBehavior
+		],
+		Polymer.Element
+		) {
 			static get is() {
 				return 'd2l-sequences-content-eol-main';
 			}
@@ -112,7 +112,7 @@
 						type: Boolean,
 						value: false
 					}
-				}
+				};
 			}
 
 			static get observers() {
@@ -120,12 +120,12 @@
 			}
 
 			_scrollToTop() {
-				window.top.scrollTo(0,0);
+				window.top.scrollTo(0, 0);
 			}
 
 			_onActivitySelected(entity) {
-				if ( entity && entity.hasClass('sequenced-activity')) {
-					this.showMissed = false
+				if (entity && entity.hasClass('sequenced-activity')) {
+					this.showMissed = false;
 				}
 			}
 			_getHasMissed(missedCount) {
@@ -136,10 +136,10 @@
 				return entity.entities.length;
 			}
 			_onClickBack() {
-				if ( !this.returnUrl ) {
+				if (!this.returnUrl) {
 					return;
 				}
-				if ( window.parent === window ) {
+				if (window.parent === window) {
 					window.location.href = this.returnUrl;
 					return;
 				}

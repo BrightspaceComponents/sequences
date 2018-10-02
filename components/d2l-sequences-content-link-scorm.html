@@ -59,14 +59,14 @@
 						type: String,
 						computed: '_getLinkLocation(entity)'
 					}
-				}
+				};
 			}
 			static get contentClass() {
 				return 'link-content-service';
 			}
 
 			_scrollToTop() {
-				window.top.scrollTo(0,0);
+				window.top.scrollTo(0, 0);
 			}
 
 			connectedCallback() {
@@ -77,7 +77,7 @@
 					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
 					const link = linkActivity.getLinkByRel('about');
 					return link.href;
-				} catch(e) {
+				} catch (e) {
 					return '';
 				}
 			}
