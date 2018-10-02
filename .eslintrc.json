@@ -5,6 +5,12 @@
 		"ecmaVersion": 2017
 	},
 	"globals": {
-		"Maybe": true
+		"Maybe": true,
+		"D2LSequencesContentLink": false,
+		"D2LSequencesContentUnknown": false,
+		"D2LSequencesContentFileHtml": false,
+		"D2LSequencesContentLinkScorm": false,
+		"D2LSequencesContentLinkMixed": false,
+		"D2LSequencesContentLinkOnedrive": false
 	}
 }
