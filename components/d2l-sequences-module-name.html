@@ -14,27 +14,25 @@
 		/*
 			@demo demos/index.html
 	 	*/
-class D2LSequencesModuleName extends Polymer.mixinBehaviors([
-	D2L.PolymerBehaviors.Siren.EntityBehavior
-],
-Polymer.Element
-) {
-	static get is() {
-		return 'd2l-sequences-module-name';
-	}
-	static get properties() {
-		return {
+		class D2LSequencesModuleName extends Polymer.mixinBehaviors([
+			D2L.PolymerBehaviors.Siren.EntityBehavior
+		], Polymer.Element) {
+			static get is() {
+				return 'd2l-sequences-module-name';
+			}
+			static get properties() {
+				return {
 					title: {
 						type: Object,
 						computed: '_getTitle(entity)',
 						notify: true
 					}
-		};
-	}
-	_getTitle(entity) {
-		return entity && entity.properties && entity.properties.title || '';
-	}
-}
-customElements.define(D2LSequencesModuleName.is, D2LSequencesModuleName);
+				};
+			}
+			_getTitle(entity) {
+				return entity && entity.properties && entity.properties.title || '';
+			}
+		}
+		customElements.define(D2LSequencesModuleName.is, D2LSequencesModuleName);
     </script>
 </dom-module>
