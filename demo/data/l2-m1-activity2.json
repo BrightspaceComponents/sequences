@@ -78,7 +78,7 @@
 		"rel": ["prev"],
 		"href": "data/l2-m1-activity1.json"
 	},{
-		"rel": ["prev-activity"],
+		"rel": ["https://sequences.api.brightspace.com/rels/prev-activity"],
 		"href": "data/l2-m1-activity1.json"
 	},{
 		"rel": ["up"],
