@@ -71,7 +71,7 @@
 		"rel": ["https://sequences.api.brightspace.com/rels/prev-activity"],
 		"href": "https://00000000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97674"
 	}, {
-		"rel": ["https://sequences.api.brightspace.com/rels/prev-activity"],
+		"rel": ["https://sequences.api.brightspace.com/rels/next-activity"],
 		"href": "https://00000000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97676"
 	}, {
 		"rel": ["up"],
