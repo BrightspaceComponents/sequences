@@ -27,7 +27,7 @@
 
 		it('should have the correct onclick function', async() => {
 			const element = await SirenFixture.load('data/activity-link-scorm.json', fixture('LinkFixture'));
-			const button = element.shadowRoot.querySelector('button');
+			const button = element.shadowRoot.querySelector('d2l-button');
 			expect(button).to.exist;
 			expect(button).to.have.attribute('onclick', 'window.open(\'https://example.bspc.com/d2l/le/content/contentservice/Forward/00000000-0000-0000-000000000000?linkId=1354&ou=%7BorgUnitId%7D\')');
 		});
