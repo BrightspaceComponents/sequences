@@ -47,7 +47,7 @@
 				};
 			}
 			static get observers() {
-				return ['_render()'];
+				return ['_render(entity)'];
 			}
 
 			_scrollToTop() {
@@ -63,7 +63,9 @@
 					return '';
 				}
 			}
-			_render() {
+
+			/* eslint no-unused-vars: 0 */
+			_render(entity) {
 				const content = this.shadowRoot.getElementById('content');
 				const spinner = this.shadowRoot.getElementById('spinner');
 
