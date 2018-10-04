@@ -17,11 +17,9 @@
 	</template>
 </test-fixture>
 <script>
-	/* global SirenFixture */
 	describe('d2l-sequences-content-link-onedrive', () => {
 		before(() => {
 			// skip completion tracking, preventing extraneous HTTP requests
-			/* global D2LSequencesContentLinkOnedrive */
 			D2LSequencesContentLinkOnedrive.prototype._skipCompletion = true;
 		});
 
