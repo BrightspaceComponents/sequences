@@ -6,6 +6,7 @@
 	},
 	"globals": {
 		"Maybe": true,
+		"SirenFixture": true,
 		"D2LSequencesContentLink": false,
 		"D2LSequencesContentUnknown": false,
 		"D2LSequencesContentFileHtml": false,
