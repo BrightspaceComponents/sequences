@@ -90,10 +90,10 @@
 				if (!this.next && !this.previous && !this.up) {
 					return true;
 				}
-				if (this.next && !entity.getLinkByRel('next-activity')) {
+				if (this.next && !entity.getLinkByRel('https://sequences.api.brightspace.com/rels/next-activity')) {
 					return true;
 				}
-				if (this.previous && !entity.getLinkByRel('prev-activity')) {
+				if (this.previous && !entity.getLinkByRel('https://sequences.api.brightspace.com/rels/prev-activity')) {
 					return true;
 				}
 				if (this.up && !entity.getLinkByRel('up')) {
@@ -113,10 +113,10 @@
 				this.link = null;
 
 				if (this.next) {
-					this.link = entity.getLinkByRel('next-activity');
+					this.link = entity.getLinkByRel('https://sequences.api.brightspace.com/rels/next-activity');
 				}
-				else if (this.previous) {
-					this.link = entity.getLinkByRel('prev-activity');
+				else if(this.previous) {
+					this.link = entity.getLinkByRel('https://sequences.api.brightspace.com/rels/prev-activity');
 				}
 				else if (this.up) {
 					this.link = entity.getLinkByRel('up');
