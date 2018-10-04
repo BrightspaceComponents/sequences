@@ -17,11 +17,9 @@
 			</template>
 		</test-fixture>
 		<script>
-			/* global SirenFixture */
 			describe('d2l-sequences-content-file-html', () => {
 				before(() => {
 					// skip completion tracking, preventing extraneous HTTP requests
-					/* global D2LSequencesContentFileHtml */
 					D2LSequencesContentFileHtml.prototype._skipCompletion = true;
 				});
 

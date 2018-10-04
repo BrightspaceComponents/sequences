@@ -17,11 +17,9 @@
 			</template>
 		</test-fixture>
 		<script>
-			/* global SirenFixture */
 			describe('d2l-sequences-content-file-download', () => {
 				before(() => {
 					// skip completion tracking, preventing extraneous HTTP requests
-					/* global D2LSequencesContentFileDownload */
 					D2LSequencesContentFileDownload.prototype._skipCompletion = true;
 
 					// override _setRawFileSize to prevent extraneous HTTP requests

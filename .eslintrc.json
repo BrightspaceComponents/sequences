@@ -7,11 +7,13 @@
 	"globals": {
 		"Maybe": true,
 		"SirenFixture": true,
+		"loadFileWithDelay": true,
 		"D2LSequencesContentLink": false,
 		"D2LSequencesContentUnknown": false,
 		"D2LSequencesContentFileHtml": false,
 		"D2LSequencesContentLinkScorm": false,
 		"D2LSequencesContentLinkMixed": false,
-		"D2LSequencesContentLinkOnedrive": false
+		"D2LSequencesContentLinkOnedrive": false,
+		"D2LSequencesContentFileDownload": false
 	}
 }
