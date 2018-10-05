@@ -109,6 +109,7 @@
 			_onClick() {
 				if (this.link && this.link.href) {
 					this.href = this.link.href;
+					this.dispatchEvent(new CustomEvent('iterate'));
 				}
 			}
 			_setLink(entity) {
