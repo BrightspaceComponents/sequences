@@ -23,7 +23,7 @@
 					D2LSequencesContentFileHtml.prototype._skipCompletion = true;
 				});
 
-				it('iframe srcource must match the file-activity src', async() => {
+				it('iframe source must match the file-activity src', async() => {
 					const element = await SirenFixture.load('data/activity-file-html.json', fixture('FileFixture'));
 					const iframe = element.shadowRoot.querySelector('iframe');
 					expect(iframe).to.have.attribute('src', '../test/data/test.html');
