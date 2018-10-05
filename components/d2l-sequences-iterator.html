@@ -109,7 +109,7 @@
 			_onClick() {
 				if (this.link && this.link.href) {
 					this.href = this.link.href;
-					this.dispatchEvent(new CustomEvent('iterate'));
+					this.dispatchEvent(new CustomEvent('iterate', {composed: true, bubbles: true}));
 				}
 			}
 			_setLink(entity) {
