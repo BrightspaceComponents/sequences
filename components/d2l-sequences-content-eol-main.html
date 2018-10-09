@@ -4,8 +4,7 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../d2l-polymer-siren-behaviors/store/entity-behavior.html">
 <link rel="import" href="../localize-behavior.html">
-<link rel="import" href="end-of-lesson-complete-image.html">
-<link rel="import" href="end-of-lesson-incomplete-image.html">
+<link rel="import" href="d2l-end-of-lesson-image.html">
  <dom-module id="d2l-sequences-content-eol-main">
 	<template>
 		<style>
@@ -27,7 +26,7 @@
 		</style>
 		<div class="content-eol-main-container">
  			<template is="dom-if" if="[[!hasMissed]]">
-				<end-of-lesson-complete-image></end-of-lesson-complete-image>
+				<d2l-end-of-lesson-image completed></d2l-end-of-lesson-image>
 				<h2>
 					[[localize('congratulations')]]
 				</h2>
@@ -42,7 +41,7 @@
 			</template>
  			<template is="dom-if" if="[[hasMissed]]">
 				<template is="dom-if" if="[[!showMissed]]">
-						<end-of-lesson-incomplete-image></end-of-lesson-incomplete-image>
+					<d2l-end-of-lesson-image></d2l-end-of-lesson-image>
 					<h2>
 						[[localize('niceWork')]]
 					</h2>
