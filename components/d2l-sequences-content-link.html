@@ -40,6 +40,9 @@
 						notify: true,
 						observer: '_scrollToTop'
 					},
+					previousHref: {
+						type: String
+					},
 					_linkLocation: {
 						type: String,
 						computed: '_getLinkLocation(entity)'
@@ -65,6 +68,15 @@
 
 			/* eslint no-unused-vars: 0 */
 			_render(entity) {
+				// iframe won't reload if the href doesn't change
+				// so this prevents the spinner from covering it
+				// forever
+				if (this.href === this.previousHref) {
+					return;
+				}
+
+				this.previousHref = this.href;
+
 				const content = this.shadowRoot.getElementById('content');
 				const spinner = this.shadowRoot.getElementById('spinner');
 
