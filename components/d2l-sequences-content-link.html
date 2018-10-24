@@ -59,8 +59,16 @@
 			_getLinkLocation(entity) {
 				try {
 					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
-					const link = linkActivity.getLinkByRel('about');
-					return link.href;
+					// if embed link exists, use that link
+					debugger;
+					const embedLink = linkActivity.getLinkByRel('embed');
+					if (embedLink !== undefined) {
+						return embedLink.href;
+					} else {
+						const link = linkActivity.getLinkByRel('about');
+						return link.href;
+					}
+
 				} catch (e) {
 					return '';
 				}
