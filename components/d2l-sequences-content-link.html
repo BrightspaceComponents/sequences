@@ -60,7 +60,7 @@
 				try {
 					const linkActivity = entity.getSubEntityByClass(D2LSequencesContentLink.contentClass);
 					// if embed link exists, use that link
-					const embedLink = linkActivity.getLinkByRel('embed');
+					const embedLink = linkActivity.getLinkByClass('embed');
 					if (embedLink !== undefined) {
 						return embedLink.href;
 					} else {
