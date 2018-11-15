@@ -121,17 +121,17 @@
 				if (!this._fileLocation) {
 					return;
 				}
-				
+		
 				fetch(this._fileLocation, {
 					method: 'HEAD',
 					headers: new Headers({
 						'Authorization': `Bearer ${this.token}`
 					})
 				}).then(({headers}) => {
-						this._rawFileSize = headers.get('content-length');
-					}).catch(() => {
-						this._rawFileSize = 0;
-					});
+					this._rawFileSize = headers.get('content-length');
+				}).catch(() => {
+					this._rawFileSize = 0;
+				});
 			}
 		}
 		customElements.define(D2LSequencesContentFileDownload.is, D2LSequencesContentFileDownload);

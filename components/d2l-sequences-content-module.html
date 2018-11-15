@@ -26,32 +26,26 @@
 
     <script>
     class D2LSequencesContentModule extends Polymer.mixinBehaviors([
-        D2L.PolymerBehaviors.Siren.EntityBehavior
+    	D2L.PolymerBehaviors.Siren.EntityBehavior
     ],
-        Polymer.Element
+    Polymer.Element
     ) {
-        static get is() {
-            return 'd2l-sequences-content-module';
-        }
+    	static get is() {
+    		return 'd2l-sequences-content-module';
+    	}
 
-        static get contentModuleClass() {
-            return 'sequence-description';
-        }
+    	static get observers() {
+    		return ['_getDescription(entity)'];
+    	}
 
-        static get observers() {
-            return ['_getDescription(entity)'];
-        }
+    	_getDescription(entity) {
+    		if (!entity || !entity.properties || !entity.properties.description) {
+    			return;
+    		}
 
-        _getDescription(entity) {
-            console.log(entity, this.entity);
-            if( !entity || !entity.properties || !entity.properties.description ) {
-                return;
-            }
-
-            this.$.description.innerHTML = entity.properties.description;
-        }
+    		this.$.description.innerHTML = entity.properties.description;
+    	}
     }
-
     
     customElements.define(D2LSequencesContentModule.is, D2LSequencesContentModule);
     </script>
