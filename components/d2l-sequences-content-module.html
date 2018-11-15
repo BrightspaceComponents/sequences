@@ -34,6 +34,10 @@
     		return 'd2l-sequences-content-module';
     	}
 
+        static get contentModuleClass() {
+            return 'sequence-description';
+        }
+
     	static get observers() {
     		return ['_getDescription(entity)'];
     	}
