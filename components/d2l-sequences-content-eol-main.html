@@ -115,6 +115,10 @@
 				};
 			}
 
+			static get eolClass() {
+				return 'end-of-sequence';
+			}
+
 			static get observers() {
 				return ['_onActivitySelected(entity)'];
 			}

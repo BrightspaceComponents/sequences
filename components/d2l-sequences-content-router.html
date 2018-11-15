@@ -7,6 +7,8 @@
 <link rel="import" href="d2l-sequences-content-link-onedrive.html">
 <link rel="import" href="d2l-sequences-content-link.html">
 <link rel="import" href="d2l-sequences-content-unknown.html">
+<link rel="import" href="d2l-sequences-content-eol-main.html">
+<link rel="import" href="d2l-sequences-content-module.html">
 
 <dom-module id="d2l-sequences-content-router">
 	<template></template>
@@ -42,6 +44,15 @@
 			if (!entity || !entity.entities) {
 				return D2LSequencesContentUnknown.is;
 			}
+
+			if( entity.class.includes(D2LSequencesContentEoLMain.eolClass) ) {
+				return D2LSequencesContentEoLMain.is;
+			}
+			
+			if (entity.class.includes(D2LSequencesContentModule.contentModuleClass)) {
+				return D2LSequencesContentModule.is;
+			}
+
 			for (let i = 0; i < entity.entities.length; i++) {
 				const subEntity = entity.entities[i];
 				// hypermedia classes tend to be more specific at the end of the array
