@@ -14,6 +14,8 @@
 		"D2LSequencesContentLinkScorm": false,
 		"D2LSequencesContentLinkMixed": false,
 		"D2LSequencesContentLinkOnedrive": false,
-		"D2LSequencesContentFileDownload": false
+		"D2LSequencesContentFileDownload": false,
+		"D2LSequencesContentEoLMain": false,
+		"D2LSequencesContentModule": false
 	}
 }
