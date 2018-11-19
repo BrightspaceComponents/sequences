@@ -128,7 +128,11 @@
 						'Authorization': `Bearer ${this.token}`
 					})
 				}).then(({headers}) => {
-					this._rawFileSize = parseFloat(headers.get('content-length'));
+					const length = parseFloat(headers.get('content-length'));
+
+					this._rawFileSize = isNaN(length)
+						? 0
+						: length;
 				}).catch(() => {
 					this._rawFileSize = 0;
 				});
