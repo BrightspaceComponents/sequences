@@ -7,6 +7,11 @@
 			) {
 				static get properties() {
 					return {
+						href: {
+							type: String,
+							reflectToAttribute: true,
+							notify: true
+						},
 						_contentType: {
 							type: String
 						},
@@ -15,12 +20,27 @@
 						},
 						_debouncer: {
 							type: Object
+						},
+						_hrefUpdated: {
+							type: Function
 						}
 					};
 				}
 
 				static get observers() {
 					return ['_render(entity)'];
+				}
+
+				connectedCallback() {
+					super.connectedCallback();
+					this._hrefUpdated = this.addEventListener('hrefUpdated', ({detail}) => {
+						this.href = detail.href;
+					});
+				}
+
+				disconnectedCallback() {
+					super.disconnectedCallback();
+					this.removeEventListener('hrefUpdated', this._hrefUpdated);
 				}
 
 				_render(entity) {

@@ -38,8 +38,7 @@
 					<li>
 						<d2l-sequences-content-eol-activity-link
 							href="[[childLink.href]]"
-							token="[[token]]"
-							on-click="_onChildLinkClick">
+							token="[[token]]">
 						</d2l-sequences-content-eol-activity-link>
 					</li>
 				</template>
@@ -90,9 +89,6 @@
 				window.top.scrollTo(0, 0);
 			}
 
-			_onChildLinkClick(e) {
-				this.href = e.model.__data.childLink.href;
-			}
 			_getSubEntities(entity) {
 				if (!entity) {
 					return [];

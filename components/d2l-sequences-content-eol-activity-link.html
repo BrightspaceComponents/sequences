@@ -37,15 +37,18 @@
 					href: {
 						type: String,
 						reflectToAttribute: true,
-						notify: true
 					}
 				};
 			}
 
 			_onClick() {
-				if (this.entity && this.entity.getLinkByRel('self').href) {
-					this.href = this.entity.getLinkByRel('self').href;
-				}
+				const event = new CustomEvent('hrefUpdated', {
+					detail: { href: this.href },
+					composed: true,
+					bubbles: true
+				});
+
+				this.dispatchEvent(event);
 			}
 
 			_getTitle(entity) {
