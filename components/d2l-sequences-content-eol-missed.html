@@ -3,6 +3,8 @@
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../d2l-polymer-siren-behaviors/store/entity-behavior.html">
 <link rel="import" href="../localize-behavior.html">
+<link rel="import" href="../mixins/d2l-sequences-return-mixin.html">
+
  <dom-module id="d2l-sequences-content-eol-missed">
 	<template>
 		<style>
@@ -54,12 +56,10 @@
 		/*
 			@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 		*/
-		class D2LSequencesContentEoLMissed extends Polymer.mixinBehaviors([
+		class D2LSequencesContentEoLMissed extends D2L.Polymer.Mixins.Sequences.ReturnMixin([
 			D2L.PolymerBehaviors.Siren.EntityBehavior,
 			D2L.PolymerBehaviors.Sequences.LocalizeBehavior
-		],
-		Polymer.Element
-		) {
+		]) {
 			static get is() {
 				return 'd2l-sequences-content-eol-missed';
 			}
@@ -73,10 +73,6 @@
 					},
 					token: {
 						type: String
-					},
-					returnUrl: {
-						type: String,
-						value: false
 					},
 					subEntities: {
 						type: Object,
@@ -94,21 +90,6 @@
 					return [];
 				}
 				return entity.entities;
-			}
-			_onClickBack() {
-				if (!this.returnUrl) {
-					return;
-				}
-				if (window.parent === window) {
-					window.location.href = this.returnUrl;
-					return;
-				}
-
-				// If we're in an iframe we need to post a message to do the navigation for us
-				window.parent.postMessage(JSON.stringify({
-					eventType: 'd2l-sequence-viewer-return',
-					returnUrl: this.returnUrl
-				}), '*');
 			}
 		}
 		customElements.define(D2LSequencesContentEoLMissed.is, D2LSequencesContentEoLMissed);
