@@ -140,19 +140,12 @@
 				return entity.entities.length;
 			}
 			_onClickBack() {
-				if (!this.returnUrl) {
-					return;
-				}
-				if (window.parent === window) {
-					window.location.href = this.returnUrl;
-					return;
-				}
+				const event = new CustomEvent('click-back', {
+					composed: true,
+					bubbles: true
+				});
 
-				// If we're in an iframe we need to post a message to do the navigation for us
-				window.parent.postMessage(JSON.stringify({
-					eventType: 'd2l-sequence-viewer-return',
-					returnUrl: this.returnUrl
-				}), '*');
+				this.dispatchEvent(event);
 			}
 			_setShowMissed() {
 				this.showMissed = true;
