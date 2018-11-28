@@ -36,9 +36,7 @@
 					[[localize('activitiesFinishedGreatJob')]]
 				</p>
 				<d2l-button primary on-click="_onClickBack">
-					<label>
-						[[localize('imDone')]]
-					</label>
+					[[localize('imDone')]]
 				</d2l-button>
 			</template>
  			<template is="dom-if" if="[[hasMissed]]">
@@ -54,14 +52,10 @@
 						[[localize('noNeedToFinish', 'count', missedCount)]]
 					</p>
 					<d2l-button on-click="_setShowMissed">
-						<label>
-							[[localize('showMissed')]]
-						</label>
+						[[localize('showMissed')]]
 					</d2l-button>
 					<d2l-button primary on-click="_onClickBack">
-						<label>
-							[[localize('imDone')]]
-						</label>
+						[[localize('imDone')]]
 					</d2l-button>
 				</template>
 				<template is="dom-if" if="[[showMissed]]">
