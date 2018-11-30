@@ -19,7 +19,6 @@
 		"activitiesFinishedGreatJob": "You have completed all of the activities in this lesson. Great job!",
 		"imDone": "I'm Done",
 		"niceWork": "Nice work so far!",
-		"you": "You",
 		"missedActivities": "You <d2l-link>missed {count, plural, one {# activity} other {# activities}}</d2l-link>.",
 		"noNeedToFinish": "If you don't need to finish {count, plural, one {it} other {them}}, no problem.",
 		"showMissed": "Show Me What I Missed",
