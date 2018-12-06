@@ -4,6 +4,20 @@
 		function AutomaticCompletionTrackingMixin() {
 			return class extends D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin() {
 
+				static get properties() {
+					return {
+						href: {
+							type: String,
+							observer: '_onHrefChanged',
+							reflectToAttribute: true,
+							notify: true
+						},
+						_previousHref: {
+							type: String
+						}
+					};
+				}
+
 				static get observers() {
 					return ['_entityUpdated(entity)'];
 				}
@@ -13,9 +27,16 @@
 					this.finishCompletion();
 				}
 
+				_onHrefChanged(href, previousHref) {
+					this._previousHref = previousHref;
+				}
+
 				_entityUpdated() {
-					this.finishCompletion();
-					this.startCompletion();
+					if (this.href !== this._previousHref) {
+						this.finishCompletion();
+						this.startCompletion();
+						this._previousHref = this.href;
+					}
 				}
 			};
 		}

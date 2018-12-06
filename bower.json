@@ -22,12 +22,17 @@
     "d2l-button": "^4.0.0",
     "d2l-link": "^4.0.2",
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#^0.0.3",
-    "d2l-navigation": "^0.5.0"
+    "d2l-navigation": "^0.5.0",
+    "s-html": "Brightspace/s-html#hybrid"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^3.0.0",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "resolutions": {
+    "polymer": "^2.6.0",
+    "webcomponentsjs": "^1.0.0"
   }
 }
