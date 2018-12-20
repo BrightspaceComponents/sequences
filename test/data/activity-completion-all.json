@@ -56,6 +56,10 @@
 			"name": "view-activity-duration",
 			"method": "PUT",
 			"href": "https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97674/view"
+		},{
+			"name": "set-dashboard-view-state",
+			"method": "PUT",
+			"href": "https://00000000-0000-0000-0000-000000000000.sequences.api.proddev.d2l/6614/activity/97674/set-dashboard-view-state"
 		}]
 	}],
 	"links": [{

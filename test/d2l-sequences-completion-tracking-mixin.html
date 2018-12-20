@@ -69,6 +69,16 @@
 				});
 			});
 
+			it('topicSetDashboardViewState must perform siren action: set-dashboard-view-state', async() => {
+				const performSirenAction = sinon.spy(element, 'performSirenAction');
+
+				await SirenFixture.load('data/activity-completion-all.json', element);
+				element.topicSetDashboardViewState();
+				expect(performSirenAction).to.have.been.calledWithMatch({
+					name: 'set-dashboard-view-state',
+				});
+			});
+
 			it('startCompletion must not perform completion tracking during impersonation', async() => {
 				const performCompletion = sinon.spy(element, '_performCompletion');
 
@@ -80,6 +90,19 @@
 				element.startCompletion();
 
 				expect(performCompletion).not.to.have.been.called;
+			});
+
+			it('topicSetDashboardViewState must not perform completion tracking during impersonation', async() => {
+				const performSirenAction = sinon.spy(element, 'performSirenAction');
+
+				await SirenFixture.load('data/activity-completion-all.json', element);
+				element.token = createFakeToken({
+					sub: 175,
+					actualsub: 169
+				});
+				element.topicSetDashboardViewState();
+
+				expect(performSirenAction).not.to.have.been.called;
 			});
 
 			it('finishCompletion must not perform completion tracking during impersonation', async() => {

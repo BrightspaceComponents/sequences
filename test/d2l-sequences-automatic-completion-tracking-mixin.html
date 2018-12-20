@@ -41,11 +41,13 @@
 				element = fixture('MixinFixture');
 			});
 
-			it('startCompletion and finishCompletion must be called when element is updated', async() => {
+			it('startCompletion, topicSetDashboardViewState and finishCompletion must be called when element is updated', async() => {
 				const startCompletion = sinon.stub(element, 'startCompletion', () => {});
 				const finishCompletion = sinon.stub(element, 'finishCompletion', () => {});
+				const topicSetDashboardViewState = sinon.stub(element, 'topicSetDashboardViewState', () => {});
 				await SirenFixture.load('data/activity-completion-all.json', element);
 				expect(startCompletion).to.have.been.called;
+				expect(topicSetDashboardViewState).to.have.been.called;
 				expect(finishCompletion).to.have.been.called;
 			});
 		});

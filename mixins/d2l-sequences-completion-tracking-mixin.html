@@ -28,6 +28,25 @@
 					};
 				}
 
+				topicSetDashboardViewState() {
+					if (!this.entity) {
+						return;
+					}
+					return new Promise((resolve, reject) => {
+						const action = Maybe.of(this.entity)
+							.chain(
+								e => e.getSubEntityByClass('activity'),
+								a => a.getActionByName('set-dashboard-view-state')
+							);
+						if (action.isNothing()) {
+							return reject(this.entity, 'no action found');
+						}
+
+						return this.performSirenAction(action.value)
+							.then(resolve);
+					});
+				}
+
 				finishCompletion() {
 					this._fireToastEvent();
 
