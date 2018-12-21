@@ -80,7 +80,7 @@
 			});
 
 			it('startCompletion must not perform completion tracking during impersonation', async() => {
-				const performCompletion = sinon.spy(element, '_performCompletion');
+				const performViewActions = sinon.spy(element, '_performViewActions');
 
 				await SirenFixture.load('data/activity-completion-all.json', element);
 				element.token = createFakeToken({
@@ -89,11 +89,11 @@
 				});
 				element.startCompletion();
 
-				expect(performCompletion).not.to.have.been.called;
+				expect(performViewActions).not.to.have.been.called;
 			});
 
 			it('finishCompletion must not perform completion tracking during impersonation', async() => {
-				const performCompletion = sinon.spy(element, '_performCompletion');
+				const performViewActions = sinon.spy(element, '_performViewActions');
 
 				await SirenFixture.load('data/activity-completion-all.json', element);
 				element.token = createFakeToken({
@@ -102,7 +102,7 @@
 				});
 				element.finishCompletion();
 
-				expect(performCompletion).not.to.have.been.called;
+				expect(performViewActions).not.to.have.been.called;
 			});
 
 			it('finishCompletion must perform siren action: finish-view-activity', async() => {
