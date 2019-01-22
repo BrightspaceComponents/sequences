@@ -37,7 +37,7 @@
     "polymer-siren-test-helpers": "^1.0.0",
     "wct-browser-legacy": "^1.0.1"
   },
-  "version": "",
+  "version": "1.0.0",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
