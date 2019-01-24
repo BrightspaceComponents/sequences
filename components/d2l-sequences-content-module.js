@@ -1,5 +1,6 @@
 import './d2l-sequences-module-name.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { Maybe } from '../maybe.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 export class D2LSequencesContentModule extends mixinBehaviors([
