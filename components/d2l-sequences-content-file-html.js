@@ -44,7 +44,7 @@ export class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.Au
 		try {
 			const fileActivity = entity.getSubEntityByClass('file-activity');
 			const file = fileActivity.getSubEntityByClass('file');
-			const link = file.getLinkByRel('alternate');
+			const link = file.getLinkByClass('view');
 			return link.href;
 		} catch (e) {
 			return '';
