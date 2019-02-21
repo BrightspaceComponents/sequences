@@ -49,6 +49,11 @@ describe('d2l-sequences-content-router', () => {
 			expect(element.shadowRoot.querySelector(D2LSequencesContentFileHtml.is)).to.exist;
 		});
 
+		it('should handle doc converted files', async() => {
+			const element = await loadFileWithDelay('data/activity-file-doc-converted.json');
+			expect(element.shadowRoot.querySelector(D2LSequencesContentFileHtml.is)).to.exist;
+		});
+
 		it('should handle image/svg+xml', async() => {
 			const element = await loadFileWithDelay('data/activity-file-svg.json');
 			expect(element.shadowRoot.querySelector(D2LSequencesContentFileHtml.is)).to.exist;
