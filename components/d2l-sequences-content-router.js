@@ -37,8 +37,7 @@ class D2LSequencesContentRouter extends D2L.Polymer.Mixins.Sequences.RouterMixin
 			['image/jpeg', D2LSequencesContentFileHtml.is],
 			['image/png', D2LSequencesContentFileHtml.is],
 			['image/svg+xml', D2LSequencesContentFileHtml.is],
-			['text/html', D2LSequencesContentFileHtml.is],
-			['application/vnd.openxmlformats-officedocument.wordprocessingml.document', D2LSequencesContentFileHtml.is]
+			['text/html', D2LSequencesContentFileHtml.is]
 		]);
 	}
 }
@@ -79,6 +78,11 @@ function getEntityType(entity) {
 function getFileEntityType(fileActivity) {
 	const file = fileActivity.getSubEntityByClass('file');
 	const mimeType = file && file.properties && file.properties.type;
+
+	if (file.getLinkByClass('d2l-converted-doc')){
+		mimeType = file.getLinkByClass('d2l-converted-doc').type;
+	}
+
 	return D2LSequencesContentRouter.mimeType.get(mimeType) || D2LSequencesContentRouter.fileUnknown;
 }
 
