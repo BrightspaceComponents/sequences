@@ -25,7 +25,15 @@ export class D2LSequencesIterator extends mixinBehaviors([
 				height: 60px;
 			}
 		</style>
-		<d2l-navigation-button-notification-icon id="iteratorButton" disabled="[[disabled]]" aria-disabled$="[[disabled]]" icon="[[icon]]" type="button" on-click="_onClick">[[localize(iterateTo)]]</d2l-navigation-button-notification-icon>
+		<d2l-navigation-button-notification-icon
+			id="iteratorButton"
+			disabled="[[disabled]]"
+			aria-disabled$="[[disabled]]"
+			icon="[[icon]]"
+			type="button"
+			text="[[localize(iterateTo)]]"
+			on-click="_onClick">
+		</d2l-navigation-button-notification-icon>
 `;
 	}
 
