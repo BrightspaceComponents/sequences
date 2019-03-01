@@ -68,6 +68,9 @@ class D2LEndOfLessonImage extends PolymerElement {
 			.incomplete .st21{fill:#FFFFFF;}
 			.incomplete .st22{opacity:0.2;}
 			.incomplete .st23{opacity:0.13;fill:#F8F9FA;}
+			@media(max-width:514px) {
+				svg { width: 100%; }
+			}
 		</style>
 		<template is="dom-if" if="[[completed]]">
 			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="514" height="319" class="completed" viewBox="0 0 614.1 380.3" style="enable-background:new 0 0 614.1 380.3;" xml:space="preserve">
