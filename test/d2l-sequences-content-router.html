@@ -86,6 +86,14 @@ describe('d2l-sequences-content-router', () => {
 			const element = await loadFileWithDelay('data/activity-link-scorm.json');
 			expect(element.shadowRoot.querySelector(D2LSequencesContentLinkScorm.is)).to.exist;
 		});
+		it('should handle scorm 2004 links', async() => {
+			const element = await loadFileWithDelay('data/activity-link-scorm-2004.json');
+			expect(element.shadowRoot.querySelector(D2LSequencesContentLinkScorm.is)).to.exist;
+		});
+		it('should handle scorm 1-2 links', async() => {
+			const element = await loadFileWithDelay('data/activity-link-scorm-1-2.json');
+			expect(element.shadowRoot.querySelector(D2LSequencesContentLinkScorm.is)).to.exist;
+		});
 		it('should handle onedrive links', async() => {
 			const element = await loadFileWithDelay('data/activity-link-onedrive.json');
 			expect(element.shadowRoot.querySelector(D2LSequencesContentLinkOnedrive.is)).to.exist;

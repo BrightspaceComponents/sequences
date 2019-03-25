@@ -69,6 +69,10 @@ function getEntityType(entity) {
 					return getLinkEntityType(subEntity);
 				case D2LSequencesContentLinkScorm.contentClass:
 					return D2LSequencesContentLinkScorm.is;
+				case 'link-scorm-2004':
+					return D2LSequencesContentLinkScorm.is;
+				case 'link-scorm-1-2':
+					return D2LSequencesContentLinkScorm.is;
 			}
 		}
 	}
