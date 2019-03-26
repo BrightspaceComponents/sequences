@@ -1,16 +1,17 @@
 # d2l-sequences
 [![Build Status](https://www.travis-ci.com/BrightspaceHypermediaComponents/sequences.svg?branch=master)](https://www.travis-ci.com/BrightspaceHypermediaComponents/sequences)
 
-[Polymer](https://www.polymer-project.org)-based web component for D2L sequences.
-
+A set of web components written in [Polymer](https://www.polymer-project.org) to support the siren content hypermedia domain.
 
 ## Installation
 
 ```shell
-bower install d2l-sequences
+npm install
 ```
 
 ## Usage
+
+All of the d2l-sequences components require a `href` and a `token` parameter.
 
 ## Developing, Testing and Contributing
 
@@ -25,7 +26,7 @@ npm install -g polymer-cli
 To start a [local web server](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#serve) that hosts the demo page and tests:
 
 ```shell
-npm start
+polymer serve
 ```
 
 To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#lint)):
@@ -44,4 +45,10 @@ To lint AND run local unit tests:
 
 ```shell
 npm test
+```
+
+To build the lang terms:
+
+```shell
+npm build:lang
 ```

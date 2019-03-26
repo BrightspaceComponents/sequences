@@ -4,23 +4,95 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 		<title>d2l-sequences demo</title>
-		<script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-		<script type="module" src="../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
-		<script type="module" src="../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
-		<script type="module" src="../components/d2l-sequences-module-name.js"></script>
-		<script type="module" src="../components/d2l-sequences-topic-name.js"></script>
-		<script type="module" src="../components/d2l-sequences-iterator.js"></script>
-		<script type="module" src="../../d2l-typography/d2l-typography.js"></script>
+		<script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script type="module">
+			import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+			import '@polymer/iron-demo-helpers/demo-snippet';
+			import 'd2l-icons/d2l-icons.js';
+			import 'd2l-icons/tier2-icons.js';
+			import 'd2l-icons/tier3-icons.js';
+			import "../components/d2l-sequences-module-name.js";
+			import "../components/d2l-sequences-topic-name.js";
+			import "../components/d2l-sequences-iterator.js";
+			import "../components/d2l-sequences-content-router.js";
+			const $_documentContainer = document.createElement('template');
+			$_documentContainer.innerHTML = `
+				<custom-style>
+					<style is="custom-style" include="demo-pages-shared-styles"></style>
+					<style is="custom-style" include="d2l-typography">
+							html {
+								font-size: 20px;
+							}
+							.fixedSize {
+								max-width: 1600px;
+							}
+					</style>
+				</custom-style>
+			`;
+			document.body.appendChild($_documentContainer.content);
+		</script>
+
 	</head>
 	<body class="d2l-typography">
-		<h3>Simple sequences</h3>
+		<h1>D2L-Sequences Web Components Demo</h1>
+		<div class="vertical-section-container centered">
+			<h3>d2l-sequences-module-name</h3>
+			<demo-snippet>
+				<template>
+					<d2l-sequences-module-name href="data/l2-module1.json" token="foo"></d2l-sequences-module-name>
+				</template>
+			</demo-snippet>
+			
+		
+			<h3>d2l-sequences-topic-name</h3>
+			<demo-snippet>
+				<template>
+					<d2l-sequences-topic-name href="data/l2-m1-activity1.json" token="foo"></d2l-sequences-topic-name>
+				</template>
+			</demo-snippet>
 
-		<d2l-sequences-module-name href="data/l2-module1.json" token="foo"></d2l-sequences-module-name>
-		<d2l-sequences-topic-name href="data/l2-m1-activity1.json" token="foo"></d2l-sequences-topic-name>
-		<d2l-sequences-iterator previous icon="d2l-tier3:chevron-left-circle"></d2l-sequences-iterator>
-		<d2l-sequences-iterator next icon="d2l-tier3:chevron-right-circle"></d2l-sequences-iterator>
-		<d2l-sequences-iterator up icon="d2l-tier3:chevron-left"></d2l-sequences-iterator>
+			<h3>d2l-sequences-iterator (previous)</h3>
+			<demo-snippet>
+				<template>
+					<d2l-sequences-iterator previous icon="d2l-tier3:chevron-left-circle" href="data/l2-m1-activity1.json" token="foo"></d2l-sequences-iterator>
+				</template>
+			</demo-snippet>
 
-		<d2l-sequences-content-link-scorm href="../test/data/activity-link-scorm.json" token="fasdf"></d2l-sequences-content-link-scorm>
+			<h3>d2l-sequences-iterator (next)</h3>
+			<demo-snippet>
+				<template>
+					<d2l-sequences-iterator next icon="d2l-tier3:chevron-right-circle" href="data/l2-m1-activity1.json" token="foo"></d2l-sequences-iterator>
+				</template>
+			</demo-snippet>
+
+			<h3>d2l-sequences-iterator (previous disabled)</h3>
+			<demo-snippet>
+				<template>
+					<d2l-sequences-iterator previous icon="d2l-tier3:chevron-left-circle" href="" token="foo"></d2l-sequences-iterator>
+				</template>
+			</demo-snippet>
+
+			<h3>d2l-sequences-iterator (next disabled)</h3>
+			<demo-snippet>
+				<template>
+					<d2l-sequences-iterator next icon="d2l-tier3:chevron-right-circle" href="" token="foo"></d2l-sequences-iterator>
+				</template>
+			</demo-snippet>
+
+			<h3>d2l-sequences-content-router</h3>
+			<demo-snippet>
+				<template>
+					<d2l-sequences-content-router href="../test/data/activity-link-scorm.json" token="fasdf"></d2l-sequences-content-router>
+				</template>
+			</demo-snippet>
+
+			<h3>More demos:</h3>
+			<ul>
+				<li><a href="d2l-sequences-content-html-multipage.html">d2l-sequences-content-html-multipage</a></li>
+				<li><a href="d2l-sequences-content-link-mixed.html">d2l-sequences-content-link-mixed</a></li>
+				<li><a href="d2l-sequences-content-link-scorm.html">d2l-sequences-content-link-scorm</a></li>
+				<li><a href="d2l-sequences-content-router.html">d2l-sequences-content-router</a></li>
+			</ul>
+	</div>
 	</body>
 </html>
