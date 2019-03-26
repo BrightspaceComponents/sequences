@@ -15,22 +15,18 @@
 			import '../components/d2l-sequences-topic-name.js';
 			import '../components/d2l-sequences-iterator.js';
 			import '../components/d2l-sequences-content-router.js';
-			const $_documentContainer = document.createElement('template');
-			$_documentContainer.innerHTML = `
-				<custom-style>
-					<style is="custom-style" include="demo-pages-shared-styles"></style>
-					<style is="custom-style" include="d2l-typography">
-							html {
-								font-size: 20px;
-							}
-							.fixedSize {
-								max-width: 1600px;
-							}
-					</style>
-				</custom-style>
-			`;
-			document.body.appendChild($_documentContainer.content);
 		</script>
+		<custom-style include="d2l-typography">
+			<style is="custom-style" include="demo-pages-shared-styles"></style>
+			<style is="custom-style" include="d2l-typography">
+					html {
+						font-size: 20px;
+					}
+					.fixedSize {
+						max-width: 1600px;
+					}
+			</style>
+		</custom-style>
 
 	</head>
 	<body class="d2l-typography">
