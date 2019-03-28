@@ -2,6 +2,7 @@ import 'd2l-button/d2l-button.js';
 import '../mixins/d2l-sequences-completion-tracking-mixin.js';
 import './d2l-sequences-content-link.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { D2LSequencesContentLink } from './d2l-sequences-content-link.js';
 /*
 	@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 */
