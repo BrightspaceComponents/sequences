@@ -9,6 +9,17 @@ A set of web components written in [Polymer](https://www.polymer-project.org) to
 npm install
 ```
 
+To start a local web server that hosts the demo page and tests:
+
+ ```shell
+polymer analyze > analysis.json && polymer serve
+```
+
+ The demo will be available at http://127.0.0.1:port/components/d2l-sequences/demo/. Port is printed to console after the server starts. Alternatively, you can run the following command and then add /demo to the end of the URL:
+
+ ```shell
+polymer analyze > analysis.json && polymer serve --open
+
 ## Usage
 
 All of the d2l-sequences components require a `href` and a `token` parameter.

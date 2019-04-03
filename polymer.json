@@ -6,5 +6,9 @@
       "set-unknown-attribute",
       "databind-with-unknown-property"
     ]
-  }
+  },
+  "fragments": [
+    "components/*.js",
+    "localize-behavior.js"
+  ]
 }
