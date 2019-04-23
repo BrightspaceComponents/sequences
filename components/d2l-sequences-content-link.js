@@ -53,6 +53,17 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 	static get observers() {
 		return ['_render(entity)'];
 	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		this.multiPageNavListener = window.addEventListener('d2l-sequence-viewer-multipage-navigation', this._navigateMultiPageFile.bind(this));
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		window.removeEventListener('d2l-sequence-viewer-multipage-navigation', this.multiPageNavListener);
+		window.postMessage(JSON.stringify({ handler: 'd2l.nav.reset' }), '*');
+	}
 	_scrollToTop() {
 		window.top.scrollTo(0, 0);
 	}
@@ -101,6 +112,16 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 			content.classList.remove('hide');
 			spinner.classList.add('hide');
 		};
+	}
+
+	_navigateMultiPageFile(e) {
+		const iframe = this.shadowRoot.querySelector('iframe');
+		if (iframe && iframe.contentWindow) {
+			iframe.contentWindow.postMessage(JSON.stringify({
+				handler: 'd2l.nav.client',
+				action: e.detail
+			}), '*')
+		}
 	}
 }
 customElements.define(D2LSequencesContentLink.is, D2LSequencesContentLink);
