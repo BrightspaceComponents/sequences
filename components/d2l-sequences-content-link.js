@@ -120,7 +120,7 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 			iframe.contentWindow.postMessage(JSON.stringify({
 				handler: 'd2l.nav.client',
 				action: e.detail
-			}), '*')
+			}), '*');
 		}
 	}
 }

@@ -71,7 +71,7 @@ export class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.Au
 			iframe.contentWindow.postMessage(JSON.stringify({
 				handler: 'd2l.nav.client',
 				action: e.detail
-			}), '*')
+			}), '*');
 		}
 	}
 }
