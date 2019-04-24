@@ -79,10 +79,10 @@ var D2Lnav = (function() { // eslint-disable-line no-unused-vars
 
 	function requestCustomization() {
 		// NB: payload must be stringified for IE
-		window.top.postMessage( JSON.stringify({
-				handler: NAV_PARENT_HANDLER,
-				hasNext: isLinkSet(document.getElementsByClassName(CUSTOM_NEXT_LINK_SELECTOR)[0]),
-				hasPrev: isLinkSet(document.getElementsByClassName(CUSTOM_PREV_LINK_SELECTOR)[0])
+		window.top.postMessage(JSON.stringify({
+			handler: NAV_PARENT_HANDLER,
+			hasNext: isLinkSet(document.getElementsByClassName(CUSTOM_NEXT_LINK_SELECTOR)[0]),
+			hasPrev: isLinkSet(document.getElementsByClassName(CUSTOM_PREV_LINK_SELECTOR)[0])
 		}),
 		'*');
 	}
