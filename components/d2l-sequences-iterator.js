@@ -89,16 +89,17 @@ export class D2LSequencesIterator extends mixinBehaviors([
 
 	connectedCallback() {
 		super.connectedCallback();
-		window.addEventListener('d2l-nav-request-customizations', this._setUpMultiPageTopic.bind(this));
+		window.addEventListener('message', this._setUpMultiPageTopic.bind(this));
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		window.removeEventListener('d2l-nav-request-customizations', this._setUpMultiPageTopic.bind(this));
+		window.removeEventListener('message', this._setUpMultiPageTopic.bind(this));
 	}
 
 	_setUpMultiPageTopic(e) {
-		const data = JSON.parse(e.detail);
+		const data = JSON.parse(e.data);
+
 		if (data && data.handler === 'd2l.nav.customize') {
 			this.isMultiPage = true;
 			this.multiPageHasNext = Boolean(data.hasNext);

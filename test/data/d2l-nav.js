@@ -20,7 +20,7 @@ var D2Lnav = (function() { // eslint-disable-line no-unused-vars
 		requestCustomization();
 
 		if (!doneInit) {
-			window.addEventListener('d2l-sequences-multipage-nav', handleMessage, false);
+			window.addEventListener('message', handleMessage, false);
 
 			doneInit = true;
 
@@ -44,7 +44,7 @@ var D2Lnav = (function() { // eslint-disable-line no-unused-vars
 
 	function handleMessage(event) {
 		try {
-			var data = JSON.parse(event.detail);
+			var data = JSON.parse(event.data);
 			if (data.handler !== NAV_LOCAL_HANDLER) {
 				return;
 			}
@@ -79,13 +79,13 @@ var D2Lnav = (function() { // eslint-disable-line no-unused-vars
 
 	function requestCustomization() {
 		// NB: payload must be stringified for IE
-		const requestCustomEvent = new CustomEvent('d2l-nav-request-customizations', {
-			detail: JSON.stringify({
-				handler: NAV_PARENT_HANDLER,
-				hasNext: isLinkSet(document.getElementsByClassName(CUSTOM_NEXT_LINK_SELECTOR)[0]),
-				hasPrev: isLinkSet(document.getElementsByClassName(CUSTOM_PREV_LINK_SELECTOR)[0])
-			})});
-		window.parent.dispatchEvent(requestCustomEvent);
+
+		window.parent.postMessage(JSON.stringify({
+			handler: NAV_PARENT_HANDLER,
+			hasNext: isLinkSet(document.getElementsByClassName(CUSTOM_NEXT_LINK_SELECTOR)[0]),
+			hasPrev: isLinkSet(document.getElementsByClassName(CUSTOM_PREV_LINK_SELECTOR)[0])
+		}),
+		'*');
 	}
 
 	function clickIfEnabled(el) {
