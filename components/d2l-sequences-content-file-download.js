@@ -47,7 +47,7 @@ export class D2LSequencesContentFileDownload extends D2L.Polymer.Mixins.Sequence
 				[[localize('fileSize','size',_fileSize)]]
 			</p>
 			<template is="dom-if" if="[[_fileLocation]]">
-				<form method="get" action$="[[_fileLocation]]">
+				<form method="get" target="_blank" action$="[[_fileLocation]]">
 					<button type="submit">
 						<d2l-button primary="">
 							[[localize('download')]]

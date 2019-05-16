@@ -21,17 +21,17 @@
 			"links": [{
 				"rel": ["alternate"],
 				"type": "application/pdf",
-				"href": "data/test.pdf"
+				"href": "../test/data/test.pdf"
 			}, {
 				"rel": ["alternate"],
 				"class": ["view"],
 				"type": "application/pdf",
-				"href": "data/test.pdf"
+				"href": "../test/data/test.pdf"
 			}, {
 				"rel": ["alternate"],
 				"class": ["download"],
 				"type": "application/pdf",
-				"href": "data/test.pdf"
+				"href": "../test/data/test.pdf"
 			}],
 			"entities": [{
 				"rel": ["item"],

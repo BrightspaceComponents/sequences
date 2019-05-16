@@ -14,6 +14,7 @@ import { D2LSequencesContentLink } from './d2l-sequences-content-link.js';
 import { D2LSequencesContentUnknown } from './d2l-sequences-content-unknown.js';
 import { D2LSequencesContentModule } from './d2l-sequences-content-module.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { D2LSequencesContentFileDownload } from './d2l-sequences-content-file-download.js';
 class D2LSequencesContentRouter extends D2L.Polymer.Mixins.Sequences.RouterMixin(getEntityType) {
 	static get template() {
 		return html`
@@ -102,6 +103,10 @@ function getFileEntityType(fileActivity) {
 		mimeType = file.getLinkByClass('d2l-converted-doc').type;
 	}
 
+	if (mimeType === 'application/pdf' && isMobile() && isIOS() && isSafari()) {
+		return D2LSequencesContentFileDownload.is;
+	}
+
 	return D2LSequencesContentRouter.mimeType.get(mimeType) || D2LSequencesContentRouter.fileUnknown;
 }
 
@@ -114,4 +119,19 @@ function getLinkEntityType(linkActivity) {
 	} else {
 		return D2LSequencesContentLinkMixed.is;
 	}
+}
+
+function isMobile() {
+	return /iP[ao]d|iPhone|Android|Windows (?:Phone|CE)|PlayBook|BlackBerry|Vodafone|Mobile/.test( window.navigator.userAgent );
+}
+
+function isIOS() {
+	return /iP[ao]d|iPhone/.test( window.navigator.userAgent );
+}
+
+function isSafari() {
+	return (
+		window.navigator.userAgent.indexOf( 'Safari/' ) >= 0 &&
+		window.navigator.userAgent.indexOf( 'Chrome/' ) === -1
+	);
 }
