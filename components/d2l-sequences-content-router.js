@@ -122,16 +122,16 @@ function getLinkEntityType(linkActivity) {
 }
 
 function isMobile() {
-	return /iP[ao]d|iPhone|Android|Windows (?:Phone|CE)|PlayBook|BlackBerry|Vodafone|Mobile/.test( window.navigator.userAgent );
+	return /iP[ao]d|iPhone|Android|Windows (?:Phone|CE)|PlayBook|BlackBerry|Vodafone|Mobile/.test(window.navigator.userAgent);
 }
 
 function isIOS() {
-	return /iP[ao]d|iPhone/.test( window.navigator.userAgent );
+	return /iP[ao]d|iPhone/.test(window.navigator.userAgent);
 }
 
 function isSafari() {
 	return (
-		window.navigator.userAgent.indexOf( 'Safari/' ) >= 0 &&
-		window.navigator.userAgent.indexOf( 'Chrome/' ) === -1
+		window.navigator.userAgent.indexOf('Safari/') >= 0 &&
+		window.navigator.userAgent.indexOf('Chrome/') === -1
 	);
 }
