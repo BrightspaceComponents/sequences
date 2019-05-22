@@ -16,6 +16,9 @@
 			import '../components/d2l-sequences-topic-name.js';
 			import '../components/d2l-sequences-iterator.js';
 			import '../components/d2l-sequences-content-router.js';
+			window.addEventListener('hrefUpdated', ({detail}) => {
+				alert('\'hrefUpdated\' event has been fired: and would take the user to: \n' + detail.href );
+			});
 		</script>
 		<custom-style include="d2l-typography">
 			<style is="custom-style" include="demo-pages-shared-styles"></style>
@@ -80,6 +83,13 @@
 			<demo-snippet>
 				<template>
 					<d2l-sequences-content-router href="../test/data/activity-link-scorm.json" token="fasdf"></d2l-sequences-content-router>
+				</template>
+			</demo-snippet>
+
+			<h3>d2l-sequences-content-eol-activity-link</h3>
+			<demo-snippet>
+				<template>
+					<d2l-sequences-content-eol-activity-link href="data/l2-m1-activity1.json" token="foo"></d2l-sequences-content-eol-activity-link>
 				</template>
 			</demo-snippet>
 
