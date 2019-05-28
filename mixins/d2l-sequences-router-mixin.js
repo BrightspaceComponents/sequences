@@ -37,20 +37,24 @@ function RouterMixin(getEntityType) {
 			return ['_render(entity, error)'];
 		}
 
-		connectedCallback() {
-			super.connectedCallback();
-			this._hrefUpdated = this.addEventListener('hrefUpdated', ({detail}) => {
+		constructor() {
+			super();
+			this.addEventListener('hrefUpdated', ({detail}) => {
 				this.href = detail.href;
 			});
-			this._D2LErrorListener = window.addEventListener('message', (event) => {
+			this._D2LErrorListener = (event) => {
 				this.error = event.data.type === 'd2l-error';
-			});
+			};
+		}
+
+		connectedCallback() {
+			super.connectedCallback();
+			window.addEventListener('message', this._D2LErrorListener);
 		}
 
 		disconnectedCallback() {
 			super.disconnectedCallback();
-			this.removeEventListener('hrefUpdated', this._hrefUpdated);
-			this.removeEventListener('message', this._D2LErrorListener);
+			window.removeEventListener('message', this._D2LErrorListener);
 		}
 
 		_render(entity, error) {

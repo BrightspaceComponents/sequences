@@ -54,9 +54,14 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 		return ['_render(entity)'];
 	}
 
+	constructor() {
+		super();
+		this.multiPageNavListener = this._navigateMultiPageFile.bind(this);
+	}
+
 	connectedCallback() {
 		super.connectedCallback();
-		this.multiPageNavListener = window.addEventListener('d2l-sequence-viewer-multipage-navigation', this._navigateMultiPageFile.bind(this));
+		window.addEventListener('d2l-sequence-viewer-multipage-navigation', this.multiPageNavListener);
 	}
 
 	disconnectedCallback() {

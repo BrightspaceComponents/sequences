@@ -87,14 +87,19 @@ export class D2LSequencesIterator extends mixinBehaviors([
 		];
 	}
 
+	constructor() {
+		super();
+		this._setUpMultiPageTopicBound = this._setUpMultiPageTopic.bind(this);
+	}
+
 	connectedCallback() {
 		super.connectedCallback();
-		window.addEventListener('message', this._setUpMultiPageTopic.bind(this));
+		window.addEventListener('message', this._setUpMultiPageTopicBound);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		window.removeEventListener('message', this._setUpMultiPageTopic.bind(this));
+		window.removeEventListener('message', this._setUpMultiPageTopicBound);
 	}
 
 	_setUpMultiPageTopic(e) {
