@@ -20,8 +20,14 @@ function AutomaticCompletionTrackingMixin() {
 			return ['_entityUpdated(entity)'];
 		}
 
+		connectedCallback() {
+			super.connectedCallback();
+			window.addEventListener('beforeunload', this.finishCompletion);
+		}
+
 		disconnectedCallback() {
 			super.disconnectedCallback();
+			window.removeEventListener('beforeunload', this.finishCompletion);
 			this.finishCompletion();
 		}
 
