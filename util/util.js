@@ -1,5 +1,3 @@
-// export function redirectCS
-
 function isMobile() {
 	return /iP[ao]d|iPhone|Android|Windows (?:Phone|CE)|PlayBook|BlackBerry|Vodafone|Mobile/.test(window.navigator.userAgent);
 }
