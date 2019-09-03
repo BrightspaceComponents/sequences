@@ -92,6 +92,10 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 
 	/* eslint no-unused-vars: 0 */
 	_render(entity) {
+		if (this._redirect) {
+			this._redirect();
+		}
+
 		// iframe won't reload if the href doesn't change
 		// so this prevents the spinner from covering it
 		// forever

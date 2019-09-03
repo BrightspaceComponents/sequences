@@ -29,7 +29,10 @@ function RouterMixin(getEntityType) {
 				},
 				error: {
 					type: Boolean
-				}
+				},
+				redirectCs: Boolean,
+				csRedirectPath: String,
+				noRedirectQueryParamString: String
 			};
 		}
 
@@ -83,6 +86,9 @@ function RouterMixin(getEntityType) {
 						this.shadowRoot.appendChild(this._contentElement);
 						this._contentElement.href = this.href;
 						this._contentElement.token = this.token;
+						this._contentElement.redirectCs = this.redirectCs;
+						this._contentElement.csRedirectPath = this.csRedirectPath;
+						this._contentElement.noRedirectQueryParamString = this.noRedirectQueryParamString;
 					}
 				}
 			);

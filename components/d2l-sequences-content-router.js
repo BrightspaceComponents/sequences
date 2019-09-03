@@ -15,6 +15,7 @@ import { D2LSequencesContentUnknown } from './d2l-sequences-content-unknown.js';
 import { D2LSequencesContentModule } from './d2l-sequences-content-module.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { D2LSequencesContentFileDownload } from './d2l-sequences-content-file-download.js';
+import { D2LSequencesContentContentServiceLink } from './d2l-sequences-content-content-service-link.js';
 class D2LSequencesContentRouter extends D2L.Polymer.Mixins.Sequences.RouterMixin(getEntityType) {
 	static get template() {
 		return html`
@@ -84,7 +85,7 @@ function getEntityType(entity) {
 				case D2LSequencesContentRouter.linkActivity:
 					return getLinkEntityType(subEntity);
 				case D2LSequencesContentLinkScorm.contentClass:
-					return subEntity.hasClass('open-in-new-tab') ? D2LSequencesContentLinkScorm.is : D2LSequencesContentLink.is;
+					return subEntity.hasClass('open-in-new-tab') ? D2LSequencesContentLinkScorm.is : D2LSequencesContentContentServiceLink.is;
 				case 'link-scorm-2004':
 					return D2LSequencesContentLinkScorm.is;
 				case 'link-scorm-1-2':

@@ -22,6 +22,7 @@ import { D2LSequencesContentLink } from '../components/d2l-sequences-content-lin
 import { D2LSequencesContentLinkMixed } from '../components/d2l-sequences-content-link-mixed';
 import { D2LSequencesContentLinkScorm } from '../components/d2l-sequences-content-link-scorm';
 import { D2LSequencesContentLinkOnedrive } from '../components/d2l-sequences-content-link-onedrive';
+import { D2LSequencesContentContentServiceLink } from '../components/d2l-sequences-content-content-service-link';
 describe('d2l-sequences-content-router', () => {
 	describe('should handle a file activity for the mimetype:', () => {
 		it('application/pdf', async() => {
@@ -88,7 +89,7 @@ describe('d2l-sequences-content-router', () => {
 		});
 		it('should handle scorm links that are embedded', async() => {
 			const element = await loadFileWithDelay('data/activity-link-scorm-embed.json');
-			expect(element.shadowRoot.querySelector(D2LSequencesContentLink.is)).to.exist;
+			expect(element.shadowRoot.querySelector(D2LSequencesContentContentServiceLink.is)).to.exist;
 		});
 		it('should handle scorm 2004 links', async() => {
 			const element = await loadFileWithDelay('data/activity-link-scorm-2004.json');
