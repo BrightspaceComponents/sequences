@@ -35,8 +35,9 @@ function CompletionTrackingMixin() {
 				return;
 			}
 
-			this._performViewActions(this._completionEntity, 'finish-view-activity');
-			this._completionEntity = null;
+			this._performViewActions(this._completionEntity, 'finish-view-activity')
+				.then(() => { this._completionEntity = null; })
+				.catch(() => { this._completionEntity = null; });
 		}
 
 		startCompletion() {

@@ -15,6 +15,9 @@ function AutomaticCompletionTrackingMixin() {
 				},
 				_finishCompletionCallback: {
 					type: Function
+				},
+				_visibilityChangeCallback: {
+					type: Function
 				}
 			};
 		}
@@ -26,16 +29,23 @@ function AutomaticCompletionTrackingMixin() {
 		ready() {
 			super.ready();
 			this._finishCompletionCallback = this.finishCompletion.bind(this);
+			this._visibilityChangeCallback = function() {
+				if(document.visibilityState === 'hidden'){
+					this._finishCompletionCallback();
+				}
+			}.bind(this);
 		}
 
 		connectedCallback() {
 			super.connectedCallback();
-			window.addEventListener('beforeunload', this._finishCompletionCallback);
+			window.addEventListener('pagehide', this._finishCompletionCallback);
+			window.addEventListener('visibilitychange', this._visibilityChangeCallback);
 		}
 
 		disconnectedCallback() {
 			super.disconnectedCallback();
-			window.removeEventListener('beforeunload', this._finishCompletionCallback);
+			window.removeEventListener('pagehide', this._finishCompletionCallback);
+			window.removeEventListener('visibilitychange', this._visibilityChangeCallback);
 			this.finishCompletion();
 		}
 
