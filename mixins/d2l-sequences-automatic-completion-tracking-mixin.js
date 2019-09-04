@@ -30,7 +30,7 @@ function AutomaticCompletionTrackingMixin() {
 			super.ready();
 			this._finishCompletionCallback = this.finishCompletion.bind(this);
 			this._visibilityChangeCallback = function() {
-				if(document.visibilityState === 'hidden'){
+				if (document.visibilityState === 'hidden') {
 					this._finishCompletionCallback();
 				}
 			}.bind(this);
