@@ -32,6 +32,8 @@ function AutomaticCompletionTrackingMixin() {
 			this._visibilityChangeCallback = function() {
 				if (document.visibilityState === 'hidden') {
 					this._finishCompletionCallback();
+				} else {
+					this.startCompletion();
 				}
 			}.bind(this);
 		}
