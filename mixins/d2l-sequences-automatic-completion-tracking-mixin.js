@@ -42,13 +42,15 @@ function AutomaticCompletionTrackingMixin() {
 			super.connectedCallback();
 			window.addEventListener('pagehide', this._finishCompletionCallback);
 			window.addEventListener('visibilitychange', this._visibilityChangeCallback);
+			window.addEventListener('beforeunload', this._finishCompletionCallback);
 		}
 
 		disconnectedCallback() {
 			super.disconnectedCallback();
+			this.finishCompletion();
 			window.removeEventListener('pagehide', this._finishCompletionCallback);
 			window.removeEventListener('visibilitychange', this._visibilityChangeCallback);
-			this.finishCompletion();
+			window.removeEventListener('beforeunload', this._finishCompletionCallback);
 		}
 
 		_onHrefChanged(href, previousHref) {
