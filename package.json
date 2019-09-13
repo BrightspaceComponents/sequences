@@ -16,6 +16,7 @@
     "pretest": "npm run lint",
     "test": "polymer test --skip-plugin sauce",
     "test-p": "polymer test --skip-plugin sauce -p",
+    "test-sauce": "polymer test --skip-plugin local",
     "gen:localize": "plop localize",
     "start": "polymer analyze > analysis.json && polymer serve"
   },
