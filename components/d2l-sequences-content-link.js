@@ -13,6 +13,11 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 			.hide {
 				visibility: hidden;
 			}
+			.scroll-container {
+				-webkit-overflow-scrolling: touch;
+				overflow-y: auto;
+				height: 100%;
+			}
 			d2l-loading-spinner {
 				position: fixed;
 				top: 33%;
@@ -23,7 +28,9 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 			}
 		</style>
 		<d2l-loading-spinner id="spinner"></d2l-loading-spinner>
-		<iframe id="content" class="hide" frameborder="0" scrolling="auto" src$="[[_linkLocation]]"></iframe>
+		<div class="scroll-container">
+			<iframe id="content" class="hide" frameborder="0" scrolling="auto" src$="[[_linkLocation]]"></iframe>
+		</div>
 `;
 	}
 
