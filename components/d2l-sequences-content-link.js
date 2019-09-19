@@ -13,7 +13,7 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 			.hide {
 				visibility: hidden;
 			}
-			.scroll-container {
+			.d2l-sequences-scroll-container {
 				-webkit-overflow-scrolling: touch;
 				overflow-y: auto;
 				height: 100%;
@@ -28,7 +28,7 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 			}
 		</style>
 		<d2l-loading-spinner id="spinner"></d2l-loading-spinner>
-		<div class="scroll-container">
+		<div class="d2l-sequences-scroll-container">
 			<iframe id="content" class="hide" frameborder="0" scrolling="auto" src$="[[_linkLocation]]"></iframe>
 		</div>
 `;
