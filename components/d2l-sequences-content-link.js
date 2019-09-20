@@ -116,12 +116,12 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 		const spinner = this.shadowRoot.getElementById('spinner');
 
 		// initially hide the content, show the spinner
-		content.classList.add('hide');
-		spinner.classList.remove('hide');
+		content.classList.add('d2l-sequences-hide');
+		spinner.classList.remove('d2l-sequences-hide');
 
 		content.onload = function() {
-			content.classList.remove('hide');
-			spinner.classList.add('hide');
+			content.classList.remove('d2l-sequences-hide');
+			spinner.classList.add('d2l-sequences-hide');
 		};
 	}
 
