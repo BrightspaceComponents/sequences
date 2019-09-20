@@ -34,7 +34,7 @@ describe('d2l-sequences-content-file-html-multipage', () => {
 
 	it('Iterators should have multi-page variables', async() => {
 		var element = await SirenFixture('data/activity-file-html-multipage1.json', fixture('FileFixture'));
-		await delay(500);
+		await delay(250);
 		expect(element.shadowRoot.querySelector('iframe')).to.have.attribute('src', '../test/data/multipage1.html');
 		var prev = document.getElementById('prev');
 		var next = document.getElementById('next');
