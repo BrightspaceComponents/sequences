@@ -4,7 +4,7 @@
 	"links": [
 		{
 			"rel": ["self"],
-			"href": "data/example2.json"
+			"href": "data/example-with-html-doc.json"
 		}
 	],
 	"entities": [
