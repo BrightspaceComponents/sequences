@@ -1,0 +1,24 @@
+{
+	"class": ["example"],
+	"properties": { "title": "Example With HTML Document" },
+	"links": [
+		{
+			"rel": ["self"],
+			"href": "data/example2.json"
+		}
+	],
+	"entities": [
+		{
+			"class": ["activity", "file-activity"],
+			"rel": ["about"],
+			"entities": [{
+				"class": ["file"],
+				"rel": ["about"],
+				"links": [{
+					"rel": ["alternate"],
+					"href": "./data/long-html-doc.html"
+				}]
+			}]
+		}
+	]
+}
