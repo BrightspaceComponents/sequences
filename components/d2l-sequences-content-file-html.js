@@ -36,7 +36,6 @@ export class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.Au
 				type: String,
 				computed: '_getFileLocation(entity)'
 			},
-			thing: String,
 			title: {
 				type: String,
 				computed: '_getTitle(entity)'
