@@ -20,9 +20,7 @@ import { isMobile, isIOS, isSafari } from '../util/util.js';
 
 class D2LSequencesContentRouter extends D2L.Polymer.Mixins.Sequences.RouterMixin(getEntityType) {
 	static get template() {
-		return html`
-
-`;
+		return html``;
 	}
 
 	static get is() {

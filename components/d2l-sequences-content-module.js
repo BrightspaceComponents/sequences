@@ -3,6 +3,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import 'd2l-typography/d2l-typography.js';
+
 export class D2LSequencesContentModule extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.Siren.SirenActionBehaviorImpl
@@ -11,11 +12,12 @@ export class D2LSequencesContentModule extends mixinBehaviors([
 		return html`
 		<style include="d2l-typography">
 		:host {
-			max-width: 678px;
-			margin: auto;
 			display: block;
 		}
 
+		.d2l-module-container {
+			max-width: 678px;
+		}
 		.d2l-sequences-module-name {
 			border-bottom: 1px solid #ddd;
 			padding-bottom: 30px;
