@@ -17,6 +17,7 @@ export class D2LSequencesContentModule extends mixinBehaviors([
 
 		.d2l-module-container {
 			max-width: 678px;
+			margin: auto;
 		}
 		.d2l-sequences-module-name {
 			border-bottom: 1px solid #ddd;
