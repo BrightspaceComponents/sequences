@@ -1,5 +1,5 @@
 {
-  "description": "Contains Hypermedia components that display informations about activity sequences, and also d2l-sequence-viewer",
+  "description": "Contains Hypermedia components that display informations about activity sequences",
   "flat": true,
   "repository": {
     "type": "git",
