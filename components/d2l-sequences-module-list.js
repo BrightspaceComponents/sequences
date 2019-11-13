@@ -2,7 +2,7 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 import { SequenceEntity } from 'siren-sdk/src/sequences/SequenceEntity.js';
-import 'd2l-sequence-navigator/components/d2l-completion-status.js';
+import './d2l-sequence-navigator/d2l-completion-status.js';
 import '@polymer/iron-collapse/iron-collapse.js';
 import 'd2l-link/d2l-link-shared-styles.js';
 import 'd2l-icons/d2l-icon.js';
