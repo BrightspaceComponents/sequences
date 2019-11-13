@@ -1,5 +1,5 @@
 {
-  "description": "Contains Hypermedia components that display informations about activity sequences",
+  "description": "Contains Hypermedia components that display informations about activity sequences, and also d2l-sequence-viewer",
   "flat": true,
   "repository": {
     "type": "git",
@@ -10,14 +10,17 @@
   "scripts": {
     "build:lang": "gulp && npm run gen:localize",
     "build": "npm run build:lang",
+    "gen:localize": "plop localize",
     "lint:fix": "eslint *.js {components,mixins,test,demo}/*.js --fix",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
     "lint": "npm run lint:js",
+    "polymer-lint": "polymer lint -i components/*.js, utility/*.js, d2l-sequence-navigator.js",
     "pretest": "npm run lint",
+    "prestart": "npm run build:lang && polymer analyze > analysis.json",
     "test": "polymer test --skip-plugin sauce",
     "test-p": "polymer test --skip-plugin sauce -p",
-    "gen:localize": "plop localize",
-    "start": "polymer analyze > analysis.json && polymer serve"
+    "test-sauce": "polymer test --skip-plugin local",
+    "start": "polymer serve"
   },
   "author": "D2L Corporation",
   "license": "Apache-2.0",
@@ -29,45 +32,59 @@
     "babel-eslint": "^10.0.1",
     "chai-dom": "^1.8.0",
     "eslint": "^4.2.0",
-    "eslint-config-brightspace": "^0.4.0",
+    "eslint-config-brightspace": "^0.4.1",
     "eslint-plugin-html": "^4.0.1",
     "frau-ci": "^1.40.0",
     "gulp": "^4.0.0",
     "gulp-merge-json": "^1.3.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.3.0",
     "plop": "^2.0.0",
-    "polymer-cli": "^1.9.5",
+    "polymer-cli": "^1.9.10",
     "polymer-siren-test-helpers": "^2.0.0",
+    "sinon": "^5.0.7",
     "url-polyfill": "^1.1.3",
     "wct-browser-legacy": "^1.0.1",
     "whatwg-fetch": "^3.0.0"
   },
-  "version": "1.3.24",
+  "version": "1.4.0",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
     "supports-color": "3.1.2",
     "type-detect": "1.0.0"
   },
+  "lint-staged": {
+    "*.html": [
+      "eslint",
+      "git add"
+    ]
+  },
   "main": "d2l-sequences.js",
   "dependencies": {
+    "@brightspace-ui/core": "^1",
     "@d2l/audio": "Brightspace/d2l-audio#semver:^3",
     "@d2l/video": "Brightspace/d2l-video#semver:^1",
     "@polymer/iron-collapse": "^3.0.0-pre.18",
     "@polymer/polymer": "^3.0.0",
+    "d2l-accordion": "BrightspaceUI/accordion#semver:^1",
     "d2l-button": "BrightspaceUI/button#semver:^5",
     "d2l-colors": "BrightspaceUI/colors#semver:^4",
     "d2l-content-icons": "Brightspace/d2l-content-icons#semver:^3",
     "d2l-fetch": "Brightspace/d2l-fetch.git#semver:^2",
     "d2l-icons": "BrightspaceUI/icons#semver:^6",
+    "d2l-intl": "^2.1.0",
     "d2l-link": "BrightspaceUI/link#semver:^5",
     "d2l-loading-spinner": "BrightspaceUI/loading-spinner#semver:^7",
     "d2l-localize-behavior": "BrightspaceUI/localize-behavior#semver:^2",
     "d2l-navigation": "BrightspaceUI/navigation#semver:^4",
     "d2l-sequence-navigator": "BrightspaceHypermediaComponents/d2l-sequence-navigator#semver:^2",
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",
+    "d2l-progress": "BrightspaceUI/progress#semver:^1",
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "polymer-google-drive-viewer": "Brightspace/polymer-google-drive-viewer#semver:^3",
     "s-html": "Brightspace/s-html#semver:^2",
+    "siren-entity": "BrightspaceHypermediaComponents/siren-entity#semver:^1",
     "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^1"
   }
 }
