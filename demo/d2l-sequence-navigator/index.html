@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" style="font-size:20px; font-family: 'Lato', sans-serif;"
+	data-asv-css-vars='{"--d2l-asv-primary-color":"#990000","--d2l-asv-accent-color":"rgb(142,124,195)","--d2l-asv-text-color":"var(--d2l-color-ferrite)","--d2l-asv-selected-text-color":"var(--d2l-color-white)","--d2l-asv-hover-color":"rgba(142,124,195, 0.18)","--d2l-asv-border-color":"transparent"}'>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+	<title>d2l-sequence-navigator demo</title>
+	<script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+	<script type="module">
+		import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+		import '@polymer/iron-demo-helpers/demo-snippet';
+		import '../../components/d2l-sequence-navigator/d2l-sequence-navigator.js';
+		import 'd2l-typography/d2l-typography.js';
+		import '../../components/d2l-sequence-navigator/d2l-sequence-end.js';
+		import '../../components/d2l-sequence-navigator/d2l-lesson-header.js';
+		import '../../components/d2l-sequence-navigator/d2l-missed-activity.js';
+		window.D2L.Siren.WhitelistBehavior._testMode(true);
+	</script>
+
+	<custom-style>
+		<style is="custom-style" include="demo-pages-shared-styles"></style>
+		<style>
+			html {
+				--d2l-asv-primary-color: #990000;
+				--d2l-asv-accent-color: rgb(142, 124, 195);
+				--d2l-asv-text-color: var(--d2l-color-ferrite);
+				--d2l-asv-selected-text-color: white;
+				--d2l-asv-hover-color: rgba(142, 124, 195, 0.18);
+				--d2l-asv-border-color: transparent;
+			}
+		</style>
+	</custom-style>
+	<custom-style include="d2l-typography">
+		<style is="custom-style" include="d2l-typography"></style>
+		<style>
+			.body {
+				@apply --d2l-typography;
+			}
+		</style>
+	</custom-style>
+	<style>
+		d2l-sequence-navigator {
+			--d2l-sequence-nav-padding: 30px;
+		}
+	</style>
+
+<body class="d2l-typography">
+	<div class="vertical-section-container centered">
+		<h3>Simple sequence-navigator</h3>
+		<demo-snippet>
+			<template>
+				<h4>Sequence navigator with no outer container</h4>
+				<d2l-sequence-navigator href="data/m2-activity2.json" token="foozleberries"
+					current-activity="data/m2-activity2.json">
+					<d2l-lesson-header slot="lesson-header"
+									   href="data/lesson1.json"
+									   token="token"
+									   module-properties='{"moduleIndex":2,"numberOfSiblingModules":6,"title":"Testo Courso","useNewProgressBar":true}'>
+					</d2l-lesson-header>
+					<d2l-sequence-end slot="end-of-lesson" href="data/sequence-end.json" text="End of Sequence"
+						token="foozleberries"></d2l-sequence-end>
+				</d2l-sequence-navigator>
+			</template>
+		</demo-snippet>
+		<demo-snippet>
+			<template>
+				<h4>Sequence navigator contained in a 380px wide container</h4>
+				<div style="width: 380px">
+					<d2l-sequence-navigator href="data/m2-activity2.json" token="foozleberries"
+											current-activity="data/m2-activity2.json">
+						<d2l-lesson-header slot="lesson-header"
+										   href="data/lesson1.json"
+										   token="token"
+										   module-properties='{"moduleIndex":2,"numberOfSiblingModules":6,"title":"Testo Courso","useNewProgressBar":true}'>
+						</d2l-lesson-header>
+						<d2l-sequence-end slot="end-of-lesson" href="data/sequence-end.json" text="End of Sequence"
+										  token="foozleberries"></d2l-sequence-end>
+					</d2l-sequence-navigator>
+				</div>
+			</template>
+		</demo-snippet>
+		<demo-snippet>
+			<template>
+				<h4>Outer Module</h4>
+				<d2l-outer-module href="data/l1-module2.json" token="foozleberries">
+				</d2l-outer-module>
+			</template>
+		</demo-snippet>
+		<demo-snippet>
+			<template>
+				<h4>Inner Module</h4>
+				<d2l-inner-module href="data/l1-module2.json" token="foozleberries">
+				</d2l-inner-module>
+			</template>
+		</demo-snippet>
+		<demo-snippet>
+			<template>
+				<h4>Incomplete Activity</h4>
+				<d2l-activity-link href="data/activity1.json" token="foozleberries">
+				</d2l-activity-link>
+
+				<h4>Complete Activity</h4>
+				<d2l-activity-link href="data/activity2.json" token="foozleberries">
+				</d2l-activity-link>
+			</template>
+		</demo-snippet>
+		<demo-snippet>
+			<template>
+				<h4>Empty Module</h4>
+				<d2l-outer-module href="data/empty-module.json" token="emptytoken">
+				</d2l-outer-module>
+			</template>
+		</demo-snippet>
+		<demo-snippet>
+			<template>
+				<d2l-lesson-header href="data/lesson1.json" token="token">
+				</d2l-lesson-header>
+			</template>
+		</demo-snippet>
+		<demo-snippet>
+			<template>
+				<h4>Missed Activity Module</h4>
+				<d2l-missed-activity href="data/missed-activity.json" token="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImRlYmIzMmNlLTQzMDQtNDg1YS04MDI5LTZkNjkxYWVjNTdkZCJ9.eyJ0ZW5hbnRpZCI6ImEyZjc2NzI4LTk0MjMtNDA5OC1iMWM4LTU1YmM4ZWVkMTI0MCIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJhM2Y3YmQzNS1iMWM1LTQzYmQtOTgwMi1iMTA0OWEzM2NhNjUiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTU3NzYxOTc4LCJuYmYiOjE1NTc3NTgzNzh9.juuVN6k9C94A9tlgiF5KLBOQEVSN7T_gOHjxZazi_deiNZ_-vYGl18WpswMT8y-BH5n3nye8Pv-zzXDHNJhNtQICOlMbyufCA2GYLKxbyeocqNQgHCKhJfu0oxBBEpTRATUc1qrUNBEoLPuT_ak53gqr-y9ZYb-_UWnW6xpgujDIdS4QvJOBxjQo-X_R54VTOstD_gc0s47EhsU8W_Y3XCHWB50tg2tMEch0J4KZXh0E9aKLDqcot22SXdlhkH8QWHjjUdHjAs9XxjGSJTHETz81ni-zXJ4YoFX-Ku-WTWWMmcaE_p37RmzoNS1hkNE7Dc1vFNbvuCBKbMghW8optg">
+				</d2l-missed-activity>
+			</template>
+		</demo-snippet>
+		<demo-snippet>
+			<template>
+				<h4>Singular Missed Activity Module</h4>
+				<d2l-missed-activity href="data/missed-activity1.json" token="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6ImRlYmIzMmNlLTQzMDQtNDg1YS04MDI5LTZkNjkxYWVjNTdkZCJ9.eyJ0ZW5hbnRpZCI6ImEyZjc2NzI4LTk0MjMtNDA5OC1iMWM4LTU1YmM4ZWVkMTI0MCIsInNjb3BlIjoiKjoqOioiLCJqdGkiOiJhM2Y3YmQzNS1iMWM1LTQzYmQtOTgwMi1iMTA0OWEzM2NhNjUiLCJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTU3NzYxOTc4LCJuYmYiOjE1NTc3NTgzNzh9.juuVN6k9C94A9tlgiF5KLBOQEVSN7T_gOHjxZazi_deiNZ_-vYGl18WpswMT8y-BH5n3nye8Pv-zzXDHNJhNtQICOlMbyufCA2GYLKxbyeocqNQgHCKhJfu0oxBBEpTRATUc1qrUNBEoLPuT_ak53gqr-y9ZYb-_UWnW6xpgujDIdS4QvJOBxjQo-X_R54VTOstD_gc0s47EhsU8W_Y3XCHWB50tg2tMEch0J4KZXh0E9aKLDqcot22SXdlhkH8QWHjjUdHjAs9XxjGSJTHETz81ni-zXJ4YoFX-Ku-WTWWMmcaE_p37RmzoNS1hkNE7Dc1vFNbvuCBKbMghW8optg">
+				</d2l-missed-activity>
+			</template>
+		</demo-snippet>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+{
+	"properties": {
+		"title": "Module 2",
+		"startDate": {
+		  "Year": 2050,
+		  "Month": 3,
+		  "Day": 7
+		}
+	},
+	"entities": [
+		{
+			"class": ["sequenced-activity", "available"],
+			"rel": ["self", "https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/m2-activity1.json"
+		},
+		{
+			"class": ["sequenced-activity", "available"],
+			"rel": ["self", "https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/m2-activity2.json"
+		},
+		{
+			"class": ["sequenced-activity", "available"],
+			"rel": ["self", "https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/m2-activity3.json"
+		},
+		{
+			"class": ["sequenced-activity", "available"],
+			"rel": ["self", "https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/m2-activity4.json"
+		},
+		{
+			"class": ["sequenced-activity", "available"],
+			"rel": ["self", "https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/m2-activity5.json"
+		},
+		{
+			"class": ["sequence", "sequence-description"],
+			"rel": ["self", "https://api.brightspace.com/rels/sequence-description"],
+			"href": "data/l2-module1.json"
+		},
+		{
+			"class": [
+			  "completion",
+			  "incomplete"
+			],
+			"properties": {
+			  "completed": 3,
+			  "total": 3,
+			  "optionalViewed": 1,
+			  "optionalTotal": 2
+			},
+			"rel": [ "item", "https://api.brightspace.com/rels/completion"]
+		}
+	],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/l1-module2.json"
+	}, {
+		"rel": ["prev"],
+		"href": "data/l1-activity1.json"
+	}, {
+		"rel": ["up"],
+		"href": "data/lesson1.json"
+	}],
+	"class": ["sequence", "sequence-description"]
+}

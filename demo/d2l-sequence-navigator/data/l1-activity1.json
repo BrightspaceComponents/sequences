@@ -1,0 +1,235 @@
+{
+	"class": [
+		"sequenced-activity"
+	],
+	"properties": {
+		"title": "Quiz",
+		"overDue": true,
+		"dueDate": {
+			"Year": 2019,
+			"Month": 3,
+			"Day": 7,
+			"Hour": 13,
+			"Minute": 53,
+			"Second": 0,
+			"Millisecond": 0,
+			"TimeOfDay": {
+				"Hour": 13,
+				"Minute": 53,
+				"Second": 0,
+				"Millisecond": 0,
+				"TotalHours": 13.883333333333333,
+				"TotalMinutes": 833.0,
+				"TotalSeconds": 49980.0,
+				"TotalMilliseconds": 49980000.0,
+				"Ticks": 499800000000
+			},
+			"DayOfWeek": 2
+		}
+	},
+	"entities": [
+		{
+			"class": [
+				"icon",
+				"tier1"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier1:quizzing",
+				"imagePath": "https://s.brightspace.com/lib/bsi/20.19.7-39/images/tier1/quizzing.svg"
+			}
+		},
+		{
+			"class": [
+				"icon",
+				"tier2"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier2:quizzing",
+				"imagePath": "https://s.brightspace.com/lib/bsi/20.19.7-39/images/tier2/quizzing.svg"
+			}
+		},
+		{
+			"class": [
+				"activity",
+				"link-activity",
+				"link-plain"
+			],
+			"rel": [
+				"about",
+				"item"
+			],
+			"properties": {
+				"title": "Quiz"
+			},
+			"entities": [
+				{
+					"class": [
+						"completion",
+						"incomplete",
+						"manual"
+					],
+					"rel": [
+						"item",
+						"https://api.brightspace.com/rels/completion"
+					],
+					"entities": [
+						{
+							"class": [
+								"due",
+								"date",
+								"overdue"
+							],
+							"rel": [
+								"item"
+							],
+							"properties": {
+								"date": "2019-06-11T17:53:00.000Z"
+							}
+						}
+					],
+					"links": [
+						{
+							"rel": [
+								"alternate"
+							],
+							"href": "https://0ad33492-00de-49f0-a686-61422639cef2.sequences.api.dev.brightspace.com/131726/activity/114218/completion"
+						}
+					]
+				}
+			],
+			"actions": [
+				{
+					"href": "https://0ad33492-00de-49f0-a686-61422639cef2.sequences.api.dev.brightspace.com/131726/activity/114218/view?hasBeenViewed=0&filterOnDatesAndDepth=1",
+					"name": "view-activity",
+					"method": "POST"
+				},
+				{
+					"href": "https://0ad33492-00de-49f0-a686-61422639cef2.sequences.api.dev.brightspace.com/131726/activity/114218/view?hasBeenViewed=0&filterOnDatesAndDepth=1",
+					"name": "view-activity-duration",
+					"method": "PUT"
+				},
+				{
+					"href": "https://0ad33492-00de-49f0-a686-61422639cef2.sequences.api.dev.brightspace.com/131726/activity/114218/set-last-viewed-content-object",
+					"name": "set-last-viewed-content-object",
+					"method": "POST"
+				}
+			],
+			"links": [
+				{
+					"rel": [
+						"about"
+					],
+					"href": "https://qa2019716999g.bspc.com/d2l/common/dialogs/quickLink/quickLink.d2l?ou=131726&type=quiz&rcode=Dev-44"
+				},
+				{
+					"class": [
+						"embed"
+					],
+					"rel": [
+						"alternate"
+					],
+					"href": "https://qa2019716999g.bspc.com/d2l/le/content/131726/fullscreen/114218/View?asv=False&skipHeader=False"
+				},
+				{
+					"class": [
+						"embed-asv"
+					],
+					"rel": [
+						"alternate"
+					],
+					"href": "https://qa2019716999g.bspc.com/d2l/le/content/131726/fullscreen/114218/View?asv=True&skipHeader=False"
+				},
+				{
+					"class": [
+						"view"
+					],
+					"rel": [
+						"alternate"
+					],
+					"href": "https://qa2019716999g.bspc.com/d2l/le/content/131726/viewContent/114218/View"
+				}
+			]
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"describes"
+			],
+			"href": "https://0ad33492-00de-49f0-a686-61422639cef2.sequences.api.dev.brightspace.com/131726/activity/114218?filterOnDatesAndDepth=1"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "https://0ad33492-00de-49f0-a686-61422639cef2.organizations.api.dev.brightspace.com/131726"
+		},
+		{
+			"rel": [
+				"prev"
+			],
+			"href": "https://0ad33492-00de-49f0-a686-61422639cef2.sequences.api.dev.brightspace.com/131726/activity/114217?filterOnDatesAndDepth=1"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/next-activity"
+			],
+			"href": "https://0ad33492-00de-49f0-a686-61422639cef2.sequences.api.dev.brightspace.com/131726/activity/114220?filterOnDatesAndDepth=1"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/previous-activity"
+			],
+			"href": "https://0ad33492-00de-49f0-a686-61422639cef2.sequences.api.dev.brightspace.com/131726/activity/114217?filterOnDatesAndDepth=1"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/sequence-root"
+			],
+			"href": "https://0ad33492-00de-49f0-a686-61422639cef2.sequences.api.dev.brightspace.com/131726/activity/114216?filterOnDatesAndDepth=1"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/end-of-sequence"
+			],
+			"href": "https://0ad33492-00de-49f0-a686-61422639cef2.sequences.api.dev.brightspace.com/131726/activity/114216/end-of-sequence?filterOnDatesAndDepth=1"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/default-return-url"
+			],
+			"type": "text/html",
+			"href": "https://qa2019716999g.bspc.com/d2l/le/content/131726/Home"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/sequence-viewer-application"
+			],
+			"type": "text/html",
+			"href": "https://qa2019716999g.bspc.com/d2l/le/enhancedSequenceViewer/131726?url=https%3a%2f%2f0ad33492-00de-49f0-a686-61422639cef2.sequences.api.dev.brightspace.com%2f131726%2factivity%2f114218%3ffilterOnDatesAndDepth%3d1"
+		},
+		{
+			"rel": [
+				"alternate"
+			],
+			"type": "text/html",
+			"href": "https://qa2019716999g.bspc.com/d2l/le/content/131726/viewContent/114218/View"
+		},
+		{
+			"rel": [
+				"up"
+			],
+			"href": "https://0ad33492-00de-49f0-a686-61422639cef2.sequences.api.dev.brightspace.com/131726/activity/120822?filterOnDatesAndDepth=1"
+		}
+	],
+	"rel": [
+		"item"
+	]
+}

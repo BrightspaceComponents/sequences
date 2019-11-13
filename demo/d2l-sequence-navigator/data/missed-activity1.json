@@ -1,0 +1,52 @@
+{
+	"properties": {
+		"title": "End of Unit"
+	},
+	"class": [
+		"sequence",
+		"sequence-description",
+		"end-of-sequence"
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"https://sequences.api.brightspace.com/rels/end-of-sequence"
+			],
+			"href": "data/l1-module2.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/sequence-root",
+				"https://api.brightspace.com/rels/sequence-description"
+			],
+			"href": "data/l1-module2.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/default-return-url"
+			],
+			"href": "https://qa2019616454g.bspc.com/d2l/le/content/131726/Home",
+			"type": "text/html"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/previous-activity"
+			],
+			"href": "data/m2-activity4.json"
+		}
+	],
+	"entities": [
+		{
+			"class": [
+				"sequenced-activity",
+				"available"
+			],
+			"rel": [
+				"self",
+				"https://api.brightspace.com/rels/sequenced-activity"
+			],
+			"href": "data/m2-activity1.json"
+		}
+	]
+}

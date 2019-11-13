@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" style="font-size:20px; font-family: 'Lato', sans-serif;">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-sequence-navigator demo</title>
+		<script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script type="module">
+			import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+			import '@polymer/iron-demo-helpers/demo-snippet';
+			import '../../components/d2l-sequence-navigator/d2l-sequence-navigator.js';
+			import 'd2l-typography/d2l-typography.js';
+		</script>
+		<!-- FIXME(polymer-modulizer):
+		These imperative modules that innerHTML your HTML are
+		a hacky way to be sure that any mixins in included style
+		modules are ready before any elements that reference them are
+		instantiated, otherwise the CSS @apply mixin polyfill won't be
+		able to expand the underlying CSS custom properties.
+		See: https://github.com/Polymer/polymer-modulizer/issues/154
+		-->
+	<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
+			<style is="custom-style" include="demo-pages-shared-styles"></style>
+			<style is="custom-style">
+				html {
+					--d2l-branding-asv-primary-color: #990000;
+					--d2l-branding-asv-accent-color: #8e7cc3;
+					--d2l-branding-asv-text-color: var(--d2l-color-ferrite);
+					--d2l-branding-asv-selected-text-color: var(--d2l-color-white);
+					--d2l-branding-asv-hover-color: #9900002E;
+					--d2l-branding-asv-border-color: transparent;
+				}
+
+				.sidebar {
+					width: 330px;
+					height: 800px;
+					background-color: var(--d2l-asv-primary-color);
+				}
+
+			</style>
+		</custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+		<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style include="d2l-typography">
+			<style is="custom-style" include="d2l-typography"></style>
+			<style>
+				body {
+					@apply --d2l-typography;
+				}
+			</style>
+		</custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+	</head>
+	<body class="d2l-typography">
+		<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<div class="vertical-section-container centered">
+			<h3>Simple sequence-navigator</h3>
+			<demo-snippet>
+				<template>
+					<h4>Sequence navigator in a sidebar</h4>
+					<div class="sidebar">
+						<d2l-sequence-navigator href="data/m2-activity2.json" token="foozleberries" current-activity="data/m2-activity2.json"></d2l-sequence-navigator>
+					</div>
+				</template>
+			</demo-snippet>
+		</div>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+	</body>
+</html>
