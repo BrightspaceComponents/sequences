@@ -1,0 +1,49 @@
+{
+	"properties": {
+		"title": "Unit 3"
+	},
+	"rel": ["item"],
+	"entities": [
+		{
+			"class": ["sequence", "sequenced-activity", "unavailable"],
+			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/unit3-activity1.json"
+		},
+		{
+			"class": ["sequence", "sequenced-activity"],
+			"rel": ["https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/unit3-activity2.json"
+		},
+		{
+			"class": [
+			  "completion",
+			  "completed"
+			],
+			"properties": {
+			  "completed": 0,
+			  "total": 1,
+			  "optionalViewed": 0,
+			  "optionalTotal": 0
+			},
+			"rel": [ "item", "https://api.brightspace.com/rels/completion"]
+		}
+	],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/unit3.json"
+	}, {
+		"rel": ["next"],
+		"href": "data/unit3-activity1.json"
+	},
+	{
+		"rel": ["up"],
+		"href": "https://api.brightspace.com/rels/organization"
+	},
+	{
+		"rel": [
+		"https://sequences.api.brightspace.com/rels/sequence-root"
+		],
+		"href": "data/unit3.json"
+	}],
+	"class": ["sequence", "sequence-description"]
+}

@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>d2l-lesson-header test</title>
+
+		<script src="../../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../../../wct-browser-legacy/browser.js"></script>
+		<script src="../../node_modules/chai-dom/chai-dom.js"></script>
+		<script type="module" src="../../../@polymer/polymer/polymer-legacy.js"></script>
+		<script type="module" src="../../components/d2l-sequence-navigator/d2l-lesson-header.js"></script>
+		<style>
+			#DarkBackgroundFixture {
+				--d2l-asv-primary-color: #990000;
+
+			}
+			#LightBackgroundFixture {
+				--d2l-asv-primary-color: #6ffaff;
+			}
+		</style>
+	</head>
+	<body>
+		<test-fixture id="LessonFixture">
+			<template>
+				<d2l-lesson-header token="bamboozle"></d2l-lesson-header>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="BadLessonFixture">
+			<template>
+				<d2l-lesson-header token="bamboozle"></d2l-lesson-header>
+			</template>
+		</test-fixture>
+		<test-fixture id="DarkBackgroundFixture">
+			<template>
+				<d2l-lesson-header  token="bamboozle"
+									current-activity="data/lesson-enhanced.json">
+				</d2l-lesson-header>
+			</template>
+		</test-fixture>
+		<test-fixture id="LightBackgroundFixture">
+			<template>
+				<d2l-lesson-header  token="bamboozle"
+									current-activity="data/lesson-enhanced.json">
+ 				</d2l-lesson-header>
+			</template>
+		</test-fixture>
+		<script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '../../components/d2l-sequence-navigator/d2l-lesson-header.js';
+import SirenFixture from 'polymer-siren-test-helpers';
+
+describe('d2l-lesson-header', () => {
+	describe('for a lesson', () => {
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/lesson1.json', fixture('LessonFixture'));
+		});
+
+		it('should instantiate the element with default properties', () => {
+			expect(element.href)
+				.to
+				.equal('data/lesson1.json');
+
+			expect(element.token)
+				.to
+				.equal('bamboozle');
+		});
+
+		it('should create module title element', () => {
+			const moduleTitle = element.shadowRoot.querySelector('.module-title');
+			expect(moduleTitle)
+				.to
+				.exist;
+
+			expect(moduleTitle)
+				.to.contain
+				.text('Lesson 1');
+		});
+
+		it('should display module index given index and total', () => {
+			const useModuleIndex = !!element._checkModuleIndex({
+				moduleIndex: 2,
+				numberOfSiblingModules: 4
+			});
+			expect(useModuleIndex)
+				.to
+				.equal(true);
+		});
+
+		it('should create progress bar element with correct percentage completion', () => {
+			const progressBar = element.shadowRoot.querySelector('progress');
+			expect(progressBar)
+				.to
+				.exist;
+
+			expect(progressBar.value)
+				.to
+				.equal(80);
+		});
+
+		it('should create correct completion count label', () => {
+			const completionCount = element.shadowRoot.querySelector('.module-completion-count');
+			expect(completionCount)
+				.to
+				.exist;
+
+			expect(completionCount)
+				.to.contain
+				.text('Completed 4/5');
+		});
+
+		it('should not have a hide-description class', () => {
+			expect(element.classList.contains('hide-description'))
+				.to
+				.be
+				.false;
+		});
+	});
+
+	describe('with no completion status', () => {
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/lesson5.json', fixture('BadLessonFixture'));
+		});
+
+		it('should create default completion count label', () => {
+			const completionCount = element.shadowRoot.querySelector('.module-completion-count');
+			expect(completionCount)
+				.to
+				.exist;
+
+			expect(completionCount)
+				.to.contain
+				.text('Completed 0/0');
+		});
+	});
+
+	describe('dark background meter behaviour', () => {
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/lesson-enhanced.json', fixture('DarkBackgroundFixture'));
+		});
+
+		it('should lighten the meter when selected and not hovered over', done => {
+			element.classList.add('d2l-asv-current');
+			flush(() => {
+				const meter = element.shadowRoot.querySelector('d2l-meter-circle');
+				expect(meter.hasAttribute('foreground-light'))
+					.to
+					.equal(true);
+				done();
+			});
+		});
+	});
+
+	describe('light background meter behaviour', () => {
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/lesson-enhanced.json', fixture('LightBackgroundFixture'));
+		});
+
+		it('should not lighten the meter when selected and not hovered over', done => {
+			element.classList.add('d2l-asv-current');
+			flush(() => {
+				const meter = element.shadowRoot.querySelector('d2l-meter-circle');
+				expect(meter.hasAttribute('foreground-light'))
+					.to
+					.equal(false);
+				done();
+			});
+		});
+	});
+
+	describe('with unit completionProgressLangTerm', () => {
+		let element;
+		beforeEach(async()=> {
+			element = await SirenFixture('data/lesson-enhanced-langterm.json', fixture('LightBackgroundFixture'));
+		});
+		it('should use the referenced lang term', async() => {
+			const entity = await fetch('data/lesson-enhanced-langterm.json').then(res=> res.json());
+			const unitInfo = element.shadowRoot.querySelector('.unit-info :last-child');
+			expect(unitInfo.innerText)
+				.to
+				.equal(entity.properties.completionProgressLangTerm);
+		});
+
+	});
+
+	describe('without unit completionProgressLangTerm', () => {
+		let element;
+		beforeEach(async()=> {
+			element = await SirenFixture('data/lesson-enhanced.json', fixture('LightBackgroundFixture'));
+		});
+		it('should use the referenced lang term', async() => {
+			const unitInfo = element.shadowRoot.querySelector('.unit-info :last-child');
+			expect(unitInfo.innerText)
+				.to
+				.equal('Unit 2 of 4');
+		});
+
+	});
+
+	describe('with the hide-description class', () => {
+		let element;
+		beforeEach(async() => {
+			element = await SirenFixture('data/hide-description.json', fixture('LessonFixture'));
+		});
+		it('should have a hide-description class', () => {
+			expect(element.classList.contains('hide-description'))
+				.to
+				.be
+				.true;
+		});
+		it('should not change the current activity on click', () => {
+			element.click();
+			expect(element.classList.contains('d2l-asv-current'))
+				.to
+				.be
+				.false;
+		});
+	});
+});
+</script>
+	</body>
+</html>

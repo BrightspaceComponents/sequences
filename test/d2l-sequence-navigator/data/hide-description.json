@@ -1,0 +1,51 @@
+{
+	"properties": {
+		"title": "Lesson 1",
+		"moduleIndex": 2,
+		"numberOfSiblingModules": 4,
+		"courseName": "My best course",
+		"useNewProgressBar": true,
+		"completionProgressLangTerm": "Completion Progress from Entity 17 / 11"
+	},
+	"entities": [
+		{
+			"class": ["sequence", "sequence-description"],
+			"rel": ["self", "https://api.brightspace.com/rels/sequence-description"],
+			"href": "data/l1-module1.json"
+		},
+		{
+			"class": ["sequence", "sequenced-activity"],
+			"rel": ["self", "https://api.brightspace.com/rels/sequenced-activity"],
+			"href": "data/l1-activity1.json"
+		},
+		{
+			"class": ["sequence", "sequence-description"],
+			"rel": ["self", "https://api.brightspace.com/rels/sequence-description"],
+			"href": "data/l1-module2.json"
+		},
+		{
+			"class": [
+			  "completion",
+			  "incomplete"
+			],
+			"properties": {
+			  "completed": 4,
+			  "total": 7,
+			  "optionalViewed": 1,
+			  "optionalTotal": 2
+			},
+			"rel": [ "item", "https://api.brightspace.com/rels/completion"]
+		}
+	],
+	"links": [{
+		"rel": ["self", "describes"],
+		"href": "data/lesson-enhanced-langterm.json"
+	}, {
+		"rel": ["next"],
+		"href": "data/l1-module2.json"
+	}, {
+		"rel": ["up"],
+		"href": "data/unit1.json"
+	}],
+	"class": ["sequence", "sequence-description", "hide-description"]
+}

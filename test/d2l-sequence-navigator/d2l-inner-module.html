@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>d2l-inner-module test</title>
+
+		<script src="../../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../../../wct-browser-legacy/browser.js"></script>
+		<script src="../../node_modules/chai-dom/chai-dom.js"></script>
+		<script type="module" src="../../../@polymer/polymer/polymer-legacy.js"></script>
+		<script type="module" src="../../components/d2l-sequence-navigator/d2l-inner-module.js"></script>
+
+	</head>
+	<body>
+		<test-fixture id="ModuleWithChildrenFixture">
+			<template>
+				<d2l-inner-module href="data/lesson1.json" token="bamboozle"></d2l-inner-module>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="Empty">
+				<template>
+					<d2l-inner-module token="bamboozle"></d2l-inner-module>
+				</template>
+			</test-fixture>
+
+		<test-fixture id="ModuleWithNoChildrenFixture">
+			<template>
+				<d2l-inner-module token="bamboozle"></d2l-inner-module>
+			</template>
+		</test-fixture>
+		<test-fixture id="ModuleWithCurrentActivityFixture">
+			<template>
+				<d2l-inner-module token="bamboozle" current-activity="data/activity1.json" ></d2l-inner-module>
+			</template>
+		</test-fixture>
+		<script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '../../components/d2l-sequence-navigator/d2l-inner-module.js';
+import SirenFixture from 'polymer-siren-test-helpers';
+
+describe('d2l-inner-module', () => {
+	describe('for module with children', () => {
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/lesson1.json', fixture('Empty'));
+		});
+
+		it('should instantiate the element with default properties', () => {
+			expect(element.href)
+				.to
+				.equal('data/lesson1.json');
+
+			expect(element.token)
+				.to
+				.equal('bamboozle');
+		});
+
+		it('should create d2l-navigation-item elements for child entities', () => {
+			expect(element.shadowRoot.querySelector('ol'))
+				.to
+				.exist;
+		});
+	});
+
+	describe('for module without children', () => {
+
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/l2-module2.json', fixture('ModuleWithNoChildrenFixture'));
+		});
+
+		it('should not create any child d2l-activity-link elements', () => {
+			expect(element.shadowRoot.querySelector('d2l-activity-link'))
+				.to.be
+				.null;
+		});
+
+		it('should show only the title in the header', () => {
+
+			const titleElement = element.shadowRoot.querySelector('.module-title');
+			const countStatus = element.shadowRoot.querySelector('.countStatus');
+			const optionalStatus = element.shadowRoot.querySelector('.optionalStatus');
+			const checkmark = element.shadowRoot.querySelector('.completedStatus');
+
+			expect(titleElement).to.exist;
+			expect(countStatus).to.be.null;
+			expect(optionalStatus).to.be.null;
+			expect(checkmark).to.be.null;
+		});
+	});
+
+	describe('for module with required activities, not all completed', () => {
+
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/l1-module1.json', fixture('Empty'));
+		});
+
+		it('should show only the title in the header', () => {
+
+			const titleElement = element.shadowRoot.querySelector('.module-title');
+			const countStatus = element.shadowRoot.querySelector('.countStatus');
+			const optionalStatus = element.shadowRoot.querySelector('.optionalStatus');
+			const checkmark = element.shadowRoot.querySelector('.completedStatus');
+
+			expect(titleElement).to.exist;
+			expect(countStatus).to.be.null;
+			expect(optionalStatus).to.be.null;
+			expect(checkmark).to.be.null;
+		});
+	});
+
+	describe('for module with all optional activities unread', () => {
+
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/l4-optional-completion-module.json', fixture('Empty'));
+		});
+
+		it('should show only the title in the header', () => {
+
+			const titleElement = element.shadowRoot.querySelector('.module-title');
+			const countStatus = element.shadowRoot.querySelector('.countStatus');
+			const optionalStatus = element.shadowRoot.querySelector('.optionalStatus');
+			const checkmark = element.shadowRoot.querySelector('.completedStatus');
+
+			expect(titleElement).to.exist;
+			expect(countStatus).to.be.null;
+			expect(optionalStatus).to.be.null;
+			expect(checkmark).to.be.null;
+		});
+	});
+
+	describe('for module with all required activities incomplete', () => {
+
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/l4-required-completion-module.json', fixture('Empty'));
+		});
+
+		it('should show only the title in the header', () => {
+
+			const titleElement = element.shadowRoot.querySelector('.module-title');
+			const countStatus = element.shadowRoot.querySelector('.countStatus');
+			const optionalStatus = element.shadowRoot.querySelector('.optionalStatus');
+			const checkmark = element.shadowRoot.querySelector('.completedStatus');
+
+			expect(titleElement).to.exist;
+			expect(countStatus).to.be.null;
+			expect(optionalStatus).to.be.null;
+			expect(checkmark).to.be.null;
+		});
+	});
+
+	describe('for module with all required activities completed', () => {
+
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/l1-module2.json', fixture('Empty'));
+		});
+
+		it('should show only the title in the header', () => {
+
+			const titleElement = element.shadowRoot.querySelector('.module-title');
+			const countStatus = element.shadowRoot.querySelector('.countStatus');
+			const optionalStatus = element.shadowRoot.querySelector('.optionalStatus');
+			const checkmark = element.shadowRoot.querySelector('.completedStatus');
+
+			expect(titleElement).to.exist;
+			expect(countStatus).to.be.null;
+			expect(optionalStatus).to.be.null;
+			expect(checkmark).to.be.null;
+		});
+	});
+
+	describe('for module for with a hide-description entity', () => {
+		let element;
+		let header;
+		beforeEach(async() => {
+			element = await SirenFixture('data/hide-description.json', fixture('Empty'));
+			header = element.shadowRoot.querySelector('#module-header');
+		});
+		it('should have a hide-description class', () => {
+			expect(header.classList.contains('hide-description'))
+				.to
+				.be
+				.true;
+		});
+		it('should not change the current activity on click', () => {
+			header.click();
+			expect(header.classList.contains('d2l-asv-current'))
+				.to
+				.be
+				.false;
+		});
+	});
+
+	describe('for module with current activity', () => {
+		let element;
+		beforeEach(async() => {
+			element = await SirenFixture('data/l1-module1.json', fixture('ModuleWithCurrentActivityFixture'));
+		});
+		it('should have has-active-child attribute', () => {
+			const hasActiveChild = element.hasAttribute('has-active-child');
+			expect(hasActiveChild).to.be.true;
+		});
+	});
+});
+</script>
+	</body>
+</html>

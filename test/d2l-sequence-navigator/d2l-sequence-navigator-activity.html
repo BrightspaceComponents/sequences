@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+	<title>d2l-sequence-navigator-activity with activity test</title>
+	<script src="../../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+	<script src="../../../wct-browser-legacy/browser.js"></script>
+	<script type="module" src="../../../@polymer/polymer/polymer-legacy.js"></script>
+	<script type="module" src="../../components/d2l-sequence-navigator/d2l-sequence-navigator.js"></script>
+</head>
+<body>
+
+<test-fixture id="ActivityLinked">
+	<template>
+		<d2l-sequence-navigator token="bamboozle">
+			<span slot="lesson-header">
+				<d2l-lesson-header id="sidebarHeader"
+					token="[[token]]"
+				></d2l-lesson-header>
+			</span>
+		</d2l-sequence-navigator>
+	</template>
+</test-fixture>
+<script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '../../components/d2l-sequence-navigator/d2l-sequence-navigator.js';
+import SirenFixture from 'polymer-siren-test-helpers';
+
+/* global SirenFixture */
+describe('d2l-sequence-navigator-activity for an activity', () => {
+	let element;
+
+	beforeEach(async() => {
+		element = await SirenFixture('data/m2-activity5.json', fixture('ActivityLinked'));
+	});
+
+	it('should create a d2l-lesson-header child', function() {
+		let lessonHeader;
+		const slots = element.shadowRoot.querySelectorAll('slot');
+		for (var i = 0; i < slots.length; i++) {
+			if (slots[i].getAttribute('name') === 'lesson-header') {
+				const assignedNode = slots[i].assignedNodes() && slots[i].assignedNodes()[0];
+
+				const queryResult = assignedNode && assignedNode.querySelector('d2l-lesson-header');
+				if (queryResult) {
+					lessonHeader = queryResult;
+					break;
+				}
+			}
+		}
+		expect(lessonHeader).to.exist;
+	});
+
+});
+</script>
+</body>
+</html>

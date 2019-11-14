@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>d2l-completion-status test</title>
+
+		<script src="../../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../../../wct-browser-legacy/browser.js"></script>
+		<script src="../../node_modules/chai-dom/chai-dom.js"></script>
+		<script type="module" src="../../../@polymer/polymer/polymer-legacy.js"></script>
+		<script type="module" src="../../components/d2l-sequence-navigator/d2l-completion-status.js"></script>
+	</head>
+	<body>
+		<test-fixture id="CompletedActivityTestFixture">
+			<template>
+				<d2l-completion-status href="data/unit2-activity1.json" token="bamboozle"></d2l-completion-status>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="Empty">
+			<template>
+				<d2l-completion-status token="bamboozle"></d2l-completion-status>d2l-completion-status
+			</template>
+		</test-fixture>
+
+		<script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '../../components/d2l-sequence-navigator/d2l-completion-status.js';
+import SirenFixture from 'polymer-siren-test-helpers';
+
+describe('d2l-completion-status', () => {
+	describe('for a completed activity', () => {
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/unit2-activity1.json', fixture('Empty'));
+		});
+
+		it('should instantiate the element with default properties', () => {
+			expect(element.href)
+				.to
+				.equal('data/unit2-activity1.json');
+
+			expect(element.token)
+				.to
+				.equal('bamboozle');
+		});
+
+		it('should show the entity is complete', () => {
+			expect(element.shadowRoot.querySelector('d2l-icon'))
+				.to.have
+				.class('complete');
+		});
+	});
+
+	describe('for a incomplete activity', () => {
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/l2-m1-activity1.json', fixture('Empty'));
+		});
+
+		it('should show the entity is incomplete', () => {
+			expect(element.shadowRoot.querySelector('d2l-icon'))
+				.to.have
+				.class('incomplete');
+		});
+	});
+
+	describe('for a viewed optional activity', () => {
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/m2-activity5.json', fixture('Empty'));
+		});
+
+		it('should show the entity is incomplete', () => {
+			expect(element.shadowRoot.querySelector('div'))
+				.to.have
+				.class('optional-viewed');
+		});
+	});
+
+	describe('for an optional activity', () => {
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/m2-activity3.json', fixture('Empty'));
+		});
+
+		it('should show the entity is incomplete', () => {
+			expect(element.shadowRoot.querySelector('div'))
+				.to.have
+				.class('optional');
+		});
+	});
+});
+</script>
+	</body>
+</html>

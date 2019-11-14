@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>d2l-activity-link test</title>
+
+		<script src="../../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="../../../wct-browser-legacy/browser.js"></script>
+		<script src="../../node_modules/chai-dom/chai-dom.js"></script>
+		<script type="module" src="../../../@polymer/polymer/polymer-legacy.js"></script>
+		<script type="module" src="../../components/d2l-sequence-navigator/d2l-activity-link.js"></script>
+
+	</head>
+	<body>
+		<test-fixture id="CompletedActivityTestFixture">
+			<template>
+				<d2l-activity-link href="data/unit2-activity1.json" token="bamboozle"></d2l-activity-link>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="Empty">
+				<template>
+					<d2l-activity-link token="bamboozle"></d2l-activity-link>
+				</template>
+			</test-fixture>
+
+		<test-fixture id="IncompleteActivityTestFixture">
+			<template>
+				<d2l-activity-link href="data/activity1.json" token="bamboozle"></d2l-activity-link>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="ActivityWithIconTestFixture">
+			<template>
+				<d2l-activity-link href="data/activity4-with-icon.json" token="bamboozle"></d2l-activity-link>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="ActivityWithoutIconTestFixture">
+				<template>
+					<d2l-activity-link href="data/activity3.json" token="bamboozle"></d2l-activity-link>
+				</template>
+			</test-fixture>
+
+		<test-fixture id="basic">
+			<template>
+				<d2l-activity-link href="data/unit2-activity1.json" token="bamboozle" current-activity="an-activity"></d2l-activity-link>
+			</template>
+		</test-fixture>
+
+		<script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '../../components/d2l-sequence-navigator/d2l-activity-link.js';
+import SirenFixture from 'polymer-siren-test-helpers';
+describe('d2l-activity-link', () => {
+
+	describe('basic', () => {
+		let element, sandbox;
+		beforeEach(() =>{
+			element = fixture('basic');
+			sandbox = sinon.sandbox.create();
+		});
+
+		describe('on navigation', () => {
+			beforeEach(()=>{
+				element.dispatchEvent = sandbox.stub();
+			});
+
+			it('should raise a navigation event if it is not the current activity', () => {
+				element.currentActivity = 'http://google.ca';
+				expect(element.dispatchEvent).to.have.been.called;
+			});
+
+			it('should not raise a navigation event if its the current activity', () => {
+				//the addition and slicing is to make a string that is new, but is actually the same
+				element.currentActivity = (' ' + element.currentActivity).slice(1);
+				expect(element.dispatchEvent).to.not.be.called;
+			});
+
+		});
+	});
+
+	describe('for a completed activity', () => {
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/unit2-activity1.json', fixture('Empty'));
+		});
+
+		it('should instantiate the element with default properties', () => {
+			expect(element.href)
+				.to.be
+				.equal('data/unit2-activity1.json');
+			expect(element.token)
+				.to.be
+				.equal('bamboozle');
+		});
+	});
+
+	describe('for an incomplete activity', () => {
+		let element;
+
+		beforeEach(async() => {
+			element = await SirenFixture('data/activity1.json', fixture('IncompleteActivityTestFixture'));
+		});
+
+		it('should not show that it is complete', () => {
+			expect(element.shadowRoot.querySelector('#IsComplete'))
+				.not.to
+				.exist;
+		});
+	});
+
+	describe('for an activity that has an icon', ()=>{
+		let element;
+		beforeEach(async() => {
+			element = await SirenFixture('data/activity4-with-icon.json', fixture('ActivityWithIconTestFixture'));
+		});
+
+		it('should have the correct icon property', done=> {
+			flush(() => {
+				const el = element.shadowRoot.querySelector('d2l-icon');
+				expect(el.hasAttribute('icon')).to.equal(true);
+				expect(el.getAttribute('icon')).to.equal('d2l-tier1:discussions');
+				done();
+			});
+		});
+	});
+
+	describe('for an activity that does not have an icon', ()=>{
+		let element;
+		beforeEach(async() => {
+			element = await SirenFixture('data/activity3.json', fixture('ActivityWithoutIconTestFixture'));
+		});
+
+		it('should not have a d2l-icon element', ()=> {
+			const el = element.shadowRoot.querySelector('d2l-icon');
+			expect(el).not.to.exist;
+		});
+	});
+});
+</script>
+	</body>
+</html>
