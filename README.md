@@ -19,6 +19,9 @@ polymer analyze > analysis.json && polymer serve
 
  ```shell
 polymer analyze > analysis.json && polymer serve --open
+```
+
+`d2l-sequence-navigator`'s demo is available at http://127.0.0.1:port/components/d2l-sequences/demo/d2l-sequence-navigator/
 
 ## Usage
 
