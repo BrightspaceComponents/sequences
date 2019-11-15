@@ -14,7 +14,6 @@
     "lint:fix": "eslint *.js {components,mixins,test,demo}/*.js --fix",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
     "lint": "npm run lint:js",
-    "polymer-lint": "polymer lint -i components/*.js, components/d2l-sequence-navigator/*.js, util/*.js, util/d2l-sequence-navigator/*.js",
     "pretest": "npm run lint",
     "prestart": "npm run build:lang && polymer analyze > analysis.json",
     "test": "polymer test --skip-plugin sauce",
