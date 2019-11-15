@@ -1,10 +1,8 @@
-import { CompletionStatusMixin } from '../../util/d2l-sequence-navigator/completion-status-mixin.js';
-import { PolymerASVLaunchMixin } from '../../util/d2l-sequence-navigator/polymer-asv-launch-mixin.js';
-import { ASVFocusWithinMixin } from '../../util/d2l-sequence-navigator/asv-focus-within-mixin.js';
-import './d2l-completion-status.js';
-import './d2l-completion-requirement.js';
-import 'd2l-colors/d2l-colors.js';
-import 'd2l-icons/d2l-icons.js';
+import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
+import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
+import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
+import '@brightspace-ui/core/components/colors/colors.js';
+import '@brightspace-ui/core/components/icons/icon.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /*
 @memberOf window.D2L.Polymer.Mixins;
@@ -12,7 +10,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 @mixes PolymerASVLaunchMixin
 */
 
-class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(CompletionStatusMixin())) {
+class D2LEolActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(CompletionStatusMixin())) {
 	static get template() {
 		return html`
 		<style>
@@ -22,7 +20,6 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				--d2l-activity-link-opacity: 1;
 				--d2l-activity-link-backdrop-opacity: 0;
 				--d2l-left-icon-padding: 15px;
-				--d2l-right-icon-padding: 24px;
 				--d2l-icon-size: 18px;
 				display: block;
 				cursor: pointer;
@@ -32,8 +29,8 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				box-sizing: border-box;
 				border: 1px solid transparent;
 				border-width: 1px 0;
-				position: relative;
 				z-index: 0;
+				position: relative;
 				background-color: transparent;
 				margin-top: -1px;
 			}
@@ -54,7 +51,7 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			:host(.d2l-asv-focus-within),
 			:host(:focus),
 			:host(:hover) {
-				--d2l-activity-link-background-color: var(--d2l-asv-primary-color);
+				--d2l-activity-link-background-color: var(--d2l-asv-hover-color);
 				--d2l-activity-link-subtext-color: var(--d2l-asv-text-color);
 				--d2l-activity-link-border-color: rgba(0, 0, 0, 0.42);
 				--d2l-activity-link-text-color: var(--d2l-asv-text-color);
@@ -101,20 +98,12 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				width: calc(100% - 2px);
 			}
 
-			d2l-icon,
-			a,
-			d2l-completion-requirement,
-			d2l-completion-status {
-				vertical-align: top;
-			}
-
 			.d2l-activity-link-title {
 				word-wrap: break-word;
 				width: calc(
 					100% -
 					var(--d2l-left-icon-padding) -
-					var(--d2l-right-icon-padding) -
-					(var(--d2l-icon-size) * 2)
+					var(--d2l-icon-size)
 				);
 			}
 
@@ -135,17 +124,6 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				-webkit-line-clamp: 1; /* number of lines to show */
 			}
 
-			d2l-completion-requirement {
-				--d2l-activity-link-subtext-color: var(--d2l-color-tungsten);
-				color: var(--d2l-activity-link-subtext-color);
-			}
-
-			d2l-completion-status {
-				width: var(--d2l-icon-size);
-				padding-left: var(--d2l-right-icon-padding);
-				color: var(--d2l-activity-link-text-color);
-			}
-
 			d2l-icon {
 				padding-top: 3px;
 				padding-right: var(--d2l-left-icon-padding);
@@ -156,91 +134,51 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				border-radius: 0 0 8px 8px;
 			}
 
-			:host(.d2l-asv-current) d2l-completion-requirement {
-				color: var(--d2l-asv-text-color);
-			}
-
-			:host(.d2l-asv-current:not(:hover)) d2l-completion-requirement {
-				color: var(--d2l-asv-selected-text-color);
-			}
-
 		</style>
 		<div class="bkgd"></div>
-		<div class="bkgd-backdrop"></div>
 		<div class="border"></div>
+		<div class="bkgd-backdrop"></div>
 		<div on-click="_contentObjectClick">
 			<template is="dom-if" if="[[hasIcon]]">
 				<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
 			</template>
 			<div class="d2l-activity-link-title">
-				<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)">
+				<a href="javascript:void(0)" token="[[token]]" on-click="_onClick">
 					[[entity.properties.title]]
 				</a>
-				<d2l-completion-requirement href="[[href]]" token="[[token]]">
-				</d2l-completion-requirement>
 			</div>
-			<d2l-completion-status href="[[href]]" token="[[token]]">
-			</d2l-completion-status>
 		</div>
 `;
 	}
 
 	static get is() {
-		return 'd2l-activity-link';
+		return 'd2l-eol-activity-link';
 	}
 	static get properties() {
 		return {
-			currentActivity: {
-				type: String,
-				value: '',
-				notify: true
-			},
-			completionRequirementClass: {
-				type: String,
-				computed: '_getCompletionRequirementClass(entity)'
-			},
 			hasIcon: {
 				type: Boolean,
 				computed: '_hasIcon(entity)'
 			},
-			class: {
+			href: {
 				type: String,
-				computed: '_getIsSelected(currentActivity, entity, focusWithin)',
-				reflectToAttribute: true
-			},
-			completionStatus: {
-				type: String,
-				computed: '_getCompletionStatus(entity)',
-			},
+				reflectToAttribute: true,
+			}
 		};
-	}
-	static get observers() {
-		return [
-			'onCurrentActivityChanged(currentActivity, entity)'
-		];
 	}
 
 	ready() {
 		super.ready();
-		this.addEventListener('keypress', this._onKeyPress);
 	}
 
-	_onKeyPress(event) {
-		if (event.key !== 'Enter') {
-			return;
-		}
-		this.setCurrent();
-	}
+	_onClick() {
+		const event = new CustomEvent('hrefUpdated', {
+			detail: { href: this.href },
+			composed: true,
+			bubbles: true
+		});
 
-	setCurrent() {
-		this.currentActivity = this.entity && this.entity.getLinkByRel('self').href;
-		this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-activity-link-current-activity', {detail: { href: this.href}}));
-	}
-
-	onCurrentActivityChanged(currentActivity, entity) {
-		if (currentActivity && entity) {
-			this.dispatchEvent(new CustomEvent('activitySelected', { detail:{ activityHref: currentActivity }, composed: true }));
-		}
+		this.dispatchEvent(event);
 	}
 
 	_hasIcon(entity) {
@@ -252,22 +190,5 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 		const tierClass = 'tier1';
 		return (entity.getSubEntityByClass(tierClass)).properties.iconSetKey;
 	}
-
-	_getCompletionRequirementClass(entity) {
-		const completionRequirement = this._getCompletionRequirement(entity);
-		switch (completionRequirement) {
-			case 'exempt':
-			case 'optional':
-				return 'd2l-activity-link-one-line';
-		}
-		return '';
-	}
-	_getIsSelected(currentActivity, entity, focusWithin) {
-		const selected = entity && entity.getLinkByRel('self').href === currentActivity;
-		if (selected) {
-			this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-activity-link-current-activity', {detail: { href: this.href}}));
-		}
-		return this._getTrueClass(focusWithin, selected);
-	}
 }
-customElements.define(D2LActivityLink.is, D2LActivityLink);
+customElements.define(D2LEolActivityLink.is, D2LEolActivityLink);

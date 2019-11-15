@@ -1,7 +1,6 @@
-import { CompletionStatusMixin } from '../../util/d2l-sequence-navigator/completion-status-mixin.js';
-import 'd2l-icons/d2l-icon.js';
-import 'd2l-colors/d2l-colors.js';
-import 'd2l-icons/tier1-icons.js';
+import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
+import '@brightspace-ui/core/components/icons/icon.js';
+import '@brightspace-ui/core/components/colors/colors.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /*
 @memberOf window.D2L.Polymer.Mixins;
@@ -17,7 +16,7 @@ class D2LCompletionStatus extends CompletionStatusMixin() {
 			}
 		</style>
 		<template is="dom-if" if="[[isComplete]]">
-			<d2l-icon aria-label$="[[localize('sequenceNavigator.completed')]]" icon="d2l-tier1:check"></d2l-icon>
+			<d2l-icon aria-label$="[[localize('sequenceNavigator.completed')]]" icon="tier1:check"></d2l-icon>
 		</template>
 `;
 	}

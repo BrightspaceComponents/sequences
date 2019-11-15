@@ -1,4 +1,4 @@
-import 'd2l-button/d2l-button.js';
+import '@brightspace-ui/core/components/button/button.js';
 import './d2l-sequences-content-eol-activity-link.js';
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';

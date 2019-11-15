@@ -1,5 +1,5 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { ASVFocusWithinMixin } from '../../util/d2l-sequence-navigator/asv-focus-within-mixin.js';
+import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';

@@ -2,10 +2,10 @@
 'd2l-lesson-header'
 @demo demo/index.html
 */
-import { CompletionStatusMixin } from '../../util/d2l-sequence-navigator/completion-status-mixin.js';
-import { ASVFocusWithinMixin } from '../../util/d2l-sequence-navigator/asv-focus-within-mixin.js';
+import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
+import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
 import 'd2l-offscreen/d2l-offscreen.js';
-import 'd2l-colors/d2l-colors.js';
+import '@brightspace-ui/core/components/colors/colors.js';
 import 'd2l-typography/d2l-typography.js';
 import '@brightspace-ui/core/components/meter/meter-circle.js';
 import 'd2l-progress/d2l-progress.js';
@@ -208,7 +208,7 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 					<template is="dom-if" if="[[_useModuleIndex]]">
 						<div class="unit-info">
 							<span>[[_moduleTitle]]</span>
-							<d2l-icon icon="d2l-tier1:bullet"></d2l-icon>
+							<d2l-icon icon="tier1:bullet"></d2l-icon>
 							<span>[[_completionProgress]]</span>
 						</div>
 					</template>

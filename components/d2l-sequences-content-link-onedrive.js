@@ -1,5 +1,5 @@
 import 'd2l-content-icons/d2l-open-one-drive-icon.js';
-import 'd2l-button/d2l-button.js';
+import '@brightspace-ui/core/components/button/button.js';
 import { D2LSequencesContentLink } from './d2l-sequences-content-link.js';
 import '../mixins/d2l-sequences-automatic-completion-tracking-mixin.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';

@@ -1,6 +1,6 @@
 import '../mixins/d2l-sequences-automatic-completion-tracking-mixin.js';
 import 'd2l-content-icons/d2l-content-icons.js';
-import 'd2l-button/d2l-button.js';
+import '@brightspace-ui/core/components/button/button.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /*
 	@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior

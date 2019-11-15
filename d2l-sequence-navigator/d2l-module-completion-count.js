@@ -1,5 +1,5 @@
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { CompletionStatusMixin } from '../../util/d2l-sequence-navigator/completion-status-mixin.js';
+import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 
 class D2LModuleCompletionCount extends CompletionStatusMixin() {
 	static get template() {

@@ -1,11 +1,11 @@
 import './d2l-inner-module.js';
 import './d2l-activity-link.js';
-import { CompletionStatusMixin } from '../../util/d2l-sequence-navigator/completion-status-mixin.js';
-import { PolymerASVLaunchMixin } from '../../util/d2l-sequence-navigator/polymer-asv-launch-mixin.js';
-import { ASVFocusWithinMixin } from '../../util/d2l-sequence-navigator/asv-focus-within-mixin.js';
+import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
+import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
+import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
 import 'd2l-accordion/d2l-accordion.js';
-import 'd2l-colors/d2l-colors.js';
-import 'd2l-icons/d2l-icons.js';
+import '@brightspace-ui/core/components/colors/colors.js';
+import '@brightspace-ui/core/components/icons/icon.js';
 import 'd2l-offscreen/d2l-offscreen.js';
 import d2lIntl from 'd2l-intl';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
@@ -191,7 +191,7 @@ class D2LOuterModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 						</template>
 						<template is="dom-if" if="[[showCheckmark]]">
 							<span class="completedStatus">
-								<d2l-icon aria-label$="[[localize('sequenceNavigator.completed')]]" icon="d2l-tier1:check"></d2l-icon>
+								<d2l-icon aria-label$="[[localize('sequenceNavigator.completed')]]" icon="tier1:check"></d2l-icon>
 							</span>
 						</template>
 						<template is="dom-if" if="[[!showCheckmark]]">

@@ -1,7 +1,7 @@
 import './d2l-eol-activity-link.js';
-import { CompletionStatusMixin } from '../../util/d2l-sequence-navigator/completion-status-mixin.js';
-import { PolymerASVLaunchMixin } from '../../util/d2l-sequence-navigator/polymer-asv-launch-mixin.js';
-import { ASVFocusWithinMixin } from '../../util/d2l-sequence-navigator/asv-focus-within-mixin.js';
+import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
+import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
+import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
 import 'd2l-accordion/d2l-accordion.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /*

@@ -1,6 +1,6 @@
-import 'd2l-button/d2l-button.js';
-import 'd2l-link/d2l-link.js';
-import './d2l-sequence-navigator/d2l-missed-activity.js';
+import '@brightspace-ui/core/components/button/button.js';
+import '@brightspace-ui/core/components/link/link.js';
+import '../d2l-sequence-navigator/d2l-missed-activity.js';
 import './d2l-sequences-content-eol-missed.js';
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';

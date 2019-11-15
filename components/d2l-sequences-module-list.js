@@ -2,12 +2,11 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 import { SequenceEntity } from 'siren-sdk/src/sequences/SequenceEntity.js';
-import './d2l-sequence-navigator/d2l-completion-status.js';
+import '../d2l-sequence-navigator/d2l-completion-status.js';
 import '@polymer/iron-collapse/iron-collapse.js';
 import 'd2l-link/d2l-link-shared-styles.js';
-import 'd2l-icons/d2l-icon.js';
-import 'd2l-colors/d2l-colors.js';
-import 'd2l-icons/tier1-icons.js';
+import '@brightspace-ui/core/components/icons/icon.js';
+import '@brightspace-ui/core/components/colors/colors.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import '../localize-behavior.js';
 
@@ -122,7 +121,7 @@ class D2lSequenceModuleList extends mixinBehaviors(behaviors, EntityMixin(Polyme
 									<div>
 										<span>[[item.title]]</span>
 										<span hidden$="[[!item.continue]]">[[localize('continue')]]</span>
-										<d2l-icon hidden$="[[!item.isCompleted]]" aria-label$="[[localize('completed')]]" icon="d2l-tier1:check"></d2l-icon>
+										<d2l-icon hidden$="[[!item.isCompleted]]" aria-label$="[[localize('completed')]]" icon="tier1:check"></d2l-icon>
 									</div>
 								</a>
 							</li>
@@ -148,11 +147,11 @@ class D2lSequenceModuleList extends mixinBehaviors(behaviors, EntityMixin(Polyme
 			},
 			expandIcon: {
 				type: String,
-				value: 'd2l-tier1:arrow-expand'
+				value: 'tier1:arrow-expand'
 			},
 			collapseIcon: {
 				type: String,
-				value: 'd2l-tier1:arrow-collapse'
+				value: 'tier1:arrow-collapse'
 			},
 			_modules: {
 				type: Array,

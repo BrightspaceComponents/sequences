@@ -9,8 +9,8 @@
   },
   "fragments": [
     "components/*.js",
-    "components/d2l-sequence-navigator/*.js",
-    "util/d2l-sequence-navigator/*.js",
+    "d2l-sequence-navigator/*.js",
+    "mixins/*.js",
     "localize-behavior.js"
   ]
 }

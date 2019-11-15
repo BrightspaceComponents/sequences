@@ -1,6 +1,6 @@
-import { CompletionStatusMixin } from '../../util/d2l-sequence-navigator/completion-status-mixin.js';
-import 'd2l-icons/d2l-icons.js';
-import 'd2l-colors/d2l-colors.js';
+import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
+import '@brightspace-ui/core/components/icons/icon.js';
+import '@brightspace-ui/core/components/colors/colors.js';
 import 'd2l-typography/d2l-typography.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /*

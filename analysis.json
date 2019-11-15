@@ -35,7 +35,7 @@
     {
       "description": "",
       "summary": "",
-      "path": "components/d2l-sequence-navigator/d2l-eol-activity-link.js",
+      "path": "d2l-sequence-navigator/d2l-eol-activity-link.js",
       "properties": [
         {
           "name": "hasIcon",
@@ -226,7 +226,7 @@
     {
       "description": "",
       "summary": "",
-      "path": "components/d2l-sequence-navigator/d2l-missed-activity.js",
+      "path": "d2l-sequence-navigator/d2l-missed-activity.js",
       "properties": [
         {
           "name": "numberOfMissedActivity",
@@ -2925,11 +2925,11 @@
           "sourceRange": {
             "file": "../../@polymer/polymer/lib/mixins/template-stamp.js",
             "start": {
-              "line": 479,
+              "line": 527,
               "column": 4
             },
             "end": {
-              "line": 484,
+              "line": 532,
               "column": 5
             }
           },
@@ -2969,11 +2969,11 @@
           "sourceRange": {
             "file": "../../@polymer/polymer/lib/mixins/template-stamp.js",
             "start": {
-              "line": 495,
+              "line": 543,
               "column": 4
             },
             "end": {
-              "line": 497,
+              "line": 545,
               "column": 5
             }
           },
@@ -3007,11 +3007,11 @@
           "sourceRange": {
             "file": "../../@polymer/polymer/lib/mixins/template-stamp.js",
             "start": {
-              "line": 508,
+              "line": 556,
               "column": 4
             },
             "end": {
-              "line": 510,
+              "line": 558,
               "column": 5
             }
           },
@@ -5114,11 +5114,11 @@
           "sourceRange": {
             "file": "../../@polymer/polymer/lib/mixins/template-stamp.js",
             "start": {
-              "line": 201,
+              "line": 248,
               "column": 4
             },
             "end": {
-              "line": 215,
+              "line": 262,
               "column": 5
             }
           },
@@ -5226,11 +5226,11 @@
           "sourceRange": {
             "file": "../../@polymer/polymer/lib/mixins/template-stamp.js",
             "start": {
-              "line": 275,
+              "line": 323,
               "column": 4
             },
             "end": {
-              "line": 313,
+              "line": 361,
               "column": 5
             }
           },
@@ -5303,11 +5303,11 @@
           "sourceRange": {
             "file": "../../@polymer/polymer/lib/mixins/template-stamp.js",
             "start": {
-              "line": 356,
+              "line": 404,
               "column": 4
             },
             "end": {
-              "line": 365,
+              "line": 413,
               "column": 5
             }
           },
@@ -5391,11 +5391,11 @@
           "sourceRange": {
             "file": "../../@polymer/polymer/lib/mixins/template-stamp.js",
             "start": {
-              "line": 413,
+              "line": 461,
               "column": 4
             },
             "end": {
-              "line": 416,
+              "line": 464,
               "column": 5
             }
           },
@@ -13467,7 +13467,7 @@
     {
       "description": "",
       "summary": "",
-      "path": "components/d2l-sequence-navigator/d2l-completion-status.js",
+      "path": "d2l-sequence-navigator/d2l-completion-status.js",
       "properties": [
         {
           "name": "completionStatus",
@@ -14159,7 +14159,7 @@
     {
       "description": "",
       "summary": "",
-      "path": "components/d2l-sequence-navigator/d2l-lesson-header.js",
+      "path": "d2l-sequence-navigator/d2l-lesson-header.js",
       "properties": [
         {
           "name": "completionCount",
@@ -14167,7 +14167,7 @@
           "description": "",
           "privacy": "public",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 19,
               "column": 4
@@ -14192,7 +14192,7 @@
           "description": "",
           "privacy": "public",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 24,
               "column": 4
@@ -14216,7 +14216,7 @@
           "description": "",
           "privacy": "public",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 28,
               "column": 4
@@ -14241,7 +14241,7 @@
           "description": "",
           "privacy": "public",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 33,
               "column": 4
@@ -14514,7 +14514,7 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 41,
               "column": 2
@@ -14537,7 +14537,7 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 54,
               "column": 2
@@ -14559,7 +14559,7 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 62,
               "column": 2
@@ -14582,7 +14582,7 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 69,
               "column": 2
@@ -14605,7 +14605,7 @@
           "description": "",
           "privacy": "protected",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 85,
               "column": 2
@@ -14896,7 +14896,7 @@
           "name": "completion-count",
           "description": "",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 19,
               "column": 4
@@ -14914,7 +14914,7 @@
           "name": "percent-completed",
           "description": "",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 24,
               "column": 4
@@ -14932,7 +14932,7 @@
           "name": "completion-completed",
           "description": "",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 28,
               "column": 4
@@ -14950,7 +14950,7 @@
           "name": "completion-total",
           "description": "",
           "sourceRange": {
-            "file": "../../util/d2l-sequence-navigator/completion-status-mixin.js",
+            "file": "../mixins/completion-status-mixin.js",
             "start": {
               "line": 33,
               "column": 4
@@ -15019,38 +15019,7 @@
     {
       "description": "",
       "summary": "",
-      "path": "components/d2l-sequence-navigator/d2l-module-completion-count.js",
-      "properties": [],
-      "methods": [],
-      "staticMethods": [],
-      "demos": [],
-      "metadata": {},
-      "sourceRange": {
-        "start": {
-          "line": 3,
-          "column": 0
-        },
-        "end": {
-          "line": 15,
-          "column": 1
-        }
-      },
-      "privacy": "public",
-      "superclass": "HTMLElement",
-      "name": "D2LModuleCompletionCount",
-      "attributes": [],
-      "events": [],
-      "styling": {
-        "cssVariables": [],
-        "selectors": []
-      },
-      "slots": [],
-      "tagname": "d2l-module-completion-count"
-    },
-    {
-      "description": "",
-      "summary": "",
-      "path": "components/d2l-sequence-navigator/d2l-sequence-end.js",
+      "path": "d2l-sequence-navigator/d2l-sequence-end.js",
       "properties": [
         {
           "name": "href",
@@ -15331,7 +15300,38 @@
     {
       "description": "",
       "summary": "",
-      "path": "components/d2l-sequence-navigator/d2l-completion-requirement.js",
+      "path": "d2l-sequence-navigator/d2l-module-completion-count.js",
+      "properties": [],
+      "methods": [],
+      "staticMethods": [],
+      "demos": [],
+      "metadata": {},
+      "sourceRange": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 15,
+          "column": 1
+        }
+      },
+      "privacy": "public",
+      "superclass": "HTMLElement",
+      "name": "D2LModuleCompletionCount",
+      "attributes": [],
+      "events": [],
+      "styling": {
+        "cssVariables": [],
+        "selectors": []
+      },
+      "slots": [],
+      "tagname": "d2l-module-completion-count"
+    },
+    {
+      "description": "",
+      "summary": "",
+      "path": "d2l-sequence-navigator/d2l-completion-requirement.js",
       "properties": [
         {
           "name": "completionRequirement",
@@ -15502,7 +15502,7 @@
     {
       "description": "",
       "summary": "",
-      "path": "components/d2l-sequence-navigator/d2l-activity-link.js",
+      "path": "d2l-sequence-navigator/d2l-activity-link.js",
       "properties": [
         {
           "name": "currentActivity",
@@ -15915,7 +15915,7 @@
     {
       "description": "",
       "summary": "",
-      "path": "components/d2l-sequence-navigator/d2l-inner-module.js",
+      "path": "d2l-sequence-navigator/d2l-inner-module.js",
       "properties": [
         {
           "name": "currentActivity",
@@ -16348,7 +16348,7 @@
     {
       "description": "",
       "summary": "",
-      "path": "components/d2l-sequence-navigator/d2l-outer-module.js",
+      "path": "d2l-sequence-navigator/d2l-outer-module.js",
       "properties": [
         {
           "name": "currentActivity",
@@ -17329,7 +17329,7 @@
     {
       "description": "",
       "summary": "",
-      "path": "components/d2l-sequence-navigator/d2l-sequence-navigator.js",
+      "path": "d2l-sequence-navigator/d2l-sequence-navigator.js",
       "properties": [
         {
           "name": "dataAsvCssVars",
@@ -17824,7 +17824,7 @@
     {
       "description": "\t",
       "summary": "",
-      "path": "util/d2l-sequence-navigator/completion-status-mixin.js",
+      "path": "mixins/completion-status-mixin.js",
       "properties": [
         {
           "name": "completionCount",
@@ -18118,7 +18118,7 @@
     {
       "description": "\t",
       "summary": "",
-      "path": "util/d2l-sequence-navigator/polymer-asv-launch-mixin.js",
+      "path": "mixins/polymer-asv-launch-mixin.js",
       "properties": [
         {
           "name": "launchLink",
@@ -18234,7 +18234,7 @@
       "description": "",
       "summary": "",
       "sourceRange": {
-        "file": "util/d2l-sequence-navigator/asv-focus-within-mixin.js",
+        "file": "mixins/asv-focus-within-mixin.js",
         "start": {
           "line": 5,
           "column": 7
@@ -19560,7 +19560,7 @@
     {
       "description": "",
       "summary": "",
-      "path": "util/d2l-sequence-navigator/asv-focus-within-mixin.js",
+      "path": "mixins/asv-focus-within-mixin.js",
       "properties": [],
       "methods": [
         {

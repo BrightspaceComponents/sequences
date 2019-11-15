@@ -1,4 +1,4 @@
-import 'd2l-button/d2l-button.js';
+import '@brightspace-ui/core/components/button/button.js';
 import '../mixins/d2l-sequences-completion-tracking-mixin.js';
 import './d2l-sequences-content-link.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
