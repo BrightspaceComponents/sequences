@@ -8,6 +8,7 @@ import '../localize-behavior.js';
 import './d2l-end-of-lesson-image.js';
 import '../mixins/d2l-sequences-return-mixin.js';
 import 's-html/s-html.js';
+import { D2LPoller } from 'd2l-poller/d2l-poller.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /*
 	@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
@@ -124,6 +125,18 @@ export class D2LSequencesContentEoLMain extends D2L.Polymer.Mixins.Sequences.Ret
 			sequenceFinishedLangTerm: {
 				type: String,
 				computed: '_getSequenceFinishedLangTerm(entity)'
+			},
+			_pollAttempt: {
+				type: Number,
+				value: 0
+			},
+			_pollMaxAttempts: {
+				type: Number,
+				value: 10
+			},
+			_pollInterval: {
+				type: Number,
+				value: 1000
 			}
 		};
 	}
@@ -134,6 +147,25 @@ export class D2LSequencesContentEoLMain extends D2L.Polymer.Mixins.Sequences.Ret
 
 	static get observers() {
 		return ['_onActivitySelected(entity)'];
+	}
+
+	constructor() {
+		super();
+		this._poller = new D2LPoller();
+		this._stopPolling = this._stopPolling.bind(this);
+		this._poll = this._poll.bind(this);
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		window.addEventListener('d2l-completion-checker', this._poll);
+		this._poller.setupPolling(this._pollInterval, 'd2l-completion-checker');
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		this._stopPolling();
+		window.removeEventListener('d2l-completion-checker', this._poll);
 	}
 
 	_scrollToTop() {
@@ -163,5 +195,26 @@ export class D2LSequencesContentEoLMain extends D2L.Polymer.Mixins.Sequences.Ret
 	_getSequenceFinishedLangTerm(entity) {
 		return entity && entity.properties && entity.properties.sequenceFinishedLangTerm || this.localize && this.localize('activitiesFinishedGreatJob') || '';
 	}
+
+	_stopPolling() {
+		this._poller.teardownPolling();
+	}
+
+	async _poll() {
+		if (this.hasMissed && this._pollAttempt < this._pollMaxAttempts) {
+			await this._refreshEntities();
+			this._pollAttempt++;
+			this._poller.setupPolling(this._pollInterval, 'd2l-completion-checker');
+		} else {
+			this._stopPolling();
+		}
+	}
+
+	async _refreshEntities() {
+		if (this.href) {
+			await window.D2L.Siren.EntityStore.fetch(this.href, this.token, true);
+		}
+	}
+
 }
 customElements.define(D2LSequencesContentEoLMain.is, D2LSequencesContentEoLMain);
