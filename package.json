@@ -56,7 +56,7 @@
     "@polymer/polymer": "^3.0.0",
     "d2l-button": "BrightspaceUI/button#semver:^5",
     "d2l-colors": "BrightspaceUI/colors#semver:^4",
-    "d2l-content-icons": "Brightspace/d2l-content-icons#semver:^3",
+    "d2l-content-icons": "^3.0.0",
     "d2l-fetch": "Brightspace/d2l-fetch.git#semver:^2",
     "d2l-icons": "BrightspaceUI/icons#semver:^6",
     "d2l-link": "BrightspaceUI/link#semver:^5",
