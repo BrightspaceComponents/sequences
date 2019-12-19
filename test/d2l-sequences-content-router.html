@@ -53,7 +53,7 @@ describe('d2l-sequences-content-router', () => {
 
 		it('should handle doc converted files', async() => {
 			const element = await loadFileWithDelay('data/activity-file-doc-converted.json');
-			expect(element.shadowRoot.querySelector(D2LSequencesContentFileHtml.is)).to.exist;
+			expect(element.shadowRoot.querySelector(D2LSequencesContentFilePdf.is)).to.exist;
 		});
 
 		it('should handle image/svg+xml', async() => {
