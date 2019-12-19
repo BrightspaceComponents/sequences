@@ -2,6 +2,7 @@ import '../mixins/d2l-sequences-router-mixin.js';
 import { D2LSequencesContentEoLMain } from './d2l-sequences-content-eol-main.js';
 import './d2l-sequences-content-file-download.js';
 import { D2LSequencesContentFileHtml } from './d2l-sequences-content-file-html.js';
+import { D2LSequencesContentFilePdf } from './d2l-sequences-content-file-pdf.js';
 import { D2LSequencesContentVideo } from './d2l-sequences-content-video';
 import { D2LSequencesContentAudio } from './d2l-sequences-content-audio';
 import './d2l-sequences-content-file-html.js';
@@ -37,7 +38,7 @@ class D2LSequencesContentRouter extends D2L.Polymer.Mixins.Sequences.RouterMixin
 	}
 	static get mimeType() {
 		return new Map([
-			['application/pdf', D2LSequencesContentFileHtml.is],
+			['application/pdf', D2LSequencesContentFilePdf.is],
 			['video/mp4', D2LSequencesContentVideo.is],
 			['video/ogg', D2LSequencesContentVideo.is],
 			['video/webm', D2LSequencesContentVideo.is],
