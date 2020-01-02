@@ -51,7 +51,7 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 			previousHref: {
 				type: String
 			},
-			unload: {
+			isUnloaded: {
 				type: Boolean
 			},
 			_linkLocation: {
@@ -61,7 +61,7 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 		};
 	}
 	static get observers() {
-		return ['_render(entity)', '_unload(unload)'];
+		return ['_render(entity)', '_unload(isUnloaded)'];
 	}
 
 	connectedCallback() {
@@ -128,8 +128,8 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 		};
 	}
 
-	_unload(unload) {
-		if (unload) {
+	_unload(isUnloaded) {
+		if (isUnloaded) {
 			const contentFrame = this.shadowRoot.querySelector('#content');
 			contentFrame.src = '';
 		}
