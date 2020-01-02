@@ -51,6 +51,9 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 			previousHref: {
 				type: String
 			},
+			unload: {
+				type: Boolean
+			},
 			_linkLocation: {
 				type: String,
 				computed: '_getLinkLocation(entity)'
@@ -58,7 +61,7 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 		};
 	}
 	static get observers() {
-		return ['_render(entity)'];
+		return ['_render(entity)', '_unload(unload)'];
 	}
 
 	connectedCallback() {
@@ -70,7 +73,6 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 		super.disconnectedCallback();
 		window.removeEventListener('d2l-sequence-viewer-multipage-navigation', this.multiPageNavListener);
 		window.postMessage(JSON.stringify({ handler: 'd2l.nav.reset' }), '*');
-		this.href = undefined;
 	}
 	_scrollToTop() {
 		window.top.scrollTo(0, 0);
@@ -124,6 +126,13 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 			content.classList.remove('d2l-sequences-hide');
 			spinner.classList.add('d2l-sequences-hide');
 		};
+	}
+
+	_unload(unload) {
+		if (unload) {
+			const contentFrame = this.shadowRoot.querySelector('#content');
+			contentFrame.src = '';
+		}
 	}
 
 	_navigateMultiPageFile(e) {

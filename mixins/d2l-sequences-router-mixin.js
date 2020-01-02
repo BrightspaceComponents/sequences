@@ -77,6 +77,7 @@ function RouterMixin(getEntityType) {
 						contentElement.appendChild(this._stampTemplate(nodeTemplate));
 
 						if (this._contentElement) {
+							this._contentElement.unload = true;
 							this.shadowRoot.removeChild(this._contentElement);
 						}
 
