@@ -70,7 +70,6 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 		super.disconnectedCallback();
 		window.removeEventListener('d2l-sequence-viewer-multipage-navigation', this.multiPageNavListener);
 		window.postMessage(JSON.stringify({ handler: 'd2l.nav.reset' }), '*');
-		debugger;
 		this.href = undefined;
 	}
 	_scrollToTop() {
