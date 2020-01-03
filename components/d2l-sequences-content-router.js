@@ -15,9 +15,7 @@ import { D2LSequencesContentLink } from './d2l-sequences-content-link.js';
 import { D2LSequencesContentUnknown } from './d2l-sequences-content-unknown.js';
 import { D2LSequencesContentModule } from './d2l-sequences-content-module.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { D2LSequencesContentFileDownload } from './d2l-sequences-content-file-download.js';
 import { D2LSequencesContentContentServiceLink } from './d2l-sequences-content-content-service-link.js';
-import { isMobile, isIOS, isSafari } from '../util/util.js';
 
 class D2LSequencesContentRouter extends D2L.Polymer.Mixins.Sequences.RouterMixin(getEntityType) {
 	static get template() {
