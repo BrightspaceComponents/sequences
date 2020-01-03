@@ -105,10 +105,6 @@ function getFileEntityType(fileActivity) {
 		mimeType = file.getLinkByClass('d2l-converted-doc').type;
 	}
 
-	if (mimeType === 'application/pdf' && isMobile() && isIOS() && isSafari()) {
-		return D2LSequencesContentFileDownload.is;
-	}
-
 	return D2LSequencesContentRouter.mimeType.get(mimeType) || D2LSequencesContentRouter.fileUnknown;
 }
 
