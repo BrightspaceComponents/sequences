@@ -53,9 +53,22 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 
 	_getFileLocation(entity) {
 		try {
+			linkActivityHref = this._getLinkLocation(entity);
+			if (linkActivityHref) {
+				return linkActivityHref;
+			}
 			const fileActivity = entity.getSubEntityByClass('file-activity');
 			const file = fileActivity.getSubEntityByClass('file');
 			const link = file.getLinkByClass('pdf') || file.getLinkByClass('embed') || file.getLinkByRel('alternate');
+			return link.href;
+		} catch (e) {
+			return '';
+		}
+	}
+	_getLinkLocation(entity) {
+		try {
+			const linkActivity = entity.getSubEntityByClass('link-activity');
+			const link = linkActivity.getLinkByRel('about');
 			return link.href;
 		} catch (e) {
 			return '';
