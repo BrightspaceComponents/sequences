@@ -53,7 +53,7 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 
 	_getFileLocation(entity) {
 		try {
-			linkActivityHref = this._getLinkLocation(entity);
+			const linkActivityHref = this._getLinkLocation(entity);
 			if (linkActivityHref) {
 				return linkActivityHref;
 			}
