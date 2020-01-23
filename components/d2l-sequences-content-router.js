@@ -110,7 +110,7 @@ function getLinkEntityType(linkActivity) {
 	const link = linkActivity.getLinkByRel('about');
 	const openInNewTab = linkActivity.hasClass('open-in-new-tab');
 	if (isPDF(link.href)) {
-		return D2LSequencesContentFilePdf;
+		return D2LSequencesContentFilePdf.is;
 	} else if (link && link.href.startsWith(window.location.protocol)) {
 		return openInNewTab ? D2LSequencesContentLinkNewTab.is : D2LSequencesContentLink.is;
 	} else {
