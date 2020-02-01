@@ -109,7 +109,8 @@ function getFileEntityType(fileActivity) {
 function getLinkEntityType(linkActivity) {
 	const link = linkActivity.getLinkByRel('about');
 	const openInNewTab = linkActivity.hasClass('open-in-new-tab');
-	if (isPDF(link.href)) {
+	const isLorPdf = link.hasClass('adapted-lor-pdf');
+	if (link && isLorPdf) {
 		return D2LSequencesContentFilePdf.is;
 	} else if (link && link.href.startsWith(window.location.protocol)) {
 		return openInNewTab ? D2LSequencesContentLinkNewTab.is : D2LSequencesContentLink.is;
@@ -118,9 +119,3 @@ function getLinkEntityType(linkActivity) {
 	}
 }
 
-function isPDF(href) {
-	const ext = '.pdf';
-	const [ hrefNoQSNoHash ] = href.split('?')[0].split('#');
-	const pdfIndex = hrefNoQSNoHash.lastIndexOf(ext);
-	return pdfIndex >= 0 && pdfIndex + ext.length === hrefNoQSNoHash.length;
-}
