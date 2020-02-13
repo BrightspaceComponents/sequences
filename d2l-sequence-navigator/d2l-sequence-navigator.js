@@ -43,7 +43,7 @@ PolymerElement
 		}
 
 		.module-content {
-			height: calc( 100% - 259px );
+			height: calc( 100% - 203px );
 			border-top: 1px solid var(--d2l-color-mica);
 		}
 
