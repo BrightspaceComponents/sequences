@@ -15,6 +15,8 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 			src="[[_fileLocation]]"
 			loader="script"
 			use-cdn
+			enable-download="[[_enableDownload]]"
+			enable-print="[[_enablePrint]]"
 		>
 		</d2l-pdf-viewer>
 `;
@@ -39,6 +41,14 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 				type: String,
 				computed: '_getTitle(entity)'
 			},
+			_enableDownload: {
+				type: Boolean,
+				computed: '_isDownloadEnabled(entity)'
+			},
+			_enablePrint: {
+				type: Boolean,
+				computed: '_isPrintEnabled(entity)'
+			}
 		};
 	}
 
@@ -76,6 +86,18 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 	}
 	_getTitle(entity) {
 		return entity && entity.properties && entity.properties.title || '';
+	}
+	_isDownloadEnabled(entity) {
+		if (entity) {
+			console.log(JSON.stringify(entity.properties));
+		}
+		return entity && entity.properties && !!entity.properties.canDownload;
+	}
+	_isPrintEnabled(entity) {
+		if (entity) {
+			console.log(JSON.stringify(entity.properties));
+		}
+		return entity && entity.properties && !!entity.properties.canPrint;
 	}
 }
 customElements.define(D2LSequencesContentFilePdf.is, D2LSequencesContentFilePdf);
