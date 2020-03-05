@@ -33,23 +33,20 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 				notify: true,
 				observer: '_scrollToTop'
 			},
-			_fileLocation: {
-				type: String,
-				computed: '_getFileLocation(entity)'
-			},
-			title: {
-				type: String,
-				computed: '_getTitle(entity)'
-			},
+			_fileLocation: String,
+			title: String,
 			_enableDownload: {
 				type: Boolean,
-				computed: '_isDownloadEnabled(entity)'
+				value: false
 			},
 			_enablePrint: {
 				type: Boolean,
-				computed: '_isPrintEnabled(entity)'
+				value: false
 			}
 		};
+	}
+	static get observers() {
+		return ['_setProperties(entity)'];
 	}
 
 	disconnectedCallback() {
@@ -61,30 +58,26 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 		window.top.scrollTo(0, 0);
 	}
 
-	_getFileLocation(entity) {
+	_setProperties(entity) {
+		if (!entity) {
+			return;
+		}
+
 		try {
 			const fileActivity = entity.getSubEntityByClass('file-activity');
 			const file = fileActivity.getSubEntityByClass('file');
 			const link = file.getLinkByClass('pdf') || file.getLinkByClass('embed') || file.getLinkByRel('alternate');
-			return link.href;
-		} catch (e) {
-			return '';
+			this._fileLocation = link.href;
+		} catch {
+			this._fileLocation = '';
 		}
-	}
-	_getTitle(entity) {
-		return entity && entity.properties && entity.properties.title || '';
-	}
-	_isDownloadEnabled(entity) {
-		if (entity) {
-			console.log(JSON.stringify(entity.properties));
+
+		if (entity.properties) {
+			const { title, canDownload, canPrint } = entity.properties.title;
+			this.title = title;
+			this._enableDownload = canDownload;
+			this._enablePrint = canPrint;
 		}
-		return entity && entity.properties && !!entity.properties.canDownload;
-	}
-	_isPrintEnabled(entity) {
-		if (entity) {
-			console.log(JSON.stringify(entity.properties));
-		}
-		return entity && entity.properties && !!entity.properties.canPrint;
 	}
 }
 customElements.define(D2LSequencesContentFilePdf.is, D2LSequencesContentFilePdf);
