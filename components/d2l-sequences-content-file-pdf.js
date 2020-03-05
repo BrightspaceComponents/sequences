@@ -72,7 +72,7 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 			const file = fileActivity.getSubEntityByClass('file');
 			const link = file.getLinkByClass('pdf') || file.getLinkByClass('embed') || file.getLinkByRel('alternate');
 			this._fileLocation = link.href;
-		} catch {
+		} catch (e) {
 			this._fileLocation = '';
 		}
 
@@ -88,7 +88,7 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 			const linkActivity = entity.getSubEntityByClass('link-activity');
 			const link = linkActivity.getLinkByRel('about');
 			return link.href;
-		} catch {
+		} catch (e) {
 			return '';
 		}
 	}
