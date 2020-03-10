@@ -74,18 +74,26 @@ PolymerElement
 		<slot name="lesson-header"></slot>
 		<d2l-labs-accordion auto-close="" class="module-content" id="sidebarContent" on-scroll="onSidebarScroll">
 			<ol class="module-item-list">
-				<template is="dom-repeat" items="[[topicEntities]]" as="childLink">
-					<template is="dom-if" if="[[childLink.href]]">
-						<li>
-							<template is="dom-if" if="[[!_isActivity(childLink)]]">
-								<d2l-outer-module href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" disabled="[[disabled]]" is-sidebar="[[isSidebar()]]" last-module="[[isLast(topicEntities, index)]]"></d2l-outer-module>
-							</template>
-							<template is="dom-if" if="[[_isActivity(childLink)]]">
-								<d2l-activity-link href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" before-module$="[[isBeforeModule(topicEntities, index)]]"></d2l-activity-link>
-							</template>
-						</li>
+
+				<template is="dom-if" if="[[!_isLoading]]">
+					<template is="dom-repeat" items="[[topicEntities]]" as="childLink">
+						<template is="dom-if" if="[[childLink.href]]">
+							<li>
+								<template is="dom-if" if="[[!_isActivity(childLink)]]">
+									<d2l-outer-module href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" disabled="[[disabled]]" is-sidebar="[[isSidebar()]]" last-module="[[isLast(topicEntities, index)]]"></d2l-outer-module>
+								</template>
+								<template is="dom-if" if="[[_isActivity(childLink)]]">
+									<d2l-activity-link href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" before-module$="[[isBeforeModule(topicEntities, index)]]"></d2l-activity-link>
+								</template>
+							</li>
+						</template>
 					</template>
 				</template>
+
+				<template is="dom-if" if="[[_isLoading]]">
+					<span>--- hi this is loading ---</span>
+				</template>
+
 			</ol>
 			<slot name="end-of-lesson"></slot>
 		</d2l-labs-accordion>
@@ -115,10 +123,15 @@ PolymerElement
 			},
 			topicEntities: {
 				type: Array,
-				computed: 'getTopicEntities(_lessonEntity)'
+				computed: '_getTopicEntities(_lessonEntity)'
 			},
-			_lessonEntity:{
+			_lessonEntity: {
 				type: Object
+			},
+			_isLoading: {
+				type: Boolean,
+				value: true,
+				computed: '_getIsLoading(topicEntities)'
 			}
 		};
 	}
@@ -133,12 +146,16 @@ PolymerElement
 		);
 	}
 
+	_getIsLoading(topicEntities) {
+		return !topicEntities || !topicEntities.length;
+	}
+
 	_getRootHref(entity) {
 		const rootLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/sequence-root');
 		return rootLink && rootLink.href || '';
 	}
 
-	getTopicEntities(entity) {
+	_getTopicEntities(entity) {
 		return entity && entity.getSubEntities()
 			.filter(subEntity =>
 				((subEntity.properties && Object.keys(subEntity.properties).length > 0) || subEntity.href) && !subEntity.hasClass('unavailable'))
