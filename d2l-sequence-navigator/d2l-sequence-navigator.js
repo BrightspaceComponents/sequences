@@ -70,7 +70,7 @@ PolymerElement
 		}
 
 		</style>
-		<siren-entity href="[[rootHref]]" token="[[token]]" entity="{{_lessonEntity}}"></siren-entity>
+<!--		<siren-entity href="[[rootHref]]" token="[[token]]" entity="{{_lessonEntity}}"></siren-entity>-->
 		<slot name="lesson-header"></slot>
 		<d2l-labs-accordion auto-close="" class="module-content" id="sidebarContent" on-scroll="onSidebarScroll">
 			<ol class="module-item-list">
@@ -123,9 +123,9 @@ PolymerElement
 			},
 			topicEntities: {
 				type: Array,
-				computed: '_getTopicEntities(_lessonEntity)'
+				computed: '_getTopicEntities(entity)'
 			},
-			_lessonEntity: {
+			entity: {
 				type: Object
 			},
 			_isLoading: {
@@ -147,6 +147,9 @@ PolymerElement
 	}
 
 	_getIsLoading(topicEntities) {
+		//eslint-disable-next-line
+		console.log({topicEntities});
+
 		return !topicEntities || !topicEntities.length;
 	}
 
