@@ -1,14 +1,14 @@
 import '@polymer/polymer/polymer-legacy.js';
-
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import './d2l-outer-module.js';
 import '@brightspace-ui-labs/accordion/accordion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import 'siren-entity/siren-entity.js';
 import '../localize-behavior.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+
 /*
 @memberOf D2L.Polymer.Mixins;
 @mixes SirenEntityMixin
@@ -32,8 +32,8 @@ PolymerElement
 
 		.module-item-list {
 			list-style-type: none;
-			padding: 0px;
-			margin: 0px;
+			padding: 0;
+			margin: 0;
 		}
 
 		::slotted(.shadowed) {
@@ -58,7 +58,7 @@ PolymerElement
 		}
 		li:first-of-type d2l-activity-link,
 		li:first-of-type d2l-outer-module {
-			margin-top: 0px;
+			margin-top: 0;
 		}
 
 		li {
@@ -74,14 +74,14 @@ PolymerElement
 		<slot name="lesson-header"></slot>
 		<d2l-labs-accordion auto-close="" class="module-content" id="sidebarContent" on-scroll="onSidebarScroll">
 			<ol class="module-item-list">
-				<template is="dom-repeat" items="[[subEntities]]" as="childLink">
+				<template is="dom-repeat" items="[[topicEntities]]" as="childLink">
 					<template is="dom-if" if="[[childLink.href]]">
 						<li>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
-								<d2l-outer-module href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" disabled="[[disabled]]" is-sidebar="[[isSidebar()]]" last-module="[[isLast(subEntities, index)]]"></d2l-outer-module>
+								<d2l-outer-module href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" disabled="[[disabled]]" is-sidebar="[[isSidebar()]]" last-module="[[isLast(topicEntities, index)]]"></d2l-outer-module>
 							</template>
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
-								<d2l-activity-link href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" before-module$="[[isBeforeModule(subEntities, index)]]"></d2l-activity-link>
+								<d2l-activity-link href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" before-module$="[[isBeforeModule(topicEntities, index)]]"></d2l-activity-link>
 							</template>
 						</li>
 					</template>
@@ -113,9 +113,9 @@ PolymerElement
 				type: String,
 				computed: '_getRootHref(entity)'
 			},
-			subEntities: {
+			topicEntities: {
 				type: Array,
-				computed: 'getSubEntities(_lessonEntity)'
+				computed: 'getTopicEntities(_lessonEntity)'
 			},
 			_lessonEntity:{
 				type: Object
@@ -138,7 +138,7 @@ PolymerElement
 		return rootLink && rootLink.href || '';
 	}
 
-	getSubEntities(entity) {
+	getTopicEntities(entity) {
 		return entity && entity.getSubEntities()
 			.filter(subEntity =>
 				((subEntity.properties && Object.keys(subEntity.properties).length > 0) || subEntity.href) && !subEntity.hasClass('unavailable'))
@@ -149,6 +149,7 @@ PolymerElement
 		return link && link.hasClass('sequenced-activity');
 	}
 
+	// Simplify and inline
 	_getHref(entity) {
 		return entity && entity.getLinkByRel && entity.getLinkByRel('self') || entity || '';
 	}
@@ -168,32 +169,23 @@ PolymerElement
 
 	getSideBarHeader() {
 		const sidebarHeaderSlot = this.shadowRoot.querySelector('slot');
-		const sidebarHeader = sidebarHeaderSlot.assignedNodes()[0].querySelector('d2l-lesson-header#sidebarHeader');
-		return sidebarHeader;
+		return sidebarHeaderSlot.assignedNodes()[0].querySelector('d2l-lesson-header#sidebarHeader');
 	}
 
-	isBeforeModule(subEntities, index) {
-		if (index < subEntities.length - 1) {
-			if (!this._isActivity(subEntities[index + 1])) {
+	isBeforeModule(topicEntities, index) {
+		if (index < topicEntities.length - 1) {
+			if (!this._isActivity(topicEntities[index + 1])) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	isLast(entities, index) {
-		if (entities.length <= index + 1) {
-			return true;
-		}
-		else {
-			return false;
-		}
+	isLast(topicEntities, index) {
+		return topicEntities.length <= index + 1;
 	}
 	isSidebar() {
-		if (this.role === 'navigation') {
-			return true;
-		}
-		return false;
+		return this.role === 'navigation';
 	}
 }
 
