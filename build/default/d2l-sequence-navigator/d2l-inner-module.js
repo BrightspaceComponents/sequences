@@ -178,7 +178,7 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
       },
       _hideDescription: {
         type: Boolean,
-        computed: '_getHideDesciption(entity)'
+        computed: '_getHideDescription(entity)'
       },
       hasCurrentActivity: {
         type: Boolean,
@@ -200,7 +200,7 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
     return entity && entity.getSubEntities().filter(subEntity => subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available') || subEntity.href && subEntity.hasClass('sequence-description')).map(this._getHref);
   }
 
-  _getHideDesciption(entity) {
+  _getHideDescription(entity) {
     return Boolean(entity) && entity.hasClass('hide-description');
   }
 

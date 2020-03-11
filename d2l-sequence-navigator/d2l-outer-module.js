@@ -277,6 +277,10 @@ class D2LOuterModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 			_hideModuleDescription: {
 				type: Boolean,
 				computed: '_getHideModuleDescription(entity)'
+			},
+			keysThatNeedToLoad: {
+				type: Object,
+				value: {}
 			}
 		};
 	}
@@ -298,12 +302,28 @@ class D2LOuterModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 		super.connectedCallback();
 		this.addEventListener('d2l-labs-accordion-collapse-clicked', this._onHeaderClicked);
 		this.addEventListener('d2l-labs-accordion-collapse-state-changed', this._updateHeaderClass);
+		this.addEventListener('d2l-sequence-navigator-item-loaded', this._onOuterModuleListItemLoaded);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		this.removeEventListener('d2l-labs-accordion-collapse-clicked', this._onHeaderClicked);
 		this.removeEventListener('d2l-labs-accordion-collapse-state-changed', this._updateHeaderClass);
+		this.removeEventListener('d2l-sequence-navigator-item-loaded', this._onOuterModuleListItemLoaded);
+	}
+
+	_onOuterModuleListItemLoaded(e) {
+		//eslint-disable-next-line
+		console.log({outerModuleLoaded: e});
+
+		const hrefThatLoaded = e.detail.href;
+
+		if (this.keysThatNeedToLoad[hrefThatLoaded]) {
+			this.keysThatNeedToLoad[hrefThatLoaded] = true;
+		} else {
+			//eslint-disable-next-line
+			console.log('something went wrong d2l-outer-module');
+		}
 	}
 
 	_isAccordionOpen() {
@@ -358,9 +378,20 @@ class D2LOuterModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 	// These are guaranteed to be topics? or can the nesting go further?
 	// Need to load these before I stop showing the loading in d2l-sequence-navigator
 	getSubEntities(entity) {
-		return entity && entity.getSubEntities()
+		const subEntities = entity && entity.getSubEntities()
 			.filter(subEntity => (subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available')) || (subEntity.href && subEntity.hasClass('sequence-description')))
 			.map(this._getHref);
+
+		if (subEntities && subEntities.length) {
+			this.keysThatNeedToLoad = subEntities.reduce((acc, curr) => {
+				return {
+					...acc,
+					[curr]: false,
+				};
+			}, {});
+		}
+
+		return subEntities;
 	}
 
 	_getHref(entity) {

@@ -216,6 +216,7 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 	}
 	static get observers() {
 		return [
+			'onEntityChanged(entity)',
 			'onCurrentActivityChanged(currentActivity, entity)'
 		];
 	}
@@ -223,6 +224,23 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 	ready() {
 		super.ready();
 		this.addEventListener('keypress', this._onKeyPress);
+	}
+
+	onEntityChanged(entity) {
+		//eslint-disable-next-line
+		console.log({entityChanged: entity});
+
+		if (!entity) {
+			return;
+		}
+
+		// Dispatch an event here with the href as a detail, don't bubble up
+		this.dispatchEvent(new CustomEvent('d2l-sequence-navigator-item-loaded', {
+			detail: {
+				href: this.href
+			},
+			bubbles: false
+		}));
 	}
 
 	_onKeyPress(event) {

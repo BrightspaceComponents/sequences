@@ -121,6 +121,7 @@ PolymerElement
 				type: String,
 				computed: '_getRootHref(entity)'
 			},
+			// TODO: rename topicEntities
 			topicEntities: {
 				type: Array,
 				computed: '_getTopicEntities(entity)'
@@ -132,6 +133,10 @@ PolymerElement
 				type: Boolean,
 				value: true,
 				computed: '_getIsLoading(topicEntities)'
+			},
+			keysThatNeedToLoad: {
+				type: Object,
+				value: {}
 			}
 		};
 	}
@@ -144,6 +149,31 @@ PolymerElement
 		this.updateStyles(
 			styles
 		);
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		this.addEventListener('d2l-sequence-navigator-item-loaded', this._onNavigatorListItemLoaded);
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		this.removeEventListener('d2l-sequence-navigator-item-loaded', this._onNavigatorListItemLoaded);
+	}
+
+	// Need to check when _every_ list item is loaded. Recursively using d2l-outer-module
+	_onNavigatorListItemLoaded(e) {
+		//eslint-disable-next-line
+		console.log({topLevelLoaded: e});
+
+		const hrefThatLoaded = e.detail.href;
+
+		if (this.keysThatNeedToLoad[hrefThatLoaded]) {
+			this.keysThatNeedToLoad[hrefThatLoaded] = true;
+		} else {
+			//eslint-disable-next-line
+			console.log('something went wrong d2l-sequence-navigator');
+		}
 	}
 
 	// This is only looking at the outer modules, not all topics.. Need to find a way to load all inner stuff
@@ -161,10 +191,21 @@ PolymerElement
 	}
 
 	_getTopicEntities(entity) {
-		return entity && entity.getSubEntities()
+		const subEntities = entity && entity.getSubEntities()
 			.filter(subEntity =>
 				((subEntity.properties && Object.keys(subEntity.properties).length > 0) || subEntity.href) && !subEntity.hasClass('unavailable'))
 			.map(this._getHref);
+
+		if (subEntities && subEntities.length) {
+			this.keysThatNeedToLoad = subEntities.reduce((acc, curr) => {
+				return {
+					...acc,
+					[curr]: false,
+				};
+			}, {});
+		}
+
+		return subEntities;
 	}
 
 	_isActivity(link) {

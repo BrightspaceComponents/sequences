@@ -1,11 +1,12 @@
 import './d2l-activity-link.js';
-import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
-import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
-import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
+import {CompletionStatusMixin} from '../mixins/completion-status-mixin.js';
+import {PolymerASVLaunchMixin} from '../mixins/polymer-asv-launch-mixin.js';
+import {ASVFocusWithinMixin} from '../mixins/asv-focus-within-mixin.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import 'd2l-offscreen/d2l-offscreen.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+
 /*
 @memberOf window.D2L.Polymer.Mixins;
 @mixes D2L.Polymer.Mixins.CompletionStatusMixin
@@ -177,7 +178,7 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 			},
 			_hideDescription: {
 				type: Boolean,
-				computed: '_getHideDesciption(entity)'
+				computed: '_getHideDescription(entity)'
 			},
 			hasCurrentActivity: {
 				type: Boolean,
@@ -191,17 +192,57 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 				type: Boolean,
 				computed: '_getHasActiveChild(entity, currentActivity)',
 				reflectToAttribute: true
+			},
+			keysThatNeedToLoad: {
+				type: Object,
+				value: {}
 			}
 		};
 	}
 
-	getSubEntities(entity) {
-		return entity && entity.getSubEntities()
-			.filter(subEntity => (subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available')) || (subEntity.href && subEntity.hasClass('sequence-description')))
-			.map(this._getHref);
+	connectedCallback() {
+		super.connectedCallback();
+		this.addEventListener('d2l-sequence-navigator-item-loaded', this._onInnerModuleListItemLoaded);
 	}
 
-	_getHideDesciption(entity) {
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		this.removeEventListener('d2l-sequence-navigator-item-loaded', this._onInnerModuleListItemLoaded);
+	}
+
+	_onInnerModuleListItemLoaded(e) {
+		//eslint-disable-next-line
+		console.log({innerModuleLoaded: e});
+
+		const hrefThatLoaded = e.detail.href;
+
+		if (this.keysThatNeedToLoad[hrefThatLoaded]) {
+			this.keysThatNeedToLoad[hrefThatLoaded] = true;
+		} else {
+			//eslint-disable-next-line
+			console.log('something went wrong d2l-inner-module');
+		}
+	}
+
+	// The length and hrefs of subentities is the # of 'loaded' state items we need
+	getSubEntities(entity) {
+		const subEntities = entity && entity.getSubEntities()
+			.filter(subEntity => (subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available')) || (subEntity.href && subEntity.hasClass('sequence-description')))
+			.map(this._getHref);
+
+		if (subEntities && subEntities.length) {
+			this.keysThatNeedToLoad = subEntities.reduce((acc, curr) => {
+				return {
+					...acc,
+					[curr]: false,
+				};
+			}, {});
+		}
+
+		return subEntities;
+	}
+
+	_getHideDescription(entity) {
 		return Boolean(entity) && entity.hasClass('hide-description');
 	}
 
@@ -229,21 +270,13 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 	}
 
 	isLast(entities, index) {
-		if (entities.length <= index + 1) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return entities.length <= index + 1;
 	}
 
 	isEmpty(subEntities) {
-		if (subEntities === null || subEntities.length === 0) {
-			return 'inner-module-empty';
-		}
-		else {
-			return '';
-		}
+		return subEntities === null || subEntities.length === 0
+			? 'inner-module-empty'
+			: '';
 	}
 
 	_getHideDescriptionClass(hideDescription) {
