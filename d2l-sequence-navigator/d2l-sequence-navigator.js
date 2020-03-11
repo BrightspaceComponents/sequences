@@ -70,7 +70,7 @@ PolymerElement
 		}
 
 		</style>
-<!--		<siren-entity href="[[rootHref]]" token="[[token]]" entity="{{_lessonEntity}}"></siren-entity>-->
+		<siren-entity href="[[rootHref]]" token="[[token]]" entity="{{_lessonEntity}}"></siren-entity>
 		<slot name="lesson-header"></slot>
 		<d2l-labs-accordion auto-close="" class="module-content" id="sidebarContent" on-scroll="onSidebarScroll">
 			<ol class="module-item-list">
@@ -124,9 +124,9 @@ PolymerElement
 			// TODO: rename topicEntities
 			topicEntities: {
 				type: Array,
-				computed: '_getTopicEntities(entity)'
+				computed: '_getTopicEntities(_lessonEntity)'
 			},
-			entity: {
+			_lessonEntity: {
 				type: Object
 			},
 			_isLoading: {
