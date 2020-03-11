@@ -1,0 +1,47 @@
+<html>
+<head>
+	<title>d2l-sequence-navigator</title>
+	<script type="module">
+		import '../../d2l-sequence-navigator/d2l-sequence-navigator.js';
+		import '../../d2l-sequence-navigator/d2l-sequence-end.js';
+		import '../../d2l-sequence-navigator/d2l-lesson-header.js';
+		window.D2L.Siren.WhitelistBehavior._testMode(true);
+	</script>
+
+	<custom-style>
+		<style is="custom-style" include="demo-pages-shared-styles"></style>
+		<style>
+			html {
+				--d2l-asv-primary-color: #990000;
+				--d2l-asv-accent-color: rgb(142, 124, 195);
+				--d2l-asv-text-color: var(--d2l-color-ferrite);
+				--d2l-asv-selected-text-color: white;
+				--d2l-asv-hover-color: rgba(142, 124, 195, 0.18);
+				--d2l-asv-border-color: transparent;
+			}
+		</style>
+	</custom-style>
+	<custom-style include="d2l-typography">
+		<style is="custom-style" include="d2l-typography"></style>
+		<style>
+			.body {
+				@apply --d2l-typography;
+			}
+		</style>
+	</custom-style>
+</head>
+
+<body>
+	<d2l-sequence-navigator href="data/m2-activity2.json" token="token"
+							current-activity="data/m2-activity2.json">
+		<d2l-lesson-header slot="lesson-header"
+						   href="data/lesson1.json"
+						   token="token"
+						   module-properties='{"moduleIndex":2,"numberOfSiblingModules":6,"title":"Testo Courso","useNewProgressBar":true}'>
+		</d2l-lesson-header>
+		<d2l-sequence-end slot="end-of-lesson" href="data/sequence-end.json" text="End of Sequence"
+						  token="foozleberries"></d2l-sequence-end>
+	</d2l-sequence-navigator>
+</body>
+
+</html>
