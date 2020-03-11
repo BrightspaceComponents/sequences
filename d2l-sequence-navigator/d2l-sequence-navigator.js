@@ -146,6 +146,8 @@ PolymerElement
 		);
 	}
 
+	// This is only looking at the outer modules, not all topics.. Need to find a way to load all inner stuff
+	// Rename from topicEntities
 	_getIsLoading(topicEntities) {
 		//eslint-disable-next-line
 		console.log({topicEntities});

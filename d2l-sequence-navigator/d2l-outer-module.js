@@ -355,6 +355,8 @@ class D2LOuterModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 		return this._isOptionalModule();
 	}
 
+	// These are guaranteed to be topics? or can the nesting go further?
+	// Need to load these before I stop showing the loading in d2l-sequence-navigator
 	getSubEntities(entity) {
 		return entity && entity.getSubEntities()
 			.filter(subEntity => (subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available')) || (subEntity.href && subEntity.hasClass('sequence-description')))
@@ -399,12 +401,7 @@ class D2LOuterModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 	}
 
 	isLastOfSubModule(entities, index) {
-		if (entities.length <= index + 1 && !this._isActivity(entities[index]) && (!this.lastModule || this.isSidebar)) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return !!(entities.length <= index + 1 && !this._isActivity(entities[index]) && (!this.lastModule || this.isSidebar));
 	}
 
 	isEmpty(subEntities) {
@@ -417,7 +414,6 @@ class D2LOuterModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 	}
 
 	getFormatedDate(entity) {
-
 		const currentDate = new Date();
 		let startDate;
 		let result = '';
