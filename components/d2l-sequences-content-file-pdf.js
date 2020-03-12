@@ -77,7 +77,7 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 		}
 
 		if (entity.properties) {
-			const { title, canDownload, canPrint } = entity.properties.title;
+			const { title, canDownload, canPrint } = entity.properties;
 			this.title = title;
 			this._enableDownload = canDownload;
 			this._enablePrint = canPrint;
