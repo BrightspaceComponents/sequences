@@ -69,13 +69,17 @@ PolymerElement
 			padding-right: var(--d2l-sequence-nav-padding, 0);
 		}
 
+		.hide {
+			display: none;
+		}
+
 		</style>
 		<siren-entity href="[[rootHref]]" token="[[token]]" entity="{{_lessonEntity}}"></siren-entity>
 		<slot name="lesson-header"></slot>
 		<d2l-labs-accordion auto-close="" class="module-content" id="sidebarContent" on-scroll="onSidebarScroll">
 			<ol class="module-item-list">
 
-				<template is="dom-if" if="[[_isLoaded2]]">
+				<div id="content-container">
 					<template is="dom-repeat" items="[[topicEntities]]" as="childLink">
 						<template is="dom-if" if="[[childLink.href]]">
 							<li>
@@ -88,14 +92,14 @@ PolymerElement
 							</li>
 						</template>
 					</template>
-				</template>
+					<slot name="end-of-lesson"></slot>
+				</div>
 
-				<template is="dom-if" if="[[!_isLoaded2]]">
+				<div id="loading-container">
 					<span>--- hi this is loading ---</span>
-				</template>
+				</div>
 
 			</ol>
-			<slot name="end-of-lesson"></slot>
 		</d2l-labs-accordion>
 		`;
 	}
@@ -129,19 +133,10 @@ PolymerElement
 			_lessonEntity: {
 				type: Object
 			},
-			_isLoading: {
-				type: Boolean,
-				value: true,
-				computed: '_getIsLoading(topicEntities)'
-			},
 			keysThatNeedToLoad: {
 				type: Object,
 				value: {}
 			},
-			isLoaded2: {
-				type: Boolean,
-				value: false
-			}
 		};
 	}
 
@@ -149,6 +144,8 @@ PolymerElement
 		super.ready();
 		const styles = this.dataAsvCssVars && JSON.parse(this.dataAsvCssVars) ||
 			JSON.parse(document.getElementsByTagName('html')[0].getAttribute('data-asv-css-vars'));
+
+		this.$['content-container'].classList.add('hide');
 
 		this.updateStyles(
 			styles
@@ -185,17 +182,10 @@ PolymerElement
 		if (Object.values(this.keysThatNeedToLoad).every((val) => !!val)) {
 			//eslint-disable-next-line
 			console.log('==== THE WHOLE THING IS FULLY LOADED!!!!! ======');
-			this.isLoaded2 = true;
+
+			this.$['loading-container'].classList.add('hide');
+			this.$['content-container'].classList.remove('hide');
 		}
-	}
-
-	// This is only looking at the outer modules, not all topics.. Need to find a way to load all inner stuff
-	// Rename from topicEntities
-	_getIsLoading(topicEntities) {
-		//eslint-disable-next-line
-		// console.log({topicEntities});
-
-		return !topicEntities || !topicEntities.length;
 	}
 
 	_getRootHref(entity) {
