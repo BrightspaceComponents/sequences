@@ -234,6 +234,7 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			return;
 		}
 
+		//eslint-disable-next-line
 		console.log(`dispatching: ${this.href}`);
 
 		// Dispatch an event here with the href as a detail, don't bubble up

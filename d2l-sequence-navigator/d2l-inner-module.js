@@ -225,6 +225,7 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 
 	checkIfFullyLoaded() {
 		if (Object.values(this.keysThatNeedToLoad).every((val) => !!val)) {
+			//eslint-disable-next-line
 			console.log('inner mod - every value is true now');
 			this._dispatchLoadedEvent();
 		}
@@ -236,6 +237,7 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 			.filter(subEntity => (subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available')) || (subEntity.href && subEntity.hasClass('sequence-description')))
 			.map(this._getHref);
 
+		//eslint-disable-next-line
 		console.log({ innermodkeys: subEntities });
 
 		if (subEntities) {
@@ -246,6 +248,7 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 				};
 			}, {});
 
+			//eslint-disable-next-line
 			console.log({ innermodkeys: keysThatNeedToLoad });
 
 			if (!Object.keys(keysThatNeedToLoad).length) {

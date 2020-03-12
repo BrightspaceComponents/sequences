@@ -327,6 +327,7 @@ class D2LOuterModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 
 	checkIfFullyLoaded() {
 		if (Object.values(this.keysThatNeedToLoad).every((val) => !!val)) {
+			//eslint-disable-next-line
 			console.log('outer mod - every value is true now');
 			this._dispatchLoadedEvent();
 		}
@@ -396,6 +397,7 @@ class D2LOuterModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 				};
 			}, {});
 
+			//eslint-disable-next-line
 			console.log({ outermodkeys: keysThatNeedToLoad });
 
 			if (!Object.keys(keysThatNeedToLoad).length) {

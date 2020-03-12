@@ -75,7 +75,7 @@ PolymerElement
 		<d2l-labs-accordion auto-close="" class="module-content" id="sidebarContent" on-scroll="onSidebarScroll">
 			<ol class="module-item-list">
 
-				<template is="dom-if" if="[[!_isLoading]]">
+				<template is="dom-if" if="[[_isLoaded2]]">
 					<template is="dom-repeat" items="[[topicEntities]]" as="childLink">
 						<template is="dom-if" if="[[childLink.href]]">
 							<li>
@@ -90,7 +90,7 @@ PolymerElement
 					</template>
 				</template>
 
-				<template is="dom-if" if="[[_isLoading]]">
+				<template is="dom-if" if="[[!_isLoaded2]]">
 					<span>--- hi this is loading ---</span>
 				</template>
 
@@ -137,6 +137,10 @@ PolymerElement
 			keysThatNeedToLoad: {
 				type: Object,
 				value: {}
+			},
+			isLoaded2: {
+				type: Boolean,
+				value: false
 			}
 		};
 	}
@@ -179,7 +183,9 @@ PolymerElement
 
 	checkIfFullyLoaded() {
 		if (Object.values(this.keysThatNeedToLoad).every((val) => !!val)) {
+			//eslint-disable-next-line
 			console.log('==== THE WHOLE THING IS FULLY LOADED!!!!! ======');
+			this.isLoaded2 = true;
 		}
 	}
 
@@ -211,6 +217,7 @@ PolymerElement
 				};
 			}, {});
 
+			//eslint-disable-next-line
 			console.log({ d2lseqnavkeys: keysThatNeedToLoad });
 
 			this.keysThatNeedToLoad = keysThatNeedToLoad;
