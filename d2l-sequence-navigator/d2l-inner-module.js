@@ -212,15 +212,21 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 
 	_onInnerModuleListItemLoaded(e) {
 		//eslint-disable-next-line
-		console.log({innerModuleLoaded: e});
+		// console.log({innerModuleLoaded: e});
 
 		const hrefThatLoaded = e.detail.href;
 
-		if (this.keysThatNeedToLoad[hrefThatLoaded]) {
+		// this event is consumed in multiple places, check if this component cares
+		if (this.keysThatNeedToLoad.hasOwnProperty(hrefThatLoaded)) {
 			this.keysThatNeedToLoad[hrefThatLoaded] = true;
-		} else {
-			//eslint-disable-next-line
-			console.log('something went wrong d2l-inner-module');
+			this.checkIfFullyLoaded();
+		}
+	}
+
+	checkIfFullyLoaded() {
+		if (Object.values(this.keysThatNeedToLoad).every((val) => !!val)) {
+			console.log('inner mod - every value is true now');
+			this._dispatchLoadedEvent();
 		}
 	}
 
@@ -230,16 +236,36 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 			.filter(subEntity => (subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available')) || (subEntity.href && subEntity.hasClass('sequence-description')))
 			.map(this._getHref);
 
-		if (subEntities && subEntities.length) {
-			this.keysThatNeedToLoad = subEntities.reduce((acc, curr) => {
+		console.log({ innermodkeys: subEntities });
+
+		if (subEntities) {
+			const keysThatNeedToLoad = subEntities.reduce((acc, curr) => {
 				return {
 					...acc,
-					[curr]: false,
+					[curr.href]: false,
 				};
 			}, {});
+
+			console.log({ innermodkeys: keysThatNeedToLoad });
+
+			if (!Object.keys(keysThatNeedToLoad).length) {
+				this._dispatchLoadedEvent();
+			}
+
+			this.keysThatNeedToLoad = keysThatNeedToLoad;
 		}
 
 		return subEntities;
+	}
+
+	_dispatchLoadedEvent() {
+		this.dispatchEvent(new CustomEvent('d2l-sequence-navigator-item-loaded', {
+			detail: {
+				href: this.href
+			},
+			composed: true,
+			bubbles: false
+		}));
 	}
 
 	_getHideDescription(entity) {

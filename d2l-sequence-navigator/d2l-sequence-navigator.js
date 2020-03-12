@@ -164,15 +164,22 @@ PolymerElement
 	// Need to check when _every_ list item is loaded. Recursively using d2l-outer-module
 	_onNavigatorListItemLoaded(e) {
 		//eslint-disable-next-line
-		console.log({topLevelLoaded: e});
+		// console.log({topLevelLoaded: e});
 
 		const hrefThatLoaded = e.detail.href;
 
-		if (this.keysThatNeedToLoad[hrefThatLoaded]) {
+		// this event is consumed in multiple places, check if this component cares
+		if (this.keysThatNeedToLoad.hasOwnProperty(hrefThatLoaded)) {
+			// console.log({navLoaded: hrefThatLoaded});
+
 			this.keysThatNeedToLoad[hrefThatLoaded] = true;
-		} else {
-			//eslint-disable-next-line
-			console.log('something went wrong d2l-sequence-navigator');
+			this.checkIfFullyLoaded();
+		}
+	}
+
+	checkIfFullyLoaded() {
+		if (Object.values(this.keysThatNeedToLoad).every((val) => !!val)) {
+			console.log('==== THE WHOLE THING IS FULLY LOADED!!!!! ======');
 		}
 	}
 
@@ -180,7 +187,7 @@ PolymerElement
 	// Rename from topicEntities
 	_getIsLoading(topicEntities) {
 		//eslint-disable-next-line
-		console.log({topicEntities});
+		// console.log({topicEntities});
 
 		return !topicEntities || !topicEntities.length;
 	}
@@ -197,12 +204,16 @@ PolymerElement
 			.map(this._getHref);
 
 		if (subEntities && subEntities.length) {
-			this.keysThatNeedToLoad = subEntities.reduce((acc, curr) => {
+			const keysThatNeedToLoad = subEntities.reduce((acc, curr) => {
 				return {
 					...acc,
-					[curr]: false,
+					[curr.href]: false,
 				};
 			}, {});
+
+			console.log({ d2lseqnavkeys: keysThatNeedToLoad });
+
+			this.keysThatNeedToLoad = keysThatNeedToLoad;
 		}
 
 		return subEntities;
