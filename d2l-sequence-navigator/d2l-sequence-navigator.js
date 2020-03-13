@@ -5,9 +5,9 @@ import '@brightspace-ui-labs/accordion/accordion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import 'siren-entity/siren-entity.js';
 import '../localize-behavior.js';
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
-import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 
 /*
 @memberOf D2L.Polymer.Mixins;
@@ -75,11 +75,10 @@ PolymerElement
 
 		</style>
 		<siren-entity href="[[rootHref]]" token="[[token]]" entity="{{_lessonEntity}}"></siren-entity>
-		<slot name="lesson-header"></slot>
-		<d2l-labs-accordion auto-close="" class="module-content" id="sidebarContent" on-scroll="onSidebarScroll">
-			<ol class="module-item-list">
-
-				<div id="content-container">
+		<div id="content-container">
+			<slot name="lesson-header"></slot>
+			<d2l-labs-accordion auto-close="" class="module-content" id="sidebarContent" on-scroll="onSidebarScroll">
+				<ol class="module-item-list">
 					<template is="dom-repeat" items="[[topicEntities]]" as="childLink">
 						<template is="dom-if" if="[[childLink.href]]">
 							<li>
@@ -93,14 +92,12 @@ PolymerElement
 						</template>
 					</template>
 					<slot name="end-of-lesson"></slot>
-				</div>
-
-				<div id="loading-container">
-					<span>--- hi this is loading ---</span>
-				</div>
-
-			</ol>
-		</d2l-labs-accordion>
+				</ol>
+			</d2l-labs-accordion>
+		</div>
+		<div id="loading-container">
+			<span>--- hi this is loading ---</span>
+		</div>
 		`;
 	}
 
@@ -209,6 +206,11 @@ PolymerElement
 
 			//eslint-disable-next-line
 			console.log({ d2lseqnavkeys: keysThatNeedToLoad });
+
+			if (!Object.keys(keysThatNeedToLoad).length) {
+				this.$['loading-container'].classList.add('hide');
+				this.$['content-container'].classList.remove('hide');
+			}
 
 			this.keysThatNeedToLoad = keysThatNeedToLoad;
 		}
