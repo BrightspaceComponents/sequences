@@ -176,7 +176,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		</style>
 
 		<d2l-labs-accordion-collapse no-icons="" flex="">
-			<div slot="header" id="header-container" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription, isSidebar)]]" on-click="_onHeaderClicked" is-sidebar$="[[isSidebar]]">
+			<div slot="header" id="header-container" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription, isSidebar)]]" is-sidebar$="[[isSidebar]]">
 				<div class="bkgd"></div>
 				<div class="border"></div>
 				<div class="module-header">
@@ -238,7 +238,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			},
 			subEntities: {
 				type: Array,
-				computed: 'getSubEntities(entity, _accordionOpen)'
+				computed: 'getSubEntities(entity, _allowChildrenRendering)'
 			},
 			hasChildren: {
 				type: Boolean,
@@ -274,7 +274,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 				type: Boolean,
 				computed: '_getHideModuleDescription(entity)'
 			},
-			_accordionOpen: {
+			_allowChildrenRendering: {
 				type: Boolean,
 				value: false
 			}
@@ -346,8 +346,8 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		return this._isOptionalModule();
 	}
 
-	getSubEntities(entity, accordionOpen) {
-		return accordionOpen && entity && entity.getSubEntities()
+	getSubEntities(entity, allowChildrenRendering) {
+		return allowChildrenRendering && entity && entity.getSubEntities()
 			.filter(subEntity => (subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available')) || (subEntity.href && subEntity.hasClass('sequence-description')))
 			.map(this._getHref);
 	}
@@ -379,7 +379,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 	}
 
 	_onHeaderClicked() {
-		this._accordionOpen = this._isAccordionOpen();
+		this._allowChildrenRendering = true;
 	}
 
 	childIsActiveEvent() {
