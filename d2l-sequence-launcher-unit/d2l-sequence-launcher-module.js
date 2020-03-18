@@ -377,7 +377,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			return false;
 		}
 
-		const lastViewedParentHref = _lastViewedContentObjectEntity.getLinkByRel('up');
+		const lastViewedParentHref = _lastViewedContentObjectEntity.getLinkByRel('up').href;
 		const thisHref = this.entity && this.entity.getLinkByRel('self').href;
 
 		// eslint-disable-next-line
