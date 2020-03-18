@@ -63,24 +63,25 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 			return;
 		}
 
-		try {
-			const linkActivityHref = this._getLinkLocation(entity);
-			if (linkActivityHref) {
-				this._fileLocation = linkActivityHref;
-			}
-			const fileActivity = entity.getSubEntityByClass('file-activity');
-			const file = fileActivity.getSubEntityByClass('file');
-			const link = file.getLinkByClass('pdf') || file.getLinkByClass('embed') || file.getLinkByRel('alternate');
-			this._fileLocation = link.href;
-		} catch (e) {
-			this._fileLocation = '';
-		}
-
 		if (entity.properties) {
 			const { title, canDownload, canPrint } = entity.properties;
 			this.title = title;
 			this._enableDownload = canDownload;
 			this._enablePrint = canPrint;
+		}
+
+		try {
+			const linkActivityHref = this._getLinkLocation(entity);
+			if (linkActivityHref) {
+				this._fileLocation = linkActivityHref;
+			} else {
+				const fileActivity = entity.getSubEntityByClass('file-activity');
+				const file = fileActivity.getSubEntityByClass('file');
+				const link = file.getLinkByClass('pdf') || file.getLinkByClass('embed') || file.getLinkByRel('alternate');
+				this._fileLocation = link.href;
+			}
+		} catch (e) {
+			this._fileLocation = '';
 		}
 	}
 	_getLinkLocation(entity) {
