@@ -175,6 +175,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 
 		</style>
 
+		<siren-entity href="[[href]]" token="[[token]]" entity="{{_currentActivityEntity}}"></siren-entity>
 		<d2l-labs-accordion-collapse no-icons="" flex="">
 			<div slot="header" id="header-container" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription, isSidebar)]]" is-sidebar$="[[isSidebar]]">
 				<div class="bkgd"></div>
@@ -238,7 +239,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			},
 			subEntities: {
 				type: Array,
-				computed: 'getSubEntities(entity, _allowChildrenRendering)'
+				computed: 'getSubEntities(entity)'
 			},
 			hasChildren: {
 				type: Boolean,
@@ -276,7 +277,10 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			},
 			_allowChildrenRendering: {
 				type: Boolean,
-				value: false
+				value: '_getAllowChildrenRendering(entity, subEntities, _currentActivityEntity)'
+			},
+			_currentActivityEntity: {
+				type: Object
 			}
 		};
 	}
@@ -346,8 +350,8 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		return this._isOptionalModule();
 	}
 
-	getSubEntities(entity, allowChildrenRendering) {
-		return allowChildrenRendering && entity && entity.getSubEntities()
+	getSubEntities(entity) {
+		return entity && entity.getSubEntities()
 			.filter(subEntity => (subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available')) || (subEntity.href && subEntity.hasClass('sequence-description')))
 			.map(this._getHref);
 	}
@@ -363,6 +367,37 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 	_getIsSelected(currentActivity, focusWithin) {
 		const selected = this.entity && this.entity.getLinkByRel('self').href === currentActivity;
 		return this._getTrueClass(focusWithin, selected);
+	}
+
+	_getAllowChildrenRendering(entity, subEntities, _currentActivityEntity) {
+		// eslint-disable-next-line
+		console.log({entity, subEntities, _currentActivityEntity});
+
+		if (!entity || !_currentActivityEntity) {
+			return false;
+		}
+
+		const currentActivityParentHref = _currentActivityEntity.getLinkByRel('up');
+		const thisHref = this.entity && this.entity.getLinkByRel('self').href;
+
+		// eslint-disable-next-line
+		console.log({currentActivityParentHref});
+
+		// If the parentHref is equal to THIS href, or equal to ANY of the subEntity hrefs, expand return true
+
+		// current activity is a direct child of this outer module
+		if (currentActivityParentHref === thisHref) {
+			// eslint-disable-next-line
+			console.log(`=== current activity is directly under outer module: ${thisHref}`);
+			return true;
+		} else if (subEntities.some((s) => s === currentActivityParentHref)) {
+			// current activity is a child of one of the inner modules
+			// eslint-disable-next-line
+			console.log('--- current activity is under inner module');
+			return true;
+		}
+
+		return false;
 	}
 
 	_padOnActivity(childLink) {
