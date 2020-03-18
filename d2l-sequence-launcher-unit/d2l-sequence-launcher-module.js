@@ -390,7 +390,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			// eslint-disable-next-line
 			console.log(`=== current activity is directly under outer module: ${thisHref}`);
 			return true;
-		} else if (subEntities.some((s) => s === lastViewedParentHref)) {
+		} else if (subEntities.some((s) => s.href === lastViewedParentHref)) {
 			// current activity is a child of one of the inner modules
 			// eslint-disable-next-line
 			console.log('--- current activity is under inner module');
