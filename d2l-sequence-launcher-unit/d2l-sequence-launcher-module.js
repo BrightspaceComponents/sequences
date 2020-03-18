@@ -277,7 +277,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			},
 			_allowChildrenRendering: {
 				type: Boolean,
-				value: '_getAllowChildrenRendering(entity, subEntities, _currentActivityEntity)'
+				computed: '_getAllowChildrenRendering(entity, subEntities, _currentActivityEntity)'
 			},
 			_currentActivityEntity: {
 				type: Object
