@@ -175,7 +175,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 
 		</style>
 
-		<siren-entity href="[[href]]" token="[[token]]" entity="{{_currentActivityEntity}}"></siren-entity>
+		<siren-entity href="[[currentActivity]]" token="[[token]]" entity="{{_currentActivityEntity}}"></siren-entity>
 		<d2l-labs-accordion-collapse no-icons="" flex="">
 			<div slot="header" id="header-container" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription, isSidebar)]]" is-sidebar$="[[isSidebar]]">
 				<div class="bkgd"></div>
