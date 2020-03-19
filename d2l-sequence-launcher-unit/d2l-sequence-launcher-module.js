@@ -207,7 +207,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 				<div id ="startDate">[[startDate]]</div>
 			</div>
 			<ol>
-				<template is="dom-if" if="[[_allowChildrenRendering]]">
+				<template is="dom-if" if="[[_getShowModuleChildren()]]">
 					<template is="dom-repeat" items="[[subEntities]]" as="childLink">
 						<li on-click="_onActivityClicked" class$="[[_padOnActivity(childLink)]]">
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
@@ -277,9 +277,13 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 				type: Boolean,
 				computed: '_getHideModuleDescription(entity)'
 			},
-			_allowChildrenRendering: {
+			_moduleStartOpen: {
 				type: Boolean,
-				computed: '_getAllowChildrenRendering(entity, subEntities, _lastViewedContentObjectEntity)'
+				computed: '_getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity)'
+			},
+			_moduleWasExpanded: {
+				type: Boolean,
+				value:false
 			},
 			lastViewedContentObject: {
 				type: String
@@ -374,7 +378,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		return this._getTrueClass(focusWithin, selected);
 	}
 
-	_getAllowChildrenRendering(entity, subEntities, _lastViewedContentObjectEntity) {
+	_getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity) {
 		if (!entity || !_lastViewedContentObjectEntity) {
 			return false;
 		}
@@ -416,7 +420,11 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 	}
 
 	_onHeaderClicked() {
-		this._allowChildrenRendering = true;
+		this._moduleWasExpanded = true;
+	}
+
+	_getShowModuleChildren() {
+		return this._moduleStartOpen || this._moduleWasExpanded;
 	}
 
 	childIsActiveEvent() {
