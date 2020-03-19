@@ -51,7 +51,7 @@ PolymerElement
 			outline: none;
 		}
 
-		#launcher-unit-content {
+		#sidebarContent {
 			position: relative;
 			overflow-y: auto;
 			overflow-x: hidden;
@@ -72,13 +72,13 @@ PolymerElement
 		</style>
 		<siren-entity href="[[rootHref]]" token="[[token]]" entity="{{_lessonEntity}}"></siren-entity>
 		<slot name="lesson-header"></slot>
-		<d2l-labs-accordion auto-close="" class="module-content" id="launcher-unit-content">
+		<d2l-labs-accordion auto-close="" class="module-content" id="sidebarContent" on-scroll="onSidebarScroll">
 			<ol class="module-item-list">
 				<template is="dom-repeat" items="[[subEntities]]" as="childLink">
 					<template is="dom-if" if="[[childLink.href]]">
 						<li>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
-								<d2l-sequence-launcher-module href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" last-module="[[isLast(subEntities, index)]]" last-viewed-content-object="[[lastViewedContentObject]]"></d2l-sequence-launcher-module>
+								<d2l-sequence-launcher-module href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" is-sidebar="[[isSidebar()]]" last-module="[[isLast(subEntities, index)]]" last-viewed-content-object="[[lastViewedContentObject]]"></d2l-sequence-launcher-module>
 							</template>
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
 								<d2l-activity-link href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" before-module$="[[isBeforeModule(subEntities, index)]]"></d2l-activity-link>
@@ -153,6 +153,24 @@ PolymerElement
 		return entity && entity.getLinkByRel && entity.getLinkByRel('self') || entity || '';
 	}
 
+	onSidebarScroll() {
+		const sidebarHeader = this.getSideBarHeader();
+		if (this.$.sidebarContent.scrollTop === 0) {
+			if (sidebarHeader && sidebarHeader.classList && sidebarHeader.classList.contains('shadowed')) {
+				sidebarHeader.classList.remove('shadowed');
+			}
+		} else {
+			if (sidebarHeader && sidebarHeader.classList && !sidebarHeader.classList.contains('shadowed')) {
+				sidebarHeader.classList.add('shadowed');
+			}
+		}
+	}
+
+	getSideBarHeader() {
+		const sidebarHeaderSlot = this.shadowRoot.querySelector('slot');
+		return sidebarHeaderSlot.assignedNodes()[0].querySelector('d2l-lesson-header#sidebarHeader');
+	}
+
 	isBeforeModule(subEntities, index) {
 		if (index < subEntities.length - 1) {
 			if (!this._isActivity(subEntities[index + 1])) {
@@ -164,6 +182,9 @@ PolymerElement
 
 	isLast(entities, index) {
 		return entities.length <= index + 1;
+	}
+	isSidebar() {
+		return this.role === 'navigation';
 	}
 }
 
