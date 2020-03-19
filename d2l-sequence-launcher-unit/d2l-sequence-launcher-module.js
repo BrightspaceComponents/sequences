@@ -294,6 +294,10 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		};
 	}
 
+	static get observers() {
+		return ['_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)'];
+	}
+
 	_accordionCollapseClass(focusWithin) {
 		return this._focusWithinClass(focusWithin);
 	}
@@ -423,8 +427,8 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		this._moduleWasExpanded = true;
 	}
 
-	_getShowModuleChildren() {
-		return this._moduleStartOpen || this._moduleWasExpanded;
+	_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded) {
+		return _moduleStartOpen || _moduleWasExpanded;
 	}
 
 	childIsActiveEvent() {
