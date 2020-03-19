@@ -74,7 +74,7 @@
     "d2l-loading-spinner": "BrightspaceUI/loading-spinner#semver:^7",
     "d2l-localize-behavior": "BrightspaceUI/localize-behavior#semver:^2",
     "d2l-navigation": "BrightspaceUI/navigation#semver:^4",
-    "d2l-pdf-viewer": "Brightspace/d2l-pdf-viewer#semver:^2",
+    "d2l-pdf-viewer": "Brightspace/d2l-pdf-viewer#semver:^3",
     "d2l-poller": "Brightspace/d2l-poller#semver:^3",
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",
     "d2l-progress": "BrightspaceUI/progress#semver:^1",
