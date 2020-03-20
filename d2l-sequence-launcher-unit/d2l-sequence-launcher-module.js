@@ -495,10 +495,9 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		return _hideModuleDescription && !isSidebar ? 'hide-description' : '';
 	}
 
-	_openModule(moduleStartOpen) {
-		if (moduleStartOpen) {
+	_openModule(_moduleStartOpen) {
+		if (_moduleStartOpen) {
 			this.shadowRoot.querySelector('d2l-labs-accordion-collapse').setAttribute('opened', '');
-			this._moduleWasExpanded = true;
 		}
 	}
 }
