@@ -241,7 +241,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			},
 			subEntities: {
 				type: Array,
-				computed: 'getSubEntities(entity)'
+				computed: 'getSubEntities(entity, _allowChildrenRendering)'
 			},
 			hasChildren: {
 				type: Boolean,
@@ -363,8 +363,8 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		return this._isOptionalModule();
 	}
 
-	getSubEntities(entity) {
-		return entity && entity.getSubEntities()
+	getSubEntities(entity, allowChildrenRendering) {
+		return allowChildrenRendering && entity && entity.getSubEntities()
 			.filter(subEntity => (subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available')) || (subEntity.href && subEntity.hasClass('sequence-description')))
 			.map(this._getHref);
 	}
