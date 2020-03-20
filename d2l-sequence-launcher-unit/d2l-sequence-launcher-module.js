@@ -391,7 +391,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 
 		const isCurrentModuleLastViewedContentObject = _lastViewedContentObjectEntity.getLinkByRel('self').href === this.href;
 		const isDirectChildOfCurrentModule = lastViewedParentHref === this.href;
-		const isChildOfSubModule = subEntities.some((s) => s.href === lastViewedParentHref);
+		const isChildOfSubModule = subEntities && subEntities.some((s) => s.href === lastViewedParentHref);
 
 		return isCurrentModuleLastViewedContentObject || isDirectChildOfCurrentModule || isChildOfSubModule;
 	}
