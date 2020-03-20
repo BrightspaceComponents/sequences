@@ -272,7 +272,7 @@ class D2LOuterModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 			},
 			startDate: {
 				type: String,
-				computed: 'getFormatedDate(entity)'
+				computed: 'getFormattedDate(entity)'
 			},
 			_hideModuleDescription: {
 				type: Boolean,
@@ -416,7 +416,7 @@ class D2LOuterModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 		}
 	}
 
-	getFormatedDate(entity) {
+	getFormattedDate(entity) {
 
 		const currentDate = new Date();
 		let startDate;

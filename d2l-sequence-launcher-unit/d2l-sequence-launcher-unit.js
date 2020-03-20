@@ -78,7 +78,7 @@ PolymerElement
 					<template is="dom-if" if="[[childLink.href]]">
 						<li>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
-								<d2l-sequence-launcher-module href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" is-sidebar="[[isSidebar()]]" last-module="[[isLast(subEntities, index)]]"></d2l-sequence-launcher-module>
+								<d2l-sequence-launcher-module href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" is-sidebar="[[isSidebar()]]" last-module="[[isLast(subEntities, index)]]" last-viewed-content-object="[[lastViewedContentObject]]"></d2l-sequence-launcher-module>
 							</template>
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
 								<d2l-activity-link href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" before-module$="[[isBeforeModule(subEntities, index)]]"></d2l-activity-link>
@@ -116,6 +116,9 @@ PolymerElement
 			},
 			_lessonEntity:{
 				type: Object
+			},
+			lastViewedContentObject: {
+				type: String
 			}
 		};
 	}
@@ -165,8 +168,7 @@ PolymerElement
 
 	getSideBarHeader() {
 		const sidebarHeaderSlot = this.shadowRoot.querySelector('slot');
-		const sidebarHeader = sidebarHeaderSlot.assignedNodes()[0].querySelector('d2l-lesson-header#sidebarHeader');
-		return sidebarHeader;
+		return sidebarHeaderSlot.assignedNodes()[0].querySelector('d2l-lesson-header#sidebarHeader');
 	}
 
 	isBeforeModule(subEntities, index) {
@@ -179,18 +181,10 @@ PolymerElement
 	}
 
 	isLast(entities, index) {
-		if (entities.length <= index + 1) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return entities.length <= index + 1;
 	}
 	isSidebar() {
-		if (this.role === 'navigation') {
-			return true;
-		}
-		return false;
+		return this.role === 'navigation';
 	}
 }
 
