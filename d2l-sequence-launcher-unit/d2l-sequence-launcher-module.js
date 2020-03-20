@@ -388,9 +388,12 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		}
 
 		const lastViewedParentHref = _lastViewedContentObjectEntity.getLinkByRel('up').href;
-		const thisHref = this.entity && this.entity.getLinkByRel('self').href;
 
-		return lastViewedParentHref === thisHref || subEntities.some((s) => s.href === lastViewedParentHref);
+		const isCurrentModuleLastViewedContentObject = _lastViewedContentObjectEntity.getLinkByRel('self').href === this.href;
+		const isDirectChildOfCurrentModule = lastViewedParentHref === this.href;
+		const isChildOfSubModule = subEntities.some((s) => s.href === lastViewedParentHref);
+
+		return isCurrentModuleLastViewedContentObject || isDirectChildOfCurrentModule || isChildOfSubModule;
 	}
 
 	_padOnActivity(childLink) {
