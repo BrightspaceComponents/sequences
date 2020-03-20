@@ -241,7 +241,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			},
 			subEntities: {
 				type: Array,
-				computed: 'getSubEntities(entity, _allowChildrenRendering)'
+				computed: 'getSubEntities(entity)'
 			},
 			hasChildren: {
 				type: Boolean,
@@ -363,8 +363,8 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		return this._isOptionalModule();
 	}
 
-	getSubEntities(entity, allowChildrenRendering) {
-		return allowChildrenRendering && entity && entity.getSubEntities()
+	getSubEntities(entity) {
+		return entity && entity.getSubEntities()
 			.filter(subEntity => (subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available')) || (subEntity.href && subEntity.hasClass('sequence-description')))
 			.map(this._getHref);
 	}
@@ -391,7 +391,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 
 		const isCurrentModuleLastViewedContentObject = _lastViewedContentObjectEntity.getLinkByRel('self').href === this.href;
 		const isDirectChildOfCurrentModule = lastViewedParentHref === this.href;
-		const isChildOfSubModule = subEntities && subEntities.some((s) => s.href === lastViewedParentHref);
+		const isChildOfSubModule = subEntities.some((s) => s.href === lastViewedParentHref);
 
 		return isCurrentModuleLastViewedContentObject || isDirectChildOfCurrentModule || isChildOfSubModule;
 	}
