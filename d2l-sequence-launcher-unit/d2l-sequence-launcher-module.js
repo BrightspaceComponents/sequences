@@ -238,7 +238,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			},
 			subEntities: {
 				type: Array,
-				computed: 'getSubEntities(entity)'
+				computed: 'getSubEntities(entity, _allowChildrenRendering)'
 			},
 			hasChildren: {
 				type: Boolean,
@@ -273,6 +273,10 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			_hideModuleDescription: {
 				type: Boolean,
 				computed: '_getHideModuleDescription(entity)'
+			},
+			_allowChildrenRendering: {
+				type: Boolean,
+				value: false
 			}
 		};
 	}
@@ -283,11 +287,13 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 
 	connectedCallback() {
 		super.connectedCallback();
+		this.addEventListener('d2l-labs-accordion-collapse-clicked', this._onHeaderClicked);
 		this.addEventListener('d2l-labs-accordion-collapse-state-changed', this._updateHeaderClass);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
+		this.removeEventListener('d2l-labs-accordion-collapse-clicked', this._onHeaderClicked);
 		this.removeEventListener('d2l-labs-accordion-collapse-state-changed', this._updateHeaderClass);
 	}
 
@@ -340,8 +346,8 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		return this._isOptionalModule();
 	}
 
-	getSubEntities(entity) {
-		return entity && entity.getSubEntities()
+	getSubEntities(entity, allowChildrenRendering) {
+		return allowChildrenRendering && entity && entity.getSubEntities()
 			.filter(subEntity => (subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available')) || (subEntity.href && subEntity.hasClass('sequence-description')))
 			.map(this._getHref);
 	}
@@ -370,6 +376,10 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		if (childLink.class.includes('sequenced-activity') && this.currentActivity !== childLink.href) {
 			this.currentActivity = childLink.href;
 		}
+	}
+
+	_onHeaderClicked() {
+		this._allowChildrenRendering = true;
 	}
 
 	childIsActiveEvent() {
