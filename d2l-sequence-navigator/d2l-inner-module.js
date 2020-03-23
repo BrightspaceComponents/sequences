@@ -148,23 +148,17 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 				padding: 12px 0 0;
 			}
 
-			.skeleton {
+			#skeleton {
 				background: #F1F5FB;
-				height: 12px;
-				width: 80%;
+				height: 96px;
+				width: 100%;
+				border-radius: 8px;
 			}
 
 		</style>
 
 		<template is="dom-if" if="[[skeleton]]">
-			<div id="header-skeleton">
-				<div class="skeleton"></div>
-			</div>
-			<ol>
-				<li>
-					<div class="skeleton"></div>
-				</li>
-			</ol>
+			<div id="skeleton"></div>
 		</template>
 		<template is="dom-if" if="[[!skeleton]]">
 			<div id="header-container" class$="[[isEmpty(subEntities)]]">
@@ -217,7 +211,8 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 			},
 			skeleton: {
 				type: Boolean,
-				value: false
+				computed: '_showSkeleton(entity)',
+				value: true
 			}
 		};
 	}
@@ -279,6 +274,10 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 
 	_getHasActiveChild(entity, currentActivity) {
 		return Boolean(entity) && entity.entities.some(subEntity => subEntity.href === currentActivity);
+	}
+
+	_showSkeleton(entity) {
+		return !entity;
 	}
 }
 customElements.define(D2LInnerModule.is, D2LInnerModule);

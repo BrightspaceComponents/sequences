@@ -68,6 +68,10 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				justify-content: space-between;
 			}
 
+			:host([skeleton]) {
+				cursor: unset;
+			}
+
 			div.bkgd,
 			div.border,
 			div.bkgd-backdrop {
@@ -164,16 +168,16 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				color: var(--d2l-asv-selected-text-color);
 			}
 
+			#skeleton {
+				height: 24px;
+				width: 80%;
+				background: #F1F5FB;
+				border-radius: 8px;
+			}
+
 		</style>
 		<template is="dom-if" if="[[skeleton]]">
-			<div id="header-skeleton">
-				<div class="skeleton"></div>
-			</div>
-			<ol>
-				<li>
-					<div class="skeleton"></div>
-				</li>
-			</ol>
+			<div id="skeleton"></div>
 		</template>
 		<template is="dom-if" if="[[!skeleton]]">
 			<div class="bkgd"></div>
@@ -226,7 +230,9 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			},
 			skeleton: {
 				type: Boolean,
-				value: false
+				value: true,
+				reflectToAttribute: true,
+				computed: '_showSkeleton(entity)'
 			}
 		};
 	}
@@ -284,6 +290,10 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-activity-link-current-activity', {detail: { href: this.href}}));
 		}
 		return this._getTrueClass(focusWithin, selected);
+	}
+
+	_showSkeleton(entity) {
+		return !entity;
 	}
 }
 customElements.define(D2LActivityLink.is, D2LActivityLink);
