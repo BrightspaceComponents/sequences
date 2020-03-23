@@ -165,23 +165,35 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			}
 
 		</style>
-		<div class="bkgd"></div>
-		<div class="bkgd-backdrop"></div>
-		<div class="border"></div>
-		<div on-click="_contentObjectClick">
-			<template is="dom-if" if="[[hasIcon]]">
-				<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
-			</template>
-			<div class="d2l-activity-link-title">
-				<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)">
-					[[entity.properties.title]]
-				</a>
-				<d2l-completion-requirement href="[[href]]" token="[[token]]">
-				</d2l-completion-requirement>
+		<template is="dom-if" if="[[skeleton]]">
+			<div id="header-skeleton">
+				<div class="skeleton"></div>
 			</div>
-			<d2l-completion-status href="[[href]]" token="[[token]]">
-			</d2l-completion-status>
-		</div>
+			<ol>
+				<li>
+					<div class="skeleton"></div>
+				</li>
+			</ol>
+		</template>
+		<template is="dom-if" if="[[!skeleton]]">
+			<div class="bkgd"></div>
+			<div class="bkgd-backdrop"></div>
+			<div class="border"></div>
+			<div on-click="_contentObjectClick">
+				<template is="dom-if" if="[[hasIcon]]">
+					<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
+				</template>
+				<div class="d2l-activity-link-title">
+					<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)">
+						[[entity.properties.title]]
+					</a>
+					<d2l-completion-requirement href="[[href]]" token="[[token]]">
+					</d2l-completion-requirement>
+				</div>
+				<d2l-completion-status href="[[href]]" token="[[token]]">
+				</d2l-completion-status>
+			</div>
+		</template>
 `;
 	}
 
@@ -212,6 +224,10 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				type: String,
 				computed: '_getCompletionStatus(entity)',
 			},
+			skeleton: {
+				type: Boolean,
+				value: false
+			}
 		};
 	}
 	static get observers() {

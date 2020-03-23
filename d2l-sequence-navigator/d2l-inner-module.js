@@ -143,25 +143,48 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 				padding-bottom: 6px;
 			}
 
+			#header-skeleton {
+				display: flex;
+				padding: 12px 0 0;
+			}
+
+			.skeleton {
+				background: #F1F5FB;
+				height: 12px;
+				width: 80%;
+			}
+
 		</style>
 
-		<div id="header-container" class$="[[isEmpty(subEntities)]]">
-			<div id="module-header" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
-				<div class="bkgd"></div>
-				<div class="bkgd-backdrop"></div>
-				<div class="border"></div>
-				<a on-click="_onHeaderClicked" href="javascript:void(0)">
-					<span class="module-title">[[entity.properties.title]]</span>
-				</a>
+		<template is="dom-if" if="[[skeleton]]">
+			<div id="header-skeleton">
+				<div class="skeleton"></div>
 			</div>
-		</div>
-		<ol>
-			<template is="dom-repeat" items="[[subEntities]]" as="childLink">
+			<ol>
 				<li>
-					<d2l-activity-link inner-last$="[[isLast(subEntities, index)]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"></d2l-activity-link>
+					<div class="skeleton"></div>
 				</li>
-			</template>
-		</ol>
+			</ol>
+		</template>
+		<template is="dom-if" if="[[!skeleton]]">
+			<div id="header-container" class$="[[isEmpty(subEntities)]]">
+				<div id="module-header" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
+					<div class="bkgd"></div>
+					<div class="bkgd-backdrop"></div>
+					<div class="border"></div>
+					<a on-click="_onHeaderClicked" href="javascript:void(0)">
+						<span class="module-title">[[entity.properties.title]]</span>
+					</a>
+				</div>
+			</div>
+			<ol>
+				<template is="dom-repeat" items="[[subEntities]]" as="childLink">
+					<li>
+						<d2l-activity-link inner-last$="[[isLast(subEntities, index)]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"></d2l-activity-link>
+					</li>
+				</template>
+			</ol>
+		</template>
 `;
 	}
 
@@ -191,6 +214,10 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 				type: Boolean,
 				computed: '_getHasActiveChild(entity, currentActivity)',
 				reflectToAttribute: true
+			},
+			skeleton: {
+				type: Boolean,
+				value: false
 			}
 		};
 	}
