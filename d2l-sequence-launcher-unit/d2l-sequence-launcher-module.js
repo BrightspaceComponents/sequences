@@ -297,7 +297,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 	static get observers() {
 		return [
 			'_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)',
-			'_moduleStartOpen(_moduleStartOpen)'
+			'_openModule(_moduleStartOpen)'
 		];
 	}
 
@@ -495,7 +495,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		return _hideModuleDescription && !isSidebar ? 'hide-description' : '';
 	}
 
-	_moduleStartOpen(_moduleStartOpen) {
+	_openModule(_moduleStartOpen) {
 		if (_moduleStartOpen) {
 			this.shadowRoot.querySelector('d2l-labs-accordion-collapse').setAttribute('opened', '');
 		}
