@@ -211,7 +211,7 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 			},
 			skeleton: {
 				type: Boolean,
-				computed: '_showSkeleton(entity)',
+				reflectToAttribute: true,
 				value: true
 			}
 		};

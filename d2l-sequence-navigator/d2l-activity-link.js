@@ -168,16 +168,34 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				color: var(--d2l-asv-selected-text-color);
 			}
 
-			#skeleton {
+			#skeleton-container {
 				height: 24px;
-				width: 80%;
-				background: #F1F5FB;
+				width: 100%;
+				display: flex;
+				justify-content: flex-start;
+			}
+
+			#icon-skeleton {
+				height: 100%;
+				width: 24px;
+				margin-right: 15px;
 				border-radius: 8px;
+				background: #F1F5FB;
+			}
+
+			#title-skeleton {
+				height: 100%;
+				width: 70%;
+				border-radius: 8px;
+				background: #F1F5FB;
 			}
 
 		</style>
 		<template is="dom-if" if="[[skeleton]]">
-			<div id="skeleton"></div>
+			<div id="skeleton-container">
+				<div id="icon-skeleton"></div>
+				<div id="title-skeleton"></div>
+			</div>
 		</template>
 		<template is="dom-if" if="[[!skeleton]]">
 			<div class="bkgd"></div>
