@@ -68,7 +68,7 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				justify-content: space-between;
 			}
 
-			:host([skeleton]) {
+			:host([show-loading-skeleton]) {
 				cursor: unset;
 			}
 
@@ -191,13 +191,13 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			}
 
 		</style>
-		<template is="dom-if" if="[[skeleton]]">
+		<template is="dom-if" if="[[showLoadingSkeleton]]">
 			<div id="skeleton-container">
 				<div id="icon-skeleton"></div>
 				<div id="title-skeleton"></div>
 			</div>
 		</template>
-		<template is="dom-if" if="[[!skeleton]]">
+		<template is="dom-if" if="[[!showLoadingSkeleton]]">
 			<div class="bkgd"></div>
 			<div class="bkgd-backdrop"></div>
 			<div class="border"></div>
@@ -246,7 +246,7 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				type: String,
 				computed: '_getCompletionStatus(entity)',
 			},
-			skeleton: {
+			showLoadingSkeleton: {
 				type: Boolean,
 				value: true,
 				reflectToAttribute: true,

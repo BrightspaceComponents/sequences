@@ -157,10 +157,10 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 
 		</style>
 
-		<template is="dom-if" if="[[skeleton]]">
+		<template is="dom-if" if="[[showLoadingSkeleton]]">
 			<div id="skeleton"></div>
 		</template>
-		<template is="dom-if" if="[[!skeleton]]">
+		<template is="dom-if" if="[[!showLoadingSkeleton]]">
 			<div id="header-container" class$="[[isEmpty(subEntities)]]">
 				<div id="module-header" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
 					<div class="bkgd"></div>
@@ -209,10 +209,11 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 				computed: '_getHasActiveChild(entity, currentActivity)',
 				reflectToAttribute: true
 			},
-			skeleton: {
+			showLoadingSkeleton: {
 				type: Boolean,
+				value: true,
 				reflectToAttribute: true,
-				value: true
+				computed: '_showSkeleton(entity)'
 			}
 		};
 	}
