@@ -211,10 +211,10 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 					<template is="dom-repeat" items="[[subEntities]]" as="childLink">
 						<li on-click="_onActivityClicked" class$="[[_padOnActivity(childLink)]]">
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
-								<d2l-activity-link last-module$="[[lastModule]]" is-sidebar$="[[isSidebar]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"></d2l-activity-link>
+								<d2l-activity-link skeleton="[[_skeleton]]" last-module$="[[lastModule]]" is-sidebar$="[[isSidebar]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"></d2l-activity-link>
 							</template>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
-								<d2l-inner-module href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-inner-module-current-activity="childIsActiveEvent"></d2l-inner-module>
+								<d2l-inner-module skeleton="[[_skeleton]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-inner-module-current-activity="childIsActiveEvent"></d2l-inner-module>
 							</template>
 						</li>
 					</template>
@@ -290,6 +290,10 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			_moduleWasExpanded: {
 				type: Boolean,
 				value: false
+			},
+			_skeleton: {
+				type: Boolean,
+				value: true
 			}
 		};
 	}

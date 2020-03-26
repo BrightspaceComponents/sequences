@@ -68,6 +68,10 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				justify-content: space-between;
 			}
 
+			:host([show-loading-skeleton]) {
+				cursor: unset;
+			}
+
 			div.bkgd,
 			div.border,
 			div.bkgd-backdrop {
@@ -164,24 +168,54 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				color: var(--d2l-asv-selected-text-color);
 			}
 
+			#skeleton-container {
+				height: 24px;
+				width: 100%;
+				display: flex;
+				justify-content: flex-start;
+			}
+
+			#icon-skeleton {
+				height: 100%;
+				width: 24px;
+				margin-right: 15px;
+				border-radius: 8px;
+				background: #F1F5FB;
+			}
+
+			#title-skeleton {
+				height: 100%;
+				width: 70%;
+				border-radius: 8px;
+				background: #F1F5FB;
+			}
+
 		</style>
-		<div class="bkgd"></div>
-		<div class="bkgd-backdrop"></div>
-		<div class="border"></div>
-		<div on-click="_contentObjectClick">
-			<template is="dom-if" if="[[hasIcon]]">
-				<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
-			</template>
-			<div class="d2l-activity-link-title">
-				<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)">
-					[[entity.properties.title]]
-				</a>
-				<d2l-completion-requirement href="[[href]]" token="[[token]]">
-				</d2l-completion-requirement>
+		<template is="dom-if" if="[[showLoadingSkeleton]]">
+			<div id="skeleton-container">
+				<div id="icon-skeleton"></div>
+				<div id="title-skeleton"></div>
 			</div>
-			<d2l-completion-status href="[[href]]" token="[[token]]">
-			</d2l-completion-status>
-		</div>
+		</template>
+		<template is="dom-if" if="[[!showLoadingSkeleton]]">
+			<div class="bkgd"></div>
+			<div class="bkgd-backdrop"></div>
+			<div class="border"></div>
+			<div on-click="_contentObjectClick">
+				<template is="dom-if" if="[[hasIcon]]">
+					<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
+				</template>
+				<div class="d2l-activity-link-title">
+					<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)">
+						[[entity.properties.title]]
+					</a>
+					<d2l-completion-requirement href="[[href]]" token="[[token]]">
+					</d2l-completion-requirement>
+				</div>
+				<d2l-completion-status href="[[href]]" token="[[token]]">
+				</d2l-completion-status>
+			</div>
+		</template>
 `;
 	}
 
@@ -212,6 +246,12 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				type: String,
 				computed: '_getCompletionStatus(entity)',
 			},
+			showLoadingSkeleton: {
+				type: Boolean,
+				value: true,
+				reflectToAttribute: true,
+				computed: '_showSkeleton(entity)'
+			}
 		};
 	}
 	static get observers() {
@@ -268,6 +308,10 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-activity-link-current-activity', {detail: { href: this.href}}));
 		}
 		return this._getTrueClass(focusWithin, selected);
+	}
+
+	_showSkeleton(entity) {
+		return !entity;
 	}
 }
 customElements.define(D2LActivityLink.is, D2LActivityLink);

@@ -143,25 +143,42 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 				padding-bottom: 6px;
 			}
 
+			#header-skeleton {
+				display: flex;
+				padding: 12px 0 0;
+			}
+
+			#skeleton {
+				background: #F1F5FB;
+				height: 96px;
+				width: 100%;
+				border-radius: 8px;
+			}
+
 		</style>
 
-		<div id="header-container" class$="[[isEmpty(subEntities)]]">
-			<div id="module-header" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
-				<div class="bkgd"></div>
-				<div class="bkgd-backdrop"></div>
-				<div class="border"></div>
-				<a on-click="_onHeaderClicked" href="javascript:void(0)">
-					<span class="module-title">[[entity.properties.title]]</span>
-				</a>
+		<template is="dom-if" if="[[showLoadingSkeleton]]">
+			<div id="skeleton"></div>
+		</template>
+		<template is="dom-if" if="[[!showLoadingSkeleton]]">
+			<div id="header-container" class$="[[isEmpty(subEntities)]]">
+				<div id="module-header" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
+					<div class="bkgd"></div>
+					<div class="bkgd-backdrop"></div>
+					<div class="border"></div>
+					<a on-click="_onHeaderClicked" href="javascript:void(0)">
+						<span class="module-title">[[entity.properties.title]]</span>
+					</a>
+				</div>
 			</div>
-		</div>
-		<ol>
-			<template is="dom-repeat" items="[[subEntities]]" as="childLink">
-				<li>
-					<d2l-activity-link inner-last$="[[isLast(subEntities, index)]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"></d2l-activity-link>
-				</li>
-			</template>
-		</ol>
+			<ol>
+				<template is="dom-repeat" items="[[subEntities]]" as="childLink">
+					<li>
+						<d2l-activity-link inner-last$="[[isLast(subEntities, index)]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"></d2l-activity-link>
+					</li>
+				</template>
+			</ol>
+		</template>
 `;
 	}
 
@@ -191,6 +208,12 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 				type: Boolean,
 				computed: '_getHasActiveChild(entity, currentActivity)',
 				reflectToAttribute: true
+			},
+			showLoadingSkeleton: {
+				type: Boolean,
+				value: true,
+				reflectToAttribute: true,
+				computed: '_showSkeleton(entity)'
 			}
 		};
 	}
@@ -252,6 +275,10 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 
 	_getHasActiveChild(entity, currentActivity) {
 		return Boolean(entity) && entity.entities.some(subEntity => subEntity.href === currentActivity);
+	}
+
+	_showSkeleton(entity) {
+		return !entity;
 	}
 }
 customElements.define(D2LInnerModule.is, D2LInnerModule);
