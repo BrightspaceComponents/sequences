@@ -22,11 +22,14 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			:host {
 				display: block;
 				@apply --d2l-body-compact-text;
-				width: 100%;
+				/*width: 80%;*/
 				--d2l-outer-module-text-color: var(--d2l-asv-text-color);
 				--d2l-outer-module-background-color: transparent;
 				--d2l-activity-link-padding: 10px 24px;
-				margin-top: -1px;
+				/*margin-top: -1px;*/
+
+				border: 1px solid var(--d2l-color-mica);
+				border-radius: 8px;
 			}
 
 			#header-container {

@@ -62,11 +62,10 @@ PolymerElement
 		}
 
 		li {
-			padding-top: 6px;
-			padding-bottom: 6px;
-			border-bottom: 1px solid var(--d2l-color-mica);
-			padding-left: var(--d2l-sequence-nav-padding, 0);
-			padding-right: var(--d2l-sequence-nav-padding, 0);
+			/*border-bottom: 1px solid var(--d2l-color-mica);*/
+			/*padding-left: var(--d2l-sequence-nav-padding, 0);*/
+			/*padding-right: var(--d2l-sequence-nav-padding, 0);*/
+			padding: 6px 10px;
 		}
 
 		</style>

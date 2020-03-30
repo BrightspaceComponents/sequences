@@ -30,8 +30,8 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				padding: var(--d2l-activity-link-padding, 10px 24px);
 				border-collapse: separate;
 				box-sizing: border-box;
-				border: 1px solid transparent;
-				border-width: 1px 0;
+				/*border: 1px solid transparent;*/
+				/*border-width: 1px 0;*/
 				position: relative;
 				z-index: 0;
 				background-color: transparent;
@@ -132,7 +132,7 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				-webkit-line-clamp: 2; /* number of lines to show */
 				outline: none;
 				text-decoration: none;
-				color: var(--d2l-activity-link-text-color);
+				color: var(--d2l-color-celestine);
 			}
 
 			a.d2l-activity-link-one-line {
@@ -153,7 +153,7 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			d2l-icon {
 				padding-top: 3px;
 				padding-right: var(--d2l-left-icon-padding);
-				color: var(--d2l-activity-link-text-color);
+				color: var(--d2l-color-celestine);
 			}
 
 			:host([inner-last]) {
