@@ -143,16 +143,30 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 				padding-bottom: 6px;
 			}
 
-			#header-skeleton {
-				display: flex;
-				padding: 12px 0 0;
+			@keyframes loadingShimmer {
+				0% { transform: translate3d(-100%, 0, 0); }
+				100% { transform: translate3d(100%, 0, 0); }
 			}
 
 			#skeleton {
-				background: #F1F5FB;
+				background-color: var(--d2l-color-sylvite);
+				overflow: hidden;
+				position: relative;
 				height: 96px;
 				width: 100%;
 				border-radius: 8px;
+			}
+
+			#skeleton::after {
+				animation: loadingShimmer 1.8s ease-in-out infinite;
+				background: linear-gradient(90deg, var(--d2l-color-sylvite), var(--d2l-color-regolith), var(--d2l-color-sylvite));
+				background-color: var(--d2l-color-sylvite);
+				content: '';
+				height: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: 100%;
 			}
 
 		</style>
@@ -212,7 +226,6 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 			showLoadingSkeleton: {
 				type: Boolean,
 				value: true,
-				reflectToAttribute: true,
 				computed: '_showSkeleton(entity)'
 			}
 		};
