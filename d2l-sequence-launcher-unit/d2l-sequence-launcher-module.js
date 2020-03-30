@@ -6,6 +6,7 @@ import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
 import '@brightspace-ui-labs/accordion/accordion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
+import '@brightspace-ui/core/components/button/button-subtle.js';
 import 'd2l-offscreen/d2l-offscreen.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /*
@@ -121,10 +122,10 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 				color: var(--d2l-outer-module-text-color);
 				text-align: right;
 				float: right;
-				display: table-cell;
-				width: 2rem;
+				display: flex;
+				/*width: 2rem;*/
 				line-height: inherit !important;
-				padding-left: 24px;
+				/*padding-left: 24px;*/
 			}
 
 			.should-pad {
@@ -175,7 +176,12 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 				font-weight: var(--d2l-body-small-text_-_font-weight);
 				line-height: var(--d2l-body-small-text_-_line-height);
 			}
-
+			#launch-module-container {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				/*padding: 10px 0;*/
+			}
 		</style>
 
 		<siren-entity href="[[lastViewedContentObject]]" token="[[token]]" entity="{{_lastViewedContentObjectEntity}}"></siren-entity>
@@ -185,7 +191,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 				<div class="border"></div>
 				<div class="module-header">
 					<span class="module-title">[[entity.properties.title]]</span>
-					<span class="module-completion-count">
+					<div class="module-completion-count">
 						<template is="dom-if" if="[[showCount]]">
 							<span class="countStatus" aria-hidden="true">
 								[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
@@ -205,10 +211,23 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 								[[localize('sequenceNavigator.optional')]]
 							</span>
 						</template>
-					</span>
+
+						<!--TODO: toggle this properly-->
+						<template is="dom-if" if="true">
+							<d2l-icon icon="tier1:chevron-right"></d2l-icon>
+						</template>
+					</div>
 				</div>
 				<div id ="startDate">[[startDate]]</div>
 			</div>
+
+			<div id="launch-module-container">
+				<a href="[[href]]">
+					<!--todo: get lang term and add a11y stuff-->
+					<d2l-button-subtle text="Launch Module" icon="tier1:wizard"></d2l-button-subtle>
+				</a>
+			</div>
+
 			<ol>
 				<template is="dom-if" if="[[_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)]]">
 					<template is="dom-repeat" items="[[subEntities]]" as="childLink">
@@ -432,12 +451,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 	}
 
 	isLastOfSubModule(entities, index) {
-		if (entities.length <= index + 1 && !this._isActivity(entities[index]) && (!this.lastModule || this.isSidebar)) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return !!(entities.length <= index + 1 && !this._isActivity(entities[index]) && (!this.lastModule || this.isSidebar));
 	}
 
 	isEmpty(subEntities) {
