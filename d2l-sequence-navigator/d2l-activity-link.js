@@ -1,6 +1,5 @@
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
-import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
 import './d2l-completion-status.js';
 import './d2l-completion-requirement.js';
 import '@brightspace-ui/core/components/colors/colors.js';
@@ -12,7 +11,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 @mixes PolymerASVLaunchMixin
 */
 
-class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(CompletionStatusMixin())) {
+class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	static get template() {
 		return html`
 		<style>
@@ -30,8 +29,6 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				padding: var(--d2l-activity-link-padding, 10px 24px);
 				border-collapse: separate;
 				box-sizing: border-box;
-				/*border: 1px solid transparent;*/
-				/*border-width: 1px 0;*/
 				position: relative;
 				z-index: 0;
 				background-color: transparent;
@@ -45,23 +42,6 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				--d2l-activity-link-border-color: rgba(0, 0, 0, 0.6);
 			}
 
-			/*:host(:focus) {*/
-			/*	outline: none;*/
-			/*	--d2l-activity-link-opacity: 0.26;*/
-			/*	--d2l-activity-link-backdrop-opacity: 1;*/
-			/*}*/
-
-			/*:host(.d2l-asv-focus-within),*/
-			/*:host(:focus),*/
-			/*:host(:hover) {*/
-			/*	--d2l-activity-link-background-color: var(--d2l-asv-primary-color);*/
-			/*	--d2l-activity-link-subtext-color: var(--d2l-asv-text-color);*/
-			/*	--d2l-activity-link-border-color: rgba(0, 0, 0, 0.42);*/
-			/*	--d2l-activity-link-text-color: var(--d2l-asv-text-color);*/
-			/*	--d2l-activity-link-opacity: 0.26;*/
-			/*	--d2l-activity-link-backdrop-opacity: 1;*/
-			/*}*/
-
 			:host > div {
 				display: flex;
 				flex-direction: row;
@@ -71,39 +51,6 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			:host([show-loading-skeleton]) {
 				cursor: unset;
 			}
-
-			/*div.bkgd,*/
-			/*div.border,*/
-			/*div.bkgd-backdrop {*/
-			/*	position: absolute;*/
-			/*	top: 0;*/
-			/*	left: 0;*/
-			/*	border-radius: 8px;*/
-			/*}*/
-
-			/*div.bkgd {*/
-			/*	opacity: var(--d2l-activity-link-opacity);*/
-			/*	background-color: var(--d2l-activity-link-background-color);*/
-			/*	z-index: -2;*/
-			/*	height: 100%;*/
-			/*	width: 100%;*/
-			/*}*/
-
-			/*div.bkgd-backdrop {*/
-			/*	background-color: #FFFFFF;*/
-			/*	z-index: -3;*/
-			/*	height: 100%;*/
-			/*	width: 100%;*/
-			/*	opacity: var(--d2l-activity-link-backdrop-opacity);*/
-			/*}*/
-
-			/*div.border {*/
-			/*	border: 1px solid var(--d2l-activity-link-border-color, transparent);*/
-			/*	border-width: 1px;*/
-			/*	z-index: -1;*/
-			/*	height: calc(100% - 2px);*/
-			/*	width: calc(100% - 2px);*/
-			/*}*/
 
 			d2l-icon,
 			a,
@@ -236,7 +183,7 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			},
 			class: {
 				type: String,
-				computed: '_getIsSelected(currentActivity, entity, focusWithin)',
+				computed: '_getIsSelected(currentActivity, entity)',
 				reflectToAttribute: true
 			},
 			completionStatus: {
@@ -299,12 +246,12 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 		}
 		return '';
 	}
-	_getIsSelected(currentActivity, entity, focusWithin) {
+	_getIsSelected(currentActivity, entity) {
 		const selected = entity && entity.getLinkByRel('self').href === currentActivity;
 		if (selected) {
 			this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-activity-link-current-activity', {detail: { href: this.href}}));
 		}
-		return this._getTrueClass(focusWithin, selected);
+		// return this._getTrueClass(focusWithin, selected);
 	}
 
 	_showSkeleton(entity) {
