@@ -222,7 +222,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			</div>
 
 			<div id="launch-module-container">
-				<a href="[[href]]">
+				<a href="[[_launchModuleHref]]">
 					<!--todo: get lang term and add a11y stuff-->
 					<d2l-button-subtle text="Launch Module" icon="tier1:wizard"></d2l-button-subtle>
 				</a>
@@ -316,6 +316,10 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			_skeleton: {
 				type: Boolean,
 				value: true
+			},
+			_launchModuleHref: {
+				type: String,
+				computed: '_getLaunchModuleHref(entity)'
 			}
 		};
 	}
@@ -325,6 +329,14 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			'_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)',
 			'_openModule(_moduleStartOpen)'
 		];
+	}
+
+	_getLaunchModuleHref(entity) {
+		if (!entity) {
+			return '';
+		}
+
+		return entity.getLinkByRel('self').href;
 	}
 
 	_accordionCollapseClass(focusWithin) {
