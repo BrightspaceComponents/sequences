@@ -23,51 +23,43 @@ PolymerElement
 	static get template() {
 		return html`
 		<style>
-		:host {
-			display: block;
-			height: 100%;
-			background-color: white;
-			border: 1px solid var(--d2l-color-mica);
-		}
+			:host {
+				display: block;
+				height: 100%;
+				background-color: white;
+				border: 1px solid var(--d2l-color-mica);
+			}
 
-		.module-item-list {
-			list-style-type: none;
-			padding: 0;
-			margin: 0;
-		}
+			.module-item-list {
+				list-style-type: none;
+				padding: 0;
+				margin: 0;
+			}
 
-		::slotted(.shadowed) {
-			position: relative;
-			z-index: 1;
-			box-shadow: 0 4px 0 0 rgba(185,194,208,.3);
-		}
+			::slotted(.shadowed) {
+				position: relative;
+				z-index: 1;
+				box-shadow: 0 4px 0 0 rgba(185,194,208,.3);
+			}
 
-		.module-content {
-			height: calc( 100% - 203px );
-			border-top: 1px solid var(--d2l-color-mica);
-		}
+			.module-content {
+				height: calc( 100% - 203px );
+				border-top: 1px solid var(--d2l-color-mica);
+			}
 
-		d2l-activity-link:focus {
-			outline: none;
-		}
+			#sidebarContent {
+				position: relative;
+				overflow-y: auto;
+				overflow-x: hidden;
+			}
+			li:first-of-type d2l-activity-link,
+			li:first-of-type d2l-sequence-launcher-module {
+				margin-top: 0;
+			}
 
-		#sidebarContent {
-			position: relative;
-			overflow-y: auto;
-			overflow-x: hidden;
-		}
-		li:first-of-type d2l-activity-link,
-		li:first-of-type d2l-sequence-launcher-module {
-			margin-top: 0;
-		}
-
-		li {
-			/*border-bottom: 1px solid var(--d2l-color-mica);*/
-			/*padding-left: var(--d2l-sequence-nav-padding, 0);*/
-			/*padding-right: var(--d2l-sequence-nav-padding, 0);*/
-			padding: 10px;
-		}
-
+			li {
+				padding: 5px 15px;
+			}
 		</style>
 		<siren-entity href="[[rootHref]]" token="[[token]]" entity="{{_lessonEntity}}"></siren-entity>
 		<slot name="lesson-header"></slot>

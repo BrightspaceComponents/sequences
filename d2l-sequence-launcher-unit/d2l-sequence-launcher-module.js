@@ -21,12 +21,9 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			:host {
 				display: block;
 				@apply --d2l-body-compact-text;
-				/*width: 80%;*/
 				--d2l-outer-module-text-color: var(--d2l-asv-text-color);
 				--d2l-outer-module-background-color: transparent;
 				--d2l-activity-link-padding: 10px 24px;
-				/*margin-top: -1px;*/
-
 				border: 1px solid var(--d2l-color-mica);
 				border-radius: 8px;
 			}
@@ -54,38 +51,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				--d2l-outer-module-background-color: var(--d2l-asv-primary-color);
 				--d2l-outer-module-text-color: var(--d2l-asv-selected-text-color);
 				--d2l-outer-module-border-color: rgba(0, 0, 0, 0.6);
-			}
-
-			#header-container.d2l-asv-focus-within:not(.hide-description),
-			#header-container:hover:not(.hide-description) {
-				/*--d2l-outer-module-background-color: var(--d2l-asv-primary-color);*/
-				/*--d2l-outer-module-border-color: rgba(0, 0, 0, 0.42);*/
-				/*--d2l-outer-module-text-color: var(--d2l-asv-text-color);*/
-				/*--d2l-outer-module-opacity: 0.26;*/
-			}
-
-			div.bkgd, div.border {
-				position: absolute;
-				top: 0;
-				left: 0;
-				border-radius: 8px;
-			}
-
-			div.bkgd {
-				opacity: var(--d2l-outer-module-opacity);
-				background-color: var(--d2l-outer-module-background-color);
-				z-index: -2;
-				height: 100%;
-				width: 100%;
-			}
-
-			div.border {
-				border-style: solid;
-				border-width: 1px;
-				border-color:	var(--d2l-outer-module-border-color);
-				z-index: -1;
-				height: calc(100% - 2px);
-				width: calc(100% - 2px);
 			}
 
 			.start-date-text {
@@ -121,9 +86,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				text-align: right;
 				float: right;
 				display: flex;
-				/*width: 2rem;*/
 				line-height: inherit !important;
-				/*padding-left: 24px;*/
 			}
 
 			.should-pad {
@@ -133,7 +96,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			ol {
 				list-style-type: none;
 				border-collapse: collapse;
-				margin: 0px;
+				margin: 0;
 				padding: 0;
 			}
 
@@ -174,11 +137,11 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				font-weight: var(--d2l-body-small-text_-_font-weight);
 				line-height: var(--d2l-body-small-text_-_line-height);
 			}
+
 			#launch-module-container {
 				display: flex;
 				align-items: center;
 				justify-content: center;
-				/*padding: 10px 0;*/
 			}
 		</style>
 
