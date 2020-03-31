@@ -32,8 +32,8 @@ PolymerElement
 
 		.module-item-list {
 			list-style-type: none;
-			padding: 0px;
-			margin: 0px;
+			padding: 0;
+			margin: 0;
 		}
 
 		::slotted(.shadowed) {
@@ -58,14 +58,14 @@ PolymerElement
 		}
 		li:first-of-type d2l-activity-link,
 		li:first-of-type d2l-sequence-launcher-module {
-			margin-top: 0px;
+			margin-top: 0;
 		}
 
 		li {
 			/*border-bottom: 1px solid var(--d2l-color-mica);*/
 			/*padding-left: var(--d2l-sequence-nav-padding, 0);*/
 			/*padding-right: var(--d2l-sequence-nav-padding, 0);*/
-			padding: 6px 10px;
+			padding: 10px;
 		}
 
 		</style>

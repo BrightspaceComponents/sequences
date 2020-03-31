@@ -2,7 +2,6 @@ import '../d2l-sequence-navigator/d2l-inner-module.js';
 import '../d2l-sequence-navigator/d2l-activity-link.js';
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
-import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
 import '@brightspace-ui-labs/accordion/accordion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
@@ -13,10 +12,9 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 @memberOf window.D2L.Polymer.Mixins;
 @mixes D2L.Polymer.Mixins.CompletionStatusMixin
 @mixes D2L.Polymer.Mixins.PolymerASVLaunchMixin
-@mixes D2L.Polymer.Mixins.ASVFocusWithinMixin
 */
 
-class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(CompletionStatusMixin())) {
+class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	static get template() {
 		return html`
 		<style>
@@ -60,10 +58,10 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 
 			#header-container.d2l-asv-focus-within:not(.hide-description),
 			#header-container:hover:not(.hide-description) {
-				--d2l-outer-module-background-color: var(--d2l-asv-primary-color);
-				--d2l-outer-module-border-color: rgba(0, 0, 0, 0.42);
-				--d2l-outer-module-text-color: var(--d2l-asv-text-color);
-				--d2l-outer-module-opacity: 0.26;
+				/*--d2l-outer-module-background-color: var(--d2l-asv-primary-color);*/
+				/*--d2l-outer-module-border-color: rgba(0, 0, 0, 0.42);*/
+				/*--d2l-outer-module-text-color: var(--d2l-asv-text-color);*/
+				/*--d2l-outer-module-opacity: 0.26;*/
 			}
 
 			div.bkgd, div.border {
@@ -186,7 +184,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 
 		<siren-entity href="[[lastViewedContentObject]]" token="[[token]]" entity="{{_lastViewedContentObjectEntity}}"></siren-entity>
 		<d2l-labs-accordion-collapse no-icons="" flex="">
-			<div slot="header" id="header-container" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription, isSidebar)]]" is-sidebar$="[[isSidebar]]">
+			<div slot="header" id="header-container" class$="[[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription, isSidebar)]]" is-sidebar$="[[isSidebar]]">
 				<div class="bkgd"></div>
 				<div class="border"></div>
 				<div class="module-header">
@@ -336,11 +334,8 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			return '';
 		}
 
+		// TODO: this isn't working... getting 401 unauthorized
 		return entity.getLinkByRel('self').href;
-	}
-
-	_accordionCollapseClass(focusWithin) {
-		return this._focusWithinClass(focusWithin);
 	}
 
 	connectedCallback() {
@@ -416,11 +411,6 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 
 	_hasChildren(entity) {
 		return entity && entity.getSubEntities().length !== 0;
-	}
-
-	_getIsSelected(currentActivity, focusWithin) {
-		const selected = this.entity && this.entity.getLinkByRel('self').href === currentActivity;
-		return this._getTrueClass(focusWithin, selected);
 	}
 
 	_getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity) {
@@ -520,7 +510,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 	_updateHeaderClass() {
 		if (this.isSidebar && this._hideModuleDescription) {
 			const active = this._hasActiveChild(this.entity, this.currentActivity) && !this._isAccordionOpen();
-			this.$['header-container'].setAttribute('class', this._getTrueClass(this.focusWithin, active));
+			// this.$['header-container'].setAttribute('class', );
 		}
 	}
 

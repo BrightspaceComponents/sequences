@@ -45,22 +45,22 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				--d2l-activity-link-border-color: rgba(0, 0, 0, 0.6);
 			}
 
-			:host(:focus) {
-				outline: none;
-				--d2l-activity-link-opacity: 0.26;
-				--d2l-activity-link-backdrop-opacity: 1;
-			}
+			/*:host(:focus) {*/
+			/*	outline: none;*/
+			/*	--d2l-activity-link-opacity: 0.26;*/
+			/*	--d2l-activity-link-backdrop-opacity: 1;*/
+			/*}*/
 
-			:host(.d2l-asv-focus-within),
-			:host(:focus),
-			:host(:hover) {
-				--d2l-activity-link-background-color: var(--d2l-asv-primary-color);
-				--d2l-activity-link-subtext-color: var(--d2l-asv-text-color);
-				--d2l-activity-link-border-color: rgba(0, 0, 0, 0.42);
-				--d2l-activity-link-text-color: var(--d2l-asv-text-color);
-				--d2l-activity-link-opacity: 0.26;
-				--d2l-activity-link-backdrop-opacity: 1;
-			}
+			/*:host(.d2l-asv-focus-within),*/
+			/*:host(:focus),*/
+			/*:host(:hover) {*/
+			/*	--d2l-activity-link-background-color: var(--d2l-asv-primary-color);*/
+			/*	--d2l-activity-link-subtext-color: var(--d2l-asv-text-color);*/
+			/*	--d2l-activity-link-border-color: rgba(0, 0, 0, 0.42);*/
+			/*	--d2l-activity-link-text-color: var(--d2l-asv-text-color);*/
+			/*	--d2l-activity-link-opacity: 0.26;*/
+			/*	--d2l-activity-link-backdrop-opacity: 1;*/
+			/*}*/
 
 			:host > div {
 				display: flex;
@@ -72,38 +72,38 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				cursor: unset;
 			}
 
-			div.bkgd,
-			div.border,
-			div.bkgd-backdrop {
-				position: absolute;
-				top: 0;
-				left: 0;
-				border-radius: 8px;
-			}
+			/*div.bkgd,*/
+			/*div.border,*/
+			/*div.bkgd-backdrop {*/
+			/*	position: absolute;*/
+			/*	top: 0;*/
+			/*	left: 0;*/
+			/*	border-radius: 8px;*/
+			/*}*/
 
-			div.bkgd {
-				opacity: var(--d2l-activity-link-opacity);
-				background-color: var(--d2l-activity-link-background-color);
-				z-index: -2;
-				height: 100%;
-				width: 100%;
-			}
+			/*div.bkgd {*/
+			/*	opacity: var(--d2l-activity-link-opacity);*/
+			/*	background-color: var(--d2l-activity-link-background-color);*/
+			/*	z-index: -2;*/
+			/*	height: 100%;*/
+			/*	width: 100%;*/
+			/*}*/
 
-			div.bkgd-backdrop {
-				background-color: #FFFFFF;
-				z-index: -3;
-				height: 100%;
-				width: 100%;
-				opacity: var(--d2l-activity-link-backdrop-opacity);
-			}
+			/*div.bkgd-backdrop {*/
+			/*	background-color: #FFFFFF;*/
+			/*	z-index: -3;*/
+			/*	height: 100%;*/
+			/*	width: 100%;*/
+			/*	opacity: var(--d2l-activity-link-backdrop-opacity);*/
+			/*}*/
 
-			div.border {
-				border: 1px solid var(--d2l-activity-link-border-color, transparent);
-				border-width: 1px;
-				z-index: -1;
-				height: calc(100% - 2px);
-				width: calc(100% - 2px);
-			}
+			/*div.border {*/
+			/*	border: 1px solid var(--d2l-activity-link-border-color, transparent);*/
+			/*	border-width: 1px;*/
+			/*	z-index: -1;*/
+			/*	height: calc(100% - 2px);*/
+			/*	width: calc(100% - 2px);*/
+			/*}*/
 
 			d2l-icon,
 			a,
@@ -198,9 +198,6 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			</div>
 		</template>
 		<template is="dom-if" if="[[!showLoadingSkeleton]]">
-			<div class="bkgd"></div>
-			<div class="bkgd-backdrop"></div>
-			<div class="border"></div>
 			<div on-click="_contentObjectClick">
 				<template is="dom-if" if="[[hasIcon]]">
 					<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
