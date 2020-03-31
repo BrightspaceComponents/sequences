@@ -249,15 +249,15 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			},
 			showLoadingSkeleton: {
 				type: Boolean,
-				value: true,
-				reflectToAttribute: true,
-				computed: '_showSkeleton(entity)'
+				value: false,
+				reflectToAttribute: true
 			}
 		};
 	}
 	static get observers() {
 		return [
-			'onCurrentActivityChanged(currentActivity, entity)'
+			'onCurrentActivityChanged(currentActivity, entity)',
+			'_onEntityLoaded(entity)'
 		];
 	}
 
@@ -313,6 +313,10 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 
 	_showSkeleton(entity) {
 		return !entity;
+	}
+
+	_onEntityLoaded() {
+		this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
 	}
 }
 customElements.define(D2LActivityLink.is, D2LActivityLink);

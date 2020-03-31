@@ -211,10 +211,10 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 					<template is="dom-repeat" items="[[subEntities]]" as="childLink">
 						<li on-click="_onActivityClicked" class$="[[_padOnActivity(childLink)]]">
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
-								<d2l-activity-link skeleton="[[_skeleton]]" last-module$="[[lastModule]]" is-sidebar$="[[isSidebar]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"></d2l-activity-link>
+								<d2l-activity-link show-loading-skeleton="[[_childrenLoading]]" last-module$="[[lastModule]]" is-sidebar$="[[isSidebar]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"></d2l-activity-link>
 							</template>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
-								<d2l-inner-module skeleton="[[_skeleton]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-inner-module-current-activity="childIsActiveEvent"></d2l-inner-module>
+								<d2l-inner-module show-loading-skeleton="[[_childrenLoading]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-inner-module-current-activity="childIsActiveEvent"></d2l-inner-module>
 							</template>
 						</li>
 					</template>
@@ -291,9 +291,13 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 				type: Boolean,
 				value: false
 			},
-			_skeleton: {
+			_childrenLoading: {
 				type: Boolean,
 				value: true
+			},
+			_childrenLoadingTracker: {
+				type: Object,
+				computed: '_setUpChildrenLoadingTracker(subEntities)'
 			}
 		};
 	}
@@ -305,6 +309,13 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		];
 	}
 
+	ready() {
+		super.ready();
+		this._onHeaderClicked = this._onHeaderClicked.bind(this);
+		this._updateHeaderClass = this._updateHeaderClass.bind(this);
+		this._checkIfChildrenDoneLoading = this._checkIfChildrenDoneLoading.bind(this);
+	}
+
 	_accordionCollapseClass(focusWithin) {
 		return this._focusWithinClass(focusWithin);
 	}
@@ -313,12 +324,14 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		super.connectedCallback();
 		this.addEventListener('d2l-labs-accordion-collapse-clicked', this._onHeaderClicked);
 		this.addEventListener('d2l-labs-accordion-collapse-state-changed', this._updateHeaderClass);
+		this.addEventListener('d2l-content-entity-loaded', this._checkIfChildrenDoneLoading);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		this.removeEventListener('d2l-labs-accordion-collapse-clicked', this._onHeaderClicked);
 		this.removeEventListener('d2l-labs-accordion-collapse-state-changed', this._updateHeaderClass);
+		this.removeEventListener('d2l-content-entity-loaded', this._checkIfChildrenDoneLoading);
 	}
 
 	_isAccordionOpen() {
@@ -503,6 +516,22 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		if (_moduleStartOpen) {
 			this.shadowRoot.querySelector('d2l-labs-accordion-collapse').setAttribute('opened', '');
 		}
+	}
+
+	_setUpChildrenLoadingTracker(subEntities) {
+		const tracker = {};
+
+		if (subEntities) {
+			subEntities.forEach(subEntity => {
+				tracker[subEntity] = false;
+			});
+		}
+
+		return tracker;
+	}
+
+	_checkIfChildrenDoneLoading(contentLoadedEvent) {
+		debugger;
 	}
 }
 customElements.define(D2LSequenceLauncherModule.is, D2LSequenceLauncherModule);
