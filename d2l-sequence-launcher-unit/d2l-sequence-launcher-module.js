@@ -32,14 +32,15 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				--d2l-outer-module-border-color: var(--d2l-outer-module-background-color);
 				--d2l-outer-module-opacity: 1;
 				box-sizing: border-box;
-				padding: var(--d2l-activity-link-padding);
+				/* TODO: use vars eventually */
+				padding: 15px 24px;
 				color: var(--d2l-outer-module-text-color);
-				background-color: transparent;
-				border-style: solid;
-				border-width: var(--d2l-outer-module-border-width, 1px);
-				border-color: transparent;
-				position: relative;
-				z-index: 0;
+				/*background-color: transparent;*/
+				/*border-style: solid;*/
+				/*border-width: var(--d2l-outer-module-border-width, 1px);*/
+				/*border-color: transparent;*/
+				/*position: relative;*/
+				/*z-index: 0;*/
 				cursor: pointer;
 			}
 
@@ -143,6 +144,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				align-items: center;
 				justify-content: center;
 			}
+
 		</style>
 
 		<siren-entity href="[[lastViewedContentObject]]" token="[[token]]" entity="{{_lastViewedContentObjectEntity}}"></siren-entity>
@@ -175,7 +177,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 
 						<!--TODO: toggle this properly-->
 						<template is="dom-if" if="true">
-							<d2l-icon icon="tier1:chevron-right"></d2l-icon>
+							<d2l-icon icon="tier1:arrow-expand-small"></d2l-icon>
 						</template>
 					</div>
 				</div>
@@ -295,6 +297,10 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 	_getLaunchModuleHref(entity) {
 		if (!entity) {
 			return '';
+		}
+
+		if (entity.getLinkByRel('alternate')) {
+			return entity.getLinkByRel('alternate').href;
 		}
 
 		// TODO: this isn't working... getting 401 unauthorized

@@ -26,20 +26,9 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				display: block;
 				cursor: pointer;
 				@apply --d2l-body-compact-text;
-				padding: var(--d2l-activity-link-padding, 10px 24px);
-				border-collapse: separate;
-				box-sizing: border-box;
-				position: relative;
-				z-index: 0;
-				background-color: transparent;
-				margin-top: -1px;
-			}
-
-			:host(.d2l-asv-current) {
-				--d2l-activity-link-background-color: var(--d2l-asv-primary-color);
-				--d2l-activity-link-text-color: var(--d2l-asv-selected-text-color);
-				--d2l-activity-link-subtext-color: var(--d2l-asv-selected-text-color);
-				--d2l-activity-link-border-color: rgba(0, 0, 0, 0.6);
+				/*padding: var(--d2l-activity-link-padding, 10px 24px);*/
+				padding-left: 24px;
+				padding-right: 24px;
 			}
 
 			:host > div {
@@ -107,12 +96,12 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				border-radius: 0 0 8px 8px;
 			}
 
-			:host(.d2l-asv-current) d2l-completion-requirement {
-				color: var(--d2l-asv-text-color);
-			}
-
-			:host(.d2l-asv-current:not(:hover)) d2l-completion-requirement {
-				color: var(--d2l-asv-selected-text-color);
+			#content-container {
+				display: flex;
+				flex: 1;
+				justify-content: space-between;
+				padding-top: 5px;
+				padding-bottom: 15px;
 			}
 
 			#skeleton-container {
@@ -137,29 +126,38 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				background: #F1F5FB;
 			}
 
+			#my-div {
+				border-bottom: 1px solid var(--d2l-color-mica);
+				display: flex;
+				flex-direction: row;
+				flex: 1;
+			}
+
 		</style>
-		<template is="dom-if" if="[[showLoadingSkeleton]]">
-			<div id="skeleton-container">
-				<div id="icon-skeleton"></div>
-				<div id="title-skeleton"></div>
-			</div>
-		</template>
-		<template is="dom-if" if="[[!showLoadingSkeleton]]">
-			<div on-click="_contentObjectClick">
-				<template is="dom-if" if="[[hasIcon]]">
-					<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
-				</template>
-				<div class="d2l-activity-link-title">
-					<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)">
-						[[entity.properties.title]]
-					</a>
-					<d2l-completion-requirement href="[[href]]" token="[[token]]">
-					</d2l-completion-requirement>
+		<div id="my-div">
+			<template is="dom-if" if="[[showLoadingSkeleton]]">
+				<div id="skeleton-container">
+					<div id="icon-skeleton"></div>
+					<div id="title-skeleton"></div>
 				</div>
-				<d2l-completion-status href="[[href]]" token="[[token]]">
-				</d2l-completion-status>
-			</div>
-		</template>
+			</template>
+			<template is="dom-if" if="[[!showLoadingSkeleton]]">
+				<div id="content-container" on-click="_contentObjectClick">
+					<template is="dom-if" if="[[hasIcon]]">
+						<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
+					</template>
+					<div class="d2l-activity-link-title">
+						<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)">
+							[[entity.properties.title]]
+						</a>
+						<d2l-completion-requirement href="[[href]]" token="[[token]]">
+						</d2l-completion-requirement>
+					</div>
+					<d2l-completion-status href="[[href]]" token="[[token]]">
+					</d2l-completion-status>
+				</div>
+			</template>
+		</div>
 `;
 	}
 
