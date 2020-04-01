@@ -24,7 +24,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				--d2l-right-icon-padding: 24px;
 				--d2l-icon-size: 18px;
 				display: block;
-				cursor: pointer;
 				@apply --d2l-body-compact-text;
 				/*padding: var(--d2l-activity-link-padding, 10px 24px);*/
 				padding-left: 24px;
@@ -96,14 +95,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				border-radius: 0 0 8px 8px;
 			}
 
-			#content-container {
-				display: flex;
-				flex: 1;
-				justify-content: space-between;
-				padding-top: 5px;
-				padding-bottom: 15px;
-			}
-
 			#skeleton-container {
 				height: 24px;
 				width: 100%;
@@ -126,15 +117,23 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				background: #F1F5FB;
 			}
 
-			#my-div {
+			#outer-container {
 				border-bottom: 1px solid var(--d2l-color-mica);
 				display: flex;
 				flex-direction: row;
 				flex: 1;
+				padding-top: 5px;
+				padding-bottom: 15px;
+			}
+			#content-container {
+				display: flex;
+				flex: 1;
+				justify-content: space-between;
+				cursor: pointer;
 			}
 
 		</style>
-		<div id="my-div">
+		<div id="outer-container">
 			<template is="dom-if" if="[[showLoadingSkeleton]]">
 				<div id="skeleton-container">
 					<div id="icon-skeleton"></div>

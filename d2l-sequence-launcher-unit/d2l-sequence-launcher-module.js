@@ -88,6 +88,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				float: right;
 				display: flex;
 				line-height: inherit !important;
+				align-items: center;
+				justify-content: center;
 			}
 
 			.should-pad {
@@ -145,6 +147,10 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				justify-content: center;
 			}
 
+			#expand-icon {
+				padding-left: 10px;
+			}
+
 		</style>
 
 		<siren-entity href="[[lastViewedContentObject]]" token="[[token]]" entity="{{_lastViewedContentObjectEntity}}"></siren-entity>
@@ -177,7 +183,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 
 						<!--TODO: toggle this properly-->
 						<template is="dom-if" if="true">
-							<d2l-icon icon="tier1:arrow-expand-small"></d2l-icon>
+							<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small"></d2l-icon>
 						</template>
 					</div>
 				</div>
