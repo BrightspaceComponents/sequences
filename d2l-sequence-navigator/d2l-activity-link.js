@@ -311,12 +311,10 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 		return this._getTrueClass(focusWithin, selected);
 	}
 
-	_showSkeleton(entity) {
-		return !entity;
-	}
-
-	_onEntityLoaded() {
-		this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
+	_onEntityLoaded(entity) {
+		if (entity) {
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
+		}
 	}
 }
 customElements.define(D2LActivityLink.is, D2LActivityLink);

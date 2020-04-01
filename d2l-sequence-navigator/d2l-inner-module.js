@@ -149,6 +149,11 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 			}
 
 			#skeleton {
+				display: none;
+			}
+
+			:host([show-loading-skeleton]) #skeleton {
+				display: block;
 				background-color: var(--d2l-color-sylvite);
 				overflow: hidden;
 				position: relative;
@@ -157,7 +162,7 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 				border-radius: 8px;
 			}
 
-			#skeleton::after {
+			:host([show-loading-skeleton]) #skeleton::after {
 				animation: loadingShimmer 1.8s ease-in-out infinite;
 				background: linear-gradient(90deg, var(--d2l-color-sylvite), var(--d2l-color-regolith), var(--d2l-color-sylvite));
 				background-color: var(--d2l-color-sylvite);
@@ -169,30 +174,38 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 				width: 100%;
 			}
 
+			:host([show-loading-skeleton]) #header-container,
+			:host([show-loading-skeleton]) ol {
+				display: none;
+			}
+
 		</style>
 
-		<template is="dom-if" if="[[showLoadingSkeleton]]">
-			<div id="skeleton"></div>
-		</template>
-		<template is="dom-if" if="[[!showLoadingSkeleton]]">
-			<div id="header-container" class$="[[isEmpty(subEntities)]]">
-				<div id="module-header" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
-					<div class="bkgd"></div>
-					<div class="bkgd-backdrop"></div>
-					<div class="border"></div>
-					<a on-click="_onHeaderClicked" href="javascript:void(0)">
-						<span class="module-title">[[entity.properties.title]]</span>
-					</a>
-				</div>
+		<div id="skeleton"></div>
+		<div id="header-container" class$="[[isEmpty(subEntities)]]">
+			<div id="module-header" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
+				<div class="bkgd"></div>
+				<div class="bkgd-backdrop"></div>
+				<div class="border"></div>
+				<a on-click="_onHeaderClicked" href="javascript:void(0)">
+					<span class="module-title">[[entity.properties.title]]</span>
+				</a>
 			</div>
-			<ol>
-				<template is="dom-repeat" items="[[subEntities]]" as="childLink">
-					<li>
-						<d2l-activity-link inner-last$="[[isLast(subEntities, index)]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"></d2l-activity-link>
-					</li>
-				</template>
-			</ol>
-		</template>
+		</div>
+		<ol>
+			<template is="dom-repeat" items="[[subEntities]]" as="childLink">
+				<li>
+					<d2l-activity-link
+						inner-last$="[[isLast(subEntities, index)]]"
+						href="[[childLink.href]]"
+						token="[[token]]"
+						current-activity="{{currentActivity}}"
+						on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
+						on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
+					></d2l-activity-link>
+				</li>
+			</template>
+		</ol>
 `;
 	}
 
@@ -225,13 +238,22 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 			},
 			showLoadingSkeleton: {
 				type: Boolean,
-				value: false
+				value: false,
+				reflectToAttribute: true
+			},
+			_childrenLoading: {
+				type: Boolean,
+				value: true
+			},
+			_childrenLoadingTracker: {
+				type: Object,
+				computed: '_setUpChildrenLoadingTracker(subEntities)'
 			}
 		};
 	}
 
 	static get observers() {
-		return [ '_onEntityLoaded(entity)' ];
+		return ['_checkIfNoChildren(entity, subEntities)'];
 	}
 
 	getSubEntities(entity) {
@@ -293,12 +315,45 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 		return Boolean(entity) && entity.entities.some(subEntity => subEntity.href === currentActivity);
 	}
 
-	_showSkeleton(entity) {
-		return !entity;
+	_setUpChildrenLoadingTracker(subEntities) {
+		const tracker = {};
+
+		if (subEntities) {
+			subEntities.forEach(subEntity => {
+				tracker[subEntity.href] = false;
+			});
+		}
+
+		return tracker;
 	}
 
-	_onEntityLoaded() {
-		this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
+	checkIfChildrenDoneLoading(contentLoadedEvent) {
+		const childHref = contentLoadedEvent.detail.href;
+
+		if (!this._childrenLoadingTracker) {
+			return;
+		}
+
+		if (this._childrenLoadingTracker[childHref] !== undefined) {
+			this._childrenLoadingTracker[childHref] = true;
+			contentLoadedEvent.stopPropagation();
+		}
+
+		if (this._childrenLoading && !Object.values(this._childrenLoadingTracker).some(loaded => !loaded)) {
+			this._childrenLoading = false;
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
+		}
+	}
+
+	_checkIfNoChildren(entity, subEntities) {
+		if (entity
+			&& subEntities !== undefined
+			&& subEntities !== null
+			&& subEntities.length <= 0
+		) {
+			this._childrenLoading = false;
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
+		}
 	}
 }
 customElements.define(D2LInnerModule.is, D2LInnerModule);
