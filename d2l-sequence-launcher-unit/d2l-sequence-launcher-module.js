@@ -183,7 +183,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 
 						<!--TODO: toggle this properly-->
 						<template is="dom-if" if="true">
-							<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small"></d2l-icon>
+							<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
 						</template>
 					</div>
 				</div>
@@ -202,7 +202,17 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 					<template is="dom-repeat" items="[[subEntities]]" as="childLink">
 						<li on-click="_onActivityClicked" class$="[[_padOnActivity(childLink)]]">
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
-								<d2l-activity-link skeleton="[[_skeleton]]" last-module$="[[lastModule]]" is-sidebar$="[[isSidebar]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"></d2l-activity-link>
+								<d2l-activity-link
+									skeleton="[[_skeleton]]"
+									last-module$="[[lastModule]]"
+									is-sidebar$="[[isSidebar]]"
+									href="[[childLink.href]]"
+									token="[[token]]"
+									current-activity="{{currentActivity}}"
+									on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
+									is-last-in-list="[[isLastInList(subEntities, index)]]"
+								>
+								</d2l-activity-link>
 							</template>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
 								<d2l-inner-module skeleton="[[_skeleton]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-inner-module-current-activity="childIsActiveEvent"></d2l-inner-module>
@@ -289,8 +299,21 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			_launchModuleHref: {
 				type: String,
 				computed: '_getLaunchModuleHref(entity)'
+			},
+			_iconName: {
+				type: String
 			}
 		};
+	}
+
+	_getStartingCollapseIconName(entity, subEntities, _lastViewedContentObjectEntity) {
+		return this._getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity)
+			? 'tier1:arrow-collapse-small'
+			: 'tier1:arrow-expand-small';
+	}
+
+	isLastInList(subEntities, index) {
+		return index === subEntities.length;
 	}
 
 	static get observers() {
@@ -316,13 +339,13 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 	connectedCallback() {
 		super.connectedCallback();
 		this.addEventListener('d2l-labs-accordion-collapse-clicked', this._onHeaderClicked);
-		this.addEventListener('d2l-labs-accordion-collapse-state-changed', this._updateHeaderClass);
+		this.addEventListener('d2l-labs-accordion-collapse-state-changed', this._updateCollapseIconName);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		this.removeEventListener('d2l-labs-accordion-collapse-clicked', this._onHeaderClicked);
-		this.removeEventListener('d2l-labs-accordion-collapse-state-changed', this._updateHeaderClass);
+		this.removeEventListener('d2l-labs-accordion-collapse-state-changed', this._updateCollapseIconName);
 	}
 
 	_isAccordionOpen() {
@@ -392,6 +415,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		if (!entity || !_lastViewedContentObjectEntity) {
 			return false;
 		}
+		// Set the starting icon depending on the collapse state
+		this._updateCollapseIconName();
 
 		const lastViewedParentHref = _lastViewedContentObjectEntity.getLinkByRel('up').href;
 
@@ -482,10 +507,11 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		return hasActiveTopic || hasActiveModule;
 	}
 
-	_updateHeaderClass() {
-		if (this.isSidebar && this._hideModuleDescription) {
-			const active = this._hasActiveChild(this.entity, this.currentActivity) && !this._isAccordionOpen();
-			// this.$['header-container'].setAttribute('class', );
+	_updateCollapseIconName() {
+		if (this._isAccordionOpen()) {
+			this._iconName = 'tier1:arrow-collapse-small';
+		} else {
+			this._iconName = 'tier1:arrow-expand-small';
 		}
 	}
 

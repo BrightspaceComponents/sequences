@@ -72,7 +72,14 @@ PolymerElement
 								<d2l-sequence-launcher-module href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" is-sidebar="[[isSidebar()]]" last-module="[[isLast(subEntities, index)]]" last-viewed-content-object="[[lastViewedContentObject]]"></d2l-sequence-launcher-module>
 							</template>
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
-								<d2l-activity-link href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" before-module$="[[isBeforeModule(subEntities, index)]]"></d2l-activity-link>
+								<d2l-activity-link
+									href="[[childLink.href]]"
+									token="[[token]]"
+									current-activity="{{href}}"
+									before-module$="[[isBeforeModule(subEntities, index)]]"
+									is-last-in-list="[[isLastInList(subEntities, index)]]"
+								>
+								</d2l-activity-link>
 							</template>
 						</li>
 					</template>
@@ -81,6 +88,10 @@ PolymerElement
 			<slot name="end-of-lesson"></slot>
 		</d2l-labs-accordion>
 		`;
+	}
+
+	isLastInList(subEntities, index) {
+		return index === subEntities.length;
 	}
 
 	static get is() {
