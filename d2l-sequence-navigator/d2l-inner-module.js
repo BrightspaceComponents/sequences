@@ -316,15 +316,16 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 	}
 
 	_setUpChildrenLoadingTracker(subEntities) {
-		const tracker = {};
-
-		if (subEntities) {
-			subEntities.forEach(subEntity => {
-				tracker[subEntity.href] = false;
-			});
+		if (!subEntities) {
+			return {};
 		}
 
-		return tracker;
+		return subEntities.reduce((acc, { href }) => {
+			return {
+				...acc,
+				[href]: false
+			};
+		}, {});
 	}
 
 	checkIfChildrenDoneLoading(contentLoadedEvent) {
@@ -347,8 +348,7 @@ class D2LInnerModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completio
 
 	_checkIfNoChildren(entity, subEntities) {
 		if (entity
-			&& subEntities !== undefined
-			&& subEntities !== null
+			&& subEntities
 			&& subEntities.length <= 0
 		) {
 			this._childrenLoading = false;

@@ -526,15 +526,16 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 	}
 
 	_setUpChildrenLoadingTracker(subEntities) {
-		const tracker = {};
-
-		if (subEntities) {
-			subEntities.forEach(subEntity => {
-				tracker[subEntity.href] = false;
-			});
+		if (!subEntities) {
+			return {};
 		}
 
-		return tracker;
+		return subEntities.reduce((acc, { href }) => {
+			return {
+				...acc,
+				[href]: false
+			};
+		}, {});
 	}
 
 	checkIfChildrenDoneLoading(contentLoadedEvent) {
@@ -549,7 +550,9 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			contentLoadedEvent.stopPropagation();
 		}
 
-		this._childrenLoading = Object.values(this._childrenLoadingTracker).some(loaded => !loaded);
+		if (this._childrenLoading && !Object.values(this._childrenLoadingTracker).some(loaded => !loaded)) {
+			this._childrenLoading = false;
+		}
 	}
 }
 customElements.define(D2LSequenceLauncherModule.is, D2LSequenceLauncherModule);
