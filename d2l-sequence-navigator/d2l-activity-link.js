@@ -100,26 +100,38 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				border-radius: 0 0 8px 8px;
 			}
 
-			#skeleton-container {
+			:host(.d2l-asv-current) d2l-completion-requirement {
+				color: var(--d2l-asv-text-color);
+			}
+
+			:host(.d2l-asv-current:not(:hover)) d2l-completion-requirement {
+				color: var(--d2l-asv-selected-text-color);
+			}
+
+			@keyframes loadingShimmer {
+				0% { transform: translate3d(-100%, 0, 0); }
+				100% { transform: translate3d(100%, 0, 0); }
+			}
+
+			#skeleton {
 				height: 24px;
-				width: 100%;
-				display: flex;
-				justify-content: flex-start;
-			}
-
-			#icon-skeleton {
-				height: 100%;
-				width: 24px;
-				margin-right: 15px;
-				border-radius: 8px;
-				background: #F1F5FB;
-			}
-
-			#title-skeleton {
-				height: 100%;
 				width: 70%;
 				border-radius: 8px;
-				background: #F1F5FB;
+				background-color: var(--d2l-color-sylvite);
+				overflow: hidden;
+				position: relative;
+			}
+
+			#skeleton::after {
+				animation: loadingShimmer 1.8s ease-in-out infinite;
+				background: linear-gradient(90deg, var(--d2l-color-sylvite), var(--d2l-color-regolith), var(--d2l-color-sylvite));
+				background-color: var(--d2l-color-sylvite);
+				content: '';
+				height: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: 100%;
 			}
 
 			#outer-container {
@@ -133,17 +145,14 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			#content-container {
 				display: flex;
 				flex: 1;
-				justify-content: space-between;
+				/*justify-content: space-between;*/
 				cursor: pointer;
 			}
 
 		</style>
 		<div id="outer-container">
 			<template is="dom-if" if="[[showLoadingSkeleton]]">
-				<div id="skeleton-container">
-					<div id="icon-skeleton"></div>
-					<div id="title-skeleton"></div>
-				</div>
+				<div id="skeleton" class="skeleton"></div>
 			</template>
 			<template is="dom-if" if="[[!showLoadingSkeleton]]">
 				<div id="content-container" on-click="_contentObjectClick">
@@ -157,8 +166,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 						<d2l-completion-requirement href="[[href]]" token="[[token]]">
 						</d2l-completion-requirement>
 					</div>
-					<d2l-completion-status href="[[href]]" token="[[token]]">
-					</d2l-completion-status>
 				</div>
 			</template>
 		</div>
@@ -194,12 +201,10 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			},
 			showLoadingSkeleton: {
 				type: Boolean,
-				value: true,
-				reflectToAttribute: true,
-				computed: '_showSkeleton(entity)'
+				value: false,
+				reflectToAttribute: true
 			},
 			nextSiblingIsActivity: {
-				type: Boolean,
 				value: false,
 				reflectToAttribute: true
 			}
@@ -207,7 +212,8 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	}
 	static get observers() {
 		return [
-			'onCurrentActivityChanged(currentActivity, entity)'
+			'onCurrentActivityChanged(currentActivity, entity)',
+			'_onEntityLoaded(entity)'
 		];
 	}
 
@@ -261,8 +267,10 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		// return this._getTrueClass(focusWithin, selected);
 	}
 
-	_showSkeleton(entity) {
-		return !entity;
+	_onEntityLoaded(entity) {
+		if (entity) {
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
+		}
 	}
 }
 customElements.define(D2LActivityLink.is, D2LActivityLink);

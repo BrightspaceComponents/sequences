@@ -202,26 +202,26 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 						<li on-click="_onActivityClicked" class$="[[_padOnActivity(childLink)]]">
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
 								<d2l-activity-link
-									skeleton="[[_skeleton]]"
+									show-loading-skeleton="[[_childrenLoading]]"
 									last-module$="[[lastModule]]"
 									is-sidebar$="[[isSidebar]]"
 									href="[[childLink.href]]"
 									token="[[token]]"
 									current-activity="{{currentActivity}}"
 									on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
+									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
 									next-sibling-is-activity="[[_activitySiblingIsActivity(subEntities, index)]]"
-								>
-								</d2l-activity-link>
+								></d2l-activity-link>
 							</template>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
 								<d2l-inner-module
-									skeleton="[[_skeleton]]"
+									show-loading-skeleton="[[_childrenLoading]]"
 									href="[[childLink.href]]"
 									token="[[token]]"
 									current-activity="{{currentActivity}}"
 									on-sequencenavigator-d2l-inner-module-current-activity="childIsActiveEvent"
-								>
-								</d2l-inner-module>
+									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
+								></d2l-inner-module>
 							</template>
 						</li>
 					</template>
@@ -298,9 +298,13 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				type: Boolean,
 				value: false
 			},
-			_skeleton: {
+			_childrenLoading: {
 				type: Boolean,
 				value: true
+			},
+			_childrenLoadingTracker: {
+				type: Object,
+				computed: '_setUpChildrenLoadingTracker(subEntities)'
 			},
 			_launchModuleHref: {
 				type: String,
@@ -535,6 +539,36 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 	_openModule(_moduleStartOpen) {
 		if (_moduleStartOpen) {
 			this.shadowRoot.querySelector('d2l-labs-accordion-collapse').setAttribute('opened', '');
+		}
+	}
+
+	_setUpChildrenLoadingTracker(subEntities) {
+		if (!subEntities) {
+			return {};
+		}
+
+		return subEntities.reduce((acc, { href }) => {
+			return {
+				...acc,
+				[href]: false
+			};
+		}, {});
+	}
+
+	checkIfChildrenDoneLoading(contentLoadedEvent) {
+		const childHref = contentLoadedEvent.detail.href;
+
+		if (!this._childrenLoadingTracker) {
+			return;
+		}
+
+		if (this._childrenLoadingTracker[childHref] !== undefined) {
+			this._childrenLoadingTracker[childHref] = true;
+			contentLoadedEvent.stopPropagation();
+		}
+
+		if (this._childrenLoading && !Object.values(this._childrenLoadingTracker).some(loaded => !loaded)) {
+			this._childrenLoading = false;
 		}
 	}
 }
