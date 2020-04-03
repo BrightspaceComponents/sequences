@@ -375,6 +375,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		return this.completionCount && this.completionCount.total > 0 && this.completionCount.total === this.completionCount.completed;
 	}
 
+	// TODO: make this a helper function
 	_isActivity(link) {
 		return link && link.hasClass('sequenced-activity');
 	}

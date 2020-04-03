@@ -16,18 +16,19 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		return html`
 		<style>
 			:host {
-				--d2l-inner-module-text-color: var(--d2l-asv-text-color);
+				--d2l-inner-module-text-color: var(--d2l-color-celestine);
 				--d2l-activity-link-padding: 10px 14px;
 				display: block;
 				@apply --d2l-body-compact-text;
-				--d2l-inner-module-background-color: transparent;
 				color: var(--d2l-inner-module-text-color);
 				border-radius: 8px;
-				background-color: var(--d2l-color-sylvite);
+				/*background-color: var(--d2l-color-sylvite);*/
+
+				/* TODO: only the children get padded */
+				/*padding: 0 24px;*/
 			}
 
 			#header-container {
-				--d2l-inner-module-border-color: var(--d2l-inner-module-background-color);
 				display: flex;
 				padding: 12px 0 0;
 				border-radius: 8px 8px 0 0;
@@ -47,9 +48,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				display: flex;
 				flex-grow: 1;
 				padding: 4px 14px 0 14px;
-				z-index: 0;
-				position: relative;
-				background-color: transparent;
 				cursor: pointer;
 			}
 
@@ -57,28 +55,19 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				text-decoration: none;
 				color: var(--d2l-inner-module-text-color);
 				outline: none;
+				display: flex;
 			}
 
-			#module-header.d2l-asv-current {
-				--d2l-inner-module-background-color: var(--d2l-asv-primary-color);
-				--d2l-inner-module-text-color: var(--d2l-asv-selected-text-color);
-				--d2l-inner-module-border-color: rgba(0, 0, 0, 0.6);
+			d2l-icon {
+				/* TODO: use var */
+				padding-right: 15px;
+				color: var(--d2l-color-celestine);
 			}
 
 			#module-header.hide-description,
 			#module-header.hide-description > a {
 				cursor: default;
 			}
-
-			/*#module-header.d2l-asv-focus-within:not(.hide-description),*/
-			/*#module-header:focus:not(.hide-description),*/
-			/*#module-header:hover:not(.hide-description) {*/
-			/*	--d2l-inner-module-background-color: var(--d2l-asv-primary-color);*/
-			/*	--d2l-inner-module-border-color: rgba(0, 0, 0, 0.42);*/
-			/*	--d2l-inner-module-text-color: var(--d2l-asv-text-color);*/
-			/*	--d2l-inner-module-opacity: 0.26;*/
-			/*	--d2l-inner-module-backdrop-opacity: 1;*/
-			/*}*/
 
 			.module-title {
 				@apply --d2l-body-small-text;
@@ -92,7 +81,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				-webkit-box-orient: vertical;
 				-webkit-line-clamp: 2; /* number of lines to show */
 				max-height: 2.0rem; /* fallback */
-				font-size: 14px;
+				/*font-size: 14px;*/
 			}
 
 			ol {
@@ -128,14 +117,24 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			<div id="header-container" class$="[[isEmpty(subEntities)]]">
 				<div id="module-header" class$="[[_getIsSelected(currentActivity)]] [[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
 					<a on-click="_onHeaderClicked" href="javascript:void(0)">
+						<d2l-icon icon="tier1:folder"></d2l-icon>
 						<span class="module-title">[[entity.properties.title]]</span>
+						<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small"></d2l-icon>
 					</a>
 				</div>
 			</div>
 			<ol>
 				<template is="dom-repeat" items="[[subEntities]]" as="childLink">
 					<li>
-						<d2l-activity-link inner-last$="[[isLast(subEntities, index)]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"></d2l-activity-link>
+						<d2l-activity-link
+							inner-last$="[[isLast(subEntities, index)]]"
+							href="[[childLink.href]]"
+							token="[[token]]"
+							current-activity="{{currentActivity}}"
+							on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
+							next-sibling-is-activity="[[_activitySiblingIsActivity(subEntities, index)]]"
+						>
+						</d2l-activity-link>
 					</li>
 				</template>
 			</ol>
@@ -179,6 +178,21 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		};
 	}
 
+	_activitySiblingIsActivity(subEntities, index) {
+		if (index >= subEntities.length) {
+			return false;
+		}
+
+		const nextSibling = subEntities[index + 1];
+
+		return !this._isActivity(nextSibling);
+	}
+
+	// TODO: make this a helper function
+	_isActivity(link) {
+		return link && link.hasClass('sequenced-activity');
+	}
+
 	getSubEntities(entity) {
 		return entity && entity.getSubEntities()
 			.filter(subEntity => (subEntity.hasClass('sequenced-activity') && subEntity.hasClass('available')) || (subEntity.href && subEntity.hasClass('sequence-description')))
@@ -190,6 +204,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	}
 
 	_getHref(entity) {
+		// TODO: dont need the entity check since we're already passed that I think
 		return entity && entity.getLinkByRel && entity.getLinkByRel('self') || entity || '';
 	}
 	_getIsSelected(currentActivity) {
