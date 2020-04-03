@@ -168,34 +168,35 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				color: var(--d2l-asv-selected-text-color);
 			}
 
-			#skeleton-container {
+			@keyframes loadingShimmer {
+				0% { transform: translate3d(-100%, 0, 0); }
+				100% { transform: translate3d(100%, 0, 0); }
+			}
+
+			#skeleton {
 				height: 24px;
-				width: 100%;
-				display: flex;
-				justify-content: flex-start;
-			}
-
-			#icon-skeleton {
-				height: 100%;
-				width: 24px;
-				margin-right: 15px;
-				border-radius: 8px;
-				background: #F1F5FB;
-			}
-
-			#title-skeleton {
-				height: 100%;
 				width: 70%;
 				border-radius: 8px;
-				background: #F1F5FB;
+				background-color: var(--d2l-color-sylvite);
+				overflow: hidden;
+				position: relative;
+			}
+
+			#skeleton::after {
+				animation: loadingShimmer 1.8s ease-in-out infinite;
+				background: linear-gradient(90deg, var(--d2l-color-sylvite), var(--d2l-color-regolith), var(--d2l-color-sylvite));
+				background-color: var(--d2l-color-sylvite);
+				content: '';
+				height: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: 100%;
 			}
 
 		</style>
 		<template is="dom-if" if="[[showLoadingSkeleton]]">
-			<div id="skeleton-container">
-				<div id="icon-skeleton"></div>
-				<div id="title-skeleton"></div>
-			</div>
+			<div id="skeleton" class="skeleton"></div>
 		</template>
 		<template is="dom-if" if="[[!showLoadingSkeleton]]">
 			<div class="bkgd"></div>
@@ -248,15 +249,15 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			},
 			showLoadingSkeleton: {
 				type: Boolean,
-				value: true,
-				reflectToAttribute: true,
-				computed: '_showSkeleton(entity)'
+				value: false,
+				reflectToAttribute: true
 			}
 		};
 	}
 	static get observers() {
 		return [
-			'onCurrentActivityChanged(currentActivity, entity)'
+			'onCurrentActivityChanged(currentActivity, entity)',
+			'_onEntityLoaded(entity)'
 		];
 	}
 
@@ -310,8 +311,10 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 		return this._getTrueClass(focusWithin, selected);
 	}
 
-	_showSkeleton(entity) {
-		return !entity;
+	_onEntityLoaded(entity) {
+		if (entity) {
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
+		}
 	}
 }
 customElements.define(D2LActivityLink.is, D2LActivityLink);
