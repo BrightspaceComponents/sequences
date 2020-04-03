@@ -145,6 +145,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				padding: 5px 0;
 			}
 
 			#expand-icon {
@@ -180,8 +181,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 								[[localize('sequenceNavigator.optional')]]
 							</span>
 						</template>
-
-						<!--TODO: toggle this properly-->
 						<template is="dom-if" if="true">
 							<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
 						</template>
@@ -193,7 +192,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			<div id="launch-module-container">
 				<a href="[[_launchModuleHref]]">
 					<!--todo: get lang term and add a11y stuff-->
-					<d2l-button-subtle text="Launch Module" icon="tier1:wizard"></d2l-button-subtle>
+					<d2l-button-subtle text="Launch Module" icon="tier1:move-to"></d2l-button-subtle>
 				</a>
 			</div>
 
@@ -210,12 +209,19 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 									token="[[token]]"
 									current-activity="{{currentActivity}}"
 									on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
-									is-last-in-list="[[isLastInList(subEntities, index)]]"
+									next-sibling-is-activity="[[_activitySiblingIsActivity(subEntities, index)]]"
 								>
 								</d2l-activity-link>
 							</template>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
-								<d2l-inner-module skeleton="[[_skeleton]]" href="[[childLink.href]]" token="[[token]]" current-activity="{{currentActivity}}" on-sequencenavigator-d2l-inner-module-current-activity="childIsActiveEvent"></d2l-inner-module>
+								<d2l-inner-module
+									skeleton="[[_skeleton]]"
+									href="[[childLink.href]]"
+									token="[[token]]"
+									current-activity="{{currentActivity}}"
+									on-sequencenavigator-d2l-inner-module-current-activity="childIsActiveEvent"
+								>
+								</d2l-inner-module>
 							</template>
 						</li>
 					</template>
@@ -312,8 +318,14 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			: 'tier1:arrow-expand-small';
 	}
 
-	isLastInList(subEntities, index) {
-		return index === subEntities.length;
+	_activitySiblingIsActivity(subEntities, index) {
+		if (index >= subEntities.length) {
+			return false;
+		}
+
+		const nextSibling = subEntities[index + 1];
+
+		return !this._isActivity(nextSibling);
 	}
 
 	static get observers() {

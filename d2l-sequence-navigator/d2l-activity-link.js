@@ -40,9 +40,9 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				cursor: unset;
 			}
 
-			/* TODO: remove the underline */
-			:host([is-last-in-list]) {
-				background: red;
+			/* TODO: rename this property and function name */
+			:host([next-sibling-is-activity]) > #outer-container {
+				border-bottom: 1px solid transparent;
 			}
 
 			d2l-icon,
@@ -198,9 +198,10 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				reflectToAttribute: true,
 				computed: '_showSkeleton(entity)'
 			},
-			isLastInList: {
+			nextSiblingIsActivity: {
 				type: Boolean,
-				value: false
+				value: false,
+				reflectToAttribute: true
 			}
 		};
 	}

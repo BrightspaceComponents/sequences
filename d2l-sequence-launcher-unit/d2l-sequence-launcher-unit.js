@@ -69,7 +69,15 @@ PolymerElement
 					<template is="dom-if" if="[[childLink.href]]">
 						<li>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
-								<d2l-sequence-launcher-module href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" is-sidebar="[[isSidebar()]]" last-module="[[isLast(subEntities, index)]]" last-viewed-content-object="[[lastViewedContentObject]]"></d2l-sequence-launcher-module>
+								<d2l-sequence-launcher-module
+									href="[[childLink.href]]"
+									token="[[token]]"
+									current-activity="{{href}}"
+									is-sidebar="[[isSidebar()]]"
+									last-module="[[isLast(subEntities, index)]]"
+									last-viewed-content-object="[[lastViewedContentObject]]"
+								>
+								</d2l-sequence-launcher-module>
 							</template>
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
 								<d2l-activity-link
@@ -77,7 +85,7 @@ PolymerElement
 									token="[[token]]"
 									current-activity="{{href}}"
 									before-module$="[[isBeforeModule(subEntities, index)]]"
-									is-last-in-list="[[isLastInList(subEntities, index)]]"
+									next-sibling-is-activity="[[_activitySiblingIsActivity(subEntities, index)]]"
 								>
 								</d2l-activity-link>
 							</template>
@@ -90,8 +98,14 @@ PolymerElement
 		`;
 	}
 
-	isLastInList(subEntities, index) {
-		return index === subEntities.length;
+	_activitySiblingIsActivity(subEntities, index) {
+		if (index >= subEntities.length) {
+			return false;
+		}
+
+		const nextSibling = subEntities[index + 1];
+
+		return !this._isActivity(nextSibling);
 	}
 
 	static get is() {
