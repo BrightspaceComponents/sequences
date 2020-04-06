@@ -139,8 +139,8 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				display: flex;
 				flex-direction: row;
 				flex: 1;
-				padding-top: 5px;
-				padding-bottom: 15px;
+				padding-top: 10px;
+				padding-bottom: 10px;
 			}
 			#content-container {
 				display: flex;

@@ -26,8 +26,10 @@ PolymerElement
 			:host {
 				display: block;
 				height: 100%;
-				background-color: white;
+				/*background-color: white;*/
 				border: 1px solid var(--d2l-color-mica);
+				border-bottom-left-radius: 6px;
+				border-bottom-right-radius: 6px;
 			}
 
 			.module-item-list {
@@ -53,8 +55,12 @@ PolymerElement
 				overflow-x: hidden;
 			}
 			li:first-of-type d2l-activity-link,
-			li:first-of-type d2l-sequence-launcher-module {
-				margin-top: 0;
+			li:first-of-type {
+				margin-top: 10px;
+			}
+
+			li:last-of-type {
+				margin-bottom: 10px;
 			}
 
 			li {
