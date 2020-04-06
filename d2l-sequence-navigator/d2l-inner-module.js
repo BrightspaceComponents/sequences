@@ -136,12 +136,14 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 		<div id="skeleton"></div>
 		<div id="header-container" class$="[[isEmpty(subEntities)]]">
-			<div id="module-header" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
-				<a on-click="_onHeaderClicked" href="javascript:void(0)">
+			<div id="module-header" class$="[[_getIsSelected(currentActivity)]] [[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
+				<div on-click="_onHeaderClicked" style="width: 100%;">
+					<div style="display: inline-flex;">
 						<d2l-icon icon="tier1:folder"></d2l-icon>
 						<span class="module-title">[[entity.properties.title]]</span>
-						<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small"></d2l-icon>
-				</a>
+					</div>
+					<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small" style="float: right;"></d2l-icon>
+				</div>
 			</div>
 		</div>
 		<ol>
