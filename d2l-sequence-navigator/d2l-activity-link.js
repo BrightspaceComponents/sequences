@@ -25,7 +25,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				--d2l-icon-size: 18px;
 				display: block;
 				@apply --d2l-body-compact-text;
-				/*padding: var(--d2l-activity-link-padding, 10px 24px);*/
 				padding-left: 24px;
 				padding-right: 24px;
 			}
@@ -40,7 +39,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				cursor: unset;
 			}
 
-			/* TODO: rename this property and function name */
 			:host([next-sibling-is-activity]) > #outer-container {
 				border-bottom: 1px solid transparent;
 			}
@@ -139,13 +137,11 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				display: flex;
 				flex-direction: row;
 				flex: 1;
-				padding-top: 10px;
-				padding-bottom: 10px;
+				padding: 10px 0;
 			}
 			#content-container {
 				display: flex;
 				flex: 1;
-				/*justify-content: space-between;*/
 				cursor: pointer;
 			}
 

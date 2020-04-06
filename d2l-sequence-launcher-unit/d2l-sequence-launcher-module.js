@@ -32,15 +32,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				--d2l-outer-module-border-color: var(--d2l-outer-module-background-color);
 				--d2l-outer-module-opacity: 1;
 				box-sizing: border-box;
-				/* TODO: use vars eventually */
 				padding: 15px 24px;
 				color: var(--d2l-outer-module-text-color);
-				/*background-color: transparent;*/
-				/*border-style: solid;*/
-				/*border-width: var(--d2l-outer-module-border-width, 1px);*/
-				/*border-color: transparent;*/
-				/*position: relative;*/
-				/*z-index: 0;*/
 				cursor: pointer;
 			}
 
@@ -130,8 +123,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			}
 
 			li {
-				padding-top: 6px;
-				padding-bottom: 6px;
+				padding: 5px 0;
 			}
 
 			#startDate{
@@ -157,8 +149,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		<siren-entity href="[[lastViewedContentObject]]" token="[[token]]" entity="{{_lastViewedContentObjectEntity}}"></siren-entity>
 		<d2l-labs-accordion-collapse no-icons="" flex="">
 			<div slot="header" id="header-container" class$="[[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription, isSidebar)]]" is-sidebar$="[[isSidebar]]">
-				<div class="bkgd"></div>
-				<div class="border"></div>
 				<div class="module-header">
 					<span class="module-title">[[entity.properties.title]]</span>
 					<div class="module-completion-count">
@@ -316,40 +306,11 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		};
 	}
 
-	_getStartingCollapseIconName(entity, subEntities, _lastViewedContentObjectEntity) {
-		return this._getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity)
-			? 'tier1:arrow-collapse-small'
-			: 'tier1:arrow-expand-small';
-	}
-
-	_activitySiblingIsActivity(subEntities, index) {
-		if (index >= subEntities.length) {
-			return false;
-		}
-
-		const nextSibling = subEntities[index + 1];
-
-		return !this._isActivity(nextSibling);
-	}
-
 	static get observers() {
 		return [
 			'_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)',
 			'_openModule(_moduleStartOpen)'
 		];
-	}
-
-	_getLaunchModuleHref(entity) {
-		if (!entity) {
-			return '';
-		}
-
-		if (entity.getLinkByRel('alternate')) {
-			return entity.getLinkByRel('alternate').href;
-		}
-
-		// TODO: this isn't working... getting 401 unauthorized
-		return entity.getLinkByRel('self').href;
 	}
 
 	connectedCallback() {
@@ -379,9 +340,38 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		return this.completionCount && this.completionCount.total > 0 && this.completionCount.total === this.completionCount.completed;
 	}
 
-	// TODO: make this a helper function
 	_isActivity(link) {
 		return link && link.hasClass('sequenced-activity');
+	}
+
+	_getStartingCollapseIconName(entity, subEntities, _lastViewedContentObjectEntity) {
+		return this._getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity)
+			? 'tier1:arrow-collapse-small'
+			: 'tier1:arrow-expand-small';
+	}
+
+	_activitySiblingIsActivity(subEntities, index) {
+		if (index >= subEntities.length) {
+			return false;
+		}
+
+		const nextSibling = subEntities[index + 1];
+
+		return !this._isActivity(nextSibling);
+	}
+
+	// TODO: this function needs work
+	_getLaunchModuleHref(entity) {
+		if (!entity) {
+			return '';
+		}
+
+		if (entity.getLinkByRel('alternate')) {
+			return entity.getLinkByRel('alternate').href;
+		}
+
+		// TODO: this isn't working... getting 401 unauthorized
+		return entity.getLinkByRel('self').href;
 	}
 
 	_showCount() {

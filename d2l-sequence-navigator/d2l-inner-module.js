@@ -22,33 +22,21 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				@apply --d2l-body-compact-text;
 				color: var(--d2l-inner-module-text-color);
 				border-radius: 8px;
-				/*background-color: var(--d2l-color-sylvite);*/
-
-				/* TODO: only the children get padded */
-				/*padding: 0 24px;*/
 			}
 
 			#header-container {
 				display: flex;
 				padding: 12px 0;
-				/*border-radius: 8px 8px 0 0;*/
-				/*border-style: solid;*/
-				/*border-width: var(--d2l-inner-module-border-width, 0);*/
-				/*border-color: transparent;*/
-				/*height: 30px;*/
 			}
 
-			/* TODO: can prob delete */
 			#header-container.inner-module-empty {
 				padding: 12px 0;
 			}
 
 			#module-header {
-				/*--d2l-inner-module-opacity: 1;*/
-				/*--d2l-inner-module-backdrop-opacity: 0;*/
 				display: flex;
 				flex-grow: 1;
-				padding: 4px 14px 0 14px;
+				padding: 0 15px;
 				cursor: pointer;
 			}
 
@@ -60,7 +48,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			}
 
 			d2l-icon {
-				/* TODO: use var */
 				padding-right: 15px;
 				color: var(--d2l-color-celestine);
 			}
@@ -70,33 +57,15 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				cursor: default;
 			}
 
-			/* TODO: can probably delete */
-			.module-title {
-				/*@apply --d2l-body-compact-text;*/
-
-				/*color: var(--d2l-inner-module-text-color);*/
-
-				/*width: 100%;*/
-				/*overflow: hidden;*/
-				/*text-overflow: ellipsis;*/
-				/*float: left;*/
-				/*display: -webkit-box;*/
-				/*-webkit-box-orient: vertical;*/
-				/*-webkit-line-clamp: 2; !* number of lines to show *!*/
-				/*max-height: 2.0rem; !* fallback *!*/
-				/*font-size: 14px;*/
-			}
-
 			ol {
 				list-style-type: none;
 				border-collapse: collapse;
-				margin: 0px;
-				padding: 0px;
+				margin: 0;
+				padding: 0;
 			}
 
 			li {
-				padding-top: 6px;
-				padding-bottom: 6px;
+				padding: 5px 0;
 			}
 
 			@keyframes loadingShimmer {
@@ -159,7 +128,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 						current-activity="{{currentActivity}}"
 						on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
 						on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
-							next-sibling-is-activity="[[_activitySiblingIsActivity(subEntities, index)]]"
+						next-sibling-is-activity="[[_activitySiblingIsActivity(subEntities, index)]]"
 					></d2l-activity-link>
 				</li>
 			</template>
@@ -179,7 +148,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			},
 			_hideDescription: {
 				type: Boolean,
-				computed: '_getHideDesciption(entity)'
+				computed: '_getHideDescription(entity)'
 			},
 			hasCurrentActivity: {
 				type: Boolean,
@@ -224,7 +193,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		return !this._isActivity(nextSibling);
 	}
 
-	// TODO: make this a helper function
 	_isActivity(link) {
 		return link && link.hasClass('sequenced-activity');
 	}
@@ -235,12 +203,11 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			.map(this._getHref);
 	}
 
-	_getHideDesciption(entity) {
+	_getHideDescription(entity) {
 		return Boolean(entity) && entity.hasClass('hide-description');
 	}
 
 	_getHref(entity) {
-		// TODO: dont need the entity check since we're already passed that I think
 		return entity && entity.getLinkByRel && entity.getLinkByRel('self') || entity || '';
 	}
 	_getIsSelected(currentActivity) {

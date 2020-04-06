@@ -26,7 +26,6 @@ PolymerElement
 			:host {
 				display: block;
 				height: 100%;
-				/*background-color: white;*/
 				border: 1px solid var(--d2l-color-mica);
 				border-bottom-left-radius: 6px;
 				border-bottom-right-radius: 6px;
@@ -90,7 +89,6 @@ PolymerElement
 									href="[[childLink.href]]"
 									token="[[token]]"
 									current-activity="{{href}}"
-									before-module$="[[isBeforeModule(subEntities, index)]]"
 									next-sibling-is-activity="[[_activitySiblingIsActivity(subEntities, index)]]"
 								>
 								</d2l-activity-link>
@@ -102,16 +100,6 @@ PolymerElement
 			<slot name="end-of-lesson"></slot>
 		</d2l-labs-accordion>
 		`;
-	}
-
-	_activitySiblingIsActivity(subEntities, index) {
-		if (index >= subEntities.length) {
-			return false;
-		}
-
-		const nextSibling = subEntities[index + 1];
-
-		return !this._isActivity(nextSibling);
 	}
 
 	static get is() {
@@ -193,13 +181,14 @@ PolymerElement
 		return sidebarHeaderSlot.assignedNodes()[0].querySelector('d2l-lesson-header#sidebarHeader');
 	}
 
-	isBeforeModule(subEntities, index) {
-		if (index < subEntities.length - 1) {
-			if (!this._isActivity(subEntities[index + 1])) {
-				return true;
-			}
+	_activitySiblingIsActivity(subEntities, index) {
+		if (index >= subEntities.length) {
+			return false;
 		}
-		return false;
+
+		const nextSibling = subEntities[index + 1];
+
+		return !this._isActivity(nextSibling);
 	}
 
 	isLast(entities, index) {
