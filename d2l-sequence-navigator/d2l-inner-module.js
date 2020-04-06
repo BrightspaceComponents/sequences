@@ -143,6 +143,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 						<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small"></d2l-icon>
 				</a>
 			</div>
+		</div>
 		<ol>
 			<template is="dom-repeat" items="[[subEntities]]" as="childLink">
 				<li>
