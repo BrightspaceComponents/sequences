@@ -30,21 +30,22 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 			#header-container {
 				display: flex;
-				padding: 12px 0 0;
-				border-radius: 8px 8px 0 0;
-				border-style: solid;
-				border-width: var(--d2l-inner-module-border-width, 0);
-				border-color: transparent;
-				height: 30px;
+				padding: 12px 0;
+				/*border-radius: 8px 8px 0 0;*/
+				/*border-style: solid;*/
+				/*border-width: var(--d2l-inner-module-border-width, 0);*/
+				/*border-color: transparent;*/
+				/*height: 30px;*/
 			}
 
+			/* TODO: can prob delete */
 			#header-container.inner-module-empty {
 				padding: 12px 0;
 			}
 
 			#module-header {
-				--d2l-inner-module-opacity: 1;
-				--d2l-inner-module-backdrop-opacity: 0;
+				/*--d2l-inner-module-opacity: 1;*/
+				/*--d2l-inner-module-backdrop-opacity: 0;*/
 				display: flex;
 				flex-grow: 1;
 				padding: 4px 14px 0 14px;
@@ -69,18 +70,20 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				cursor: default;
 			}
 
+			/* TODO: can probably delete */
 			.module-title {
-				@apply --d2l-body-small-text;
-				color: var(--d2l-inner-module-text-color);
+				/*@apply --d2l-body-compact-text;*/
 
-				width: 100%;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				float: left;
-				display: -webkit-box;
-				-webkit-box-orient: vertical;
-				-webkit-line-clamp: 2; /* number of lines to show */
-				max-height: 2.0rem; /* fallback */
+				/*color: var(--d2l-inner-module-text-color);*/
+
+				/*width: 100%;*/
+				/*overflow: hidden;*/
+				/*text-overflow: ellipsis;*/
+				/*float: left;*/
+				/*display: -webkit-box;*/
+				/*-webkit-box-orient: vertical;*/
+				/*-webkit-line-clamp: 2; !* number of lines to show *!*/
+				/*max-height: 2.0rem; !* fallback *!*/
 				/*font-size: 14px;*/
 			}
 
