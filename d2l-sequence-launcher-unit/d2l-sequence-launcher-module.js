@@ -41,12 +41,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				cursor: default;
 			}
 
-			#header-container.d2l-asv-current {
-				--d2l-outer-module-background-color: var(--d2l-asv-primary-color);
-				--d2l-outer-module-text-color: var(--d2l-asv-selected-text-color);
-				--d2l-outer-module-border-color: rgba(0, 0, 0, 0.6);
-			}
-
 			.start-date-text {
 				margin: 0;
 				text-align: right;
@@ -105,14 +99,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			}
 			d2l-labs-accordion-collapse > a {
 				outline: none;
-			}
-
-			.d2l-asv-current .optionalStatus {
-				color: var(--d2l-asv-text-color);
-			}
-
-			.d2l-asv-current:not(:hover) .optionalStatus {
-				color: var(--d2l-asv-selected-text-color);
 			}
 
 			hr {

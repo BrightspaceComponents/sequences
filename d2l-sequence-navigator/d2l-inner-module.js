@@ -108,7 +108,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 		<div id="skeleton"></div>
 		<div id="header-container" class$="[[isEmpty(subEntities)]]">
-			<div id="module-header" class$="[[_getIsSelected(currentActivity)]] [[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
+			<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
 				<div on-click="_onHeaderClicked" style="width: 100%;">
 					<div style="display: inline-flex;">
 						<d2l-icon icon="tier1:folder"></d2l-icon>
@@ -209,13 +209,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 	_getHref(entity) {
 		return entity && entity.getLinkByRel && entity.getLinkByRel('self') || entity || '';
-	}
-	_getIsSelected(currentActivity) {
-		const selected = this.entity && this.entity.getLinkByRel('self').href === currentActivity;
-		if (selected) {
-			this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-inner-module-current-activity', {detail: { href: this.href}}));
-		}
-		// return this._getTrueClass(focusWithin, selected);
 	}
 
 	_onHeaderClicked() {

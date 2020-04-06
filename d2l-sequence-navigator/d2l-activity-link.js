@@ -98,14 +98,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				border-radius: 0 0 8px 8px;
 			}
 
-			:host(.d2l-asv-current) d2l-completion-requirement {
-				color: var(--d2l-asv-text-color);
-			}
-
-			:host(.d2l-asv-current:not(:hover)) d2l-completion-requirement {
-				color: var(--d2l-asv-selected-text-color);
-			}
-
 			@keyframes loadingShimmer {
 				0% { transform: translate3d(-100%, 0, 0); }
 				100% { transform: translate3d(100%, 0, 0); }
@@ -186,11 +178,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				type: Boolean,
 				computed: '_hasIcon(entity)'
 			},
-			class: {
-				type: String,
-				computed: '_getIsSelected(currentActivity, entity)',
-				reflectToAttribute: true
-			},
 			completionStatus: {
 				type: String,
 				computed: '_getCompletionStatus(entity)',
@@ -254,13 +241,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				return 'd2l-activity-link-one-line';
 		}
 		return '';
-	}
-	_getIsSelected(currentActivity, entity) {
-		const selected = entity && entity.getLinkByRel('self').href === currentActivity;
-		if (selected) {
-			this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-activity-link-current-activity', {detail: { href: this.href}}));
-		}
-		// return this._getTrueClass(focusWithin, selected);
 	}
 
 	_onEntityLoaded(entity) {
