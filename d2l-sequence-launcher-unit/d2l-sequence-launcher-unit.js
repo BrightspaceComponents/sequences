@@ -81,6 +81,8 @@ PolymerElement
 									is-sidebar="[[isSidebar()]]"
 									last-module="[[isLast(subEntities, index)]]"
 									last-viewed-content-object="[[lastViewedContentObject]]"
+									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
+									show-loading-skeleton="[[_childrenLoading]]"
 								>
 								</d2l-sequence-launcher-module>
 							</template>
@@ -90,6 +92,8 @@ PolymerElement
 									token="[[token]]"
 									current-activity="{{href}}"
 									show-underline="[[_nextActivitySiblingIsActivity(subEntities, index)]]"
+									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
+									show-loading-skeleton="[[_childrenLoading]]"
 								>
 								</d2l-activity-link>
 							</template>
@@ -129,6 +133,14 @@ PolymerElement
 			},
 			lastViewedContentObject: {
 				type: String
+			},
+			_childrenLoading: {
+				type: Boolean,
+				value: true
+			},
+			_childrenLoadingTracker: {
+				type: Object,
+				computed: '_setUpChildrenLoadingTracker(subEntities)'
 			}
 		};
 	}
@@ -196,6 +208,37 @@ PolymerElement
 	}
 	isSidebar() {
 		return this.role === 'navigation';
+	}
+
+	_setUpChildrenLoadingTracker(subEntities) {
+		if (!subEntities) {
+			return {};
+		}
+
+		return subEntities.reduce((acc, { href }) => {
+			return {
+				...acc,
+				[href]: false
+			};
+		}, {});
+	}
+
+	checkIfChildrenDoneLoading(contentLoadedEvent) {
+		const childHref = contentLoadedEvent.detail.href;
+
+		if (!this._childrenLoadingTracker || !this._childrenLoading) {
+			return;
+		}
+
+		if (this._childrenLoadingTracker[childHref] !== undefined) {
+			this._childrenLoadingTracker[childHref] = true;
+			contentLoadedEvent.stopPropagation();
+		}
+
+		if (this._childrenLoading && !Object.values(this._childrenLoadingTracker).some(loaded => !loaded)) {
+			this._childrenLoading = false;
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
+		}
 	}
 }
 
