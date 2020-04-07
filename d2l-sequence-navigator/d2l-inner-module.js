@@ -48,14 +48,18 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				display: flex;
 			}
 
-			d2l-icon {
-				padding-right: 15px;
-				color: var(--d2l-color-celestine);
-			}
-
 			#module-header.hide-description,
 			#module-header.hide-description > a {
 				cursor: default;
+			}
+
+			.header-left > d2l-icon {
+				padding-right: 15px;
+				color: var(--d2l-inner-module-text-color);
+			}
+
+			.header-right {
+				color: var(--d2l-outer-module-text-color);
 			}
 
 			ol {
@@ -110,11 +114,16 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		<div id="skeleton"></div>
 		<div id="header-container" class$="[[isEmpty(subEntities)]]">
 			<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
-				<div>
+				<div class="header-left">
 					<d2l-icon icon="tier1:folder"></d2l-icon>
 					<span class="module-title">[[entity.properties.title]]</span>
 				</div>
-				<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small"></d2l-icon>
+				<div class="header-right">
+					<span class="countStatus" aria-hidden="true">
+						[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
+					</span>
+					<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small"></d2l-icon>
+				</div>
 			</div>
 		</div>
 		<ol>
