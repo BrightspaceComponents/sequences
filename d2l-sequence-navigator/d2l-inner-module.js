@@ -1,6 +1,7 @@
 import './d2l-activity-link.js';
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
+import '@brightspace-ui-labs/accordion/accordion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import 'd2l-offscreen/d2l-offscreen.js';
@@ -109,38 +110,49 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				display: none;
 			}
 
+			/* ======== */
+
+			d2l-labs-accordion-collapse {
+				/*border: 1px solid var(--d2l-color-mica);*/
+				/*border-radius: 6px;*/
+			}
+
 		</style>
 
 		<div id="skeleton"></div>
-		<div id="header-container" class$="[[isEmpty(subEntities)]]">
-			<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
-				<div class="header-left">
-					<d2l-icon icon="tier1:folder"></d2l-icon>
-					<span class="module-title">[[entity.properties.title]]</span>
-				</div>
-				<div class="header-right">
-					<span class="countStatus" aria-hidden="true">
-						[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
-					</span>
-					<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small"></d2l-icon>
+		<d2l-labs-accordion-collapse no-icons="" flex="">
+			<div slot="header" id="header-container" class$="[[isEmpty(subEntities)]]">
+				<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
+					<div class="header-left">
+						<d2l-icon icon="tier1:folder"></d2l-icon>
+						<span class="module-title">[[entity.properties.title]]</span>
+					</div>
+					<div class="header-right">
+						<span class="countStatus" aria-hidden="true">
+							[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
+						</span>
+						<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
+					</div>
 				</div>
 			</div>
-		</div>
-		<ol>
-			<template is="dom-repeat" items="[[subEntities]]" as="childLink">
-				<li>
-					<d2l-activity-link
-						inner-last$="[[isLast(subEntities, index)]]"
-						href="[[childLink.href]]"
-						token="[[token]]"
-						current-activity="{{currentActivity}}"
-						on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
-						on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
-						show-underline="[[_nextActivitySiblingIsActivity(subEntities, index)]]"
-					></d2l-activity-link>
-				</li>
-			</template>
-		</ol>
+			<ol>
+				<template is="dom-if" if="[[_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)]]">
+					<template is="dom-repeat" items="[[subEntities]]" as="childLink">
+						<li>
+							<d2l-activity-link
+								inner-last$="[[isLast(subEntities, index)]]"
+								href="[[childLink.href]]"
+								token="[[token]]"
+								current-activity="{{currentActivity}}"
+								on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
+								on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
+								show-underline="[[_nextActivitySiblingIsActivity(subEntities, index)]]"
+							></d2l-activity-link>
+						</li>
+					</template>
+				</template>
+			</ol>
+		</d2l-labs-accordion-collapse>
 `;
 	}
 
@@ -183,12 +195,80 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			_childrenLoadingTracker: {
 				type: Object,
 				computed: '_setUpChildrenLoadingTracker(subEntities)'
+			},
+			lastViewedContentObjectEntity: {
+				type: Object
+			},
+			_moduleStartOpen: {
+				type: Boolean,
+				computed: '_getModuleStartOpen(entity, subEntities, lastViewedContentObjectEntity)'
+			},
+			_iconName: {
+				type: String,
+				value: 'tier1:arrow-expand-small'
 			}
 		};
 	}
 
 	static get observers() {
-		return ['_checkIfNoChildren(entity, subEntities)'];
+		return [
+			'_checkIfNoChildren(entity, subEntities)',
+			'_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)',
+			'_openModule(_moduleStartOpen)'
+		];
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		this.addEventListener('d2l-labs-accordion-collapse-clicked', this._onHeaderClicked);
+		this.addEventListener('d2l-labs-accordion-collapse-state-changed', this._updateCollapseIconName);
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		this.removeEventListener('d2l-labs-accordion-collapse-clicked', this._onHeaderClicked);
+		this.removeEventListener('d2l-labs-accordion-collapse-state-changed', this._updateCollapseIconName);
+	}
+
+	_getModuleStartOpen(entity, subEntities, lastViewedContentObjectEntity) {
+		if (!entity || !lastViewedContentObjectEntity) {
+			return false;
+		}
+		// Set the starting icon depending on the collapse state
+		this._updateCollapseIconName();
+
+		const lastViewedParentHref = lastViewedContentObjectEntity.getLinkByRel('up').href;
+
+		const isCurrentModuleLastViewedContentObject = lastViewedContentObjectEntity.getLinkByRel('self').href === this.href;
+		const isDirectChildOfCurrentModule = lastViewedParentHref === this.href;
+		const isChildOfSubModule = subEntities.some((s) => s.href === lastViewedParentHref);
+
+		return isCurrentModuleLastViewedContentObject || isDirectChildOfCurrentModule || isChildOfSubModule;
+	}
+
+	_updateCollapseIconName() {
+		if (this._isAccordionOpen()) {
+			this._iconName = 'tier1:arrow-collapse-small';
+		} else {
+			this._iconName = 'tier1:arrow-expand-small';
+		}
+	}
+
+	_isAccordionOpen() {
+		if (!this.shadowRoot || !this.shadowRoot.querySelector('d2l-labs-accordion-collapse')) {
+			return false;
+		}
+		return this.shadowRoot.querySelector('d2l-labs-accordion-collapse').hasAttribute('opened');
+	}
+
+	_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded) {
+		return _moduleStartOpen || _moduleWasExpanded;
+	}
+
+	_openModule(_moduleStartOpen) {
+		if (_moduleStartOpen) {
+			this.shadowRoot.querySelector('d2l-labs-accordion-collapse').setAttribute('opened', '');
+		}
 	}
 
 	_nextActivitySiblingIsActivity(subEntities, index) {
@@ -220,11 +300,13 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	}
 
 	_onHeaderClicked() {
-		if (this._hideDescription) {
-			return;
-		}
-		this.currentActivity = this.entity.getLinkByRel('self').href;
-		this._contentObjectClick();
+		// if (this._hideDescription) {
+		// 	return;
+		// }
+		// this.currentActivity = this.entity.getLinkByRel('self').href;
+		// this._contentObjectClick();
+
+		this._moduleWasExpanded = true;
 	}
 
 	childIsActiveEvent() {
