@@ -89,7 +89,7 @@ PolymerElement
 									href="[[childLink.href]]"
 									token="[[token]]"
 									current-activity="{{href}}"
-									next-sibling-is-activity="[[_activitySiblingIsActivity(subEntities, index)]]"
+									show-underline="[[_nextActivitySiblingIsActivity(subEntities, index)]]"
 								>
 								</d2l-activity-link>
 							</template>
@@ -181,14 +181,14 @@ PolymerElement
 		return sidebarHeaderSlot.assignedNodes()[0].querySelector('d2l-lesson-header#sidebarHeader');
 	}
 
-	_activitySiblingIsActivity(subEntities, index) {
+	_nextActivitySiblingIsActivity(subEntities, index) {
 		if (index >= subEntities.length) {
 			return false;
 		}
 
 		const nextSibling = subEntities[index + 1];
 
-		return !this._isActivity(nextSibling);
+		return this._isActivity(nextSibling);
 	}
 
 	isLast(entities, index) {

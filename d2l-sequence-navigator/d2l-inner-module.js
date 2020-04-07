@@ -127,7 +127,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 						current-activity="{{currentActivity}}"
 						on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
 						on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
-						next-sibling-is-activity="[[_activitySiblingIsActivity(subEntities, index)]]"
+						show-underline="[[_nextActivitySiblingIsActivity(subEntities, index)]]"
 					></d2l-activity-link>
 				</li>
 			</template>
@@ -182,14 +182,14 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		return ['_checkIfNoChildren(entity, subEntities)'];
 	}
 
-	_activitySiblingIsActivity(subEntities, index) {
+	_nextActivitySiblingIsActivity(subEntities, index) {
 		if (index >= subEntities.length) {
 			return false;
 		}
 
 		const nextSibling = subEntities[index + 1];
 
-		return !this._isActivity(nextSibling);
+		return this._isActivity(nextSibling);
 	}
 
 	_isActivity(link) {

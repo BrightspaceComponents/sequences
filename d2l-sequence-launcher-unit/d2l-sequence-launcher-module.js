@@ -22,7 +22,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				display: block;
 				@apply --d2l-body-compact-text;
 				--d2l-outer-module-text-color: var(--d2l-asv-text-color);
-				--d2l-outer-module-background-color: transparent;
 				--d2l-activity-link-padding: 10px 24px;
 			}
 
@@ -32,8 +31,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			}
 
 			#header-container {
-				--d2l-outer-module-border-color: var(--d2l-outer-module-background-color);
-				--d2l-outer-module-opacity: 1;
 				box-sizing: border-box;
 				padding: 15px 24px;
 				color: var(--d2l-outer-module-text-color);
@@ -59,8 +56,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			.module-title {
 				@apply --d2l-body-compact-text;
 				font-weight: 700;
-				width: calc(100% - 2rem - 24px);
-
+				/* FIXME: This calc is super fragile */
+				width: calc(100% - 2rem - 32px);
 				overflow: hidden;
 				text-overflow: ellipsis;
 				float: left;
@@ -187,7 +184,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 									current-activity="{{currentActivity}}"
 									on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
 									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
-									next-sibling-is-activity="[[_activitySiblingIsActivity(subEntities, index)]]"
+									show-underline="[[_nextActivitySiblingIsActivity(subEntities, index)]]"
 								></d2l-activity-link>
 							</template>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
@@ -337,14 +334,14 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			: 'tier1:arrow-expand-small';
 	}
 
-	_activitySiblingIsActivity(subEntities, index) {
+	_nextActivitySiblingIsActivity(subEntities, index) {
 		if (index >= subEntities.length) {
 			return false;
 		}
 
 		const nextSibling = subEntities[index + 1];
 
-		return !this._isActivity(nextSibling);
+		return this._isActivity(nextSibling);
 	}
 
 	// TODO: this function needs work

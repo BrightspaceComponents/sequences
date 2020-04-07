@@ -39,8 +39,21 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				cursor: unset;
 			}
 
-			:host([next-sibling-is-activity]) > #outer-container {
+			:host([show-underline]) > #outer-container {
+				border-bottom: 1px solid var(--d2l-color-mica);
+			}
+			#outer-container {
 				border-bottom: 1px solid transparent;
+				display: flex;
+				flex-direction: row;
+				flex: 1;
+				padding: 10px 0;
+			}
+
+			#content-container {
+				display: flex;
+				flex: 1;
+				cursor: pointer;
 			}
 
 			d2l-icon,
@@ -85,7 +98,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			d2l-completion-status {
 				width: var(--d2l-icon-size);
 				padding-left: var(--d2l-right-icon-padding);
-				color: var(--d2l-activity-link-text-color);
+				color: var(--d2l-asv-text-color);
 			}
 
 			d2l-icon {
@@ -123,20 +136,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				top: 0;
 				width: 100%;
 			}
-
-			#outer-container {
-				border-bottom: 1px solid var(--d2l-color-mica);
-				display: flex;
-				flex-direction: row;
-				flex: 1;
-				padding: 10px 0;
-			}
-			#content-container {
-				display: flex;
-				flex: 1;
-				cursor: pointer;
-			}
-
 		</style>
 		<div id="outer-container">
 			<template is="dom-if" if="[[showLoadingSkeleton]]">
@@ -154,6 +153,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 						<d2l-completion-requirement href="[[href]]" token="[[token]]">
 						</d2l-completion-requirement>
 					</div>
+					<d2l-completion-status href="[[href]]" token="[[token]]"></d2l-completion-status>
 				</div>
 			</template>
 		</div>
@@ -187,7 +187,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				value: false,
 				reflectToAttribute: true
 			},
-			nextSiblingIsActivity: {
+			showUnderline: {
 				value: false,
 				reflectToAttribute: true
 			}
