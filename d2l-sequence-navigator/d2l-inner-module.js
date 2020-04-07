@@ -241,9 +241,15 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 		const isCurrentModuleLastViewedContentObject = lastViewedContentObjectEntity.getLinkByRel('self').href === this.href;
 		const isDirectChildOfCurrentModule = lastViewedParentHref === this.href;
-		const isChildOfSubModule = subEntities.some((s) => s.href === lastViewedParentHref);
+		// const isChildOfSubModule = subEntities.some((s) => s.href === lastViewedParentHref);
 
-		return isCurrentModuleLastViewedContentObject || isDirectChildOfCurrentModule || isChildOfSubModule;
+		const startOpen = isCurrentModuleLastViewedContentObject || isDirectChildOfCurrentModule;
+
+		if (!startOpen) {
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
+		}
+
+		return startOpen;
 	}
 
 	_updateCollapseIconName() {
@@ -347,6 +353,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		}, {});
 	}
 
+	// TODO: modify this to only check if self is loaded if closed, children if open
 	checkIfChildrenDoneLoading(contentLoadedEvent) {
 		const childHref = contentLoadedEvent.detail.href;
 
