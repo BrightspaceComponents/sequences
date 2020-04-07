@@ -23,52 +23,48 @@ PolymerElement
 	static get template() {
 		return html`
 		<style>
-		:host {
-			display: block;
-			height: 100%;
-			background-color: white;
-			border: 1px solid var(--d2l-color-mica);
-		}
+			:host {
+				display: block;
+				height: 100%;
+				border: 1px solid var(--d2l-color-mica);
+				border-bottom-left-radius: 6px;
+				border-bottom-right-radius: 6px;
+			}
 
-		.module-item-list {
-			list-style-type: none;
-			padding: 0px;
-			margin: 0px;
-		}
+			.module-item-list {
+				list-style-type: none;
+				padding: 0;
+				margin: 0;
+			}
 
-		::slotted(.shadowed) {
-			position: relative;
-			z-index: 1;
-			box-shadow: 0 4px 0 0 rgba(185,194,208,.3);
-		}
+			::slotted(.shadowed) {
+				position: relative;
+				z-index: 1;
+				box-shadow: 0 4px 0 0 rgba(185,194,208,.3);
+			}
 
-		.module-content {
-			height: calc( 100% - 203px );
-			border-top: 1px solid var(--d2l-color-mica);
-		}
+			.module-content {
+				height: calc( 100% - 203px );
+				border-top: 1px solid var(--d2l-color-mica);
+			}
 
-		d2l-activity-link:focus {
-			outline: none;
-		}
+			#sidebarContent {
+				position: relative;
+				overflow-y: auto;
+				overflow-x: hidden;
+			}
+			li:first-of-type d2l-activity-link,
+			li:first-of-type {
+				margin-top: 10px;
+			}
 
-		#sidebarContent {
-			position: relative;
-			overflow-y: auto;
-			overflow-x: hidden;
-		}
-		li:first-of-type d2l-activity-link,
-		li:first-of-type d2l-sequence-launcher-module {
-			margin-top: 0px;
-		}
+			li:last-of-type {
+				margin-bottom: 10px;
+			}
 
-		li {
-			padding-top: 6px;
-			padding-bottom: 6px;
-			border-bottom: 1px solid var(--d2l-color-mica);
-			padding-left: var(--d2l-sequence-nav-padding, 0);
-			padding-right: var(--d2l-sequence-nav-padding, 0);
-		}
-
+			li {
+				padding: 5px 15px;
+			}
 		</style>
 		<siren-entity href="[[rootHref]]" token="[[token]]" entity="{{_lessonEntity}}"></siren-entity>
 		<slot name="lesson-header"></slot>
@@ -78,10 +74,24 @@ PolymerElement
 					<template is="dom-if" if="[[childLink.href]]">
 						<li>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
-								<d2l-sequence-launcher-module href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" is-sidebar="[[isSidebar()]]" last-module="[[isLast(subEntities, index)]]" last-viewed-content-object="[[lastViewedContentObject]]"></d2l-sequence-launcher-module>
+								<d2l-sequence-launcher-module
+									href="[[childLink.href]]"
+									token="[[token]]"
+									current-activity="{{href}}"
+									is-sidebar="[[isSidebar()]]"
+									last-module="[[isLast(subEntities, index)]]"
+									last-viewed-content-object="[[lastViewedContentObject]]"
+								>
+								</d2l-sequence-launcher-module>
 							</template>
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
-								<d2l-activity-link href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" before-module$="[[isBeforeModule(subEntities, index)]]"></d2l-activity-link>
+								<d2l-activity-link
+									href="[[childLink.href]]"
+									token="[[token]]"
+									current-activity="{{href}}"
+									show-underline="[[_nextActivitySiblingIsActivity(subEntities, index)]]"
+								>
+								</d2l-activity-link>
 							</template>
 						</li>
 					</template>
@@ -171,13 +181,14 @@ PolymerElement
 		return sidebarHeaderSlot.assignedNodes()[0].querySelector('d2l-lesson-header#sidebarHeader');
 	}
 
-	isBeforeModule(subEntities, index) {
-		if (index < subEntities.length - 1) {
-			if (!this._isActivity(subEntities[index + 1])) {
-				return true;
-			}
+	_nextActivitySiblingIsActivity(subEntities, index) {
+		if (index >= subEntities.length) {
+			return false;
 		}
-		return false;
+
+		const nextSibling = subEntities[index + 1];
+
+		return this._isActivity(nextSibling);
 	}
 
 	isLast(entities, index) {

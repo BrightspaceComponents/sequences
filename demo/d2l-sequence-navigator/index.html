@@ -15,6 +15,7 @@
 		import '../../d2l-sequence-navigator/d2l-sequence-end.js';
 		import '../../d2l-sequence-navigator/d2l-lesson-header.js';
 		import '../../d2l-sequence-navigator/d2l-missed-activity.js';
+		import '../../d2l-sequence-launcher-unit/d2l-sequence-launcher-unit.js';
 		window.D2L.Siren.WhitelistBehavior._testMode(true);
 	</script>
 
@@ -47,6 +48,19 @@
 
 <body class="d2l-typography">
 	<div class="vertical-section-container centered">
+		<h3>Sequence Launcher Unit</h3>
+		<demo-snippet>
+			<template>
+				<h4>Sequence launcher unit with no outer container</h4>
+				<d2l-sequence-launcher-unit
+					href="data/m2-activity2.json"
+					token="token"
+					last-accessed-module="data/m2-activity2.json"
+					last-viewed-content-object="data/m2-activity2.json"
+				>
+				</d2l-sequence-launcher-unit>
+			</template>
+		</demo-snippet>
 		<h3>Simple sequence-navigator</h3>
 		<demo-snippet>
 			<template>

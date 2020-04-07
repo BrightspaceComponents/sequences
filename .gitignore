@@ -3,3 +3,4 @@ locales.json
 .vs
 analysis.json
 package-lock.json
+build

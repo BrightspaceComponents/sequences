@@ -2,88 +2,43 @@ import '../d2l-sequence-navigator/d2l-inner-module.js';
 import '../d2l-sequence-navigator/d2l-activity-link.js';
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
-import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
 import '@brightspace-ui-labs/accordion/accordion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
+import '@brightspace-ui/core/components/button/button-subtle.js';
 import 'd2l-offscreen/d2l-offscreen.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /*
 @memberOf window.D2L.Polymer.Mixins;
 @mixes D2L.Polymer.Mixins.CompletionStatusMixin
 @mixes D2L.Polymer.Mixins.PolymerASVLaunchMixin
-@mixes D2L.Polymer.Mixins.ASVFocusWithinMixin
 */
 
-class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixin(CompletionStatusMixin())) {
+class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	static get template() {
 		return html`
 		<style>
 			:host {
 				display: block;
 				@apply --d2l-body-compact-text;
-				width: 100%;
 				--d2l-outer-module-text-color: var(--d2l-asv-text-color);
-				--d2l-outer-module-background-color: transparent;
 				--d2l-activity-link-padding: 10px 24px;
-				margin-top: -1px;
+			}
+
+			d2l-labs-accordion-collapse {
+				border: 1px solid var(--d2l-color-mica);
+				border-radius: 6px;
 			}
 
 			#header-container {
-				--d2l-outer-module-border-color: var(--d2l-outer-module-background-color);
-				--d2l-outer-module-opacity: 1;
 				box-sizing: border-box;
-				padding: var(--d2l-activity-link-padding);
+				padding: 15px 24px;
 				color: var(--d2l-outer-module-text-color);
-				background-color: transparent;
-				border-style: solid;
-				border-width: var(--d2l-outer-module-border-width, 1px);
-				border-color: transparent;
-				position: relative;
-				z-index: 0;
 				cursor: pointer;
 			}
 
 			#header-container.hide-description {
 				cursor: default;
-			}
-
-			#header-container.d2l-asv-current {
-				--d2l-outer-module-background-color: var(--d2l-asv-primary-color);
-				--d2l-outer-module-text-color: var(--d2l-asv-selected-text-color);
-				--d2l-outer-module-border-color: rgba(0, 0, 0, 0.6);
-			}
-
-			#header-container.d2l-asv-focus-within:not(.hide-description),
-			#header-container:hover:not(.hide-description) {
-				--d2l-outer-module-background-color: var(--d2l-asv-primary-color);
-				--d2l-outer-module-border-color: rgba(0, 0, 0, 0.42);
-				--d2l-outer-module-text-color: var(--d2l-asv-text-color);
-				--d2l-outer-module-opacity: 0.26;
-			}
-
-			div.bkgd, div.border {
-				position: absolute;
-				top: 0;
-				left: 0;
-				border-radius: 8px;
-			}
-
-			div.bkgd {
-				opacity: var(--d2l-outer-module-opacity);
-				background-color: var(--d2l-outer-module-background-color);
-				z-index: -2;
-				height: 100%;
-				width: 100%;
-			}
-
-			div.border {
-				border-style: solid;
-				border-width: 1px;
-				border-color:	var(--d2l-outer-module-border-color);
-				z-index: -1;
-				height: calc(100% - 2px);
-				width: calc(100% - 2px);
 			}
 
 			.start-date-text {
@@ -101,8 +56,8 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			.module-title {
 				@apply --d2l-body-compact-text;
 				font-weight: 700;
-				width: calc(100% - 2rem - 24px);
-
+				/* FIXME: This calc is super fragile */
+				width: calc(100% - 2rem - 32px);
 				overflow: hidden;
 				text-overflow: ellipsis;
 				float: left;
@@ -118,10 +73,10 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 				color: var(--d2l-outer-module-text-color);
 				text-align: right;
 				float: right;
-				display: table-cell;
-				width: 2rem;
+				display: flex;
 				line-height: inherit !important;
-				padding-left: 24px;
+				align-items: center;
+				justify-content: center;
 			}
 
 			.should-pad {
@@ -131,7 +86,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			ol {
 				list-style-type: none;
 				border-collapse: collapse;
-				margin: 0px;
+				margin: 0;
 				padding: 0;
 			}
 
@@ -146,14 +101,6 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 				outline: none;
 			}
 
-			.d2l-asv-current .optionalStatus {
-				color: var(--d2l-asv-text-color);
-			}
-
-			.d2l-asv-current:not(:hover) .optionalStatus {
-				color: var(--d2l-asv-selected-text-color);
-			}
-
 			hr {
 				border: solid var(--d2l-color-mica);
 				border-width: 1px 0 0 0;
@@ -162,8 +109,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			}
 
 			li {
-				padding-top: 6px;
-				padding-bottom: 6px;
+				padding: 5px 0;
 			}
 
 			#startDate{
@@ -173,16 +119,25 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 				line-height: var(--d2l-body-small-text_-_line-height);
 			}
 
+			#launch-module-container {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 5px 0;
+			}
+
+			#expand-icon {
+				padding-left: 10px;
+			}
+
 		</style>
 
 		<siren-entity href="[[lastViewedContentObject]]" token="[[token]]" entity="{{_lastViewedContentObjectEntity}}"></siren-entity>
 		<d2l-labs-accordion-collapse no-icons="" flex="">
-			<div slot="header" id="header-container" class$="[[_getIsSelected(currentActivity, focusWithin)]] [[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription, isSidebar)]]" is-sidebar$="[[isSidebar]]">
-				<div class="bkgd"></div>
-				<div class="border"></div>
+			<div slot="header" id="header-container" class$="[[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription, isSidebar)]]" is-sidebar$="[[isSidebar]]">
 				<div class="module-header">
 					<span class="module-title">[[entity.properties.title]]</span>
-					<span class="module-completion-count">
+					<div class="module-completion-count">
 						<template is="dom-if" if="[[showCount]]">
 							<span class="countStatus" aria-hidden="true">
 								[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
@@ -202,9 +157,20 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 								[[localize('sequenceNavigator.optional')]]
 							</span>
 						</template>
-					</span>
+						<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
+					</div>
 				</div>
 				<div id ="startDate">[[startDate]]</div>
+			</div>
+			<div id="launch-module-container">
+				<a href="[[_launchModuleHref]]">
+					<d2l-button-subtle
+						aria-label$="[[localize('sequenceNavigator.launchModule')]]"
+						text="[[localize('sequenceNavigator.launchModule')]]"
+						icon="tier1:move-to"
+					>
+					</d2l-button-subtle>
+				</a>
 			</div>
 			<ol>
 				<template is="dom-if" if="[[_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)]]">
@@ -220,6 +186,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 									current-activity="{{currentActivity}}"
 									on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
 									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
+									show-underline="[[_nextActivitySiblingIsActivity(subEntities, index)]]"
 								></d2l-activity-link>
 							</template>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
@@ -314,6 +281,13 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 			_childrenLoadingTracker: {
 				type: Object,
 				computed: '_setUpChildrenLoadingTracker(subEntities)'
+			},
+			_launchModuleHref: {
+				type: String,
+				computed: '_getLaunchModuleHref(entity)'
+			},
+			_iconName: {
+				type: String
 			}
 		};
 	}
@@ -325,20 +299,16 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		];
 	}
 
-	_accordionCollapseClass(focusWithin) {
-		return this._focusWithinClass(focusWithin);
-	}
-
 	connectedCallback() {
 		super.connectedCallback();
 		this.addEventListener('d2l-labs-accordion-collapse-clicked', this._onHeaderClicked);
-		this.addEventListener('d2l-labs-accordion-collapse-state-changed', this._updateHeaderClass);
+		this.addEventListener('d2l-labs-accordion-collapse-state-changed', this._updateCollapseIconName);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		this.removeEventListener('d2l-labs-accordion-collapse-clicked', this._onHeaderClicked);
-		this.removeEventListener('d2l-labs-accordion-collapse-state-changed', this._updateHeaderClass);
+		this.removeEventListener('d2l-labs-accordion-collapse-state-changed', this._updateCollapseIconName);
 	}
 
 	_isAccordionOpen() {
@@ -358,6 +328,36 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 
 	_isActivity(link) {
 		return link && link.hasClass('sequenced-activity');
+	}
+
+	_getStartingCollapseIconName(entity, subEntities, _lastViewedContentObjectEntity) {
+		return this._getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity)
+			? 'tier1:arrow-collapse-small'
+			: 'tier1:arrow-expand-small';
+	}
+
+	_nextActivitySiblingIsActivity(subEntities, index) {
+		if (index >= subEntities.length) {
+			return false;
+		}
+
+		const nextSibling = subEntities[index + 1];
+
+		return this._isActivity(nextSibling);
+	}
+
+	// TODO: this function needs work
+	_getLaunchModuleHref(entity) {
+		if (!entity) {
+			return '';
+		}
+
+		if (entity.getLinkByRel('alternate')) {
+			return entity.getLinkByRel('alternate').href;
+		}
+
+		// TODO: this isn't working... getting 401 unauthorized
+		return entity.getLinkByRel('self').href;
 	}
 
 	_showCount() {
@@ -404,15 +404,12 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		return entity && entity.getSubEntities().length !== 0;
 	}
 
-	_getIsSelected(currentActivity, focusWithin) {
-		const selected = this.entity && this.entity.getLinkByRel('self').href === currentActivity;
-		return this._getTrueClass(focusWithin, selected);
-	}
-
 	_getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity) {
 		if (!entity || !_lastViewedContentObjectEntity) {
 			return false;
 		}
+		// Set the starting icon depending on the collapse state
+		this._updateCollapseIconName();
 
 		const lastViewedParentHref = _lastViewedContentObjectEntity.getLinkByRel('up').href;
 
@@ -449,12 +446,7 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 	}
 
 	isLastOfSubModule(entities, index) {
-		if (entities.length <= index + 1 && !this._isActivity(entities[index]) && (!this.lastModule || this.isSidebar)) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return !!(entities.length <= index + 1 && !this._isActivity(entities[index]) && (!this.lastModule || this.isSidebar));
 	}
 
 	isEmpty(subEntities) {
@@ -508,10 +500,11 @@ class D2LSequenceLauncherModule extends ASVFocusWithinMixin(PolymerASVLaunchMixi
 		return hasActiveTopic || hasActiveModule;
 	}
 
-	_updateHeaderClass() {
-		if (this.isSidebar && this._hideModuleDescription) {
-			const active = this._hasActiveChild(this.entity, this.currentActivity) && !this._isAccordionOpen();
-			this.$['header-container'].setAttribute('class', this._getTrueClass(this.focusWithin, active));
+	_updateCollapseIconName() {
+		if (this._isAccordionOpen()) {
+			this._iconName = 'tier1:arrow-collapse-small';
+		} else {
+			this._iconName = 'tier1:arrow-expand-small';
 		}
 	}
 

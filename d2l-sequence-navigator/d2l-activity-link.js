@@ -1,6 +1,5 @@
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
-import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
 import './d2l-completion-status.js';
 import './d2l-completion-requirement.js';
 import '@brightspace-ui/core/components/colors/colors.js';
@@ -12,7 +11,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 @mixes PolymerASVLaunchMixin
 */
 
-class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(CompletionStatusMixin())) {
+class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	static get template() {
 		return html`
 		<style>
@@ -25,41 +24,9 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				--d2l-right-icon-padding: 24px;
 				--d2l-icon-size: 18px;
 				display: block;
-				cursor: pointer;
 				@apply --d2l-body-compact-text;
-				padding: var(--d2l-activity-link-padding, 10px 24px);
-				border-collapse: separate;
-				box-sizing: border-box;
-				border: 1px solid transparent;
-				border-width: 1px 0;
-				position: relative;
-				z-index: 0;
-				background-color: transparent;
-				margin-top: -1px;
-			}
-
-			:host(.d2l-asv-current) {
-				--d2l-activity-link-background-color: var(--d2l-asv-primary-color);
-				--d2l-activity-link-text-color: var(--d2l-asv-selected-text-color);
-				--d2l-activity-link-subtext-color: var(--d2l-asv-selected-text-color);
-				--d2l-activity-link-border-color: rgba(0, 0, 0, 0.6);
-			}
-
-			:host(:focus) {
-				outline: none;
-				--d2l-activity-link-opacity: 0.26;
-				--d2l-activity-link-backdrop-opacity: 1;
-			}
-
-			:host(.d2l-asv-focus-within),
-			:host(:focus),
-			:host(:hover) {
-				--d2l-activity-link-background-color: var(--d2l-asv-primary-color);
-				--d2l-activity-link-subtext-color: var(--d2l-asv-text-color);
-				--d2l-activity-link-border-color: rgba(0, 0, 0, 0.42);
-				--d2l-activity-link-text-color: var(--d2l-asv-text-color);
-				--d2l-activity-link-opacity: 0.26;
-				--d2l-activity-link-backdrop-opacity: 1;
+				padding-left: 24px;
+				padding-right: 24px;
 			}
 
 			:host > div {
@@ -72,37 +39,21 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				cursor: unset;
 			}
 
-			div.bkgd,
-			div.border,
-			div.bkgd-backdrop {
-				position: absolute;
-				top: 0;
-				left: 0;
-				border-radius: 8px;
+			:host([show-underline]) > #outer-container {
+				border-bottom: 1px solid var(--d2l-color-mica);
+			}
+			#outer-container {
+				border-bottom: 1px solid transparent;
+				display: flex;
+				flex-direction: row;
+				flex: 1;
+				padding: 10px 0;
 			}
 
-			div.bkgd {
-				opacity: var(--d2l-activity-link-opacity);
-				background-color: var(--d2l-activity-link-background-color);
-				z-index: -2;
-				height: 100%;
-				width: 100%;
-			}
-
-			div.bkgd-backdrop {
-				background-color: #FFFFFF;
-				z-index: -3;
-				height: 100%;
-				width: 100%;
-				opacity: var(--d2l-activity-link-backdrop-opacity);
-			}
-
-			div.border {
-				border: 1px solid var(--d2l-activity-link-border-color, transparent);
-				border-width: 1px;
-				z-index: -1;
-				height: calc(100% - 2px);
-				width: calc(100% - 2px);
+			#content-container {
+				display: flex;
+				flex: 1;
+				cursor: pointer;
 			}
 
 			d2l-icon,
@@ -132,7 +83,7 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				-webkit-line-clamp: 2; /* number of lines to show */
 				outline: none;
 				text-decoration: none;
-				color: var(--d2l-activity-link-text-color);
+				color: var(--d2l-color-celestine);
 			}
 
 			a.d2l-activity-link-one-line {
@@ -147,25 +98,17 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 			d2l-completion-status {
 				width: var(--d2l-icon-size);
 				padding-left: var(--d2l-right-icon-padding);
-				color: var(--d2l-activity-link-text-color);
+				color: var(--d2l-asv-text-color);
 			}
 
 			d2l-icon {
 				padding-top: 3px;
 				padding-right: var(--d2l-left-icon-padding);
-				color: var(--d2l-activity-link-text-color);
+				color: var(--d2l-color-celestine);
 			}
 
 			:host([inner-last]) {
 				border-radius: 0 0 8px 8px;
-			}
-
-			:host(.d2l-asv-current) d2l-completion-requirement {
-				color: var(--d2l-asv-text-color);
-			}
-
-			:host(.d2l-asv-current:not(:hover)) d2l-completion-requirement {
-				color: var(--d2l-asv-selected-text-color);
 			}
 
 			@keyframes loadingShimmer {
@@ -193,30 +136,27 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				top: 0;
 				width: 100%;
 			}
-
 		</style>
-		<template is="dom-if" if="[[showLoadingSkeleton]]">
-			<div id="skeleton" class="skeleton"></div>
-		</template>
-		<template is="dom-if" if="[[!showLoadingSkeleton]]">
-			<div class="bkgd"></div>
-			<div class="bkgd-backdrop"></div>
-			<div class="border"></div>
-			<div on-click="_contentObjectClick">
-				<template is="dom-if" if="[[hasIcon]]">
-					<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
-				</template>
-				<div class="d2l-activity-link-title">
-					<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)">
-						[[entity.properties.title]]
-					</a>
-					<d2l-completion-requirement href="[[href]]" token="[[token]]">
-					</d2l-completion-requirement>
+		<div id="outer-container">
+			<template is="dom-if" if="[[showLoadingSkeleton]]">
+				<div id="skeleton" class="skeleton"></div>
+			</template>
+			<template is="dom-if" if="[[!showLoadingSkeleton]]">
+				<div id="content-container" on-click="_contentObjectClick">
+					<template is="dom-if" if="[[hasIcon]]">
+						<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
+					</template>
+					<div class="d2l-activity-link-title">
+						<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)">
+							[[entity.properties.title]]
+						</a>
+						<d2l-completion-requirement href="[[href]]" token="[[token]]">
+						</d2l-completion-requirement>
+					</div>
+					<d2l-completion-status href="[[href]]" token="[[token]]"></d2l-completion-status>
 				</div>
-				<d2l-completion-status href="[[href]]" token="[[token]]">
-				</d2l-completion-status>
-			</div>
-		</template>
+			</template>
+		</div>
 `;
 	}
 
@@ -238,17 +178,16 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				type: Boolean,
 				computed: '_hasIcon(entity)'
 			},
-			class: {
-				type: String,
-				computed: '_getIsSelected(currentActivity, entity, focusWithin)',
-				reflectToAttribute: true
-			},
 			completionStatus: {
 				type: String,
 				computed: '_getCompletionStatus(entity)',
 			},
 			showLoadingSkeleton: {
 				type: Boolean,
+				value: false,
+				reflectToAttribute: true
+			},
+			showUnderline: {
 				value: false,
 				reflectToAttribute: true
 			}
@@ -302,13 +241,6 @@ class D2LActivityLink extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Completi
 				return 'd2l-activity-link-one-line';
 		}
 		return '';
-	}
-	_getIsSelected(currentActivity, entity, focusWithin) {
-		const selected = entity && entity.getLinkByRel('self').href === currentActivity;
-		if (selected) {
-			this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-activity-link-current-activity', {detail: { href: this.href}}));
-		}
-		return this._getTrueClass(focusWithin, selected);
 	}
 
 	_onEntityLoaded(entity) {
