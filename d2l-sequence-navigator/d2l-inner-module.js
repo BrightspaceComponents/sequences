@@ -35,6 +35,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 			#module-header {
 				display: flex;
+				justify-content: space-between;
 				flex-grow: 1;
 				padding: 0 15px;
 				cursor: pointer;
@@ -109,13 +110,11 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		<div id="skeleton"></div>
 		<div id="header-container" class$="[[isEmpty(subEntities)]]">
 			<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
-				<div on-click="_onHeaderClicked" style="width: 100%;">
-					<div style="display: inline-flex;">
-						<d2l-icon icon="tier1:folder"></d2l-icon>
-						<span class="module-title">[[entity.properties.title]]</span>
-					</div>
-					<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small" style="float: right;"></d2l-icon>
+				<div>
+					<d2l-icon icon="tier1:folder"></d2l-icon>
+					<span class="module-title">[[entity.properties.title]]</span>
 				</div>
+				<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small"></d2l-icon>
 			</div>
 		</div>
 		<ol>

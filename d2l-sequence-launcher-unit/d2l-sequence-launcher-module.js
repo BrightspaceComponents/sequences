@@ -24,8 +24,11 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				--d2l-outer-module-text-color: var(--d2l-asv-text-color);
 				--d2l-outer-module-background-color: transparent;
 				--d2l-activity-link-padding: 10px 24px;
+			}
+
+			d2l-labs-accordion-collapse {
 				border: 1px solid var(--d2l-color-mica);
-				border-radius: 8px;
+				border-radius: 6px;
 			}
 
 			#header-container {
@@ -157,9 +160,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 								[[localize('sequenceNavigator.optional')]]
 							</span>
 						</template>
-						<template is="dom-if" if="true">
-							<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
-						</template>
+						<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
 					</div>
 				</div>
 				<div id ="startDate">[[startDate]]</div>
