@@ -162,14 +162,16 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				</div>
 				<div id ="startDate">[[startDate]]</div>
 			</div>
-
 			<div id="launch-module-container">
 				<a href="[[_launchModuleHref]]">
-					<!--todo: get lang term and add a11y stuff-->
-					<d2l-button-subtle text="Launch Module" icon="tier1:move-to"></d2l-button-subtle>
+					<d2l-button-subtle
+						aria-label$="[[localize('sequenceNavigator.launchModule')]]"
+						text="[[localize('sequenceNavigator.launchModule')]]"
+						icon="tier1:move-to"
+					>
+					</d2l-button-subtle>
 				</a>
 			</div>
-
 			<ol>
 				<template is="dom-if" if="[[_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)]]">
 					<template is="dom-repeat" items="[[subEntities]]" as="childLink">

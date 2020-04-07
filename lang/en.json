@@ -29,6 +29,7 @@
 	"sequenceNavigator.currentModule": "Unit {current} of {total}",
 	"sequenceNavigator.due": "Due {dueDate}",
 	"sequenceNavigator.exempt":"Exempt",
+	"sequenceNavigator.launchModule": "Launch Module",
 	"sequenceNavigator.optional":"Optional",
 	"sequenceNavigator.missedActivitiesListHeader": "These are the pieces left to complete this unit:",
 	"sequenceNavigator.requirementsCompleted":"{completed} of {total, plural, one {# requirement} other {# requirements}} completed",
