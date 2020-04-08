@@ -167,7 +167,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 					aria-label$="[[localize('sequenceNavigator.launchModule')]]"
 					text="[[localize('sequenceNavigator.launchModule')]]"
 					icon="tier1:move-to"
-					on-click="_onLaunchUnitButtonClick"
+					on-click="_onLaunchModuleButtonClick"
 				>
 				</d2l-button-subtle>
 			</div>
@@ -418,7 +418,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		this._moduleWasExpanded = true;
 	}
 
-	_onLaunchUnitButtonClick() {
+	_onLaunchModuleButtonClick() {
 		this.currentActivity = this.entity.getLinkByRel('self').href;
 		this._contentObjectClick();
 	}
