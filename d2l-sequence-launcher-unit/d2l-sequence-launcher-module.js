@@ -419,7 +419,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 	}
 
 	_onLaunchUnitButtonClick() {
-		console.log('wewewew');
 		this.currentActivity = this.entity.getLinkByRel('self').href;
 		this._contentObjectClick();
 	}
