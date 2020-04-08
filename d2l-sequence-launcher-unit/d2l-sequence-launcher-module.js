@@ -150,7 +150,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 
 			.skeleton {
 				display: none;
-				border-radius: 8px;
+				border-radius: 4px;
 				background-color: var(--d2l-color-sylvite);
 				overflow: hidden;
 				position: relative;
@@ -172,14 +172,30 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				width: 100%;
 			}
 
+			#header-skeleton-container {
+				display: none;
+				justify-content: space-between;
+				height: 18px;
+				width: 100%;
+			}
+
+			:host([show-loading-skeleton]) #header-skeleton-container {
+				display: flex;
+			}
+
 			#header-skeleton {
-				height: 24px;
-				width: 70%;
+				height: 100%;
+				width: 35%;
+			}
+
+			#completion-skeleton {
+				height: 100%;
+				width: 10%;
 			}
 
 			#launch-module-skeleton {
-				height: 24px;
-				width: 30%;
+				height: 18px;
+				width: 35%;
 			}
 
 		</style>
@@ -187,7 +203,10 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		<siren-entity href="[[lastViewedContentObject]]" token="[[token]]" entity="{{_lastViewedContentObjectEntity}}"></siren-entity>
 		<d2l-labs-accordion-collapse no-icons="" flex="">
 			<div slot="header" id="header-container" class$="[[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription, isSidebar)]]" is-sidebar$="[[isSidebar]]">
-				<div id="header-skeleton" class="skeleton"></div>
+				<div id="header-skeleton-container">
+					<div id="header-skeleton" class="skeleton"></div>
+					<div id="completion-skeleton" class="skeleton"></div>
+				</div>
 				<div class="module-header">
 					<span class="module-title">[[entity.properties.title]]</span>
 					<div class="module-completion-count">
