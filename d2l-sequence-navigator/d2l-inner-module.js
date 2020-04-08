@@ -6,6 +6,7 @@ import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import 'd2l-offscreen/d2l-offscreen.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+
 /*
 @memberOf window.D2L.Polymer.Mixins;
 @mixes D2L.Polymer.Mixins.CompletionStatusMixin
@@ -110,13 +111,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				display: none;
 			}
 
-			/* ======== */
-
-			d2l-labs-accordion-collapse {
-				/*border: 1px solid var(--d2l-color-mica);*/
-				/*border-radius: 6px;*/
-			}
-
 		</style>
 
 		<div id="skeleton"></div>
@@ -212,9 +206,9 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 	static get observers() {
 		return [
-			'_checkIfNoChildren(entity, subEntities)',
 			'_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)',
-			'_openModule(_moduleStartOpen)'
+			'_openModule(_moduleStartOpen)',
+			'_checkForEarlyLoadEvent(entity, subEntities, _moduleStartOpen)'
 		];
 	}
 
@@ -241,15 +235,8 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 		const isCurrentModuleLastViewedContentObject = lastViewedContentObjectEntity.getLinkByRel('self').href === this.href;
 		const isDirectChildOfCurrentModule = lastViewedParentHref === this.href;
-		// const isChildOfSubModule = subEntities.some((s) => s.href === lastViewedParentHref);
 
-		const startOpen = isCurrentModuleLastViewedContentObject || isDirectChildOfCurrentModule;
-
-		if (!startOpen) {
-			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
-		}
-
-		return startOpen;
+		return isCurrentModuleLastViewedContentObject || isDirectChildOfCurrentModule;
 	}
 
 	_updateCollapseIconName() {
@@ -306,12 +293,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	}
 
 	_onHeaderClicked() {
-		// if (this._hideDescription) {
-		// 	return;
-		// }
-		// this.currentActivity = this.entity.getLinkByRel('self').href;
-		// this._contentObjectClick();
-
 		this._moduleWasExpanded = true;
 	}
 
@@ -353,7 +334,16 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		}, {});
 	}
 
-	// TODO: modify this to only check if self is loaded if closed, children if open
+	// This function is for determining if the module should fire off an "I'm loaded" event before its
+	// children are finished loading. Two scenarios where this happens:
+	// 1. The module has no children
+	// 2. The module has children and does not start open
+	_checkForEarlyLoadEvent(entity, subEntities, _moduleStartOpen) {
+		if (entity && subEntities && (subEntities.length <= 0 || !_moduleStartOpen)) {
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
+		}
+	}
+
 	checkIfChildrenDoneLoading(contentLoadedEvent) {
 		const childHref = contentLoadedEvent.detail.href;
 
@@ -367,16 +357,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		}
 
 		if (this._childrenLoading && !Object.values(this._childrenLoadingTracker).some(loaded => !loaded)) {
-			this._childrenLoading = false;
-			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
-		}
-	}
-
-	_checkIfNoChildren(entity, subEntities) {
-		if (entity
-			&& subEntities
-			&& subEntities.length <= 0
-		) {
 			this._childrenLoading = false;
 			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
 		}
