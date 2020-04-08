@@ -179,7 +179,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 
 			#launch-module-skeleton {
 				height: 24px;
-				width:30%;
+				width: 30%;
 			}
 
 		</style>
@@ -602,7 +602,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			contentLoadedEvent.stopPropagation();
 		}
 
-		if (this._childrenLoading && !Object.values(this._childrenLoadingTracker).some(loaded => !loaded)) {
+		if (!Object.values(this._childrenLoadingTracker).some(loaded => !loaded)) {
 			this._childrenLoading = false;
 			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
 		}
