@@ -347,7 +347,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	checkIfChildrenDoneLoading(contentLoadedEvent) {
 		const childHref = contentLoadedEvent.detail.href;
 
-		if (!this._childrenLoadingTracker) {
+		if (!this._childrenLoadingTracker || !this._childrenLoading) {
 			return;
 		}
 
@@ -356,7 +356,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			contentLoadedEvent.stopPropagation();
 		}
 
-		if (this._childrenLoading && !Object.values(this._childrenLoadingTracker).some(loaded => !loaded)) {
+		if (!Object.values(this._childrenLoadingTracker).some(loaded => !loaded)) {
 			this._childrenLoading = false;
 			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
 		}
