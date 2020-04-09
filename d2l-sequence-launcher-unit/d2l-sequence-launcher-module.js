@@ -135,7 +135,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				padding: 5px 0;
 			}
 
-			:host([show-loading-skeleton]) #launch-module-container > a {
+			:host([show-loading-skeleton]) #launch-module-container > d2l-button-subtle {
 				display: none;
 			}
 
@@ -235,14 +235,13 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			</div>
 			<div id="launch-module-container">
 				<div id="launch-module-skeleton" class="skeleton"></div>
-				<a href="[[_launchModuleHref]]">
-					<d2l-button-subtle
-						aria-label$="[[localize('sequenceNavigator.launchModule')]]"
-						text="[[localize('sequenceNavigator.launchModule')]]"
-						icon="tier1:move-to"
-					>
-					</d2l-button-subtle>
-				</a>
+				<d2l-button-subtle
+					aria-label$="[[localize('sequenceNavigator.launchModule')]]"
+					text="[[localize('sequenceNavigator.launchModule')]]"
+					icon="tier1:move-to"
+					on-click="_onLaunchModuleButtonClick"
+				>
+				</d2l-button-subtle>
 			</div>
 			<ol>
 				<template is="dom-if" if="[[_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)]]">
@@ -359,10 +358,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				type: Object,
 				computed: '_setUpChildrenLoadingTracker(subEntities)'
 			},
-			_launchModuleHref: {
-				type: String,
-				computed: '_getLaunchModuleHref(entity)'
-			},
 			_iconName: {
 				type: String
 			}
@@ -422,20 +417,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		const nextSibling = subEntities[index + 1];
 
 		return this._isActivity(nextSibling);
-	}
-
-	// TODO: this function needs work
-	_getLaunchModuleHref(entity) {
-		if (!entity) {
-			return '';
-		}
-
-		if (entity.getLinkByRel('alternate')) {
-			return entity.getLinkByRel('alternate').href;
-		}
-
-		// TODO: this isn't working... getting 401 unauthorized
-		return entity.getLinkByRel('self').href;
 	}
 
 	_showCount() {
@@ -513,6 +494,11 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 
 	_onHeaderClicked() {
 		this._moduleWasExpanded = true;
+	}
+
+	_onLaunchModuleButtonClick() {
+		this.currentActivity = this.entity.getLinkByRel('self').href;
+		this._contentObjectClick();
 	}
 
 	_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded) {
