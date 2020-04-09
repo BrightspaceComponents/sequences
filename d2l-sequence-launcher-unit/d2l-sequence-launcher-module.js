@@ -210,27 +210,27 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 					<div id="top-header-container">
 						<span class="module-title">[[entity.properties.title]]</span>
 						<div class="module-completion-count">
-						<template is="dom-if" if="[[showCount]]">
-							<span class="countStatus" aria-hidden="true">
-								[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
-							</span>
-							<d2l-offscreen>[[localize('sequenceNavigator.requirementsCompleted', 'completed', completionCompleted, 'total', completionTotal)]]</d2l-offscreen>
-						</template>
-						<template is="dom-if" if="[[showCheckmark]]">
-							<span class="completedStatus">
-								<d2l-icon aria-label$="[[localize('sequenceNavigator.completed')]]" icon="tier1:check"></d2l-icon>
-							</span>
-						</template>
-						<template is="dom-if" if="[[!showCheckmark]]">
-							<h6 class="start-date-text" aria-label$="[[entity.properties.startDateText]]" >[[entity.properties.startDateText]]</h6>
-						</template>
-						<template is="dom-if" if="[[showOptional]]">
-							<span class="optionalStatus">
-								[[localize('sequenceNavigator.optional')]]
-							</span>
-						</template>
-						<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
-					</div>
+							<template is="dom-if" if="[[showCount]]">
+								<span class="countStatus" aria-hidden="true">
+									[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
+								</span>
+								<d2l-offscreen>[[localize('sequenceNavigator.requirementsCompleted', 'completed', completionCompleted, 'total', completionTotal)]]</d2l-offscreen>
+							</template>
+							<template is="dom-if" if="[[showCheckmark]]">
+								<span class="completedStatus">
+									<d2l-icon aria-label$="[[localize('sequenceNavigator.completed')]]" icon="tier1:check"></d2l-icon>
+								</span>
+							</template>
+							<template is="dom-if" if="[[!showCheckmark]]">
+								<h6 class="start-date-text" aria-label$="[[entity.properties.startDateText]]" >[[entity.properties.startDateText]]</h6>
+							</template>
+							<template is="dom-if" if="[[showOptional]]">
+								<span class="optionalStatus">
+									[[localize('sequenceNavigator.optional')]]
+								</span>
+							</template>
+							<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
+						</div>
 					</div>
 					<div id ="startDate">[[startDate]]</div>
 				</div>
