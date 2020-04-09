@@ -57,11 +57,14 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				display: none;
 			}
 
+			#top-header-container {
+				display: flex;
+				justify-content: space-between;
+			}
+
 			.module-title {
 				@apply --d2l-body-compact-text;
 				font-weight: 700;
-				/* FIXME: This calc is super fragile */
-				width: calc(100% - 2rem - 32px);
 				overflow: hidden;
 				text-overflow: ellipsis;
 				float: left;
@@ -81,6 +84,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				line-height: inherit !important;
 				align-items: center;
 				justify-content: center;
+				margin: 0;
 			}
 
 			ol {
@@ -203,8 +207,9 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 					<div id="completion-skeleton" class="skeleton"></div>
 				</div>
 				<div class="module-header">
-					<span class="module-title">[[entity.properties.title]]</span>
-					<div class="module-completion-count">
+					<div id="top-header-container">
+						<span class="module-title">[[entity.properties.title]]</span>
+						<div class="module-completion-count">
 						<template is="dom-if" if="[[showCount]]">
 							<span class="countStatus" aria-hidden="true">
 								[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
@@ -226,7 +231,9 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 						</template>
 						<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
 					</div>
-				<div id ="startDate">[[startDate]]</div>
+					</div>
+					<div id ="startDate">[[startDate]]</div>
+				</div>
 			</div>
 			<div id="launch-module-container">
 				<div id="launch-module-skeleton" class="skeleton"></div>

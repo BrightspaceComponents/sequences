@@ -67,6 +67,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				word-wrap: break-word;
 				display: flex;
 				flex: 1;
+				flex-direction: column;
 			}
 
 			a {
@@ -89,6 +90,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			d2l-completion-requirement {
 				--d2l-activity-link-subtext-color: var(--d2l-color-tungsten);
 				color: var(--d2l-activity-link-subtext-color);
+				margin: 0;
 			}
 
 			d2l-icon {
