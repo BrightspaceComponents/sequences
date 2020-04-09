@@ -25,8 +25,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				--d2l-icon-size: 18px;
 				display: block;
 				@apply --d2l-body-compact-text;
-				/*padding-left: 24px;*/
-				/*padding-right: 24px;*/
 			}
 
 			:host > div {
@@ -71,12 +69,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 			.d2l-activity-link-title {
 				word-wrap: break-word;
-				/*width: calc(*/
-				/*	100% -*/
-				/*	var(--d2l-left-icon-padding) -*/
-				/*	var(--d2l-right-icon-padding) -*/
-				/*	(var(--d2l-icon-size) * 2)*/
-				/*);*/
 			}
 
 			a {
@@ -108,13 +100,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			}
 
 			d2l-completion-status {
-				/*width: var(--d2l-icon-size);*/
-				/*padding-left: var(--d2l-right-icon-padding);*/
 				color: var(--d2l-asv-text-color);
-			}
-
-			:host([inner-last]) {
-				border-radius: 0 0 8px 8px;
 			}
 
 			@keyframes loadingShimmer {

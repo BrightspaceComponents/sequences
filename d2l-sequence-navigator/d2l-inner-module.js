@@ -17,28 +17,26 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		<style>
 			:host {
 				--d2l-inner-module-text-color: var(--d2l-color-celestine);
-				/*--d2l-activity-link-padding: 10px 14px;*/
 				display: block;
 				@apply --d2l-body-compact-text;
 				color: var(--d2l-inner-module-text-color);
 				border-radius: 8px;
-				padding: 0 12px;
+				padding: 0 10px;
 			}
 
 			#header-container {
 				display: flex;
-				/*padding: 12px 0;*/
 			}
 
-			#header-container.inner-module-empty {
-				/*padding: 12px 0;*/
+			#title-container {
+				display: inline-flex;
+				align-items: center;
 			}
 
 			#module-header {
 				display: flex;
 				justify-content: space-between;
 				flex-grow: 1;
-				/*padding: 0 15px;*/
 				cursor: pointer;
 			}
 
@@ -67,7 +65,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				list-style-type: none;
 				border-collapse: collapse;
 				margin: 0;
-				padding: 0 0 0 25px;
+				padding: 8px 12px 0 24px;
 			}
 
 			li {
@@ -113,11 +111,11 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		</style>
 
 		<div id="skeleton"></div>
-		<div id="header-container" class$="[[isEmpty(subEntities)]]">
+		<div id="header-container">
 			<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
-				<div>
+				<div id="title-container">
 					<d2l-icon icon="tier1:folder"></d2l-icon>
-					<span class="module-title">[[entity.properties.title]]</span>
+					<span>[[entity.properties.title]]</span>
 				</div>
 				<span class="count-status" aria-hidden="true">
 					[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
@@ -128,7 +126,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			<template is="dom-repeat" items="[[subEntities]]" as="childLink">
 				<li>
 					<d2l-activity-link
-						inner-last$="[[isLast(subEntities, index)]]"
 						href="[[childLink.href]]"
 						token="[[token]]"
 						current-activity="{{currentActivity}}"
@@ -231,15 +228,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 	isLast(entities, index) {
 		return entities.length <= index + 1;
-	}
-
-	isEmpty(subEntities) {
-		if (subEntities === null || subEntities.length === 0) {
-			return 'inner-module-empty';
-		}
-		else {
-			return '';
-		}
 	}
 
 	_getHideDescriptionClass(hideDescription) {

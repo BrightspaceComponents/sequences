@@ -33,7 +33,7 @@ PolymerElement
 
 			.module-item-list {
 				list-style-type: none;
-				padding: 0;
+				padding: 0 20px;
 				margin: 0;
 			}
 
@@ -63,7 +63,7 @@ PolymerElement
 			}
 
 			li {
-				padding: 5px 15px;
+				padding: 5px 0;
 			}
 		</style>
 		<siren-entity href="[[rootHref]]" token="[[token]]" entity="{{_lessonEntity}}"></siren-entity>

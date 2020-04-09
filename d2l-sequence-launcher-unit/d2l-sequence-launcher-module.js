@@ -22,7 +22,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				display: block;
 				@apply --d2l-body-compact-text;
 				--d2l-outer-module-text-color: var(--d2l-asv-text-color);
-				--d2l-activity-link-padding: 10px 24px;
 			}
 
 			d2l-labs-accordion-collapse {
@@ -77,10 +76,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				line-height: inherit !important;
 				align-items: center;
 				justify-content: center;
-			}
-
-			.should-pad {
-				/*padding: 0 10px;*/
 			}
 
 			ol {
@@ -174,7 +169,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			<ol>
 				<template is="dom-if" if="[[_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)]]">
 					<template is="dom-repeat" items="[[subEntities]]" as="childLink">
-						<li on-click="_onActivityClicked" class$="[[_padOnActivity(childLink)]]">
+						<li on-click="_onActivityClicked">
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
 								<d2l-activity-link
 									show-loading-skeleton="[[_childrenLoading]]"
@@ -400,12 +395,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		const isChildOfSubModule = subEntities.some((s) => s.href === lastViewedParentHref);
 
 		return isCurrentModuleLastViewedContentObject || isDirectChildOfCurrentModule || isChildOfSubModule;
-	}
-
-	_padOnActivity(childLink) {
-		return this.isSidebar || this._isActivity(childLink)
-			? ''
-			: 'should-pad';
 	}
 
 	_onActivityClicked(e) {
