@@ -36,7 +36,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				cursor: pointer;
 			}
 
-			#header-container.hide-description {
+			#header-container.hide-description,
+			:host([show-loading-skeleton]) #header-container {
 				cursor: default;
 			}
 
@@ -50,6 +51,10 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				display: table;
 				table-layout: fixed;
 				width: 100%;
+			}
+
+			:host([show-loading-skeleton]) .module-header {
+				display: none;
 			}
 
 			.module-title {
@@ -114,6 +119,10 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				line-height: var(--d2l-body-small-text_-_line-height);
 			}
 
+			:host([show-loading-skeleton]) #startDate {
+				display: none;
+			}
+
 			#launch-module-container {
 				display: flex;
 				align-items: center;
@@ -121,8 +130,67 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				padding: 5px 0;
 			}
 
+			:host([show-loading-skeleton]) #launch-module-container > d2l-button-subtle {
+				display: none;
+			}
+
 			#expand-icon {
 				padding-left: 10px;
+			}
+
+			@keyframes loadingShimmer {
+				0% { transform: translate3d(-100%, 0, 0); }
+				100% { transform: translate3d(100%, 0, 0); }
+			}
+
+			.skeleton {
+				display: none;
+				border-radius: 4px;
+				background-color: var(--d2l-color-sylvite);
+				overflow: hidden;
+				position: relative;
+			}
+
+			:host([show-loading-skeleton]) .skeleton {
+				display: block;
+			}
+
+			:host([show-loading-skeleton]) .skeleton::after {
+				animation: loadingShimmer 1.8s ease-in-out infinite;
+				background: linear-gradient(90deg, var(--d2l-color-sylvite), var(--d2l-color-regolith), var(--d2l-color-sylvite));
+				background-color: var(--d2l-color-sylvite);
+				content: '';
+				height: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: 100%;
+			}
+
+			#header-skeleton-container {
+				display: none;
+				justify-content: space-between;
+				height: 18px;
+				width: 100%;
+			}
+
+			:host([show-loading-skeleton]) #header-skeleton-container {
+				display: flex;
+			}
+
+			#header-skeleton {
+				height: 100%;
+				width: 35%;
+			}
+
+			#completion-skeleton {
+				height: 100%;
+				width: 10%;
+			}
+
+			#launch-module-skeleton {
+				height: 18px;
+				width: 35%;
 			}
 
 		</style>
@@ -130,6 +198,10 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		<siren-entity href="[[lastViewedContentObject]]" token="[[token]]" entity="{{_lastViewedContentObjectEntity}}"></siren-entity>
 		<d2l-labs-accordion-collapse no-icons="" flex="">
 			<div slot="header" id="header-container" class$="[[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription, isSidebar)]]" is-sidebar$="[[isSidebar]]">
+				<div id="header-skeleton-container">
+					<div id="header-skeleton" class="skeleton"></div>
+					<div id="completion-skeleton" class="skeleton"></div>
+				</div>
 				<div class="module-header">
 					<span class="module-title">[[entity.properties.title]]</span>
 					<div class="module-completion-count">
@@ -154,10 +226,10 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 						</template>
 						<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
 					</div>
-				</div>
 				<div id ="startDate">[[startDate]]</div>
 			</div>
 			<div id="launch-module-container">
+				<div id="launch-module-skeleton" class="skeleton"></div>
 				<d2l-button-subtle
 					aria-label$="[[localize('sequenceNavigator.launchModule')]]"
 					text="[[localize('sequenceNavigator.launchModule')]]"
@@ -172,7 +244,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 						<li on-click="_onActivityClicked">
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
 								<d2l-activity-link
-									show-loading-skeleton="[[_childrenLoading]]"
+									show-loading-skeleton="[[_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]"
 									last-module$="[[lastModule]]"
 									is-sidebar$="[[isSidebar]]"
 									href="[[childLink.href]]"
@@ -185,7 +257,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 							</template>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
 								<d2l-inner-module
-									show-loading-skeleton="[[_childrenLoading]]"
+									show-loading-skeleton="[[_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]"
 									href="[[childLink.href]]"
 									token="[[token]]"
 									current-activity="{{currentActivity}}"
@@ -250,6 +322,11 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				type: String,
 				computed: 'getFormattedDate(entity)'
 			},
+			showLoadingSkeleton: {
+				type: Boolean,
+				value: true,
+				reflectToAttribute: true
+			},
 			_hideModuleDescription: {
 				type: Boolean,
 				computed: '_getHideModuleDescription(entity)'
@@ -286,7 +363,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 	static get observers() {
 		return [
 			'_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)',
-			'_openModule(_moduleStartOpen)'
+			'_openModule(_moduleStartOpen)',
+			'_checkForEarlyLoadEvent(entity, subEntities, _moduleStartOpen)'
 		];
 	}
 
@@ -510,7 +588,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 	checkIfChildrenDoneLoading(contentLoadedEvent) {
 		const childHref = contentLoadedEvent.detail.href;
 
-		if (!this._childrenLoadingTracker) {
+		if (!this._childrenLoadingTracker || !this._childrenLoading) {
 			return;
 		}
 
@@ -519,9 +597,24 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			contentLoadedEvent.stopPropagation();
 		}
 
-		if (this._childrenLoading && !Object.values(this._childrenLoadingTracker).some(loaded => !loaded)) {
+		if (!Object.values(this._childrenLoadingTracker).some(loaded => !loaded)) {
 			this._childrenLoading = false;
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
 		}
+	}
+
+	// This function is for determining if the module should fire off an "I'm loaded" event before its
+	// children are finished loading. Two scenarios where this happens:
+	// 1. The module has no children
+	// 2. The module has children and does not start open
+	_checkForEarlyLoadEvent(entity, subEntities, _moduleStartOpen) {
+		if (entity && subEntities && (subEntities.length <= 0 || !_moduleStartOpen)) {
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
+		}
+	}
+
+	_showChildSkeletons(showLoadingSkeleton, _childrenLoading) {
+		return showLoadingSkeleton || _childrenLoading;
 	}
 }
 customElements.define(D2LSequenceLauncherModule.is, D2LSequenceLauncherModule);
