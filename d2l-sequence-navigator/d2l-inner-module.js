@@ -22,6 +22,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				@apply --d2l-body-compact-text;
 				color: var(--d2l-inner-module-text-color);
 				border-radius: 8px;
+				padding: 0 12px;
 			}
 
 			#header-container {
@@ -66,11 +67,11 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				list-style-type: none;
 				border-collapse: collapse;
 				margin: 0;
-				padding: 0;
+				padding: 0 0 0 25px;
 			}
 
 			li {
-				/*padding: 5px 0;*/
+				padding: 5px 0;
 			}
 
 			@keyframes loadingShimmer {

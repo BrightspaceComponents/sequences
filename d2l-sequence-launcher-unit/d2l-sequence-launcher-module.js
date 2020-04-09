@@ -87,7 +87,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				list-style-type: none;
 				border-collapse: collapse;
 				margin: 0;
-				padding: 0;
+				padding: 0 20px;
 			}
 
 			.optionalStatus {
@@ -112,7 +112,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				padding: 5px 0;
 			}
 
-			#startDate{
+			#startDate {
 				color: var(--d2l-outer-module-text-color, inherit);
 				font-size: var(--d2l-body-small-text_-_font-size);
 				font-weight: var(--d2l-body-small-text_-_font-weight);
