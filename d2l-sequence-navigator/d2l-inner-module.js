@@ -53,6 +53,10 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				color: var(--d2l-color-celestine);
 			}
 
+			.count-status {
+				color: var(--d2l-color-ferrite);
+			}
+
 			#module-header.hide-description,
 			#module-header.hide-description > a {
 				cursor: default;
@@ -114,7 +118,9 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 					<d2l-icon icon="tier1:folder"></d2l-icon>
 					<span class="module-title">[[entity.properties.title]]</span>
 				</div>
-				<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small"></d2l-icon>
+				<span class="count-status" aria-hidden="true">
+					[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
+				</span>
 			</div>
 		</div>
 		<ol>

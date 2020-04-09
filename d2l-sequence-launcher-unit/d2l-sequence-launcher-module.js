@@ -282,7 +282,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				computed: '_setUpChildrenLoadingTracker(subEntities)'
 			},
 			_iconName: {
-				type: String
+				type: String,
+				value: 'tier1:arrow-expand-small'
 			}
 		};
 	}
