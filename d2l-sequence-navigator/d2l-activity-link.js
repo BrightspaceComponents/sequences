@@ -16,13 +16,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		return html`
 		<style>
 			:host {
-				--d2l-activity-link-border-color: var(--d2l-activity-link-background-color);
-				--d2l-activity-link-text-color: var(--d2l-asv-text-color);
-				--d2l-activity-link-opacity: 1;
-				--d2l-activity-link-backdrop-opacity: 0;
 				--d2l-left-icon-padding: 15px;
-				--d2l-right-icon-padding: 24px;
-				--d2l-icon-size: 18px;
 				display: block;
 				@apply --d2l-body-compact-text;
 			}

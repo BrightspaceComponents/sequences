@@ -16,11 +16,9 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		return html`
 		<style>
 			:host {
-				--d2l-inner-module-text-color: var(--d2l-color-celestine);
 				display: block;
 				@apply --d2l-body-compact-text;
-				color: var(--d2l-inner-module-text-color);
-				border-radius: 8px;
+				color: var(--d2l-color-celestine);
 				padding: 0 10px;
 			}
 
@@ -42,7 +40,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 			#module-header > a {
 				text-decoration: none;
-				color: var(--d2l-inner-module-text-color);
+				color: var(--d2l-color-celestine);
 				outline: none;
 				display: flex;
 			}
