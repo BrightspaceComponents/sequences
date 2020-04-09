@@ -80,7 +80,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			}
 
 			.should-pad {
-				padding: 0 10px;
+				/*padding: 0 10px;*/
 			}
 
 			ol {

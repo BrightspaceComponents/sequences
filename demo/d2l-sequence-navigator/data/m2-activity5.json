@@ -4,6 +4,19 @@
 	},
 	"rel": ["item"],
 	"entities": [{
+			"class": [
+				"icon",
+				"tier1"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier1:discussions",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier1/discussions.svg"
+			}
+		},
+		{
 		"links": [{
 			"rel": ["about"],
 			"href": "https://www.google.ca/"
