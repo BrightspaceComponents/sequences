@@ -81,7 +81,7 @@ PolymerElement
 									last-module="[[isLast(subEntities, index)]]"
 									last-viewed-content-object="[[lastViewedContentObject]]"
 									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
-									show-loading-skeleton="[[_childrenLoading]]"
+									show-loading-skeleton="[[_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]"
 								>
 								</d2l-sequence-launcher-module>
 							</template>
@@ -92,7 +92,7 @@ PolymerElement
 									current-activity="{{href}}"
 									show-underline="[[_nextActivitySiblingIsActivity(subEntities, index)]]"
 									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
-									show-loading-skeleton="[[_childrenLoading]]"
+									show-loading-skeleton="[[_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]"
 								>
 								</d2l-activity-link>
 							</template>
@@ -133,6 +133,10 @@ PolymerElement
 			lastViewedContentObject: {
 				type: String
 			},
+			showLoadingSkeleton: {
+				type: Boolean,
+				value: true
+			},
 			_childrenLoading: {
 				type: Boolean,
 				value: true
@@ -142,6 +146,12 @@ PolymerElement
 				computed: '_setUpChildrenLoadingTracker(subEntities)'
 			}
 		};
+	}
+
+	static get observers() {
+		return [
+			'_checkForEarlyLoadEvent(entity, subEntities)'
+		];
 	}
 
 	ready() {
@@ -238,6 +248,16 @@ PolymerElement
 			this._childrenLoading = false;
 			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
 		}
+	}
+
+	_checkForEarlyLoadEvent(entity, subEntities) {
+		if (entity && subEntities && subEntities.length <= 0) {
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
+		}
+	}
+
+	_showChildSkeletons(showLoadingSkeleton, _childrenLoading) {
+		return showLoadingSkeleton || _childrenLoading;
 	}
 }
 
