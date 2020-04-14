@@ -19,11 +19,10 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				display: block;
 				@apply --d2l-body-compact-text;
 				color: var(--d2l-color-celestine);
-				padding: 0 10px;
 			}
 
-			#header-container {
-				display: flex;
+			:focus {
+				border: 2px solid var(--d2l-color-celestine);
 			}
 
 			#title-container {
@@ -36,9 +35,23 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				justify-content: space-between;
 				flex-grow: 1;
 				cursor: pointer;
+				padding: 12px;
+				border-radius: 6px;
 			}
 
-			#module-header > a {
+			#module-header:hover {
+				background: var(--d2l-color-gypsum);
+			}
+
+			#module-header:hover a {
+				color: var(--d2l-color-celestine-minus-1);
+			}
+
+			#module-header:hover d2l-icon {
+				color: var(--d2l-color-celestine-minus-1);
+			}
+
+			#module-header a {
 				text-decoration: none;
 				color: var(--d2l-color-celestine);
 				outline: none;
@@ -63,11 +76,11 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				list-style-type: none;
 				border-collapse: collapse;
 				margin: 0;
-				padding: 8px 12px 0 24px;
+				padding: 8px 20px 0 30px;
 			}
 
 			li {
-				padding: 5px 0;
+				padding-top: 6px;
 			}
 
 			@keyframes loadingShimmer {
@@ -101,24 +114,20 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				width: 100%;
 			}
 
-			:host([show-loading-skeleton]) #header-container,
+			:host([show-loading-skeleton]) #module-header,
 			:host([show-loading-skeleton]) ol {
 				display: none;
 			}
-
 		</style>
-
 		<div id="skeleton"></div>
-		<div id="header-container">
-			<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
-				<div id="title-container">
-					<d2l-icon icon="tier1:folder"></d2l-icon>
-					<span>[[entity.properties.title]]</span>
-				</div>
-				<span class="count-status" aria-hidden="true">
-					[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
-				</span>
+		<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
+			<div id="title-container">
+				<d2l-icon icon="tier1:folder"></d2l-icon>
+				<a href="javascript:void(0)">[[entity.properties.title]]</a>
 			</div>
+			<span class="count-status" aria-hidden="true">
+				[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
+			</span>
 		</div>
 		<ol>
 			<template is="dom-repeat" items="[[subEntities]]" as="childLink">

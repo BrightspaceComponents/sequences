@@ -62,7 +62,7 @@ PolymerElement
 			}
 
 			li {
-				padding: 5px 0;
+				padding-top: 6px;
 			}
 		</style>
 		<siren-entity href="[[rootHref]]" token="[[token]]" entity="{{_lessonEntity}}"></siren-entity>
