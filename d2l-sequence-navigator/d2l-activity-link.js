@@ -54,6 +54,9 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			#title-container {
 				display: inline-flex;
 				align-items: center;
+				word-break: break-all;
+				padding-right: 5px;
+				width: 90%;
 			}
 
 			d2l-icon,
