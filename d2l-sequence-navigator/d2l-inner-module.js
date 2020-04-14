@@ -22,6 +22,10 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				line-height: initial;
 			}
 
+			:focus {
+				border: 2px solid var(--d2l-color-celestine);
+			}
+
 			#title-container {
 				display: inline-flex;
 				align-items: center;
@@ -40,7 +44,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				background: var(--d2l-color-gypsum);
 			}
 
-			#module-header:hover span {
+			#module-header:hover a {
 				color: var(--d2l-color-celestine-minus-1);
 			}
 
@@ -48,7 +52,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				color: var(--d2l-color-celestine-minus-1);
 			}
 
-			#module-header > a {
+			#module-header a {
 				text-decoration: none;
 				color: var(--d2l-color-celestine);
 				outline: none;
@@ -120,7 +124,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
 			<div id="title-container">
 				<d2l-icon icon="tier1:folder"></d2l-icon>
-				<span>[[entity.properties.title]]</span>
+				<a href="javascript:void(0)">[[entity.properties.title]]</a>
 			</div>
 			<span class="count-status" aria-hidden="true">
 				[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]

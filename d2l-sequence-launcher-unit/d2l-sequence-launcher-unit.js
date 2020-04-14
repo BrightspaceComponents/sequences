@@ -31,6 +31,10 @@ PolymerElement
 				border-bottom-right-radius: 6px;
 			}
 
+			:focus {
+				border: 2px solid var(--d2l-color-celestine);
+			}
+
 			.module-item-list {
 				list-style-type: none;
 				padding: 0 20px;

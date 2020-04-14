@@ -21,6 +21,10 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				@apply --d2l-body-compact-text;
 			}
 
+			:focus {
+				border: 2px solid var(--d2l-color-celestine);
+			}
+
 			:host > div {
 				display: flex;
 				flex-direction: row;
