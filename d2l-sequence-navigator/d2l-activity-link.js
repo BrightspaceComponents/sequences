@@ -39,7 +39,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				display: flex;
 				flex-direction: row;
 				flex: 1;
-				padding: 10px 0;
+				padding-bottom: 6px;
 			}
 
 			#content-container {
@@ -47,8 +47,21 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				flex: 1;
 				cursor: pointer;
 				justify-content: space-between;
-				padding: 0 10px;
+				padding: 6px 12px;
 				align-items: center;
+				border-radius: 6px;
+			}
+
+			#content-container:hover {
+				background: var(--d2l-color-gypsum);
+			}
+
+			#content-container:hover a {
+				color: var(--d2l-color-celestine-minus-1);
+			}
+
+			#content-container:hover d2l-icon {
+				color: var(--d2l-color-celestine-minus-1);
 			}
 
 			#title-container {

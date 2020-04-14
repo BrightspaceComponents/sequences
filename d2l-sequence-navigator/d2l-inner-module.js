@@ -22,10 +22,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				padding: 0 10px;
 			}
 
-			#header-container {
-				display: flex;
-			}
-
 			#title-container {
 				display: inline-flex;
 				align-items: center;
@@ -36,6 +32,11 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				justify-content: space-between;
 				flex-grow: 1;
 				cursor: pointer;
+				border-radius: 6px;
+			}
+
+			#module-header:hover {
+				background: var(--d2l-color-gypsum);
 			}
 
 			#module-header > a {
@@ -67,7 +68,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			}
 
 			li {
-				padding: 5px 0;
+				padding-top: 6px;
 			}
 
 			@keyframes loadingShimmer {
@@ -101,24 +102,20 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				width: 100%;
 			}
 
-			:host([show-loading-skeleton]) #header-container,
+			:host([show-loading-skeleton]) #module-header,
 			:host([show-loading-skeleton]) ol {
 				display: none;
 			}
-
 		</style>
-
 		<div id="skeleton"></div>
-		<div id="header-container">
-			<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
-				<div id="title-container">
-					<d2l-icon icon="tier1:folder"></d2l-icon>
-					<span>[[entity.properties.title]]</span>
-				</div>
-				<span class="count-status" aria-hidden="true">
-					[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
-				</span>
+		<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
+			<div id="title-container">
+				<d2l-icon icon="tier1:folder"></d2l-icon>
+				<span>[[entity.properties.title]]</span>
 			</div>
+			<span class="count-status" aria-hidden="true">
+				[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
+			</span>
 		</div>
 		<ol>
 			<template is="dom-repeat" items="[[subEntities]]" as="childLink">

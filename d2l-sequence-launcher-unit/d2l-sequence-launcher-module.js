@@ -113,7 +113,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			}
 
 			li {
-				padding: 5px 0;
+				padding-top: 6px;
 			}
 
 			#startDate {
