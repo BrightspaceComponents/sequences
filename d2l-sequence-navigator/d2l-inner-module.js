@@ -19,7 +19,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				display: block;
 				@apply --d2l-body-compact-text;
 				color: var(--d2l-color-celestine);
-				line-height: initial;
 			}
 
 			:focus {
