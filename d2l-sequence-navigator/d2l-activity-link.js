@@ -37,13 +37,13 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 			:host([show-underline]) > #outer-container {
 				border-bottom: 1px solid var(--d2l-color-mica);
-				padding-bottom: 6px;
 			}
 			#outer-container {
 				border-bottom: 1px solid transparent;
 				display: flex;
 				flex-direction: row;
 				flex: 1;
+				padding-bottom: 6px;
 			}
 
 			#content-container {
@@ -51,7 +51,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				flex: 1;
 				cursor: pointer;
 				justify-content: space-between;
-				padding: 6px 12px;
+				padding: 12px;
 				align-items: center;
 				border-radius: 6px;
 			}

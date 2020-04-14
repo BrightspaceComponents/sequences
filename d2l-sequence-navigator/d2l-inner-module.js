@@ -36,7 +36,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				justify-content: space-between;
 				flex-grow: 1;
 				cursor: pointer;
-				padding: 6px 12px;
+				padding: 12px;
 				border-radius: 6px;
 			}
 
