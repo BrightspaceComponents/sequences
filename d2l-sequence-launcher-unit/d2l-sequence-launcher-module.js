@@ -22,7 +22,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				display: block;
 				@apply --d2l-body-compact-text;
 				--d2l-outer-module-text-color: var(--d2l-asv-text-color);
-				--d2l-activity-link-padding: 10px 24px;
 			}
 
 			d2l-labs-accordion-collapse {
@@ -58,11 +57,14 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				display: none;
 			}
 
+			#top-header-container {
+				display: flex;
+				justify-content: space-between;
+			}
+
 			.module-title {
 				@apply --d2l-body-compact-text;
 				font-weight: 700;
-				/* FIXME: This calc is super fragile */
-				width: calc(100% - 2rem - 32px);
 				overflow: hidden;
 				text-overflow: ellipsis;
 				float: left;
@@ -82,17 +84,14 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				line-height: inherit !important;
 				align-items: center;
 				justify-content: center;
-			}
-
-			.should-pad {
-				padding: 0 10px;
+				margin: 0;
 			}
 
 			ol {
 				list-style-type: none;
 				border-collapse: collapse;
 				margin: 0;
-				padding: 0;
+				padding: 0 20px;
 			}
 
 			.optionalStatus {
@@ -117,7 +116,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				padding: 5px 0;
 			}
 
-			#startDate{
+			#startDate {
 				color: var(--d2l-outer-module-text-color, inherit);
 				font-size: var(--d2l-body-small-text_-_font-size);
 				font-weight: var(--d2l-body-small-text_-_font-weight);
@@ -208,30 +207,33 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 					<div id="completion-skeleton" class="skeleton"></div>
 				</div>
 				<div class="module-header">
-					<span class="module-title">[[entity.properties.title]]</span>
-					<div class="module-completion-count">
-						<template is="dom-if" if="[[showCount]]">
-							<span class="countStatus" aria-hidden="true">
-								[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
-							</span>
-							<d2l-offscreen>[[localize('sequenceNavigator.requirementsCompleted', 'completed', completionCompleted, 'total', completionTotal)]]</d2l-offscreen>
-						</template>
-						<template is="dom-if" if="[[showCheckmark]]">
-							<span class="completedStatus">
-								<d2l-icon aria-label$="[[localize('sequenceNavigator.completed')]]" icon="tier1:check"></d2l-icon>
-							</span>
-						</template>
-						<template is="dom-if" if="[[!showCheckmark]]">
-							<h6 class="start-date-text" aria-label$="[[entity.properties.startDateText]]" >[[entity.properties.startDateText]]</h6>
-						</template>
-						<template is="dom-if" if="[[showOptional]]">
-							<span class="optionalStatus">
-								[[localize('sequenceNavigator.optional')]]
-							</span>
-						</template>
-						<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
+					<div id="top-header-container">
+						<span class="module-title">[[entity.properties.title]]</span>
+						<div class="module-completion-count">
+							<template is="dom-if" if="[[showCount]]">
+								<span class="countStatus" aria-hidden="true">
+									[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
+								</span>
+								<d2l-offscreen>[[localize('sequenceNavigator.requirementsCompleted', 'completed', completionCompleted, 'total', completionTotal)]]</d2l-offscreen>
+							</template>
+							<template is="dom-if" if="[[showCheckmark]]">
+								<span class="completedStatus">
+									<d2l-icon aria-label$="[[localize('sequenceNavigator.completed')]]" icon="tier1:check"></d2l-icon>
+								</span>
+							</template>
+							<template is="dom-if" if="[[!showCheckmark]]">
+								<h6 class="start-date-text" aria-label$="[[entity.properties.startDateText]]" >[[entity.properties.startDateText]]</h6>
+							</template>
+							<template is="dom-if" if="[[showOptional]]">
+								<span class="optionalStatus">
+									[[localize('sequenceNavigator.optional')]]
+								</span>
+							</template>
+							<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
+						</div>
 					</div>
-				<div id ="startDate">[[startDate]]</div>
+					<div id ="startDate">[[startDate]]</div>
+				</div>
 			</div>
 			<div id="launch-module-container">
 				<div id="launch-module-skeleton" class="skeleton"></div>
@@ -246,7 +248,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			<ol>
 				<template is="dom-if" if="[[_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)]]">
 					<template is="dom-repeat" items="[[subEntities]]" as="childLink">
-						<li on-click="_onActivityClicked" class$="[[_padOnActivity(childLink)]]">
+						<li on-click="_onActivityClicked">
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
 								<d2l-activity-link
 									show-loading-skeleton="[[_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]"
@@ -359,7 +361,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				computed: '_setUpChildrenLoadingTracker(subEntities)'
 			},
 			_iconName: {
-				type: String
+				type: String,
+				value: 'tier1:arrow-expand-small'
 			}
 		};
 	}
@@ -477,12 +480,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		const isChildOfSubModule = subEntities.some((s) => s.href === lastViewedParentHref);
 
 		return isCurrentModuleLastViewedContentObject || isDirectChildOfCurrentModule || isChildOfSubModule;
-	}
-
-	_padOnActivity(childLink) {
-		return this.isSidebar || this._isActivity(childLink)
-			? ''
-			: 'should-pad';
 	}
 
 	_onActivityClicked(e) {

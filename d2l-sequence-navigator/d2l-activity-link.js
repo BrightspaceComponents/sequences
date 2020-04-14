@@ -16,17 +16,9 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		return html`
 		<style>
 			:host {
-				--d2l-activity-link-border-color: var(--d2l-activity-link-background-color);
-				--d2l-activity-link-text-color: var(--d2l-asv-text-color);
-				--d2l-activity-link-opacity: 1;
-				--d2l-activity-link-backdrop-opacity: 0;
 				--d2l-left-icon-padding: 15px;
-				--d2l-right-icon-padding: 24px;
-				--d2l-icon-size: 18px;
 				display: block;
 				@apply --d2l-body-compact-text;
-				padding-left: 24px;
-				padding-right: 24px;
 			}
 
 			:host > div {
@@ -54,6 +46,17 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				display: flex;
 				flex: 1;
 				cursor: pointer;
+				justify-content: space-between;
+				padding: 0 10px;
+				align-items: center;
+			}
+
+			#title-container {
+				display: inline-flex;
+				align-items: center;
+				word-break: break-all;
+				padding-right: 5px;
+				width: 90%;
 			}
 
 			d2l-icon,
@@ -65,12 +68,9 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 			.d2l-activity-link-title {
 				word-wrap: break-word;
-				width: calc(
-					100% -
-					var(--d2l-left-icon-padding) -
-					var(--d2l-right-icon-padding) -
-					(var(--d2l-icon-size) * 2)
-				);
+				display: flex;
+				flex: 1;
+				flex-direction: column;
 			}
 
 			a {
@@ -93,22 +93,16 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			d2l-completion-requirement {
 				--d2l-activity-link-subtext-color: var(--d2l-color-tungsten);
 				color: var(--d2l-activity-link-subtext-color);
-			}
-
-			d2l-completion-status {
-				width: var(--d2l-icon-size);
-				padding-left: var(--d2l-right-icon-padding);
-				color: var(--d2l-asv-text-color);
+				margin: 0;
 			}
 
 			d2l-icon {
-				padding-top: 3px;
 				padding-right: var(--d2l-left-icon-padding);
 				color: var(--d2l-color-celestine);
 			}
 
-			:host([inner-last]) {
-				border-radius: 0 0 8px 8px;
+			d2l-completion-status {
+				color: var(--d2l-asv-text-color);
 			}
 
 			@keyframes loadingShimmer {
@@ -143,15 +137,17 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			</template>
 			<template is="dom-if" if="[[!showLoadingSkeleton]]">
 				<div id="content-container" on-click="_contentObjectClick">
-					<template is="dom-if" if="[[hasIcon]]">
-						<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
-					</template>
-					<div class="d2l-activity-link-title">
-						<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)">
-							[[entity.properties.title]]
-						</a>
-						<d2l-completion-requirement href="[[href]]" token="[[token]]">
-						</d2l-completion-requirement>
+					<div id="title-container">
+						<template is="dom-if" if="[[hasIcon]]">
+							<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
+						</template>
+						<div class="d2l-activity-link-title">
+							<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)">
+								[[entity.properties.title]]
+							</a>
+							<d2l-completion-requirement href="[[href]]" token="[[token]]">
+							</d2l-completion-requirement>
+						</div>
 					</div>
 					<d2l-completion-status href="[[href]]" token="[[token]]"></d2l-completion-status>
 				</div>

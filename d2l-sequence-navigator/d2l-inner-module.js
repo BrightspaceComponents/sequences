@@ -16,34 +16,31 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		return html`
 		<style>
 			:host {
-				--d2l-inner-module-text-color: var(--d2l-color-celestine);
-				--d2l-activity-link-padding: 10px 14px;
 				display: block;
 				@apply --d2l-body-compact-text;
-				color: var(--d2l-inner-module-text-color);
-				border-radius: 8px;
+				color: var(--d2l-color-celestine);
+				padding: 0 10px;
 			}
 
 			#header-container {
 				display: flex;
-				padding: 12px 0;
 			}
 
-			#header-container.inner-module-empty {
-				padding: 12px 0;
+			#title-container {
+				display: inline-flex;
+				align-items: center;
 			}
 
 			#module-header {
 				display: flex;
 				justify-content: space-between;
 				flex-grow: 1;
-				padding: 0 15px;
 				cursor: pointer;
 			}
 
 			#module-header > a {
 				text-decoration: none;
-				color: var(--d2l-inner-module-text-color);
+				color: var(--d2l-color-celestine);
 				outline: none;
 				display: flex;
 			}
@@ -51,6 +48,10 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			d2l-icon {
 				padding-right: 15px;
 				color: var(--d2l-color-celestine);
+			}
+
+			.count-status {
+				color: var(--d2l-color-ferrite);
 			}
 
 			#module-header.hide-description,
@@ -62,7 +63,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				list-style-type: none;
 				border-collapse: collapse;
 				margin: 0;
-				padding: 0;
+				padding: 8px 12px 0 24px;
 			}
 
 			li {
@@ -108,20 +109,21 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		</style>
 
 		<div id="skeleton"></div>
-		<div id="header-container" class$="[[isEmpty(subEntities)]]">
+		<div id="header-container">
 			<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked">
-				<div>
+				<div id="title-container">
 					<d2l-icon icon="tier1:folder"></d2l-icon>
-					<span class="module-title">[[entity.properties.title]]</span>
+					<span>[[entity.properties.title]]</span>
 				</div>
-				<d2l-icon id="expand-icon" icon="tier1:arrow-expand-small"></d2l-icon>
+				<span class="count-status" aria-hidden="true">
+					[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
+				</span>
 			</div>
 		</div>
 		<ol>
 			<template is="dom-repeat" items="[[subEntities]]" as="childLink">
 				<li>
 					<d2l-activity-link
-						inner-last$="[[isLast(subEntities, index)]]"
 						href="[[childLink.href]]"
 						token="[[token]]"
 						current-activity="{{currentActivity}}"
@@ -224,15 +226,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 	isLast(entities, index) {
 		return entities.length <= index + 1;
-	}
-
-	isEmpty(subEntities) {
-		if (subEntities === null || subEntities.length === 0) {
-			return 'inner-module-empty';
-		}
-		else {
-			return '';
-		}
 	}
 
 	_getHideDescriptionClass(hideDescription) {
