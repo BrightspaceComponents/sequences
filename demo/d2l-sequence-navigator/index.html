@@ -53,12 +53,28 @@
 			<template>
 				<h4>Sequence launcher unit with no outer container</h4>
 				<d2l-sequence-launcher-unit
+					id="test-id-1"
 					href="data/m2-activity2.json"
 					token="token"
 					last-accessed-module="data/m2-activity2.json"
 					last-viewed-content-object="data/m2-activity2.json"
 				>
 				</d2l-sequence-launcher-unit>
+				<button
+					onclick="function toggleLoading() {
+						const element = document.getElementById('test-id-1');
+						if (element.showLoadingSkeleton) {
+							element.showLoadingSkeleton = false;
+							element._childrenLoading = false;
+						} else {
+							element.showLoadingSkeleton = true;
+							element._childrenLoading = true;
+						}
+					 }
+					toggleLoading();
+				">
+					Toggle Loading
+				</button>
 			</template>
 		</demo-snippet>
 		<h3>Simple sequence-navigator</h3>
