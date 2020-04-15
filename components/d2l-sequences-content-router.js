@@ -108,11 +108,15 @@ function getFileEntityType(fileActivity) {
 
 function getLinkEntityType(linkActivity) {
 	const link = linkActivity.getLinkByRel('about');
+	const embedLink = linkActivity.getLinkByClass('embed');
 	const openInNewTab = linkActivity.hasClass('open-in-new-tab');
 	const isLorPdf = link.hasClass('adapted-lor-pdf');
 	if (link && isLorPdf) {
 		return D2LSequencesContentFilePdf.is;
-	} else if (link && link.href.startsWith(window.location.protocol)) {
+	} else if (
+		(link && link.href.startsWith(window.location.protocol)) ||
+		(embedLink && embedLink.href.startsWith(window.location.protocol))
+	) {
 		return openInNewTab ? D2LSequencesContentLinkNewTab.is : D2LSequencesContentLink.is;
 	} else {
 		return D2LSequencesContentLinkMixed.is;

@@ -15,6 +15,8 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 			src="[[_fileLocation]]"
 			loader="script"
 			use-cdn
+			enable-download="[[_enableDownload]]"
+			enable-print="[[_enablePrint]]"
 		>
 		</d2l-pdf-viewer>
 `;
@@ -31,15 +33,20 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 				notify: true,
 				observer: '_scrollToTop'
 			},
-			_fileLocation: {
-				type: String,
-				computed: '_getFileLocation(entity)'
+			_fileLocation: String,
+			title: String,
+			_enableDownload: {
+				type: Boolean,
+				value: false
 			},
-			title: {
-				type: String,
-				computed: '_getTitle(entity)'
-			},
+			_enablePrint: {
+				type: Boolean,
+				value: false
+			}
 		};
+	}
+	static get observers() {
+		return ['_setProperties(entity)'];
 	}
 
 	disconnectedCallback() {
@@ -51,18 +58,30 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 		window.top.scrollTo(0, 0);
 	}
 
-	_getFileLocation(entity) {
+	_setProperties(entity) {
+		if (!entity) {
+			return;
+		}
+
+		if (entity.properties) {
+			const { title, canDownload, canPrint } = entity.properties;
+			this.title = title;
+			this._enableDownload = canDownload;
+			this._enablePrint = canPrint;
+		}
+
 		try {
 			const linkActivityHref = this._getLinkLocation(entity);
 			if (linkActivityHref) {
-				return linkActivityHref;
+				this._fileLocation = linkActivityHref;
+			} else {
+				const fileActivity = entity.getSubEntityByClass('file-activity');
+				const file = fileActivity.getSubEntityByClass('file');
+				const link = file.getLinkByClass('pdf') || file.getLinkByClass('embed') || file.getLinkByRel('alternate');
+				this._fileLocation = link.href;
 			}
-			const fileActivity = entity.getSubEntityByClass('file-activity');
-			const file = fileActivity.getSubEntityByClass('file');
-			const link = file.getLinkByClass('pdf') || file.getLinkByClass('embed') || file.getLinkByRel('alternate');
-			return link.href;
 		} catch (e) {
-			return '';
+			this._fileLocation = '';
 		}
 	}
 	_getLinkLocation(entity) {
@@ -73,9 +92,6 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 		} catch (e) {
 			return '';
 		}
-	}
-	_getTitle(entity) {
-		return entity && entity.properties && entity.properties.title || '';
 	}
 }
 customElements.define(D2LSequencesContentFilePdf.is, D2LSequencesContentFilePdf);

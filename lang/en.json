@@ -18,6 +18,8 @@
 	"iterateToPrevious": "Previous activity",
 	"missedActivities": "You <d2l-link href=\"javascript:void(0)\">missed {count, plural, one {# activity} other {# activities}}</d2l-link>.",
 	"module": "Module",
+	"moduleListCollapsed": "Module list collapsed",
+	"moduleListExpanded": "Module list expanded",
 	"niceWork": "Nice work so far!",
 	"noNeedToFinish": "If you don't need to finish {count, plural, one {it} other {them}}, no problem.",
 	"openNew": "Open in a new window",

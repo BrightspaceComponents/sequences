@@ -19,6 +19,8 @@
    "missedActivities" : "Je <d2l-link href=\"javascript:void(0)\"> hebt {count, plural, one {# activity} other {# activities}}</d2l-link> gemist.",
    "missedItems" : "U hebt nog {numberOfMissedActivities, plural, one {# item} other {# items}} in deze module.",
    "module" : "Module",
+   "moduleListCollapsed" : "Module list collapsed",
+   "moduleListExpanded" : "Module list expanded",
    "niceWork" : "Goed gedaan tot nu toe!",
    "noNeedToFinish" : "Als je {count, plural, one {it} other {them}} niet hoeft te voltooien, is er geen probleem.",
    "openInNewTab" : "Koppeling openen in een nieuw browsertabblad.",

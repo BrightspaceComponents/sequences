@@ -19,6 +19,8 @@
    "missedActivities" : "귀하는 <d2l-link href=\"javascript:void(0)\">{count, plural, one {# activity} other {# activities}}을(를) 누락</d2l-link>했습니다.",
    "missedItems" : "이 모듈에 {numberOfMissedActivities, plural, one {# item} other {# items}}개가 남아 있습니다.",
    "module" : "모듈",
+   "moduleListCollapsed" : "Module list collapsed",
+   "moduleListExpanded" : "Module list expanded",
    "niceWork" : "지금까지 잘했습니다!",
    "noNeedToFinish" : "{count, plural, one {it} other {them}}을(를) 완료할 필요가 없는 경우, 문제가 없습니다.",
    "openInNewTab" : "링크를 새 웹 브라우저 탭에서 엽니다.",

@@ -19,6 +19,8 @@
    "missedActivities" : "您<d2l-link href=\"javascript:void(0)\">遺漏了 {count, plural, one {# 個活動} other {# 個活動}}</d2l-link>。",
    "missedItems" : "您在此單元還有 {numberOfMissedActivities, plural, one {# 個項目} other {# 個項目}} 未完成。",
    "module" : "單元",
+   "moduleListCollapsed" : "Module list collapsed",
+   "moduleListExpanded" : "Module list expanded",
    "niceWork" : "目前為止表現不錯！",
    "noNeedToFinish" : "若您不需要完成 {count, plural, one {該項目} other {那些項目}}，那就沒問題。",
    "openInNewTab" : "在新網路瀏覽器頁籤中開啟連結。",

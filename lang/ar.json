@@ -19,6 +19,8 @@
    "missedActivities" : "لقد فاتتك <d2l-link href=\"javascript:void(0)\"> {count, plural, one {# نشاط} other {# من النشاطات}}</d2l-link>.",
    "missedItems" : "يتبقّى {numberOfMissedActivities, plural, one {# عنصر} other {# من العناصر}} في هذه الوحدة النمطية.",
    "module" : "الوحدة النمطية",
+   "moduleListCollapsed" : "Module list collapsed",
+   "moduleListExpanded" : "Module list expanded",
    "niceWork" : "عمل جيد حتى الآن!",
    "noNeedToFinish" : "ما من مشكلة في حال لم ترغب في {count, plural, one {إنهائه} other {إنهائها}}.",
    "openInNewTab" : "افتح الارتباط في علامة تبويب جديدة في مستعرض ويب.",

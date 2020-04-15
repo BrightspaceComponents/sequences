@@ -19,6 +19,8 @@
    "missedActivities" : "<d2l-link href=\"javascript:void(0)\">{count, plural, one {# etkinlik} other {# etkinlik}}</d2l-link> kaçırdınız.",
    "missedItems" : "Bu modülde {numberOfMissedActivities, plural, one {# öğeniz} other {# öğeniz}} kaldı.",
    "module" : "Modül",
+   "moduleListCollapsed" : "Module list collapsed",
+   "moduleListExpanded" : "Module list expanded",
    "niceWork" : "Şu ana kadar iyi gidiyorsunuz!",
    "noNeedToFinish" : "{count, plural, one {bunu} other {bunları}} bitirmeniz gerekmiyorsa bırakabilirsiniz.",
    "openInNewTab" : "Bağlantıyı yeni bir tarayıcı sekmesinde açın.",

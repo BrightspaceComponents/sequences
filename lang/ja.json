@@ -19,6 +19,8 @@
    "missedActivities" : "<d2l-link href=\"javascript:void(0)\">{count, plural, one {# 個のアクティビティ} other {# 個のアクティビティ}}</d2l-link> を完了していません。",
    "missedItems" : "このモジュールに {numberOfMissedActivities, plural, one {# 項目} other {# 項目}} が残っています。",
    "module" : "モジュール",
+   "moduleListCollapsed" : "Module list collapsed",
+   "moduleListExpanded" : "Module list expanded",
    "niceWork" : "ここまでは順調です。",
    "noNeedToFinish" : "{count, plural, one {これ} other {これら}}を終了する必要がない場合は、問題ありません。",
    "openInNewTab" : "Web ブラウザの新規タブでリンクを開きます。",

@@ -19,6 +19,8 @@
    "missedActivities" : "Vous avez <d2l-link href=\"javascript:void(0)\">manqué {count, plural, one {# activity} other {# activities}}</d2l-link>.",
    "missedItems" : "Vous avez {numberOfMissedActivities, plural, one {# item} other {# items}} restantes dans ce module.",
    "module" : "Module",
+   "moduleListCollapsed" : "Module list collapsed",
+   "moduleListExpanded" : "Module list expanded",
    "niceWork" : "Bon travail jusqu’à présent!",
    "noNeedToFinish" : "Si vous n’avez pas besoin de terminer {count, plural, one {it} other {them}}, il n’y a pas de problème.",
    "openInNewTab" : "Ouvrir le lien dans un nouvel onglet.",

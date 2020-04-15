@@ -2,6 +2,7 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 import { SequenceEntity } from 'siren-sdk/src/sequences/SequenceEntity.js';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import '../d2l-sequence-navigator/d2l-completion-status.js';
 import '@polymer/iron-collapse/iron-collapse.js';
 import 'd2l-link/d2l-link-shared-styles.js';
@@ -172,6 +173,7 @@ class D2lSequenceModuleList extends mixinBehaviors(behaviors, EntityMixin(Polyme
 		if (this.disabled) {
 			return;
 		}
+		announce(this.localize('moduleListExpanded'));
 		this.opened = true;
 	}
 	_focusFirst() {
@@ -188,6 +190,7 @@ class D2lSequenceModuleList extends mixinBehaviors(behaviors, EntityMixin(Polyme
 		if (this.disabled) {
 			return;
 		}
+		announce(this.localize('moduleListCollapsed'));
 		this.opened = false;
 	}
 
