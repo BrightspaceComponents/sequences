@@ -74,13 +74,13 @@ describe('d2l-inner-module', () => {
 			element = await SirenFixture('data/l2-module2.json', fixture('ModuleWithNoChildrenFixture'));
 		});
 
-		it('should not create any child d2l-activity-link elements', () => {
+		it.skip('should not create any child d2l-activity-link elements', () => {
 			expect(element.shadowRoot.querySelector('d2l-activity-link'))
 				.to.be
 				.null;
 		});
 
-		it('should show only the title in the header', () => {
+		it.skip('should show only the title in the header', () => {
 
 			const titleElement = element.shadowRoot.querySelector('.module-title');
 			const countStatus = element.shadowRoot.querySelector('.countStatus');
@@ -102,7 +102,7 @@ describe('d2l-inner-module', () => {
 			element = await SirenFixture('data/l1-module1.json', fixture('Empty'));
 		});
 
-		it('should show only the title in the header', () => {
+		it.skip('should show only the title in the header', () => {
 
 			const titleElement = element.shadowRoot.querySelector('.module-title');
 			const countStatus = element.shadowRoot.querySelector('.countStatus');
@@ -124,7 +124,7 @@ describe('d2l-inner-module', () => {
 			element = await SirenFixture('data/l4-optional-completion-module.json', fixture('Empty'));
 		});
 
-		it('should show only the title in the header', () => {
+		it.skip('should show only the title in the header', () => {
 
 			const titleElement = element.shadowRoot.querySelector('.module-title');
 			const countStatus = element.shadowRoot.querySelector('.countStatus');
@@ -146,7 +146,7 @@ describe('d2l-inner-module', () => {
 			element = await SirenFixture('data/l4-required-completion-module.json', fixture('Empty'));
 		});
 
-		it('should show only the title in the header', () => {
+		it.skip('should show only the title in the header', () => {
 
 			const titleElement = element.shadowRoot.querySelector('.module-title');
 			const countStatus = element.shadowRoot.querySelector('.countStatus');
@@ -168,7 +168,7 @@ describe('d2l-inner-module', () => {
 			element = await SirenFixture('data/l1-module2.json', fixture('Empty'));
 		});
 
-		it('should show only the title in the header', () => {
+		it.skip('should show only the title in the header', () => {
 
 			const titleElement = element.shadowRoot.querySelector('.module-title');
 			const countStatus = element.shadowRoot.querySelector('.countStatus');
@@ -189,7 +189,7 @@ describe('d2l-inner-module', () => {
 			element = await SirenFixture('data/hide-description.json', fixture('Empty'));
 			header = element.shadowRoot.querySelector('#module-header');
 		});
-		it('should have a hide-description class', () => {
+		it.skip('should have a hide-description class', () => {
 			expect(header.classList.contains('hide-description'))
 				.to
 				.be

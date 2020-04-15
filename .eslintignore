@@ -3,3 +3,4 @@ node_modules
 *.css
 test/acceptance/*
 reports
+build
