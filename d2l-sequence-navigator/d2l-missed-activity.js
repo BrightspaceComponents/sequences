@@ -50,7 +50,7 @@ class D2LMissedActivity extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Comple
 		</style>
 		<div>
 			<h3>
-				[[localize('sequenceNavigator.missedActivitiesListHeader')]]
+				[[sequenceNotFinishedLangTerm]]
 			</h3>
 			<ol>
 					<template is="dom-repeat" items="[[subEntities]]" as="childLink">
@@ -76,6 +76,10 @@ class D2LMissedActivity extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Comple
 			subEntities: {
 				type: Array,
 				computed: 'getSubEntities(entity)'
+			},
+			sequenceNotFinishedLangTerm: {
+				type: String,
+				computed: '_getSequenceNotFinishedLangTerm(entity)'
 			}
 		};
 	}
@@ -87,6 +91,10 @@ class D2LMissedActivity extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Comple
 
 	_getHref(entity) {
 		return entity && entity.getLinkByRel && entity.getLinkByRel('self') || entity || '';
+	}
+
+	_getSequenceNotFinishedLangTerm(entity) {
+		return entity && entity.properties && entity.properties.sequenceNotFinishedLangTerm || this.localize && this.localize('sequenceNavigator.missedActivitiesListHeader') || '';
 	}
 
 	getnumberOfMissedActivity(subEntities) {
