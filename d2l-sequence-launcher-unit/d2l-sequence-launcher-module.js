@@ -196,9 +196,10 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				width: 10%;
 			}
 
-			#launch-module-skeleton {
-				height: 18px;
-				width: 35%;
+			div#launch-module-skeleton.skeleton {
+				height: 24px;
+				width: 20%;
+				display: block;
 			}
 
 		</style>
@@ -239,18 +240,21 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 					<div id ="startDate">[[startDate]]</div>
 				</div>
 			</div>
-			<div id="launch-module-container">
-				<div id="launch-module-skeleton" class="skeleton"></div>
-				<d2l-button-subtle
-					aria-label$="[[localize('sequenceNavigator.launchModule')]]"
-					text="[[localize('sequenceNavigator.launchModule')]]"
-					icon="tier1:move-to"
-					on-click="_onLaunchModuleButtonClick"
-				>
-				</d2l-button-subtle>
-			</div>
-			<ol>
-				<template is="dom-if" if="[[_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)]]">
+			<template is="dom-if" if="[[_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)]]">
+				<div id="launch-module-container">
+					<template is="dom-if" if="[[_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]">
+						<div id="launch-module-skeleton" class="skeleton"></div>
+					</template>
+					<template is="dom-if" if="[[!_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]">
+						<d2l-button-subtle
+							aria-label$="[[localize('sequenceNavigator.launchModule')]]"
+							text="[[localize('sequenceNavigator.launchModule')]]"
+							icon="tier1:move-to"
+							on-click="_onLaunchModuleButtonClick"
+						></d2l-button-subtle>
+					</template>
+				</div>
+				<ol>
 					<template is="dom-repeat" items="[[subEntities]]" as="childLink">
 						<li on-click="_onActivityClicked">
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
@@ -278,8 +282,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 							</template>
 						</li>
 					</template>
-				</template>
-			</ol>
+				</ol>
+			</template>
 		</d2l-labs-accordion-collapse>
 		`;
 	}
