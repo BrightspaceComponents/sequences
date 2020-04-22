@@ -84,7 +84,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			}
 
 			.d2l-activity-link-title {
-				word-wrap: break-word;
+				word-break: break-word;
 				display: flex;
 				flex: 1;
 				flex-direction: column;
