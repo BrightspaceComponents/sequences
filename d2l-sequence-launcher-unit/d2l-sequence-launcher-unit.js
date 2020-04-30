@@ -254,7 +254,7 @@ PolymerElement
 		if (entity &&
 			subEntities && (
 			subEntities.length <= 0 ||
-			subEntities[0].rel.includes('item'))
+			subEntities.find(({ rel }) => rel && rel.includes('item')))
 		) {
 			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
 		}
