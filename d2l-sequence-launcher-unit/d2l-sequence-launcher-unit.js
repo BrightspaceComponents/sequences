@@ -253,7 +253,7 @@ PolymerElement
 	_checkForEarlyLoadEvent(entity, subEntities) {
 		if (entity &&
 			subEntities && (
-			subEntities.length <= 0 ||
+			subEntities.length <== 0 ||
 			subEntities.find(({ rel }) => rel && rel.includes('item')))
 		) {
 			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
