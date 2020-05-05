@@ -44,7 +44,7 @@ PolymerElement
 			}
 
 			.module-content {
-				height: calc( 100% - 203px );
+				/*height: calc( 100% - 203px );*/
 			}
 
 			#sidebarContent {
