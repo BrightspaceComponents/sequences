@@ -30,6 +30,9 @@ PolymerElement
 				border-bottom-left-radius: 6px;
 				border-bottom-right-radius: 6px;
 			}
+			:host([is-sidebar]) {
+				border: none;
+			}
 
 			.module-item-list {
 				list-style-type: none;
