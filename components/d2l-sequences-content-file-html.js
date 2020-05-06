@@ -11,7 +11,7 @@ export class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.Au
 			}
 			iframe {
 				width: 100%;
-				height: 100%;
+				height: calc(100% - 12px);
 				overflow: hidden;
 			}
 		</style>
