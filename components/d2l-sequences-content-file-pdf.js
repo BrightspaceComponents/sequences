@@ -7,7 +7,7 @@ export class D2LSequencesContentFilePdf extends D2L.Polymer.Mixins.Sequences.Aut
 		<style>
 			d2l-pdf-viewer {
 				width: 100%;
-				height: calc(100% - 12px);
+				height: 100%;
 				overflow: hidden;
 			}
 		</style>

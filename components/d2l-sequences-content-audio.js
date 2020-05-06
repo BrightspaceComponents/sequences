@@ -7,7 +7,7 @@ export class D2LSequencesContentAudio extends D2L.Polymer.Mixins.Sequences.Autom
 		<style>
 			d2l-audio {
 				width: 100%;
-				height: calc(100% - 12px);
+				height: 100%;
 				overflow: hidden;
 			}
 		</style>

@@ -7,7 +7,7 @@ export class D2LSequencesContentLink extends D2L.Polymer.Mixins.Sequences.Automa
 		<style>
 			iframe {
 				width: 100%;
-				height: calc(100% - 12px);
+				height: 100%;
 				overflow: hidden;
 			}
 			.d2l-sequences-hide {
