@@ -206,7 +206,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 
 		<siren-entity href="[[lastViewedContentObject]]" token="[[token]]" entity="{{_lastViewedContentObjectEntity}}"></siren-entity>
 		<d2l-labs-accordion-collapse no-icons="" flex="">
-			<div slot="header" id="header-container" class$="[[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription, isSidebar)]]" is-sidebar$="[[isSidebar]]">
+			<div slot="header" id="header-container" class$="[[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription)]]">
 				<div id="header-skeleton-container">
 					<div id="header-skeleton" class="skeleton"></div>
 					<div id="completion-skeleton" class="skeleton"></div>
@@ -261,7 +261,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 								<d2l-activity-link
 									show-loading-skeleton="[[_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]"
 									last-module$="[[lastModule]]"
-									is-sidebar$="[[isSidebar]]"
 									href="[[childLink.href]]"
 									token="[[token]]"
 									current-activity="{{currentActivity}}"
@@ -325,9 +324,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				type: Boolean,
 				value: false,
 				computed: '_showOptional(completionCount)'
-			},
-			isSidebar: {
-				type: Boolean
 			},
 			lastModule: {
 				type: Boolean,
@@ -514,12 +510,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		this.shadowRoot.querySelector('d2l-labs-accordion-collapse').setAttribute('opened', '');
 	}
 
-	isLastOfSubModule(entities, index) {
-		return !!(entities.length <= index + 1 && !this._isActivity(entities[index]) && (!this.lastModule || this.isSidebar));
-	}
-
 	isEmpty(subEntities) {
-		if ((subEntities === null || subEntities.length === 0) && (!this.lastModule || this.isSidebar)) {
+		if ((subEntities === null || subEntities.length === 0) && (!this.lastModule)) {
 			return 'empty-module-header-container';
 		}
 		else {
@@ -577,8 +569,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		}
 	}
 
-	_getHideDescriptionClass(_hideModuleDescription, isSidebar) {
-		return _hideModuleDescription && !isSidebar ? 'hide-description' : '';
+	_getHideDescriptionClass(_hideModuleDescription) {
+		return _hideModuleDescription ? 'hide-description' : '';
 	}
 
 	_openModule(_moduleStartOpen) {

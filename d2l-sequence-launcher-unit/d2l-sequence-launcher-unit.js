@@ -40,15 +40,15 @@ PolymerElement
 				margin: 0;
 			}
 
-			::slotted(.shadowed) {
-				position: relative;
-				z-index: 1;
-				box-shadow: 0 4px 0 0 rgba(185,194,208,.3);
-			}
+			/*::slotted(.shadowed) {*/
+			/*	position: relative;*/
+			/*	z-index: 1;*/
+			/*	box-shadow: 0 4px 0 0 rgba(185,194,208,.3);*/
+			/*}*/
 
-			.module-content {
-				/*height: calc( 100% - 203px );*/
-			}
+			/*.module-content {*/
+			/*	height: calc( 100% - 203px );*/
+			/*}*/
 
 			#sidebarContent {
 				position: relative;
@@ -80,7 +80,6 @@ PolymerElement
 									href="[[childLink.href]]"
 									token="[[token]]"
 									current-activity="{{href}}"
-									is-sidebar="[[isSidebar()]]"
 									last-module="[[isLast(subEntities, index)]]"
 									last-viewed-content-object="[[lastViewedContentObject]]"
 									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
@@ -187,23 +186,23 @@ PolymerElement
 		return entity && entity.getLinkByRel && entity.getLinkByRel('self') || entity || '';
 	}
 
-	onSidebarScroll() {
-		const sidebarHeader = this.getSideBarHeader();
-		if (this.$.sidebarContent.scrollTop === 0) {
-			if (sidebarHeader && sidebarHeader.classList && sidebarHeader.classList.contains('shadowed')) {
-				sidebarHeader.classList.remove('shadowed');
-			}
-		} else {
-			if (sidebarHeader && sidebarHeader.classList && !sidebarHeader.classList.contains('shadowed')) {
-				sidebarHeader.classList.add('shadowed');
-			}
-		}
-	}
+	// onSidebarScroll() {
+	// 	const sidebarHeader = this.getSideBarHeader();
+	// 	if (this.$.sidebarContent.scrollTop === 0) {
+	// 		if (sidebarHeader && sidebarHeader.classList && sidebarHeader.classList.contains('shadowed')) {
+	// 			sidebarHeader.classList.remove('shadowed');
+	// 		}
+	// 	} else {
+	// 		if (sidebarHeader && sidebarHeader.classList && !sidebarHeader.classList.contains('shadowed')) {
+	// 			sidebarHeader.classList.add('shadowed');
+	// 		}
+	// 	}
+	// }
 
-	getSideBarHeader() {
-		const sidebarHeaderSlot = this.shadowRoot.querySelector('slot');
-		return sidebarHeaderSlot.assignedNodes()[0].querySelector('d2l-lesson-header#sidebarHeader');
-	}
+	// getSideBarHeader() {
+	// 	const sidebarHeaderSlot = this.shadowRoot.querySelector('slot');
+	// 	return sidebarHeaderSlot.assignedNodes()[0].querySelector('d2l-lesson-header#sidebarHeader');
+	// }
 
 	_nextActivitySiblingIsActivity(subEntities, index) {
 		if (index >= subEntities.length) {
@@ -217,9 +216,6 @@ PolymerElement
 
 	isLast(entities, index) {
 		return entities.length <= index + 1;
-	}
-	isSidebar() {
-		return this.role === 'navigation';
 	}
 
 	_setUpChildrenLoadingTracker(subEntities) {
