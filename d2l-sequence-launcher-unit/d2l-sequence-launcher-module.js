@@ -138,6 +138,10 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				padding: 5px 0;
 			}
 
+			:host([is-sidebar]) #launch-module-container {
+				display: none;
+			}
+
 			:host([show-loading-skeleton]) #launch-module-container > d2l-button-subtle {
 				display: none;
 			}

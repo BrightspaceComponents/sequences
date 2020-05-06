@@ -84,6 +84,7 @@ PolymerElement
 									last-viewed-content-object="[[lastViewedContentObject]]"
 									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
 									show-loading-skeleton="[[_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]"
+									is-sidebar="[[isSidebar]]"
 								>
 								</d2l-sequence-launcher-module>
 							</template>
