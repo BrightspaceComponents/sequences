@@ -371,6 +371,11 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			_iconName: {
 				type: String,
 				value: 'tier1:arrow-expand-small'
+			},
+			isSidebar: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
 			}
 		};
 	}

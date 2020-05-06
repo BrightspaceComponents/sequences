@@ -147,6 +147,11 @@ PolymerElement
 			_childrenLoadingTracker: {
 				type: Object,
 				computed: '_setUpChildrenLoadingTracker(subEntities)'
+			},
+			isSidebar: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
 			}
 		};
 	}
