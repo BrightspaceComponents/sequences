@@ -61,6 +61,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			d2l-icon {
 				padding-right: 15px;
 				color: var(--d2l-color-celestine);
+				min-width: 18px;
 			}
 
 			.count-status {
