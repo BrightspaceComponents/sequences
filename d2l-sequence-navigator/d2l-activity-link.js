@@ -116,6 +116,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			d2l-icon {
 				padding-right: var(--d2l-left-icon-padding);
 				color: var(--d2l-color-celestine);
+				min-width: 18px;
 			}
 
 			d2l-completion-status {
