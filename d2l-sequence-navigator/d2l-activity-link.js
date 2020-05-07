@@ -127,6 +127,11 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				100% { transform: translate3d(100%, 0, 0); }
 			}
 
+			@-webkit-keyframes loadingShimmer {
+				0% { -webkit-transform: translate3d(-100%, 0, 0); }
+				100% { -webkit-transform: translate3d(100%, 0, 0); }
+			}
+
 			#skeleton {
 				height: 24px;
 				width: 70%;
@@ -138,6 +143,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 			#skeleton::after {
 				animation: loadingShimmer 1.8s ease-in-out infinite;
+				-webkit-animation: loadingShimmer 1.8s ease-in-out infinite;
 				background: linear-gradient(90deg, var(--d2l-color-sylvite), var(--d2l-color-regolith), var(--d2l-color-sylvite));
 				background-color: var(--d2l-color-sylvite);
 				content: '';
