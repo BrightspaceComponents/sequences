@@ -36,7 +36,7 @@ PolymerElement
 
 			.module-item-list {
 				list-style-type: none;
-				padding: 0 20px;
+				padding: 0 18px;
 				margin: 0;
 			}
 

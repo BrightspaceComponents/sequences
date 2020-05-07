@@ -35,7 +35,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 
 			#header-container {
 				box-sizing: border-box;
-				padding: 15px 24px;
+				padding: 15px 18px;
 				color: var(--d2l-outer-module-text-color);
 				cursor: pointer;
 			}
@@ -95,7 +95,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				list-style-type: none;
 				border-collapse: collapse;
 				margin: 0;
-				padding: 0 20px;
+				padding: 0 18px;
 			}
 
 			.optionalStatus {

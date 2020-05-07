@@ -56,8 +56,22 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				border-radius: 6px;
 			}
 
+			/* todo: add the styles for the "active" one here */
+			/*:host([is-sidebar][is-current-activity]) #content-container {
+				background: var(--d2l-color-celestine);
+			}
+			:host([is-sidebar][is-current-activity]) a {
+				color: white;
+			}
+			:host([is-sidebar][is-current-activity]) d2l-icon {
+				color: white;
+			}
+			:host([is-sidebar][is-current-activity]) d2l-completion-status {
+				color: white;
+			}*/
+
 			#content-container:hover {
-				background: var(--d2l-color-gypsum);
+				background: var(--d2l-color-gypsum) !important;
 			}
 
 			#content-container:hover a {
@@ -202,7 +216,18 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				reflectToAttribute: true
 			},
 			showUnderline: {
+				type: Boolean,
 				value: false,
+				reflectToAttribute: true
+			},
+			isSidebar: {
+				type: Boolean,
+				value: true,
+				reflectToAttribute: true
+			},
+			isCurrentActivity: {
+				type: Boolean,
+				value: true,
 				reflectToAttribute: true
 			}
 		};
