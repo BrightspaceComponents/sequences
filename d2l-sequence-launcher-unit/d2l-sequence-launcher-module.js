@@ -271,6 +271,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 									on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
 									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
 									show-underline="[[_nextActivitySiblingIsActivity(subEntities, index)]]"
+									is-sidebar="[[isSidebar]]"
 								></d2l-activity-link>
 							</template>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
@@ -281,6 +282,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 									current-activity="{{currentActivity}}"
 									on-sequencenavigator-d2l-inner-module-current-activity="childIsActiveEvent"
 									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
+									is-sidebar="[[isSidebar]]"
 								></d2l-inner-module>
 							</template>
 						</li>
@@ -374,7 +376,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			},
 			isSidebar: {
 				type: Boolean,
-				value: false,
 				reflectToAttribute: true
 			}
 		};

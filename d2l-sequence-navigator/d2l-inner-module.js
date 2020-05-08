@@ -140,6 +140,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 						on-sequencenavigator-d2l-activity-link-current-activity="childIsActiveEvent"
 						on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
 						show-underline="[[_nextActivitySiblingIsActivity(subEntities, index)]]"
+						is-sidebar="[[isSidebar]]"
 					></d2l-activity-link>
 				</li>
 			</template>
@@ -186,6 +187,10 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			_childrenLoadingTracker: {
 				type: Object,
 				computed: '_setUpChildrenLoadingTracker(subEntities)'
+			},
+			isSidebar: {
+				type: Boolean,
+				reflectToAttribute: true
 			}
 		};
 	}

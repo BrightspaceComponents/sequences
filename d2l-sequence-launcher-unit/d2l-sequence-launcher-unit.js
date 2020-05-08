@@ -40,16 +40,6 @@ PolymerElement
 				margin: 0;
 			}
 
-			/*::slotted(.shadowed) {*/
-			/*	position: relative;*/
-			/*	z-index: 1;*/
-			/*	box-shadow: 0 4px 0 0 rgba(185,194,208,.3);*/
-			/*}*/
-
-			/*.module-content {*/
-			/*	height: calc( 100% - 203px );*/
-			/*}*/
-
 			#sidebarContent {
 				position: relative;
 				overflow-y: auto;
@@ -103,7 +93,6 @@ PolymerElement
 					</template>
 				</template>
 			</ol>
-			<slot name="end-of-lesson"></slot>
 		</d2l-labs-accordion>
 		`;
 	}
@@ -150,7 +139,6 @@ PolymerElement
 			},
 			isSidebar: {
 				type: Boolean,
-				value: false,
 				reflectToAttribute: true
 			}
 		};
