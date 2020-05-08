@@ -57,7 +57,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			}
 
 			#content-container:hover {
-				background: var(--d2l-color-gypsum) !important;
+				background: var(--d2l-color-gypsum);
 			}
 
 			#content-container:hover a {

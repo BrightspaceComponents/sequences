@@ -180,24 +180,6 @@ PolymerElement
 		return entity && entity.getLinkByRel && entity.getLinkByRel('self') || entity || '';
 	}
 
-	// onSidebarScroll() {
-	// 	const sidebarHeader = this.getSideBarHeader();
-	// 	if (this.$.sidebarContent.scrollTop === 0) {
-	// 		if (sidebarHeader && sidebarHeader.classList && sidebarHeader.classList.contains('shadowed')) {
-	// 			sidebarHeader.classList.remove('shadowed');
-	// 		}
-	// 	} else {
-	// 		if (sidebarHeader && sidebarHeader.classList && !sidebarHeader.classList.contains('shadowed')) {
-	// 			sidebarHeader.classList.add('shadowed');
-	// 		}
-	// 	}
-	// }
-
-	// getSideBarHeader() {
-	// 	const sidebarHeaderSlot = this.shadowRoot.querySelector('slot');
-	// 	return sidebarHeaderSlot.assignedNodes()[0].querySelector('d2l-lesson-header#sidebarHeader');
-	// }
-
 	_nextActivitySiblingIsActivity(subEntities, index) {
 		if (index >= subEntities.length) {
 			return false;

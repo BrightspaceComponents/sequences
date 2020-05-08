@@ -521,7 +521,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 	}
 
 	isEmpty(subEntities) {
-		if ((subEntities === null || subEntities.length === 0) && (!this.lastModule)) {
+		if ((subEntities === null || subEntities.length === 0) && !this.lastModule) {
 			return 'empty-module-header-container';
 		}
 		else {
