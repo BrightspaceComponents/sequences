@@ -199,7 +199,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			isCurrentActivity: {
 				type: Boolean,
 				reflectToAttribute: true,
-				computed: '_getIsCurrentActivity(entity)'
+				computed: '_getIsCurrentActivity(entity, currentActivity)'
 			}
 		};
 	}
@@ -236,8 +236,8 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		return entity && entity.getLinkByRel && entity.getLinkByRel('self') || entity || '';
 	}
 
-	_getIsCurrentActivity(entity) {
-		return entity && entity.getLinkByRel && entity.getLinkByRel('self').href === this.currentActivity;
+	_getIsCurrentActivity(entity, currentActivity) {
+		return entity && entity.getLinkByRel && entity.getLinkByRel('self').href === currentActivity;
 	}
 
 	_onHeaderClicked() {
