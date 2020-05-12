@@ -39,7 +39,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				border-radius: 6px;
 			}
 
-			:host[is-current-activity] #module-header {
+			:host([is-current-activity]) #module-header {
 				background: var(--d2l-color-celestine);
 			}
 

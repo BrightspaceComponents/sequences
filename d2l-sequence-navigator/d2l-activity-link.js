@@ -56,7 +56,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				border-radius: 6px;
 			}
 
-			:host[is-current-activity] #content-container {
+			:host([is-current-activity]) #content-container {
 				background: var(--d2l-color-celestine);
 			}
 
