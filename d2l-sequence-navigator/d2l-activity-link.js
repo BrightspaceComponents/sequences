@@ -56,8 +56,12 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				border-radius: 6px;
 			}
 
+			:host[is-current-activity] #content-container {
+				background: var(--d2l-color-celestine);
+			}
+
 			#content-container:hover {
-				background: var(--d2l-color-gypsum);
+				background: var(--d2l-color-gypsum) !important;
 			}
 
 			#content-container:hover a {
@@ -209,6 +213,11 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			isSidebar: {
 				type: Boolean,
 				reflectToAttribute: true
+			},
+			isCurrentActivity: {
+				type: Boolean,
+				reflectToAttribute: true,
+				computed: '_getIsCurrentActivity(entity)'
 			}
 		};
 	}
@@ -260,6 +269,10 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				return 'd2l-activity-link-one-line';
 		}
 		return '';
+	}
+
+	_getIsCurrentActivity(entity) {
+		return entity && entity.getLinkByRel && entity.getLinkByRel('self').href === this.href;
 	}
 
 	_onEntityLoaded(entity) {

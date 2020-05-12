@@ -39,8 +39,12 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				border-radius: 6px;
 			}
 
+			:host[is-current-activity] #module-header {
+				background: var(--d2l-color-celestine);
+			}
+
 			#module-header:hover {
-				background: var(--d2l-color-gypsum);
+				background: var(--d2l-color-gypsum) !important;
 			}
 
 			#module-header:hover a {
@@ -191,6 +195,11 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			isSidebar: {
 				type: Boolean,
 				reflectToAttribute: true
+			},
+			isCurrentActivity: {
+				type: Boolean,
+				reflectToAttribute: true,
+				computed: '_getIsCurrentActivity(entity)'
 			}
 		};
 	}
@@ -225,6 +234,10 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 	_getHref(entity) {
 		return entity && entity.getLinkByRel && entity.getLinkByRel('self') || entity || '';
+	}
+
+	_getIsCurrentActivity(entity) {
+		return entity && entity.getLinkByRel && entity.getLinkByRel('self').href === this.href;
 	}
 
 	_onHeaderClicked() {
