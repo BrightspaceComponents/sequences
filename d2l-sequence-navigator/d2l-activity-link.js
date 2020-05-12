@@ -272,7 +272,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	}
 
 	_getIsCurrentActivity(entity) {
-		return entity && entity.getLinkByRel && entity.getLinkByRel('self').href === this.href;
+		return entity && entity.getLinkByRel && entity.getLinkByRel('self').href === this.currentActivity;
 	}
 
 	_onEntityLoaded(entity) {
