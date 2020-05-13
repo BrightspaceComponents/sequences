@@ -478,9 +478,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		return entity && entity.getSubEntities().length !== 0;
 	}
 
-	// TODO: need to extend this to currentActivity
 	_getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity, _currentActivityEntity) {
-		if (!entity) {
+		if (!entity || (!_lastViewedContentObjectEntity && !_currentActivityEntity)) {
 			return false;
 		}
 		// Set the starting icon depending on the collapse state
