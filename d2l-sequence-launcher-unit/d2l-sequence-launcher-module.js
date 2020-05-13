@@ -209,6 +209,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		</style>
 
 		<siren-entity href="[[lastViewedContentObject]]" token="[[token]]" entity="{{_lastViewedContentObjectEntity}}"></siren-entity>
+		<siren-entity href="[[currentActivity]]" token="[[token]]" entity="{{_currentActivityEntity}}"></siren-entity>
 		<d2l-labs-accordion-collapse no-icons="" flex="">
 			<div slot="header" id="header-container" class$="[[isEmpty(subEntities)]] [[_getHideDescriptionClass(_hideModuleDescription)]]">
 				<div id="header-skeleton-container">
@@ -308,6 +309,9 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				value: '',
 				notify: true
 			},
+			_currentActivityEntity: {
+				type: Object
+			},
 			subEntities: {
 				type: Array,
 				computed: 'getSubEntities(entity)'
@@ -356,7 +360,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			},
 			_moduleStartOpen: {
 				type: Boolean,
-				computed: '_getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity)'
+				computed: '_getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity, _currentActivityEntity)'
 			},
 			_moduleWasExpanded: {
 				type: Boolean,
@@ -420,12 +424,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		return link && link.hasClass('sequenced-activity');
 	}
 
-	_getStartingCollapseIconName(entity, subEntities, _lastViewedContentObjectEntity) {
-		return this._getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity)
-			? 'tier1:arrow-collapse-small'
-			: 'tier1:arrow-expand-small';
-	}
-
 	_nextActivitySiblingIsActivity(subEntities, index) {
 		if (index >= subEntities.length) {
 			return false;
@@ -480,20 +478,34 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		return entity && entity.getSubEntities().length !== 0;
 	}
 
-	_getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity) {
-		if (!entity || !_lastViewedContentObjectEntity) {
+	// TODO: need to extend this to currentActivity
+	_getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity, _currentActivityEntity) {
+		if (!entity) {
 			return false;
 		}
 		// Set the starting icon depending on the collapse state
 		this._updateCollapseIconName();
 
-		const lastViewedParentHref = _lastViewedContentObjectEntity.getLinkByRel('up').href;
+		// FixMe: This is kind of gross. ideally we decouple all the isSidebar stuff into separate components
+		// If this is a sidebar, we use the currentActivity to detect if this should be open.
+		// If on the launcher, lastViewedContentObject is used.
+		if (this.isSidebar) {
+			const currentActivityParentHref = _currentActivityEntity.getLinkByRel('up').href;
 
-		const isCurrentModuleLastViewedContentObject = _lastViewedContentObjectEntity.getLinkByRel('self').href === this.href;
-		const isDirectChildOfCurrentModule = lastViewedParentHref === this.href;
-		const isChildOfSubModule = subEntities.some((s) => s.href === lastViewedParentHref);
+			const isCurrentModuleCurrentActivity = _currentActivityEntity.getLinkByRel('self').href === this.href;
+			const isDirectChildOfCurrentModule = currentActivityParentHref === this.href;
+			const isChildOfSubModule = subEntities.some((s) => s.href === currentActivityParentHref);
 
-		return isCurrentModuleLastViewedContentObject || isDirectChildOfCurrentModule || isChildOfSubModule;
+			return isCurrentModuleCurrentActivity || isDirectChildOfCurrentModule || isChildOfSubModule;
+		} else {
+			const lastViewedParentHref = _lastViewedContentObjectEntity.getLinkByRel('up').href;
+
+			const isCurrentModuleLastViewedContentObject = _lastViewedContentObjectEntity.getLinkByRel('self').href === this.href;
+			const isDirectChildOfCurrentModule = lastViewedParentHref === this.href;
+			const isChildOfSubModule = subEntities.some((s) => s.href === lastViewedParentHref);
+
+			return isCurrentModuleLastViewedContentObject || isDirectChildOfCurrentModule || isChildOfSubModule;
+		}
 	}
 
 	_onActivityClicked(e) {

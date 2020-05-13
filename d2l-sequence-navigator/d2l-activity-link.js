@@ -56,18 +56,17 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				border-radius: 6px;
 			}
 
-			:host([is-current-activity]) #content-container {
-				background: var(--d2l-color-celestine);
-			}
-
+			:host([is-current-activity]) #content-container,
 			#content-container:hover {
-				background: var(--d2l-color-gypsum) !important;
+				background: var(--d2l-color-gypsum);
 			}
 
+			:host([is-current-activity]) a,
 			#content-container:hover a {
 				color: var(--d2l-color-celestine-minus-1);
 			}
 
+			:host([is-current-activity]) d2l-icon,
 			#content-container:hover d2l-icon {
 				color: var(--d2l-color-celestine-minus-1);
 			}
