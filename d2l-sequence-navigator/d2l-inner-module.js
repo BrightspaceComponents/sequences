@@ -39,18 +39,17 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				border-radius: 6px;
 			}
 
-			:host([is-current-activity]) #module-header {
-				background: var(--d2l-color-celestine);
-			}
-
+			:host([is-current-activity]) #module-header,
 			#module-header:hover {
-				background: var(--d2l-color-gypsum) !important;
+				background: var(--d2l-color-gypsum);
 			}
 
+			:host([is-current-activity]) #module-header a,
 			#module-header:hover a {
 				color: var(--d2l-color-celestine-minus-1);
 			}
 
+			:host([is-current-activity]) #module-header d2l-icon,
 			#module-header:hover d2l-icon {
 				color: var(--d2l-color-celestine-minus-1);
 			}
