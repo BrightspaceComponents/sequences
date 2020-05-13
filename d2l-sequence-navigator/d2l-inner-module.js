@@ -21,7 +21,8 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				color: var(--d2l-color-celestine);
 			}
 
-			#module-header:focus {
+			#module-header:focus,
+			#module-header:focus-within {
 				outline: none;
 				border: 2px solid var(--d2l-color-celestine);
 			}
@@ -250,7 +251,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	}
 
 	childIsActiveEvent() {
-		this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-inner-module-current-activity', {detail: { href: this.href}}));
+		this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-inner-module-current-activity', {detail: { href: this.href}, bubbles: true}));
 	}
 
 	isLast(entities, index) {

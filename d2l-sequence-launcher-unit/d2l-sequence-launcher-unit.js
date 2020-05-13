@@ -1,5 +1,4 @@
 import '@polymer/polymer/polymer-legacy.js';
-
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import './d2l-sequence-launcher-module.js';
 import '@brightspace-ui-labs/accordion/accordion.js';

@@ -21,7 +21,8 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				@apply --d2l-body-compact-text;
 			}
 
-			#content-container:focus {
+			#content-container:focus,
+			#content-container:focus-within {
 				outline: none;
 				border: 2px solid var(--d2l-color-celestine);
 			}
@@ -243,7 +244,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 	setCurrent() {
 		this.currentActivity = this.entity && this.entity.getLinkByRel('self').href;
-		this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-activity-link-current-activity', {detail: { href: this.href}}));
+		this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-activity-link-current-activity', {detail: { href: this.href}, bubbles: true}));
 	}
 
 	onCurrentActivityChanged(currentActivity, entity) {
