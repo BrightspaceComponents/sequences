@@ -244,7 +244,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 	setCurrent() {
 		this.currentActivity = this.entity && this.entity.getLinkByRel('self').href;
-		this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-activity-link-current-activity', {detail: { href: this.href}, bubbles: true}));
+		this.dispatchEvent(new CustomEvent('sequencenavigator-d2l-activity-link-current-activity', {detail: { href: this.href}}));
 	}
 
 	onCurrentActivityChanged(currentActivity, entity) {
