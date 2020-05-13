@@ -21,7 +21,8 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				@apply --d2l-body-compact-text;
 			}
 
-			:focus {
+			#content-container:focus {
+				outline: none;
 				border: 2px solid var(--d2l-color-celestine);
 			}
 
@@ -54,6 +55,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				padding: 12px;
 				align-items: center;
 				border-radius: 6px;
+				border: 2px solid transparent;
 			}
 
 			:host([is-current-activity]) #content-container,
@@ -157,13 +159,13 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				<div id="skeleton" class="skeleton"></div>
 			</template>
 			<template is="dom-if" if="[[!showLoadingSkeleton]]">
-				<div id="content-container" on-click="_contentObjectClick">
+				<div id="content-container" on-click="_contentObjectClick" tabindex="0">
 					<div id="title-container">
 						<template is="dom-if" if="[[hasIcon]]">
 							<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
 						</template>
 						<div class="d2l-activity-link-title">
-							<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)">
+							<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)" tabindex="-1">
 								[[entity.properties.title]]
 							</a>
 							<d2l-completion-requirement href="[[href]]" token="[[token]]">

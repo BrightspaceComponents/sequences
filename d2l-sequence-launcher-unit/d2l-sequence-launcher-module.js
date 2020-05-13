@@ -24,7 +24,8 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				--d2l-outer-module-text-color: var(--d2l-asv-text-color);
 			}
 
-			:focus {
+			d2l-labs-accordion-collapse:focus {
+				outline: none;
 				border: 2px solid var(--d2l-color-celestine);
 			}
 
@@ -104,9 +105,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 
 			d2l-icon {
 				color: var(--d2l-outer-module-text-color);
-			}
-			d2l-labs-accordion-collapse > a {
-				outline: none;
 			}
 
 			hr {
