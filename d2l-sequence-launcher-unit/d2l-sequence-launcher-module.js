@@ -149,16 +149,21 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 			}
 
 			@keyframes loadingShimmer {
-				0% { transform: translate3d(-100%, 0, 0); }
-				100% { transform: translate3d(100%, 0, 0); }
+				0% { background-color: var(--d2l-color-sylvite); }
+				50% { background-color: var(--d2l-color-regolith); }
+				75% { background-color: var(--d2l-color-sylvite); }
+				100% { background-color: var(--d2l-color-sylvite); }
 			}
-
-			@-webkit-keyframes loadingShimmer {
-				0% { -webkit-transform: translate3d(-100%, 0, 0); }
-				100% { -webkit-transform: translate3d(100%, 0, 0); }
+			@-webkit-keyframes webkitLoadingShimmer {
+				0% { background-color: var(--d2l-color-sylvite); }
+				50% { background-color: var(--d2l-color-regolith); }
+				75% { background-color: var(--d2l-color-sylvite); }
+				100% { background-color: var(--d2l-color-sylvite); }
 			}
 
 			.skeleton {
+				animation: loadingShimmer 1.8s ease-in-out infinite;
+				-webkit-animation: webkitLoadingShimmer 1.8s ease-in-out infinite;
 				display: none;
 				border-radius: 4px;
 				background-color: var(--d2l-color-sylvite);
@@ -168,19 +173,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 
 			:host([show-loading-skeleton]) .skeleton {
 				display: block;
-			}
-
-			:host([show-loading-skeleton]) .skeleton::after {
-				animation: loadingShimmer 1.8s ease-in-out infinite;
-				-webkit-animation: loadingShimmer 1.8s ease-in-out infinite;
-				background: linear-gradient(90deg, var(--d2l-color-sylvite), var(--d2l-color-regolith), var(--d2l-color-sylvite));
-				background-color: var(--d2l-color-sylvite);
-				content: '';
-				height: 100%;
-				left: 0;
-				position: absolute;
-				top: 0;
-				width: 100%;
 			}
 
 			#header-skeleton-container {
