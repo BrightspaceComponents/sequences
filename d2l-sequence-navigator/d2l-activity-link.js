@@ -130,35 +130,27 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			}
 
 			@keyframes loadingShimmer {
-				0% { transform: translate3d(-100%, 0, 0); }
-				100% { transform: translate3d(100%, 0, 0); }
+				0% { background-color: var(--d2l-color-sylvite); }
+				50% { background-color: var(--d2l-color-regolith); }
+				75% { background-color: var(--d2l-color-sylvite); }
+				100% { background-color: var(--d2l-color-sylvite); }
 			}
-
-			@-webkit-keyframes loadingShimmer {
-				0% { -webkit-transform: translate3d(-100%, 0, 0); }
-				100% { -webkit-transform: translate3d(100%, 0, 0); }
+			@-webkit-keyframes webkitLoadingShimmer {
+				0% { background-color: var(--d2l-color-sylvite); }
+				50% { background-color: var(--d2l-color-regolith); }
+				75% { background-color: var(--d2l-color-sylvite); }
+				100% { background-color: var(--d2l-color-sylvite); }
 			}
 
 			#skeleton {
+				animation: loadingShimmer 1.8s ease-in-out infinite;
+				-webkit-animation: webkitLoadingShimmer 1.8s ease-in-out infinite;
 				height: 24px;
 				width: 70%;
 				border-radius: 8px;
 				background-color: var(--d2l-color-sylvite);
 				overflow: hidden;
 				position: relative;
-			}
-
-			#skeleton::after {
-				animation: loadingShimmer 1.8s ease-in-out infinite;
-				-webkit-animation: loadingShimmer 1.8s ease-in-out infinite;
-				background: linear-gradient(90deg, var(--d2l-color-sylvite), var(--d2l-color-regolith), var(--d2l-color-sylvite));
-				background-color: var(--d2l-color-sylvite);
-				content: '';
-				height: 100%;
-				left: 0;
-				position: absolute;
-				top: 0;
-				width: 100%;
 			}
 		</style>
 		<div id="outer-container">
