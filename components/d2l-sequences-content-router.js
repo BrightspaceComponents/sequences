@@ -114,8 +114,8 @@ function getLinkEntityType(linkActivity) {
 	if (link && isLorPdf) {
 		return D2LSequencesContentFilePdf.is;
 	} else if (
-		(link && link.href.startsWith('https')) ||
-		(embedLink && embedLink.href.startsWith('https'))
+		(link && link.href.startsWith(window.location.protocol)) ||
+		(embedLink && embedLink.href.startsWith(window.location.protocol))
 	) {
 		return openInNewTab ? D2LSequencesContentLinkNewTab.is : D2LSequencesContentLink.is;
 	} else {
