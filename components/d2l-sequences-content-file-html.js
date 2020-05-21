@@ -16,7 +16,7 @@ export class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.Au
 			}
 		</style>
 		<div class="d2l-sequences-scroll-container">
-			<iframe id="content" frameborder="0" src$="[[_fileLocation]]" title$="[[title]]"></iframe>
+			<iframe id="content" frameborder="0" src$="[[_fileLocation]]" title$="[[title]]" allowfullscreen allow="microphone *; camera *; display-capture *; encrypted-media *;"></iframe>
 		</div>
 `;
 	}
