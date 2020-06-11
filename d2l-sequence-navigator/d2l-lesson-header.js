@@ -262,7 +262,7 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 			},
 			_completionProgress: {
 				type: String,
-				computed: '_getCompletionProgress(entity.properties, _moduleIndex, _siblingModules)'
+				computed: '_getCompletionProgress(entity.properties, _moduleProgress.properties, _moduleIndex, _siblingModules)'
 			},
 			_moduleProgress: {
 				type: Object
@@ -309,10 +309,16 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		return;
 	}
 
-	_getCompletionProgress(properties) {
-		return properties && properties.completionProgressLangTerm
-		|| this._moduleIndex && this._siblingModules && this.localize('sequenceNavigator.currentModule', 'current', this._moduleIndex, 'total', this._siblingModules)
-		|| '';
+	_getCompletionProgress(entityProperties, moduleProperties, _moduleIndex, _siblingModules) {
+		if (entityProperties && entityProperties.completionProgressLangTerm) {
+			return entityProperties.completionProgressLangTerm;
+		} else if (moduleProperties && moduleProperties.completionProgressLangTerm) {
+			return moduleProperties.completionProgressLangTerm;
+		} else if (_moduleIndex && _siblingModules) {
+			return this.localize('sequenceNavigator.currentModule', 'current', _moduleIndex, 'total', _siblingModules);
+		} else {
+			return '';
+		}
 	}
 
 	_checkCompletionProgress(completionProgress) {
