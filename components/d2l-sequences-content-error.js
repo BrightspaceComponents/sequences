@@ -2,7 +2,7 @@ import '../localize-behavior.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-class D2LSequencesContentError extends mixinBehaviors([
+export class D2LSequencesContentError extends mixinBehaviors([
 	D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 ], PolymerElement) {
 	static get template() {

@@ -1,4 +1,5 @@
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
+import { D2LSequencesContentError } from '../components/d2l-sequences-content-error';
 import '../components/d2l-sequences-content-error.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 import { TemplateStamp } from '@polymer/polymer/lib/mixins/template-stamp.js';
