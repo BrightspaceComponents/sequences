@@ -575,7 +575,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 	}
 
 	_onHeaderClicked() {
-		this._moduleWasExpanded = true;
+		this._moduleWasExpanded = !this._moduleWasExpanded;
 		if (!this._hideModuleDescription && this.isSidebar) {
 			this.currentActivity = this.entity.getLinkByRel('self').href;
 			this._contentObjectClick();
