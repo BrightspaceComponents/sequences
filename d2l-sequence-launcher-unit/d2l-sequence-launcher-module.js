@@ -439,7 +439,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 
 	static get observers() {
 		return [
-			'_getShowModuleChildren(_moduleStartOpen, accordionState)',
 			'_openModule(_moduleStartOpen)',
 			'_checkForEarlyLoadEvent(entity, subEntities, _moduleStartOpen)'
 		];
