@@ -279,7 +279,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 					<div id ="startDate">[[startDate]]</div>
 				</div>
 			</div>
-			<template is="dom-if" if="[[_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)]]">
+			<template is="dom-if" if="[[_getShowModuleChildren(_moduleStartOpen, accordionState)]]">
 				<div id="launch-module-container">
 					<template is="dom-if" if="[[_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]">
 						<div id="launch-module-skeleton" class="skeleton"></div>
@@ -396,10 +396,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 				type: Boolean,
 				computed: '_getModuleStartOpen(entity, subEntities, _lastViewedContentObjectEntity, _currentActivityEntity)'
 			},
-			_moduleWasExpanded: {
-				type: Boolean,
-				value: false
-			},
 			_childrenLoading: {
 				type: Boolean,
 				value: true
@@ -435,9 +431,15 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		};
 	}
 
+	ready() {
+		super.ready();
+		// Set the starting icon depending on the collapse state
+		this._updateCollapseStateAndIconName();
+	}
+
 	static get observers() {
 		return [
-			'_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded)',
+			'_getShowModuleChildren(_moduleStartOpen, accordionState)',
 			'_openModule(_moduleStartOpen)',
 			'_checkForEarlyLoadEvent(entity, subEntities, _moduleStartOpen)'
 		];
@@ -536,8 +538,6 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		if (!entity || (!_lastViewedContentObjectEntity && !_currentActivityEntity)) {
 			return false;
 		}
-		// Set the starting icon depending on the collapse state
-		this._updateCollapseStateAndIconName();
 
 		// FixMe: This is kind of gross. ideally we decouple all the isSidebar stuff into separate components
 		// If this is a sidebar, we use the currentActivity to detect if this should be open.
@@ -575,15 +575,17 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 	}
 
 	_onHeaderClicked() {
-		this._moduleWasExpanded = !this._moduleWasExpanded;
 		if (!this._hideModuleDescription && this.isSidebar) {
 			this.currentActivity = this.entity.getLinkByRel('self').href;
 			this._contentObjectClick();
 		}
 	}
 
-	_getShowModuleChildren(_moduleStartOpen, _moduleWasExpanded) {
-		return _moduleStartOpen || _moduleWasExpanded;
+	_getShowModuleChildren(_moduleStartOpen, accordionState) {
+		if (_moduleStartOpen || accordionState === 'open') {
+			return true;
+		}
+		return false;
 	}
 
 	childIsActiveEvent() {
