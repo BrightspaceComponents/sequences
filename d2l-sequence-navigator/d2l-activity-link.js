@@ -170,15 +170,15 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				<div id="skeleton" class="skeleton"></div>
 			</template>
 			<template is="dom-if" if="[[!showLoadingSkeleton]]">
-				<div id="content-container" on-click="_contentObjectClick" tabindex="0">
+				<div id="content-container" on-click="setCurrent" tabindex="0">
 					<div id="title-container">
 						<template is="dom-if" if="[[hasIcon]]">
 							<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
 						</template>
 						<div class="d2l-activity-link-title">
-							<a on-click="setCurrent" class$="[[completionRequirementClass]]" href="javascript:void(0)" tabindex="-1">
+							<div class$="[[completionRequirementClass]]" tabindex="-1">
 								[[entity.properties.title]]
-							</a>
+							</div>
 							<d2l-completion-requirement href="[[href]]" token="[[token]]">
 							</d2l-completion-requirement>
 						</div>
