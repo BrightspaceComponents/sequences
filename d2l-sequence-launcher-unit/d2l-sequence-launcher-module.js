@@ -581,10 +581,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 	}
 
 	_getShowModuleChildren(_moduleStartOpen, accordionState) {
-		if (_moduleStartOpen || accordionState === 'open') {
-			return true;
-		}
-		return false;
+		return _moduleStartOpen || accordionState === 'open';
 	}
 
 	childIsActiveEvent() {
