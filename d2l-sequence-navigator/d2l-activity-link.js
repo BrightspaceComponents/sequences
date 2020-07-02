@@ -176,9 +176,9 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 							<d2l-icon icon="[[_getIconSetKey(entity)]]"></d2l-icon>
 						</template>
 						<div class="d2l-activity-link-title">
-							<div class$="[[completionRequirementClass]]" tabindex="-1">
+							<a class$="[[completionRequirementClass]]" href="javascript:void(0)" tabindex="-1">
 								[[entity.properties.title]]
-							</div>
+							</a>
 							<d2l-completion-requirement href="[[href]]" token="[[token]]">
 							</d2l-completion-requirement>
 						</div>
