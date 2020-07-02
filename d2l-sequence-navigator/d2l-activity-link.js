@@ -178,7 +178,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 						<div class="d2l-activity-link-title">
 							<a class$="[[completionRequirementClass]]" href="javascript:void(0)" tabindex="-1">
 								[[entity.properties.title]]
-							</a>
+							</div>
 							<d2l-completion-requirement href="[[href]]" token="[[token]]">
 							</d2l-completion-requirement>
 						</div>
