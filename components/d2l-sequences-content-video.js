@@ -7,7 +7,7 @@ export class D2LSequencesContentVideo extends D2L.Polymer.Mixins.Sequences.Autom
 		<style>
 			d2l-video {
 				width: 100%;
-				height: calc(100% - 12px);
+				max-height: calc(100% - 12px);
 				overflow: hidden;
 			}
 		</style>
