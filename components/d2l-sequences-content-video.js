@@ -1,6 +1,6 @@
+import '@d2l/video/d2l-video.js';
 import '../mixins/d2l-sequences-automatic-completion-tracking-mixin.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import '@d2l/video/d2l-video.js';
 export class D2LSequencesContentVideo extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
 	static get template() {
 		return html`
