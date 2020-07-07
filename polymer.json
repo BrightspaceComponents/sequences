@@ -3,14 +3,24 @@
   "lint": {
     "rules": ["polymer-3"],
     "ignoreWarnings": [
+      "non-literal-import",
+      "not-loadable",
       "set-unknown-attribute",
-      "databind-with-unknown-property"
+      "databind-with-unknown-property",
+      "databinding-calls-must-be-functions",
+      "could-not-resolve-reference"
     ]
   },
+  "entrypoint": "d2l-sequence-viewer/d2l-sequence-viewer.js",
+  "shell": "d2l-sequence-viewer/d2l-sequence-viewer.js",
   "fragments": [
     "components/*.js",
     "d2l-sequence-navigator/*.js",
+    "d2l-sequence-viewer/*.js",
     "mixins/*.js",
     "localize-behavior.js"
+  ],
+  "sources": [
+    "locales.json"
   ]
 }

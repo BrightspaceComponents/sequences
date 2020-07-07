@@ -23,6 +23,10 @@ polymer analyze > analysis.json && polymer serve --open
 
 `d2l-sequence-navigator`'s demo is available at http://127.0.0.1:port/components/d2l-sequences/demo/d2l-sequence-navigator/
 
+`d2l-sequence-viewer`'s demo is available at http://127.0.0.1:port/components/d2l-sequences/demo/d2l-sequence-viewer/
+
+A demo with the new content alert enabled is available at this URL: [http://127.0.0.1:port/components/d2l-sequences/demo/d2l-sequence-viewer/with-alert.html](http://127.0.0.1:8081/components/d2l-sequences/demo/d2l-sequence-viewer/with-alert.html)
+
 ## Usage
 
 All of the d2l-sequences components require a `href` and a `token` parameter.
