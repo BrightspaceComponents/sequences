@@ -47,7 +47,6 @@ function AutomaticCompletionTrackingMixin() {
 
 		disconnectedCallback() {
 			super.disconnectedCallback();
-			this.finishCompletion();
 			window.removeEventListener('pagehide', this._finishCompletionCallback);
 			window.removeEventListener('visibilitychange', this._visibilityChangeCallback);
 			window.removeEventListener('beforeunload', this._finishCompletionCallback);
@@ -59,7 +58,6 @@ function AutomaticCompletionTrackingMixin() {
 
 		_entityUpdated() {
 			if (this.href !== this._previousHref) {
-				this.finishCompletion();
 				this.startCompletion();
 				this._previousHref = this.href;
 			}

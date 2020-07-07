@@ -72,11 +72,6 @@ export class D2LSequencesContentLinkNewTab extends D2L.Polymer.Mixins.Sequences.
 		};
 	}
 
-	disconnectedCallback() {
-		super.disconnectedCallback();
-		this.finishCompletion();
-	}
-
 	_scrollToTop() {
 		window.top.scrollTo(0, 0);
 	}

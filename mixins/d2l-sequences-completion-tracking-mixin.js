@@ -46,7 +46,10 @@ function CompletionTrackingMixin() {
 			}
 
 			this._performViewActions(this.entity, 'view-activity-duration')
-				.then(completion => this._completionEntity = completion)
+				.then(completion => {
+					this._completionEntity = completion;
+					this.finishCompletion();
+				})
 				.catch(entity => this._failedCompletion = entity);
 		}
 
