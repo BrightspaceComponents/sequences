@@ -13,9 +13,6 @@ function AutomaticCompletionTrackingMixin() {
 				_previousHref: {
 					type: String
 				},
-				_finishCompletionCallback: {
-					type: Function
-				},
 				_visibilityChangeCallback: {
 					type: Function
 				}
@@ -28,11 +25,8 @@ function AutomaticCompletionTrackingMixin() {
 
 		ready() {
 			super.ready();
-			this._finishCompletionCallback = this.finishCompletion.bind(this);
 			this._visibilityChangeCallback = function() {
-				if (document.visibilityState === 'hidden') {
-					this._finishCompletionCallback();
-				} else {
+				if (document.visibilityState !== 'hidden') {
 					this.startCompletion();
 				}
 			}.bind(this);
@@ -40,16 +34,12 @@ function AutomaticCompletionTrackingMixin() {
 
 		connectedCallback() {
 			super.connectedCallback();
-			window.addEventListener('pagehide', this._finishCompletionCallback);
 			window.addEventListener('visibilitychange', this._visibilityChangeCallback);
-			window.addEventListener('beforeunload', this._finishCompletionCallback);
 		}
 
 		disconnectedCallback() {
 			super.disconnectedCallback();
-			window.removeEventListener('pagehide', this._finishCompletionCallback);
 			window.removeEventListener('visibilitychange', this._visibilityChangeCallback);
-			window.removeEventListener('beforeunload', this._finishCompletionCallback);
 		}
 
 		_onHrefChanged(href, previousHref) {

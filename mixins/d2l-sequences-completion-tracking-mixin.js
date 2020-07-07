@@ -28,7 +28,20 @@ function CompletionTrackingMixin() {
 			};
 		}
 
-		finishCompletion() {
+		startCompletion() {
+			if (this._skipCompletion) {
+				return;
+			}
+
+			this._performViewActions(this.entity, 'view-activity-duration')
+				.then(completion => {
+					this._completionEntity = completion;
+					this._finishCompletion();
+				})
+				.catch(entity => this._failedCompletion = entity);
+		}
+
+		_finishCompletion() {
 			this._fireToastEvent();
 
 			if (!this._completionEntity || this._skipCompletion) {
@@ -38,19 +51,6 @@ function CompletionTrackingMixin() {
 			this._performViewActions(this._completionEntity, 'finish-view-activity')
 				.then(() => { this._completionEntity = null; })
 				.catch(() => { this._completionEntity = null; });
-		}
-
-		startCompletion() {
-			if (this._skipCompletion) {
-				return;
-			}
-
-			this._performViewActions(this.entity, 'view-activity-duration')
-				.then(completion => {
-					this._completionEntity = completion;
-					this.finishCompletion();
-				})
-				.catch(entity => this._failedCompletion = entity);
 		}
 
 		_performViewActions(entity, actionName) {
