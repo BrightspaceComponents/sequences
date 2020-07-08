@@ -41,33 +41,28 @@ function CompletionTrackingMixin() {
 				.catch(entity => this._failedCompletion = entity);
 		}
 
+		finishPreviousEntityCompletion(previousEntity) {
+			this._fireToastEvent();
+
+			if (!previousEntity || this._skipCompletion) {
+				return;
+			}
+
+			this._performViewActions(previousEntity, 'finish-view-activity')
+				.then(() => {})
+				.catch(() => {});
+		}
+
 		_finishCompletion() {
 			this._fireToastEvent();
 
-			if (!this._completionEntity || this._skipCompletion || !this._hasCompletionStatus(this._completionEntity)) {
+			if (!this._completionEntity || this._skipCompletion) {
 				return;
 			}
 
 			this._performViewActions(this._completionEntity, 'finish-view-activity')
 				.then(() => { this._completionEntity = null; })
 				.catch(() => { this._completionEntity = null; });
-		}
-
-		_hasCompletionStatus(activity) {
-			if (!activity) {
-				return false;
-			}
-			const subEntity = activity.getSubEntityByClass('link-activity') || activity.getSubEntityByClass('file-activity');
-			if (!subEntity) {
-				return false;
-			}
-			const completionClass = subEntity.getSubEntityByClass('completion');
-			if (!completionClass) {
-				false;
-			}
-			return completionClass.hasClass('completed')
-				? true
-				: false;
 		}
 
 		_performViewActions(entity, actionName) {

@@ -5,6 +5,7 @@ import '@brightspace-ui-labs/accordion/accordion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import 'siren-entity/siren-entity.js';
 import '../localize-behavior.js';
+import '../mixins/d2l-sequences-completion-tracking-mixin.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
@@ -15,6 +16,7 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 
 class D2LSequenceLauncherUnit extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
+	D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin,
 	D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 ],
 PolymerElement
@@ -122,8 +124,12 @@ PolymerElement
 			dataAsvCssVars: String,
 			href: {
 				type: String,
+				observer: '_onHrefChanged',
 				reflectToAttribute: true,
 				notify: true
+			},
+			_previousEntity: {
+				type: String
 			},
 			role: {
 				type: String
@@ -164,7 +170,8 @@ PolymerElement
 
 	static get observers() {
 		return [
-			'_checkForEarlyLoadEvent(entity, subEntities)'
+			'_checkForEarlyLoadEvent(entity, subEntities)',
+			'_onEntityChanged(entity)'
 		];
 	}
 
@@ -176,6 +183,16 @@ PolymerElement
 		this.updateStyles(
 			styles
 		);
+	}
+
+	_onHrefChanged(href, previousHref) {
+		if (previousHref && previousHref !== href && this._previousEntity) {
+			this.finishPreviousEntityCompletion(this._previousEntity);
+		}
+	}
+
+	_onEntityChanged(entity) {
+		this._previousEntity = entity;
 	}
 
 	_getRootHref(entity) {
