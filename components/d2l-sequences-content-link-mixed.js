@@ -55,6 +55,11 @@ export class D2LSequencesContentLinkMixed extends D2L.Polymer.Mixins.Sequences.C
 		};
 	}
 
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		this.startCompletion();
+	}
+
 	_scrollToTop() {
 		window.top.scrollTo(0, 0);
 	}
