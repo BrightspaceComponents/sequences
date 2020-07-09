@@ -94,7 +94,7 @@ describe('d2l-sequences-completion-tracking-mixin', () => {
 			sub: 175,
 			actualsub: 169
 		});
-		element.finishCompletion();
+		element._finishCompletion();
 
 		expect(performViewActions).not.to.have.been.called;
 	});
@@ -104,7 +104,7 @@ describe('d2l-sequences-completion-tracking-mixin', () => {
 
 		await SirenFixture('data/activity-completion-all.json', element);
 		element._completionEntity = element.entity;
-		element.finishCompletion();
+		element._finishCompletion();
 
 		expect(performSirenAction).to.have.been.calledWithMatch({
 			name: 'finish-view-activity',
