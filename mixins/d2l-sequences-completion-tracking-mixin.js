@@ -35,19 +35,25 @@ function CompletionTrackingMixin() {
 					this._completionEntity = completion;
 					this._finishCompletion();
 				})
-				.catch(entity => this._failedCompletion = entity);
+				.catch(() => {});
 		}
 
-		finishPreviousEntityCompletion(previousEntity) {
-			this._fireToastEvent(previousEntity);
-
+		startPreviousEntityCompletion(previousEntity) {
 			if (!previousEntity || this._skipCompletion) {
 				return;
 			}
-
-			this._performViewActions(previousEntity, 'finish-view-activity')
-				.then(() => {})
-				.catch(() => {});
+			// need timeout as items such as quizes, assignments, discussions etc
+			// will not appear complete if immediately fetching activity completion information
+			// after navigation to a new item
+			setTimeout(() => {
+				this._performViewActions(previousEntity, 'view-activity-duration')
+					.then(completion => {
+						this._completionEntity = completion;
+						this._fireToastEvent(completion);
+						this._finishCompletion();
+					})
+					.catch(() => {});
+			}, 3000);
 		}
 
 		_finishCompletion() {

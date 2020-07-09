@@ -178,7 +178,7 @@ class D2LSequenceLauncherUnit extends D2L.Polymer.Mixins.Sequences.CompletionTra
 
 	_onHrefChanged(href, previousHref) {
 		if (previousHref && previousHref !== href && this._previousEntity) {
-			this.finishPreviousEntityCompletion(this._previousEntity);
+			this.startPreviousEntityCompletion(this._previousEntity);
 		}
 	}
 
