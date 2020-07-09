@@ -26,7 +26,7 @@ function CompletionTrackingMixin() {
 		}
 
 		startCompletion() {
-			if (this._skipCompletion) {
+			if (!this.entity || this._skipCompletion || this._isComplete(this.entity)) {
 				return;
 			}
 
@@ -39,7 +39,7 @@ function CompletionTrackingMixin() {
 		}
 
 		startPreviousEntityCompletion(previousEntity) {
-			if (!previousEntity || this._skipCompletion) {
+			if (!previousEntity || this._skipCompletion  || this._isComplete(previousEntity)) {
 				return;
 			}
 			// need timeout as items such as quizes, assignments, discussions etc
@@ -52,7 +52,7 @@ function CompletionTrackingMixin() {
 						this._finishCompletion();
 					})
 					.catch(() => {});
-			}, 3000);
+			}, 6000);
 		}
 
 		_finishCompletion() {
@@ -96,6 +96,14 @@ function CompletionTrackingMixin() {
 			} catch (e) {
 				return false;
 			}
+		}
+
+		_isComplete(entity) {
+			const subEntity = entity.getSubEntityByClass('link-activity') || entity.getSubEntityByClass('file-activity');
+			if (!subEntity) {
+				return false;
+			}
+			return !!subEntity.getSubEntityByClass('completed');
 		}
 	};
 }
