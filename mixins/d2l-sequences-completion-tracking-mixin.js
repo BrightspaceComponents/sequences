@@ -34,8 +34,7 @@ function CompletionTrackingMixin() {
 				.then(completion => {
 					this._completionEntity = completion;
 					this._finishCompletion();
-				})
-				.catch(() => {});
+				});
 		}
 
 		startPreviousEntityCompletion(previousEntity) {
@@ -50,8 +49,7 @@ function CompletionTrackingMixin() {
 					.then(completion => {
 						this._completionEntity = completion;
 						this._finishCompletion();
-					})
-					.catch(() => {});
+					});
 			}, 6000);
 		}
 
@@ -61,8 +59,7 @@ function CompletionTrackingMixin() {
 			}
 
 			this._performViewActions(this._completionEntity, 'finish-view-activity')
-				.then(() => { this._completionEntity = null; })
-				.catch(() => { this._completionEntity = null; });
+				.then(() => { this._completionEntity = null; });
 		}
 
 		_performViewActions(entity, actionName) {
