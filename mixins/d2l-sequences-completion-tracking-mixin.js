@@ -49,7 +49,6 @@ function CompletionTrackingMixin() {
 				this._performViewActions(previousEntity, 'view-activity-duration')
 					.then(completion => {
 						this._completionEntity = completion;
-						this._fireToastEvent(completion);
 						this._finishCompletion();
 					})
 					.catch(() => {});
@@ -96,51 +95,6 @@ function CompletionTrackingMixin() {
 					jwt.actualsub !== jwt.sub;
 			} catch (e) {
 				return false;
-			}
-		}
-
-		_fireToastEvent(previousEntity) {
-			const activity = Maybe.of(previousEntity)
-				.map(e => e.getSubEntityByClass('activity'));
-
-			if (activity.isNothing()) {
-				return;
-			}
-
-			const incompleteClass = activity.map(
-				a => a.getSubEntityByClass('incomplete')
-			);
-
-			if (!incompleteClass) {
-				return;
-			}
-
-			const href = activity.chain(
-				a => a.getLinkByRel('about'),
-				a => a.href
-			).value;
-
-			if (!href) {
-				return;
-			}
-
-			const notifyActivityTypes = [
-				'dropbox',
-				'quiz',
-				'discuss'
-			];
-
-			if (notifyActivityTypes.some(t => href.includes(t))) {
-				const event = new CustomEvent('toast', {
-					detail: {
-						message: 'There was more to do in the last activity.',
-						name: previousEntity.properties.title,
-						url: previousEntity.getLinkByRel('self').href
-					},
-					bubbles: true,
-					composed: true,
-				});
-				window.dispatchEvent(event);
 			}
 		}
 	};
