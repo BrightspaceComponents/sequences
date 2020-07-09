@@ -18,9 +18,6 @@ function CompletionTrackingMixin() {
 				_completionEntity: {
 					type: Object
 				},
-				_failedCompletion: {
-					type: Object
-				},
 				_skipCompletion: {
 					type: Boolean,
 					computed: '_isImpersonating(token)'
@@ -42,7 +39,7 @@ function CompletionTrackingMixin() {
 		}
 
 		finishPreviousEntityCompletion(previousEntity) {
-			this._fireToastEvent();
+			this._fireToastEvent(previousEntity);
 
 			if (!previousEntity || this._skipCompletion) {
 				return;
@@ -54,8 +51,6 @@ function CompletionTrackingMixin() {
 		}
 
 		_finishCompletion() {
-			this._fireToastEvent();
-
 			if (!this._completionEntity || this._skipCompletion) {
 				return;
 			}
@@ -98,42 +93,19 @@ function CompletionTrackingMixin() {
 			}
 		}
 
-		_fireToastEvent() {
-			const activity = Maybe.of(this._failedCompletion)
+		_fireToastEvent(previousEntity) {
+			const activity = Maybe.of(previousEntity)
 				.map(e => e.getSubEntityByClass('activity'));
 
 			if (activity.isNothing()) {
-				this._failedCompletion = null;
 				return;
 			}
 
-			const complete = activity.map(
-				a => a.getSubEntityByClass('completed')
+			const incompleteClass = activity.map(
+				a => a.getSubEntityByClass('incomplete')
 			);
 
-			if (!complete.isNothing()) {
-				this._failedCompletion = null;
-				return;
-			}
-
-			// Due to the router / entity store, we may run this
-			// twice during initial load and we don't want to fire
-			// the toast event if we're just refreshing our own
-			// data.
-			const currentActivity = Maybe.of(this.entity)
-				.chain(
-					e => e.getSubEntityByClass('activity'),
-					a => a.getLinkByRel('about'),
-					p => p.href
-				);
-
-			const oldActivity = activity.chain(
-				a => a.getLinkByRel('about'),
-				p => p.href
-			);
-
-			if (currentActivity.value === oldActivity.value) {
-				this._failedCompletion = null;
+			if (!incompleteClass) {
 				return;
 			}
 
@@ -143,7 +115,6 @@ function CompletionTrackingMixin() {
 			).value;
 
 			if (!href) {
-				this._failedCompletion = null;
 				return;
 			}
 
@@ -157,15 +128,14 @@ function CompletionTrackingMixin() {
 				const event = new CustomEvent('toast', {
 					detail: {
 						message: 'There was more to do in the last activity.',
-						name: this._failedCompletion.properties.title,
-						url: this._failedCompletion.getLinkByRel('self').href
+						name: previousEntity.properties.title,
+						url: previousEntity.getLinkByRel('self').href
 					},
 					bubbles: true,
 					composed: true,
 				});
 				window.dispatchEvent(event);
 			}
-			this._failedCompletion = null;
 		}
 	};
 }

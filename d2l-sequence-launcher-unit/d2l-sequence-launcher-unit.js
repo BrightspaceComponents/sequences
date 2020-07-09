@@ -1,26 +1,17 @@
 import '@polymer/polymer/polymer-legacy.js';
-import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import './d2l-sequence-launcher-module.js';
 import '@brightspace-ui-labs/accordion/accordion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import 'siren-entity/siren-entity.js';
-import '../localize-behavior.js';
 import '../mixins/d2l-sequences-completion-tracking-mixin.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+
 /*
 @memberOf D2L.Polymer.Mixins;
 @mixes SirenEntityMixin
 */
 
-class D2LSequenceLauncherUnit extends mixinBehaviors([
-	D2L.PolymerBehaviors.Siren.EntityBehavior,
-	D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin,
-	D2L.PolymerBehaviors.Sequences.LocalizeBehavior
-],
-PolymerElement
-) {
+class D2LSequenceLauncherUnit extends D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin() {
 	static get template() {
 		return html`
 		<style>
