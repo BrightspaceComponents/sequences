@@ -1,0 +1,163 @@
+{
+	"class": [
+		"sequenced-activity"
+	],
+	"properties": {
+		"title": "Zombies 2"
+	},
+	"entities": [
+		{
+			"class": [
+				"icon",
+				"tier1"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier1:link",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier1/link.svg"
+			}
+		},
+		{
+			"class": [
+				"icon",
+				"tier2"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier2:link",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier2/link.svg"
+			}
+		},
+		{
+			"class": [
+				"activity",
+				"link-activity",
+				"link-plain",
+				"external"
+			],
+			"rel": [
+				"about",
+				"item"
+			],
+			"properties": {
+				"title": "Zombies"
+			},
+			"entities": [
+				{
+					"class": [
+						"completion",
+						"completed"
+					],
+					"rel": [
+						"item",
+						"https://api.brightspace.com/rels/completion"
+					],
+					"entities": [
+						{
+							"class": [
+								"auto",
+								"completion",
+								"date"
+							],
+							"rel": [
+								"item"
+							],
+							"properties": {
+								"date": "2018-10-19T14:16:04.623Z"
+							}
+						}
+					],
+					"links": [
+						{
+							"rel": [
+								"alternate"
+							],
+							"href": "https://ec84945a-cf39-4cfc-9ab6-19dba507e735.sequences.api.dev.brightspace.com/123187/activity/104499/completion"
+						}
+					]
+				}
+			],
+			"actions": [
+			],
+			"links": [
+				{
+					"rel": [
+						"about"
+					],
+					"href": "http://hdl.handle.net/10214/5312"
+				},
+				{
+					"class": [
+						"view"
+					],
+					"rel": [
+						"alternate"
+					],
+					"href": "https://qa108813649g.bspc.com/d2l/le/content/123187/viewContent/104499/View"
+				}
+			]
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"describes"
+			],
+			"href": "data/l1-m2-activity2.json"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "data/sample2.json"
+		},
+		{
+			"rel": [
+				"prev"
+			],
+			"href": "data/l1-m2-activity1.json"
+		},
+		{
+			"rel": [
+				"next"
+			],
+			"href": "data/l1-m2-activity3.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/prev-activity"
+			],
+			"href": "data/l1-m2-activity1.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/next-activity"
+			],
+			"href": "data/l1-m2-activity3.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/sequence-root"
+			],
+			"href": "data/unit1.json"
+		},
+		{
+			"rel": [
+				"up"
+			],
+			"href": "data/l1-module2.json"
+		},
+		{
+			"rel": ["https://sequences.api.brightspace.com/rels/default-return-url"],
+			"href":"http://google.ca"
+		}
+	],
+	"rel": [
+		"https://sequences.api.brightspace.com/rels/sequence-root"
+	]
+}

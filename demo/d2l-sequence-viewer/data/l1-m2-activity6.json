@@ -1,0 +1,201 @@
+{
+	"class": [
+		"sequenced-activity"
+	],
+	"properties": {
+		"title": "test"
+	},
+	"entities": [
+		{
+			"class": [
+				"icon",
+				"tier1"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier1:file-document",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier1/file-document.svg"
+			}
+		},
+		{
+			"class": [
+				"icon",
+				"tier2"
+			],
+			"rel": [
+				"icon"
+			],
+			"properties": {
+				"iconSetKey": "d2l-tier2:file-document",
+				"imagePath": "https://s.brightspace.com/lib/bsi/10.8.8-daylight.5/images/tier2/file-document.svg"
+			}
+		},
+		{
+			"class": [
+				"activity",
+				"file-activity"
+			],
+			"rel": [
+				"about"
+			],
+			"properties": {
+				"name": "test.pdf",
+				"title": "test.pdf"
+			},
+			"entities": [
+				{
+					"class": [
+						"file"
+					],
+					"rel": [
+						"about"
+					],
+					"properties": {
+						"name": "test.pdf",
+						"title": "test.pdf",
+						"type": "application/pdf"
+					},
+					"entities": [
+						{
+							"class": [
+								"last-modified",
+								"date"
+							],
+							"rel": [
+								"item"
+							],
+							"properties": {
+								"date": "2016-05-06T00:08:10.310Z"
+							}
+						}
+					],
+					"links": [
+						{
+							"rel": [
+								"alternate"
+							],
+							"type": "application/pdf",
+							"href": "https://qa108813649g.bspc.com/d2l/api/le/1.12/123187/content/topics/104495/file?stream=true"
+						},
+						{
+							"rel": [
+								"alternate"
+							],
+							"class": [
+								"embed"
+							],
+							"type": "application/pdf",
+							"href": "https://pdfjs-dist-modules-test.s3.us-east-2.amazonaws.com/annual_report_2009.pdf"
+						},
+						{
+							"class": [
+								"view"
+							],
+							"rel": [
+								"alternate"
+							],
+							"type": "application/pdf",
+							"href": "https://qa108813649g.bspc.com/d2l/le/content/123187/viewContent/104495/View"
+						},
+						{
+							"class": [
+								"download"
+							],
+							"rel": [
+								"alternate"
+							],
+							"type": "application/pdf",
+							"href": "https://qa108813649g.bspc.com/d2l/api/le/1.12/123187/content/topics/104495/file?stream=false"
+						}
+					]
+				},
+				{
+					"class": [
+						"completion",
+						"incomplete"
+					],
+					"rel": [
+						"item",
+						"https://api.brightspace.com/rels/completion"
+					],
+					"links": [
+						{
+							"rel": [
+								"alternate"
+							],
+							"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104495/completion"
+						}
+					]
+				}
+			],
+			"actions": [
+				{
+					"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104495/view",
+					"name": "view-activity",
+					"method": "POST"
+				},
+				{
+					"href": "https://b6aed422-b9f9-41dd-a542-59895e558b60.sequences.api.dev.brightspace.com/123187/activity/104495/view",
+					"name": "view-activity-duration",
+					"method": "PUT"
+				}
+			]
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"describes"
+			],
+			"href": "data/l1-m2-activity6.json"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "data/sample2.json"
+		},
+		{
+			"rel": [
+				"prev"
+			],
+			"href": "data/l1-m2-activity5.json"
+		},
+		{
+			"rel": [
+				"next"
+			],
+			"href": "data/l1-m2-activity7.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/prev-activity"
+			],
+			"href": "data/l1-m2-activity5.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/next-activity"
+			],
+			"href": "data/l1-m2-activity7.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/sequence-root"
+			],
+			"href": "data/unit1.json"
+		},
+		{
+			"rel": [
+				"up"
+			],
+			"href": "data/l1-module2.json"
+		}
+	],
+	"rel": [
+		"https://sequences.api.brightspace.com/rels/sequence-root"
+	]
+}

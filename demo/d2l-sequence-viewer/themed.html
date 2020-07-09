@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en-us" data-lang-default="en-us" data-intl-overrides="{&quot;number&quot;:{&quot;patterns&quot;:{&quot;decimal&quot;:{&quot;negativePattern&quot;:&quot;-{number}&quot;},&quot;percent&quot;:{&quot;positivePattern&quot;:&quot;{number} %&quot;,&quot;negativePattern&quot;:&quot;-{number} %&quot;}},&quot;symbols&quot;:{&quot;decimal&quot;:&quot;.&quot;,&quot;group&quot;:&quot;,&quot;,&quot;negative&quot;:&quot;-&quot;,&quot;percent&quot;:&quot;%&quot;},&quot;groupSize&quot;:[3]},&quot;date&quot;:{&quot;hour24&quot;:false,&quot;calendar&quot;:{&quot;firstDayOfWeek&quot;:0,&quot;dayPeriods&quot;:{&quot;am&quot;:&quot;AM&quot;,&quot;pm&quot;:&quot;PM&quot;},&quot;months&quot;:{&quot;short&quot;:[&quot;Jan&quot;,&quot;Feb&quot;,&quot;Mar&quot;,&quot;Apr&quot;,&quot;May&quot;,&quot;Jun&quot;,&quot;Jul&quot;,&quot;Aug&quot;,&quot;Sep&quot;,&quot;Oct&quot;,&quot;Nov&quot;,&quot;Dec&quot;,&quot;&quot;],&quot;long&quot;:[&quot;January&quot;,&quot;February&quot;,&quot;March&quot;,&quot;April&quot;,&quot;May&quot;,&quot;June&quot;,&quot;July&quot;,&quot;August&quot;,&quot;September&quot;,&quot;October&quot;,&quot;November&quot;,&quot;December&quot;,&quot;&quot;]},&quot;days&quot;:{&quot;short&quot;:[&quot;Sun&quot;,&quot;Mon&quot;,&quot;Tue&quot;,&quot;Wed&quot;,&quot;Thu&quot;,&quot;Fri&quot;,&quot;Sat&quot;]}},&quot;formats&quot;:{&quot;dateFormats&quot;:{&quot;short&quot;:&quot;M/d/yyyy&quot;},&quot;timeFormats&quot;:{&quot;short&quot;:&quot;h:mm tt&quot;,&quot;medium&quot;:&quot;h:mm tt&quot;,&quot;full&quot;:&quot;h:mm tt ZZZ&quot;}}}}" data-timezone="{&quot;name&quot;:&quot;Canada - Toronto&quot;,&quot;identifier&quot;:&quot;America/Toronto&quot;}" data-app-version="10.8.9" dir="ltr" data-css-vars="{&quot;--d2l-branding-primary-color&quot;:&quot;#d5a6bd&quot;}" data-asv-css-vars="{&quot;--d2l-asv-primary-color&quot;:&quot;#cc0000&quot;,&quot;--d2l-asv-accent-color&quot;:&quot;#d5a6bd&quot;,&quot;--d2l-asv-text-color&quot;:&quot;var(--d2l-color-ferrite)&quot;,&quot;--d2l-asv-selected-text-color&quot;:&quot;var(--d2l-color-white)&quot;,&quot;--d2l-asv-hover-color&quot;:&quot;rgba(204, 0, 0, 0.18)&quot;,&quot;--d2l-asv-border-color&quot;:&quot;transparent&quot;}" style="font-size:20px; font-family: 'Lato', sans-serif;">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-sequence-viewer demo</title>
+		<script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script type="module" src="../../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+		<script type="module" src="../../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+		<script type="module" src="../../../d2l-typography/d2l-typography.js"></script>
+		<script type="module" src="../../d2l-sequence-viewer/d2l-sequence-viewer.js"></script>
+		<style>
+
+			body {
+				margin: 0px;
+			}
+		</style>
+	</head>
+	<body class="d2l-typography">
+		<d2l-sequence-viewer
+			return-url="http://google.ca"
+			current-activity="data/l1-m2-activity2.json"
+			href="data/l1-m2-activity2.json"
+			token="foozleberries">
+		</d2l-sequence-viewer>
+	</body>
+</html>

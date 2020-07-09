@@ -1,0 +1,125 @@
+{
+	"class": [
+		"sequence",
+		"sequence-description"
+	],
+	"properties": {
+		"title": "Introduction and Module One Pretest with Very Very Very Very Very Very Very Long Name",
+		"description": "<p>Wot I thinkl</p>"
+	},
+	"entities": [
+		{
+			"class": [
+				"sequenced-activity",
+				"available"
+			],
+			"rel": [
+				"self",
+				"https://api.brightspace.com/rels/sequenced-activity"
+			],
+			"href": "data/l1-m1-activity1.json"
+		},
+		{
+			"class": [
+				"sequenced-activity",
+				"available"
+			],
+			"rel": [
+				"self",
+				"https://api.brightspace.com/rels/sequenced-activity"
+			],
+			"href": "data/l1-m1-activity2.json"
+		},
+		{
+			"class": [
+				"sequenced-activity",
+				"available"
+			],
+			"rel": [
+				"self",
+				"https://api.brightspace.com/rels/sequenced-activity"
+			],
+			"href": "data/l1-m1-activity3.json"
+		},
+		{
+			"class": [
+				"sequenced-activity",
+				"available"
+			],
+			"rel": [
+				"self",
+				"https://api.brightspace.com/rels/sequenced-activity"
+			],
+			"href": "data/l1-m1-activity4.json"
+		},
+		{
+			"class": [
+				"sequenced-activity",
+				"available"
+			],
+			"rel": [
+				"self",
+				"https://api.brightspace.com/rels/sequenced-activity"
+			],
+			"href": "data/l1-m1-activity5.json"
+		},
+		{
+			"class": [
+				"completion",
+				"incomplete"
+			],
+			"rel": [
+				"item",
+				"https://api.brightspace.com/rels/completion"
+			],
+			"properties": {
+				"completed": 1,
+				"total": 3,
+				"optionalViewed": 0,
+				"optionalTotal": 1
+			}
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"describes"
+			],
+			"href": "data/l1-module1.json"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "data/sample2.json"
+		},
+		{
+			"rel": [
+				"next"
+			],
+			"href": "data/l1-module2.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/next-activity"
+			],
+			"href": "data/l1-m1-activity1.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/sequence-root"
+			],
+			"href": "data/unit1.json"
+		},
+		{
+			"rel": [
+				"up"
+			],
+			"href": "data/lesson1.json"
+		}
+	],
+	"rel": [
+		"https://sequences.api.brightspace.com/rels/sequence-root"
+	]
+}

@@ -1,0 +1,104 @@
+{
+	"class": [
+		"sequence",
+		"sequence-description"
+	],
+	"properties": {
+		"title": "Lesson 2",
+		"description": "<p>11111</p><p>22222</p><p>333333</p><p>44444</p><p>555555</p><p>6666666</p><p>777777</p><p>88888888</p><p>9999999</p><p>0000000000</p><p>11111</p><p>22222</p><p>333333</p><p>44444</p><p>555555</p><p>6666666</p><p>777777</p><p>88888888</p><p>9999999</p><p>0000000000</p>"
+	},
+	"entities": [
+		{
+			"class": [
+				"sequence",
+				"sequence-description"
+			],
+			"rel": [
+				"self",
+				"https://api.brightspace.com/rels/sequence-description"
+			],
+			"href": "data/l2-module1.json"
+		},
+		{
+			"class": [
+				"sequence",
+				"sequence-description"
+			],
+			"rel": [
+				"self",
+				"https://api.brightspace.com/rels/sequence-description"
+			],
+			"href": "data/l2-module2.json"
+		},
+		{
+			"class": [
+				"completion",
+				"incomplete"
+			],
+			"rel": [
+				"item",
+				"https://api.brightspace.com/rels/completion"
+			],
+			"properties": {
+				"completed": 0,
+				"total": 1,
+				"optionalViewed": 0,
+				"optionalTotal": 0
+			}
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self",
+				"describes"
+			],
+			"href": "data/lesson2.json"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "data/sample2.json"
+		},
+		{
+			"rel": [
+				"prev"
+			],
+			"href": "data/lesson1.json"
+		},
+		{
+			"rel": [
+				"next"
+			],
+			"href": "data/lesson3.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/prev-activity"
+			],
+			"href": "data/l1-l2-activity8.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/next-activity"
+			],
+			"href": "data/l2-m1-activity1.json"
+		},
+		{
+			"rel": [
+				"https://sequences.api.brightspace.com/rels/sequence-root"
+			],
+			"href": "data/unit1.json"
+		},
+		{
+			"rel": [
+				"up"
+			],
+			"href": "data/unit1.json"
+		}
+	],
+	"rel": [
+		"https://sequences.api.brightspace.com/rels/sequence-root"
+	]
+}
