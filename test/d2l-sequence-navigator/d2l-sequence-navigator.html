@@ -66,7 +66,7 @@ describe('d2l-sequence-navigator for the root', () => {
 		});
 
 		// for some reason, eslint doesn't like async arrow functions?
-		it('should filter out unavailable activities', async () => { // eslint-disable-line
+		it('should filter out unavailable activities', async() => { // eslint-disable-line
 			// this test will be extremely flaky if we're waiting on data/unit3.json to load
 			await delay(250);
 			const activityList = element.shadowRoot.querySelector('ol').querySelectorAll('li');

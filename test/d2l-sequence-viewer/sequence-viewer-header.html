@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-sequence-viewer test</title>
+		<script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script src="../../../wct-browser-legacy/browser.js"></script>
+		<script src="../../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
+		<script type="module" src="../../d2l-sequence-viewer/d2l-sequence-viewer.js"></script>
+		<script src="../../node_modules/chai-dom/chai-dom.js"></script>
+		<script src="../../node_modules/chai-spies/chai-spies.js"></script>
+	</head>
+	<body>
+		<test-fixture id="basic">
+			<template>
+				<d2l-sequence-viewer-header \
+				token="mock-token"
+				href="data/unit1.json"
+				>
+				</d2l-sequence-viewer-header>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="singleTopicView">
+			<template>
+				<d2l-sequence-viewer-header
+					token="mock-token"
+					is-single-topic-view="true"
+				>
+				</d2l-sequence-viewer-header>
+				</d2l-sequence-viewer>
+			</template>
+		</test-fixture>
+
+		<script type="module">
+			import '../../d2l-sequence-viewer/sequence-viewer-header.js';
+			import TelemetryHelper from '../../helpers/telemetry-helper';
+			/* global chai */
+			// TODO: This test suite is missing a lot of test cases.
+			// The previous tests that existed were all false positives.
+
+			describe('sequence-viewer-header', () => {
+
+				let elem;
+
+				beforeEach(() => {
+					chai.spy.on(TelemetryHelper.prototype, 'logTelemetryEvent');
+				});
+
+				afterEach(() => {
+					chai.spy.restore();
+				});
+
+				describe('render', () => {
+					beforeEach(async() => {
+						elem = await fixture('basic');
+					});
+
+					it('should instantiate the element with the correct attributes', () => {
+						expect(elem).to.exist;
+						expect(elem).to.have.attribute('href', 'data/unit1.json');
+						expect(elem).to.have.attribute('token', 'mock-token');
+					});
+				});
+
+				describe('the previous nav button', () => {
+
+					let prevButton;
+
+					describe('on click', () => {
+						beforeEach(async() => {
+							elem = await fixture('basic');
+							prevButton = elem.shadowRoot.querySelector('.prev-button');
+						});
+
+						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
+							prevButton.click();
+
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called.with('prev-nav-button');
+						});
+					});
+				});
+
+				describe('the next nav button', () => {
+
+					let nextButton;
+
+					describe('on click', () => {
+						beforeEach(async() => {
+							elem = await fixture('basic');
+							nextButton = elem.shadowRoot.querySelector('.next-button');
+						});
+
+						it('should call TelemetryHelper.logTelemetryEvent with correct params', () => {
+							nextButton.click();
+
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called();
+							expect(TelemetryHelper.prototype.logTelemetryEvent).to.have.been.called.with('next-nav-button');
+						});
+					});
+				});
+			});
+
+			describe('sequence-viewer-header in singleTopicView', () => {
+				let elem;
+
+				beforeEach(async() => {
+					elem = await fixture('singleTopicView');
+				});
+
+				it('should hide the previous button', (done) => {
+					flush(() => {
+						const previousButton = elem.shadowRoot.querySelector('d2l-sequences-iterator.prev-button');
+						expect(previousButton).to.be.null;
+						done();
+					});
+				});
+
+				it('should hide the next button', (done) =>{
+					flush(() => {
+						const nextButton = elem.shadowRoot.querySelector('d2l-sequences-iterator.next-button');
+						expect(nextButton).to.be.null;
+						done();
+					});
+				});
+
+				it('should hide the burger menu', (done)=> {
+					flush(() => {
+						const burger = elem.shadowRoot.querySelector('d2l-icon.flyout-divider.hidden-small');
+						expect(burger).to.be.null;
+						done();
+					});
+				});
+			});
+		</script>
+	</body>
+</html>
