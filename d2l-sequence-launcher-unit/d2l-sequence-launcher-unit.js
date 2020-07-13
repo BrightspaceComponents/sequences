@@ -119,9 +119,6 @@ class D2LSequenceLauncherUnit extends D2L.Polymer.Mixins.Sequences.CompletionTra
 				reflectToAttribute: true,
 				notify: true
 			},
-			_previousEntity: {
-				type: String
-			},
 			role: {
 				type: String
 			},
@@ -161,8 +158,7 @@ class D2LSequenceLauncherUnit extends D2L.Polymer.Mixins.Sequences.CompletionTra
 
 	static get observers() {
 		return [
-			'_checkForEarlyLoadEvent(entity, subEntities)',
-			'_onEntityChanged(entity)'
+			'_checkForEarlyLoadEvent(entity, subEntities)'
 		];
 	}
 
@@ -177,13 +173,9 @@ class D2LSequenceLauncherUnit extends D2L.Polymer.Mixins.Sequences.CompletionTra
 	}
 
 	_onHrefChanged(href, previousHref) {
-		if (previousHref && previousHref !== href && this._previousEntity) {
-			this.startPreviousEntityCompletion(this._previousEntity);
+		if (previousHref && previousHref !== href && this.entity) {
+			this.startPreviousEntityCompletion(this.entity);
 		}
-	}
-
-	_onEntityChanged(entity) {
-		this._previousEntity = entity;
 	}
 
 	_getRootHref(entity) {
