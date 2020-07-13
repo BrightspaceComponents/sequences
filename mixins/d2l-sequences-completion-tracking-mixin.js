@@ -41,7 +41,7 @@ function CompletionTrackingMixin() {
 		}
 
 		startPreviousEntityCompletion(previousEntity) {
-			if (!previousEntity || this._skipCompletion  || this._isComplete(previousEntity)) {
+			if (!previousEntity || this._skipCompletion) {
 				return;
 			}
 			// need timeout as items such as quizes, assignments, discussions etc
