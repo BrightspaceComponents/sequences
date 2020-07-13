@@ -5,6 +5,9 @@ import '../localize-behavior.js';
 import { Maybe } from '../maybe.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+
+const COMPLETION_TRACKING_DELAY = 6000;
+
 function CompletionTrackingMixin() {
 	return class extends mixinBehaviors([
 		D2L.PolymerBehaviors.Siren.EntityBehavior,
@@ -50,7 +53,7 @@ function CompletionTrackingMixin() {
 						this._completionEntity = completion;
 						this._finishCompletion();
 					});
-			}, 6000);
+			}, COMPLETION_TRACKING_DELAY);
 		}
 
 		_finishCompletion() {
