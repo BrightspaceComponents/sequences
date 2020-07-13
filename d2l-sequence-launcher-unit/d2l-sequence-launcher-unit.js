@@ -173,6 +173,8 @@ class D2LSequenceLauncherUnit extends D2L.Polymer.Mixins.Sequences.CompletionTra
 	}
 
 	_onHrefChanged(href, previousHref) {
+		// this.entity is the previous entity on href change
+		// since it has not been updated at this point
 		if (previousHref && previousHref !== href && this.entity) {
 			this.startPreviousEntityCompletion(this.entity);
 		}
