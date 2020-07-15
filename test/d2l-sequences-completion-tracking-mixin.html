@@ -99,18 +99,6 @@ describe('d2l-sequences-completion-tracking-mixin', () => {
 		expect(performViewActions).not.to.have.been.called;
 	});
 
-	it('finishCompletion must perform siren action: finish-view-activity', async() => {
-		const performSirenAction = sinon.spy(element, 'performSirenAction');
-
-		await SirenFixture('data/activity-completion-all.json', element);
-		element._completionEntity = element.entity;
-		element.finishCompletion();
-
-		expect(performSirenAction).to.have.been.calledWithMatch({
-			name: 'finish-view-activity',
-		});
-	});
-
 	function createFakeToken(jwt) {
 		const b64 = btoa(JSON.stringify(jwt));
 		const payload = b64
