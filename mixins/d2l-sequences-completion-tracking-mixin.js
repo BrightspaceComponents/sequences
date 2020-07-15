@@ -34,7 +34,8 @@ function CompletionTrackingMixin() {
 			}
 
 			setTimeout(() => {
-				this._performViewActions(this._completionEntity, 'finish-view-activity');
+				this._performViewActions(this._completionEntity, 'finish-view-activity')
+					.then(() => { this._completionEntity = null; });
 			}, FINISH_COMPLETION_DELAY);
 		}
 
