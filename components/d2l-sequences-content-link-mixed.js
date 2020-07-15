@@ -1,5 +1,5 @@
 import '@brightspace-ui/core/components/button/button.js';
-import '../mixins/d2l-sequences-automatic-completion-tracking-mixin.js';
+import '../mixins/d2l-sequences-completion-tracking-mixin.js';
 import './d2l-sequences-content-link.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { D2LSequencesContentLink } from './d2l-sequences-content-link.js';
@@ -7,7 +7,7 @@ import { D2LSequencesContentLink } from './d2l-sequences-content-link.js';
 	@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 */
 
-export class D2LSequencesContentLinkMixed extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
+export class D2LSequencesContentLinkMixed extends D2L.Polymer.Mixins.Sequences.CompletionTrackingMixin() {
 	static get template() {
 		return html`
 		<style>
@@ -55,6 +55,11 @@ export class D2LSequencesContentLinkMixed extends D2L.Polymer.Mixins.Sequences.A
 		};
 	}
 
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		this.finishCompletion();
+	}
+
 	_scrollToTop() {
 		window.top.scrollTo(0, 0);
 	}
@@ -73,6 +78,8 @@ export class D2LSequencesContentLinkMixed extends D2L.Polymer.Mixins.Sequences.A
 		if (!location) {
 			return;
 		}
+
+		this.startCompletion();
 		return window.open(location);
 	}
 }
