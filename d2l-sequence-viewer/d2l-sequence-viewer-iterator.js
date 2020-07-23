@@ -137,11 +137,9 @@ export class D2LSequenceViewerIterator extends mixinBehaviors([
 			// this.currentActivity = this.link.href;
 			// this.dispatchEvent(new CustomEvent('iterate', { composed: true, bubbles: true }));
 
-
 			// go fetch the current activity again first
-			
 			const currentActivityRefetch = await window.D2L.Siren.EntityStore.fetch(this.currentActivity, this.token, true);
-			
+
 			if (currentActivityRefetch && currentActivityRefetch.entity && currentActivityRefetch.entity.properties) {
 				const actualNextActivity = this._getNextActivityHref(currentActivityRefetch.entity);
 				const actualPreviousActivity = this._getPreviousActivityHref(currentActivityRefetch.entity);
