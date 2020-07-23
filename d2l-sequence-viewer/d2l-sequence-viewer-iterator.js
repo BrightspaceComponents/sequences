@@ -123,7 +123,7 @@ export class D2LSequenceViewerIterator extends mixinBehaviors([
 			return 'iterateToPrevious';
 		}
 	}
-	_onClick() {
+	async _onClick() {
 		if (this._isMultiPageNavigation()) {
 			const multiPageEvent = new CustomEvent('d2l-sequence-viewer-multipage-navigation', {
 				detail: this._getMultiPageAction()
@@ -133,10 +133,42 @@ export class D2LSequenceViewerIterator extends mixinBehaviors([
 		}
 
 		if (this.link && this.link.href) {
-			this.currentActivity = this.link.href;
+			//Original code (TODO[PB]: Delete before merging)
+			// this.currentActivity = this.link.href;
+			// this.dispatchEvent(new CustomEvent('iterate', { composed: true, bubbles: true }));
+
+
+			// go fetch the current activity again first
+			
+			const currentActivityRefetch = await window.D2L.Siren.EntityStore.fetch(this.currentActivity, this.token, true);
+			
+			if (currentActivityRefetch && currentActivityRefetch.entity && currentActivityRefetch.entity.properties) {
+				const actualNextActivity = this._getNextActivityHref(currentActivityRefetch.entity);
+				const actualPreviousActivity = this._getPreviousActivityHref(currentActivityRefetch.entity);
+
+				if (this.next && actualNextActivity) {
+					this.currentActivity = actualNextActivity;
+				}
+				else if (this.previous && actualPreviousActivity) {
+					this.currentActivity = actualPreviousActivity;
+				}
+			}
+
 			this.dispatchEvent(new CustomEvent('iterate', { composed: true, bubbles: true }));
+
 		}
 	}
+
+	_getNextActivityHref(entity) {
+		const nextActivityHref = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/next-activity') || '';
+		return nextActivityHref.href || null;
+	}
+
+	_getPreviousActivityHref(entity) {
+		const previousActivityHref = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/previous-activity') || '';
+		return previousActivityHref.href || null;
+	}
+
 	_setLink(entity) {
 
 		if (!entity) {
