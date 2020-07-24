@@ -61,7 +61,7 @@ function RouterMixin(getEntityType) {
 			getEntityType = getEntityType.bind(this);
 			this._debouncer = Debouncer.debounce(
 				this._debouncer,
-				timeOut.after(20),
+				timeOut.after(2000),
 				() => {
 					const entityType = error
 						? D2LSequencesContentError.is
