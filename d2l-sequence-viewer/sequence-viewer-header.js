@@ -197,10 +197,7 @@ PolymerElement) {
 	}
 
 	_getAugmentedReleaseConditionStatus(entity) {
-		if (entity && entity.hasClass('release-condition-fix')) {
-			return true;
-		}
-		return false;
+		return !!(entity && entity.hasClass('release-condition-fix'));
 	}
 	_getNextActivityHref(entity) {
 		const nextActivityHref = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/next-activity') || '';

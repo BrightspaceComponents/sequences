@@ -176,18 +176,18 @@ export class D2LSequenceViewerIterator extends mixinBehaviors([
 	}
 
 	_getUpHref(entity) {
-		const nextActivityHref = entity && entity.getLinkByRel('up') || '';
-		return nextActivityHref.href || null;
+		const upLink = entity && entity.getLinkByRel('up') || '';
+		return upLink.href || null;
 	}
 
 	_getNextActivityHref(entity) {
-		const nextActivityHref = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/next-activity') || '';
-		return nextActivityHref.href || null;
+		const nextActivityLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/next-activity') || '';
+		return nextActivityLink.href || null;
 	}
 
 	_getPreviousActivityHref(entity) {
-		const previousActivityHref = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/previous-activity') || '';
-		return previousActivityHref.href || null;
+		const previousActivityLink = entity && entity.getLinkByRel('https://sequences.api.brightspace.com/rels/previous-activity') || '';
+		return previousActivityLink.href || null;
 	}
 
 	_setLink(entity) {
