@@ -197,7 +197,7 @@ PolymerElement) {
 	}
 
 	_getAugmentedReleaseConditionStatus(entity) {
-		if (entity && entity.hasClass('release-condition-fix') ){
+		if (entity && entity.hasClass('release-condition-fix')) {
 			return true;
 		}
 		return false;

@@ -60,7 +60,7 @@ function RouterMixin(getEntityType) {
 		_render(entity, error) {
 			getEntityType = getEntityType.bind(this);
 			let debounceTimeout = 20; // Original one in place, which fails to allow enough time if the object was newly released
-			if (entity && entity.hasClass('release-condition-fix') ){
+			if (entity && entity.hasClass('release-condition-fix')) {
 				debounceTimeout = 50; // Arbitrary one in order to get this to render a newly released piece of content
 			}
 			this._debouncer = Debouncer.debounce(

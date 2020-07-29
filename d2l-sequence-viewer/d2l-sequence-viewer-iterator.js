@@ -151,11 +151,11 @@ export class D2LSequenceViewerIterator extends mixinBehaviors([
 	}
 
 	async _setCurrentActivity(currentActivityRefetch) {
-		if (!currentActivityRefetch || !currentActivityRefetch.entity || !currentActivityRefetch.entity.properties ) {
+		if (!currentActivityRefetch || !currentActivityRefetch.entity || !currentActivityRefetch.entity.properties) {
 			return;
 		}
 
-		const currentActivityParentHref = this._getUpHref( currentActivityRefetch.entity );
+		const currentActivityParentHref = this._getUpHref(currentActivityRefetch.entity);
 		const actualNextActivityHref = this._getNextActivityHref(currentActivityRefetch.entity);
 		const actualPreviousActivityHref = this._getPreviousActivityHref(currentActivityRefetch.entity);
 
@@ -170,7 +170,7 @@ export class D2LSequenceViewerIterator extends mixinBehaviors([
 	}
 
 	async _fetchParentIfNeeded(parentHref, expectedActivityTarget, actualActivityTarget) {
-		if (actualActivityTarget !== expectedActivityTarget && parentHref){
+		if (actualActivityTarget !== expectedActivityTarget && parentHref) {
 			await window.D2L.Siren.EntityStore.fetch(parentHref, this.token, true);
 		}
 	}
