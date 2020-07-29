@@ -75,6 +75,9 @@ export class D2LSequenceViewerIterator extends mixinBehaviors([
 			multiPageHasPrev: {
 				type: Boolean
 			},
+			augmentedReleaseCondition: {
+				type: Boolean
+			},
 			_setUpMultiPageTopicListener: Function
 		};
 	}
@@ -133,28 +136,48 @@ export class D2LSequenceViewerIterator extends mixinBehaviors([
 		}
 
 		if (this.link && this.link.href) {
-			//Original code (TODO[PB]: Delete before merging)
-			// this.currentActivity = this.link.href;
-			// this.dispatchEvent(new CustomEvent('iterate', { composed: true, bubbles: true }));
-
-			// go fetch the current activity again first
-			const currentActivityRefetch = await window.D2L.Siren.EntityStore.fetch(this.currentActivity, this.token, true);
-
-			if (currentActivityRefetch && currentActivityRefetch.entity && currentActivityRefetch.entity.properties) {
-				const actualNextActivity = this._getNextActivityHref(currentActivityRefetch.entity);
-				const actualPreviousActivity = this._getPreviousActivityHref(currentActivityRefetch.entity);
-
-				if (this.next && actualNextActivity) {
-					this.currentActivity = actualNextActivity;
-				}
-				else if (this.previous && actualPreviousActivity) {
-					this.currentActivity = actualPreviousActivity;
-				}
+			if (!this.augmentedReleaseCondition) {
+				this.currentActivity = this.link.href;
+				this.dispatchEvent(new CustomEvent('iterate', { composed: true, bubbles: true }));
+			} else {
+				// go fetch the current activity again first
+				const currentActivityRefetch = await window.D2L.Siren.EntityStore.fetch(this.currentActivity, this.token, true);
+				await this._setCurrentActivity(currentActivityRefetch);
 			}
 
 			this.dispatchEvent(new CustomEvent('iterate', { composed: true, bubbles: true }));
 
 		}
+	}
+
+	async _setCurrentActivity(currentActivityRefetch) {
+		if (!currentActivityRefetch || !currentActivityRefetch.entity || !currentActivityRefetch.entity.properties ) {
+			return;
+		}
+
+		const currentActivityParentHref = this._getUpHref( currentActivityRefetch.entity );
+		const actualNextActivityHref = this._getNextActivityHref(currentActivityRefetch.entity);
+		const actualPreviousActivityHref = this._getPreviousActivityHref(currentActivityRefetch.entity);
+
+		if (this.next && actualNextActivityHref) {
+			await this._fetchParentIfNeeded(currentActivityParentHref, this.link.href, actualNextActivityHref);
+			this.currentActivity = actualNextActivityHref;
+		}
+		else if (this.previous && actualPreviousActivityHref) {
+			await this._fetchParentIfNeeded(currentActivityParentHref, this.link.href, actualPreviousActivityHref);
+			this.currentActivity = actualPreviousActivityHref;
+		}
+	}
+
+	async _fetchParentIfNeeded(parentHref, expectedActivityTarget, actualActivityTarget) {
+		if (actualActivityTarget !== expectedActivityTarget && parentHref){
+			await window.D2L.Siren.EntityStore.fetch(parentHref, this.token, true);
+		}
+	}
+
+	_getUpHref(entity) {
+		const nextActivityHref = entity && entity.getLinkByRel('up') || '';
+		return nextActivityHref.href || null;
 	}
 
 	_getNextActivityHref(entity) {
