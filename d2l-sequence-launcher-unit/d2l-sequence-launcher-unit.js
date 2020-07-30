@@ -218,9 +218,13 @@ PolymerElement
 		}
 
 		return subEntities.reduce((acc, { href }) => {
+			let hasLoaded = false;
+			if (this._childrenLoadingTracker && this._childrenLoadingTracker[href]) {
+				hasLoaded = this._childrenLoadingTracker[href];
+			}
 			return {
 				...acc,
-				[href]: false
+				[href]: hasLoaded
 			};
 		}, {});
 	}

@@ -440,7 +440,7 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 	static get observers() {
 		return [
 			'_openModule(_moduleStartOpen)',
-			'_checkForEarlyLoadEvent(entity, subEntities, _moduleStartOpen)'
+			'_checkForEarlyLoadEvent(entity, subEntities, _moduleStartOpen)',
 		];
 	}
 
@@ -665,9 +665,13 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		}
 
 		return subEntities.reduce((acc, { href }) => {
+			let hasLoaded = false;
+			if (this._childrenLoadingTracker && this._childrenLoadingTracker[href]) {
+				hasLoaded = this._childrenLoadingTracker[href];
+			}
 			return {
 				...acc,
-				[href]: false
+				[href]: hasLoaded
 			};
 		}, {});
 	}
