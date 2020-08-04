@@ -367,7 +367,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 			_docReaderText: {
 				type: String,
 				value: '',
-			}
+			},
+			_docConversionProcessing: {
+				type: Boolean,
+				value: false
+			},
 		};
 	}
 	static get observers() {
@@ -449,14 +453,34 @@ class D2LSequenceViewer extends mixinBehaviors([
 			return;
 		}
 
-		if (!entity) {
-			PerformanceHelper.perfMark('mark-api-call-start');
-		} else {
+		if (entity) {
+
+			// ********************************
+			const fileActivityEntity = entity.getSubEntityByClass('file-activity');
+			const fileEntity = fileActivityEntity && fileActivityEntity.getSubEntityByClass('file');
+
+			console.log({fileActivityEntity, fileEntity});
+
+			// attempt to set the processing stuff here
+			if (fileActivityEntity && fileActivityEntity.getSubEntityByClass('processing')) {
+				// doc is processing
+				console.log(' =======  processing!!!');
+				this._docConversionProcessing = true;
+				return;
+			} else if (fileEntity && fileEntity.getLinkByClass('d2l-converted-doc')) {
+				// there was a doc conversion and it completed
+				console.log(' ********* DONE processing!!!');
+				this._docConversionProcessing = false;
+			}
+			// ************************
+
 			this.$.loadingscreen.classList.add('finished');
 			this._contentReady = true;
 			PerformanceHelper.perfMark('mark-api-call-end');
 			PerformanceHelper.perfMeasure('api-call-finish', 'mark-api-call-start', 'mark-api-call-end');
 			this.telemetryClient.logPerformanceEvent('on-content-load', 'api-call-finish');
+		} else {
+			PerformanceHelper.perfMark('mark-api-call-start');
 		}
 	}
 
