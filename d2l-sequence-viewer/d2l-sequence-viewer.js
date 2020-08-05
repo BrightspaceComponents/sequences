@@ -1,5 +1,6 @@
 import 'd2l-typography/d2l-typography.js';
 import 'd2l-colors/d2l-colors.js';
+import { D2LPoller } from 'd2l-poller/d2l-poller.js';
 import './sequence-viewer-header.js';
 import './d2l-sequence-viewer-new-content-alert.js';
 import './d2l-sequence-viewer-sidebar.js';
@@ -372,6 +373,19 @@ class D2LSequenceViewer extends mixinBehaviors([
 				type: Boolean,
 				value: false
 			},
+			_poller: Object,
+			_pollIncrement: {
+				type: Number,
+				value: 500
+			},
+			_pollMax: {
+				type: Number,
+				value: 100000
+			},
+			_pollInterval: {
+				type: Number,
+				value: 0
+			}
 		};
 	}
 	static get observers() {
@@ -382,6 +396,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 			'_onContentReady(entity)',
 			'_onDocReaderToggle(_showDocReaderContent)'
 		];
+	}
+	constructor() {
+		super();
+		this._poller = new D2LPoller();
+		this._poll = this._poll.bind(this);
 	}
 	ready() {
 		super.ready();
@@ -410,12 +429,15 @@ class D2LSequenceViewer extends mixinBehaviors([
 		window.addEventListener('blur', this._blurListener);
 		window.addEventListener('popstate', this._onPopStateListener);
 		window.addEventListener('resize', this._resizeListener);
+		window.addEventListener('d2l-poll', this._poll);
 	}
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		window.removeEventListener('blur', this._blurListener);
 		window.removeEventListener('popstate', this._onPopStateListener);
 		window.removeEventListener('resize', this._resizeListener);
+		this._stopPolling();
+		window.removeEventListener('d2l-poll', this._poll);
 	}
 
 	async _onEntityChanged(entity) {
@@ -448,12 +470,30 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 	}
 
+	_stopPolling() {
+		this._poller.teardownPolling();
+	}
+
+	async _poll() {
+		console.log(this._pollInterval);
+		if (this._pollInterval < this._pollMax) {
+			this._pollInterval += this._pollIncrement;
+			this._poller.setupPolling(this._pollInterval);
+		}
+	}
+
+	async _refetchIfNeeded() {
+		const currentActivityRefetch = await window.D2L.Siren.EntityStore.fetch(this.href, this.token, true);
+		console.log({currentActivityRefetch});
+	}
+
 	_onContentReady(entity) {
 		if (this._contentReady) {
 			return;
 		}
 
 		if (entity) {
+			this._refetchIfNeeded();
 
 			// ********************************
 			const fileActivityEntity = entity.getSubEntityByClass('file-activity');
