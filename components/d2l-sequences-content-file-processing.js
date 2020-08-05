@@ -11,11 +11,16 @@ export class D2LSequencesContentFileProcessing extends D2L.Polymer.Mixins.Sequen
 	static get template() {
 		return html`
 		<style>
-
+			:host {
+				display: flex;
+				flex: 1;
+				height: 100%;
+			}
+			d2l-loading-spinner {
+				margin: auto;
+			}
 		</style>
-		<div class="content-file-processing-container">
-			<d2l-loading-spinner size="75"></d2l-loading-spinner>
-		</div>
+		<d2l-loading-spinner size="75"></d2l-loading-spinner>
 `;
 	}
 

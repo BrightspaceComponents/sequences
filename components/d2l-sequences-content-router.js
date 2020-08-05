@@ -105,7 +105,8 @@ function getFileEntityType(fileActivity) {
 	const file = fileActivity.getSubEntityByClass('file');
 	let mimeType = file && file.properties && file.properties.type;
 
-	// A converted doc will either be present, or processing
+	// A converted doc will either be processing,
+	// or present with the d2l-converted-doc class
 	if (fileActivity.getSubEntityByClass('processing')) {
 		return D2LSequencesContentRouter.fileProcessing;
 	} else if (file.getLinkByClass('d2l-converted-doc')) {
