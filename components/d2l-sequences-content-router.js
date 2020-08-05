@@ -105,9 +105,6 @@ function getFileEntityType(fileActivity) {
 	const file = fileActivity.getSubEntityByClass('file');
 	let mimeType = file && file.properties && file.properties.type;
 
-	// eslint-disable-next-line no-console
-	console.log('getFileEntityType()');
-
 	// A converted doc will either be present, or processing
 	if (fileActivity.getSubEntityByClass('processing')) {
 		return D2LSequencesContentRouter.fileProcessing;

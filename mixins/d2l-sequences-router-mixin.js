@@ -1,10 +1,12 @@
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { D2LSequencesContentError } from '../components/d2l-sequences-content-error.js';
+import { D2LSequencesContentFileProcessing } from '../components/d2l-sequences-content-file-processing';
 import '../components/d2l-sequences-content-error.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 import { TemplateStamp } from '@polymer/polymer/lib/mixins/template-stamp.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+
 function RouterMixin(getEntityType) {
 	return class extends TemplateStamp(
 		mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityBehavior],	PolymerElement)
@@ -71,9 +73,12 @@ function RouterMixin(getEntityType) {
 						? D2LSequencesContentError.is
 						: getEntityType(entity);
 
+					const fileWasProcessing = this._contentType === D2LSequencesContentFileProcessing.is &&
+						entityType !== D2LSequencesContentFileProcessing.is;
+
 					const replaceContentElement = (entity &&
 						(!this._contentElement || this._contentElement.href !== this.href)
-					) || error;
+					) || fileWasProcessing || error;
 
 					if (replaceContentElement) {
 						this.error = false;
