@@ -367,10 +367,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 			_docReaderText: {
 				type: String,
 				value: '',
-			},
-			_docConversionProcessing: {
-				type: Boolean,
-				value: false
 			}
 		};
 	}
@@ -453,14 +449,14 @@ class D2LSequenceViewer extends mixinBehaviors([
 			return;
 		}
 
-		if (entity) {
+		if (!entity) {
+			PerformanceHelper.perfMark('mark-api-call-start');
+		} else {
 			this.$.loadingscreen.classList.add('finished');
 			this._contentReady = true;
 			PerformanceHelper.perfMark('mark-api-call-end');
 			PerformanceHelper.perfMeasure('api-call-finish', 'mark-api-call-start', 'mark-api-call-end');
 			this.telemetryClient.logPerformanceEvent('on-content-load', 'api-call-finish');
-		} else {
-			PerformanceHelper.perfMark('mark-api-call-start');
 		}
 	}
 
