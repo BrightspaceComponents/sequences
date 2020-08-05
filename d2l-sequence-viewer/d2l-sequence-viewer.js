@@ -376,7 +376,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 			_poller: Object,
 			_pollIncrement: {
 				type: Number,
-				value: 500
+				value: 2000
 			},
 			_pollMax: {
 				type: Number,
@@ -475,7 +475,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	async _poll() {
-		console.log(this._pollInterval);
+		await this._refetchIfNeeded();
 		if (this._pollInterval < this._pollMax) {
 			this._pollInterval += this._pollIncrement;
 			this._poller.setupPolling(this._pollInterval);
@@ -484,7 +484,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 
 	async _refetchIfNeeded() {
 		const currentActivityRefetch = await window.D2L.Siren.EntityStore.fetch(this.href, this.token, true);
-		console.log({currentActivityRefetch});
+		const { entity: refetchEntity } = currentActivityRefetch;
+		const href = refetchEntity.getLinkByRel('self').href;
+		console.log({href});
+		this.href = href;
 	}
 
 	_onContentReady(entity) {
@@ -493,7 +496,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 
 		if (entity) {
-			this._refetchIfNeeded();
 
 			// ********************************
 			const fileActivityEntity = entity.getSubEntityByClass('file-activity');
