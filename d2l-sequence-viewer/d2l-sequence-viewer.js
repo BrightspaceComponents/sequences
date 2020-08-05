@@ -475,19 +475,25 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	async _poll() {
-		await this._refetchIfNeeded();
+		if (!this._docConversionProcessing) {
+			return;
+		}
+
+		await this._refreshEntity();
 		if (this._pollInterval < this._pollMax) {
 			this._pollInterval += this._pollIncrement;
 			this._poller.setupPolling(this._pollInterval);
 		}
 	}
 
-	async _refetchIfNeeded() {
-		const currentActivityRefetch = await window.D2L.Siren.EntityStore.fetch(this.href, this.token, true);
-		const { entity: refetchEntity } = currentActivityRefetch;
-		const href = refetchEntity.getLinkByRel('self').href;
-		console.log({href});
-		this.href = href;
+	async _refreshEntity() {
+		// eslint-disable-next-line no-console
+		console.log('~~~~~~~ refresh entity');
+
+		// Override the entity cached in EntityStore
+		await window.D2L.Siren.EntityStore.fetch(this.href, this.token, true);
+		const that = this;
+		this.href = that.href;
 	}
 
 	_onContentReady(entity) {
@@ -501,18 +507,22 @@ class D2LSequenceViewer extends mixinBehaviors([
 			const fileActivityEntity = entity.getSubEntityByClass('file-activity');
 			const fileEntity = fileActivityEntity && fileActivityEntity.getSubEntityByClass('file');
 
+			// eslint-disable-next-line no-console
 			console.log({fileActivityEntity, fileEntity});
 
 			// attempt to set the processing stuff here
 			if (fileActivityEntity && fileActivityEntity.getSubEntityByClass('processing')) {
 				// doc is processing
+				// eslint-disable-next-line no-console
 				console.log(' =======  processing!!!');
 				this._docConversionProcessing = true;
 				return;
 			} else if (fileEntity && fileEntity.getLinkByClass('d2l-converted-doc')) {
 				// there was a doc conversion and it completed
+				// eslint-disable-next-line no-console
 				console.log(' ********* DONE processing!!!');
 				this._docConversionProcessing = false;
+				return;
 			}
 			// ************************
 
