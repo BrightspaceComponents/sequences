@@ -5,7 +5,7 @@ import 'd2l-content-icons/d2l-content-icons.js';
 import { D2LPoller } from 'd2l-poller';
 import '../mixins/d2l-sequences-automatic-completion-tracking-mixin.js';
 /*
-	@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
+@extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 */
 export class D2LSequencesContentFileProcessing extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
 	static get template() {
@@ -13,7 +13,6 @@ export class D2LSequencesContentFileProcessing extends D2L.Polymer.Mixins.Sequen
 		<style>
 			:host {
 				display: flex;
-				flex: 1;
 				height: 100%;
 			}
 			d2l-loading-spinner {
