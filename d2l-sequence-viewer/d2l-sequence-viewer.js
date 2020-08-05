@@ -522,10 +522,10 @@ class D2LSequenceViewer extends mixinBehaviors([
 				// eslint-disable-next-line no-console
 				console.log(' ********* DONE processing!!!');
 				this._docConversionProcessing = false;
-				return;
 			}
 			// ************************
 
+			this._stopPolling();
 			this.$.loadingscreen.classList.add('finished');
 			this._contentReady = true;
 			PerformanceHelper.perfMark('mark-api-call-end');

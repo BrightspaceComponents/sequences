@@ -100,6 +100,8 @@ function getFileEntityType(fileActivity) {
 	const file = fileActivity.getSubEntityByClass('file');
 	let mimeType = file && file.properties && file.properties.type;
 
+	// TODO: check for processing here maybe?
+
 	if (file.getLinkByClass('d2l-converted-doc')) {
 		mimeType = file.getLinkByClass('d2l-converted-doc').type;
 	}
