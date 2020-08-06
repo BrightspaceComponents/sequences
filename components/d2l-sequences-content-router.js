@@ -107,10 +107,10 @@ function getFileEntityType(fileActivity) {
 
 	// A converted doc will either be processing,
 	// or present with the d2l-converted-doc class
-	if (fileActivity.getSubEntityByClass('processing')) {
-		return D2LSequencesContentRouter.fileProcessing;
-	} else if (file.getLinkByClass('d2l-converted-doc')) {
+	if (file && file.getLinkByClass('d2l-converted-doc')) {
 		mimeType = file.getLinkByClass('d2l-converted-doc').type;
+	} else if (fileActivity.getSubEntityByClass('processing')) {
+		return D2LSequencesContentRouter.fileProcessing;
 	}
 
 	return D2LSequencesContentRouter.mimeType.get(mimeType) || D2LSequencesContentRouter.fileUnknown;

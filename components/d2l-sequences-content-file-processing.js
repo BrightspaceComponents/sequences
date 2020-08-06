@@ -46,15 +46,15 @@ export class D2LSequencesContentFileProcessing extends mixinBehaviors([
 			_poller: Object,
 			_pollIncrement: {
 				type: Number,
-				value: 2000
+				value: 5000
 			},
 			_pollMax: {
 				type: Number,
-				value: 60000
+				value: 120000
 			},
 			_pollInterval: {
 				type: Number,
-				value: 0
+				value: 5000
 			}
 		};
 	}
