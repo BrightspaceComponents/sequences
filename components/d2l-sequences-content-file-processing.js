@@ -4,6 +4,7 @@ import '@brightspace-ui/core/components/button/button.js';
 import 'd2l-content-icons/d2l-content-icons.js';
 import { D2LPoller } from 'd2l-poller';
 import '../mixins/d2l-sequences-automatic-completion-tracking-mixin.js';
+
 /*
 @extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 */
@@ -15,11 +16,16 @@ export class D2LSequencesContentFileProcessing extends D2L.Polymer.Mixins.Sequen
 				display: flex;
 				height: 100%;
 			}
-			d2l-loading-spinner {
+			.loading-container {
+				display: flex;
+				flex-direction: column;
 				margin: auto;
 			}
 		</style>
-		<d2l-loading-spinner size="75"></d2l-loading-spinner>
+		<div class="loading-container">
+			<d2l-loading-spinner size="50"></d2l-loading-spinner>
+			<span>Converting Document</span>
+		</div>
 `;
 	}
 
@@ -40,7 +46,7 @@ export class D2LSequencesContentFileProcessing extends D2L.Polymer.Mixins.Sequen
 			},
 			_pollMax: {
 				type: Number,
-				value: 100000
+				value: 60000
 			},
 			_pollInterval: {
 				type: Number,
@@ -79,11 +85,10 @@ export class D2LSequencesContentFileProcessing extends D2L.Polymer.Mixins.Sequen
 	}
 
 	async _refreshEntity() {
-		// Override the entity cached in EntityStore
-		await window.D2L.Siren.EntityStore.fetch(this.href, this.token, true);
-		const that = this;
-		this.href = that.href;
+		// Hit the same href to bypass and override the entity cached in EntityStore
+		const { entity: refreshedEntity } = await window.D2L.Siren.EntityStore.fetch(this.href, this.token, true);
+		this.href = refreshedEntity.getLinkByRel('self').href;
 	}
-
 }
+
 customElements.define(D2LSequencesContentFileProcessing.is, D2LSequencesContentFileProcessing);
