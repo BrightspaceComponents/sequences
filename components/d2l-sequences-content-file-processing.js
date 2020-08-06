@@ -1,4 +1,6 @@
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class';
+import { PolymerElement } from '@polymer/polymer/polymer-element';
 import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';
 import '@brightspace-ui/core/components/button/button.js';
 import 'd2l-content-icons/d2l-content-icons.js';
@@ -8,7 +10,9 @@ import '../mixins/d2l-sequences-automatic-completion-tracking-mixin.js';
 /*
 @extends D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 */
-export class D2LSequencesContentFileProcessing extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
+export class D2LSequencesContentFileProcessing extends mixinBehaviors([
+	D2L.PolymerBehaviors.Sequences.LocalizeBehavior
+], PolymerElement) {
 	static get template() {
 		return html`
 		<style>
@@ -24,7 +28,7 @@ export class D2LSequencesContentFileProcessing extends D2L.Polymer.Mixins.Sequen
 		</style>
 		<div class="loading-container">
 			<d2l-loading-spinner size="50"></d2l-loading-spinner>
-			<span>Converting Document</span>
+			<span>[[localize('convertingDocument')]]</span>
 		</div>
 `;
 	}
