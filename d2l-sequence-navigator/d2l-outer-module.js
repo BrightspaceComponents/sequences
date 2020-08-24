@@ -14,7 +14,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 @mixes D2L.Polymer.Mixins.PolymerASVLaunchMixin
 */
 
-class D2lSequenceOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
+class D2lOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	static get template() {
 		return html`
 		<style>
@@ -329,7 +329,7 @@ class D2lSequenceOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin
 	}
 
 	static get is() {
-		return 'd2l-sequence-launcher-module';
+		return 'd2l-outer-module';
 	}
 
 	static get behaviors() {
@@ -729,4 +729,4 @@ class D2lSequenceOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin
 		}
 	}
 }
-customElements.define(D2lSequenceOuterModule.is, D2lSequenceOuterModule);
+customElements.define(D2lOuterModule.is, D2lOuterModule);

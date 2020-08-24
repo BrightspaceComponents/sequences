@@ -63,7 +63,7 @@ class D2LSequenceViewerSidebar extends mixinBehaviors([
 				</div>
 			</div>
 			<div id="content">
-				<d2l-sequence-outer-module
+				<d2l-outer-module
 					href="{{href}}"
 					token="[[token]]"
 					role="navigation"
@@ -78,7 +78,7 @@ class D2LSequenceViewerSidebar extends mixinBehaviors([
 						text="[[localize('endOfSequence')]]"
 						slot="end-of-unit"
 					/>
-				</d2l-sequence-outer-module>
+				</d2l-outer-module>
 			</div>
 		</div>
 		`;

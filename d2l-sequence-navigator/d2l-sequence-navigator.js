@@ -1,6 +1,6 @@
 import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
-import './d2l-sequence-outer-module.js';
+import './d2l-outer-module.js';
 import '@brightspace-ui-labs/accordion/accordion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import 'siren-entity/siren-entity.js';
@@ -82,7 +82,7 @@ PolymerElement
 					<template is="dom-if" if="[[childLink.href]]">
 						<li>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
-								<d2l-sequence-launcher-module
+								<d2l-outer-module
 									href="[[childLink.href]]"
 									token="[[token]]"
 									current-activity="{{href}}"
@@ -92,7 +92,7 @@ PolymerElement
 									show-loading-skeleton="[[_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]"
 									is-sidebar="[[isSidebar]]"
 								>
-								</d2l-sequence-launcher-module>
+								</d2l-outer-module>
 							</template>
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
 								<d2l-activity-link
