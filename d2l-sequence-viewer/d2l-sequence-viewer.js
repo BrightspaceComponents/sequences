@@ -1,6 +1,6 @@
 import 'd2l-typography/d2l-typography.js';
 import 'd2l-colors/d2l-colors.js';
-import './sequence-viewer-header.js';
+import './d2l-sequence-viewer-header.js';
 import './d2l-sequence-viewer-new-content-alert.js';
 import './d2l-sequence-viewer-sidebar.js';
 import '../localize-behavior.js';

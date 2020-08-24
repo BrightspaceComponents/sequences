@@ -1,7 +1,6 @@
 import '@polymer/polymer/polymer-legacy.js';
-
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
-import './d2l-outer-module.js';
+import './d2l-sequence-outer-module.js';
 import '@brightspace-ui-labs/accordion/accordion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import 'siren-entity/siren-entity.js';
@@ -14,7 +13,7 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 @mixes SirenEntityMixin
 */
 
-class D2LSequenceNavigator extends mixinBehaviors([
+class D2lSequenceNavigator extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 ],
@@ -23,52 +22,57 @@ PolymerElement
 	static get template() {
 		return html`
 		<style>
-		:host {
-			display: block;
-			height: 100%;
-			background-color: white;
-			border: 1px solid var(--d2l-color-mica);
-		}
+			:host {
+				display: block;
+				height: 100%;
+				border-bottom-left-radius: 6px;
+				border-bottom-right-radius: 6px;
+			}
 
-		.module-item-list {
-			list-style-type: none;
-			padding: 0px;
-			margin: 0px;
-		}
+			:host([is-sidebar]) {
+				border: none;
+			}
 
-		::slotted(.shadowed) {
-			position: relative;
-			z-index: 1;
-			box-shadow: 0 4px 0 0 rgba(185,194,208,.3);
-		}
+			.module-item-list {
+				list-style-type: none;
+				padding: 0;
+				margin: 0;
+			}
 
-		.module-content {
-			height: calc( 100% - 203px );
-			border-top: 1px solid var(--d2l-color-mica);
-		}
+			#sidebarContent {
+				position: relative;
+				overflow-y: auto;
+				overflow-x: hidden;
+			}
 
-		d2l-activity-link:focus {
-			outline: none;
-		}
+			li:first-of-type d2l-activity-link,
+			li:first-of-type {
+				margin-top: 10px;
+			}
 
-		#sidebarContent {
-			position: relative;
-			overflow-y: auto;
-			overflow-x: hidden;
-		}
-		li:first-of-type d2l-activity-link,
-		li:first-of-type d2l-outer-module {
-			margin-top: 0px;
-		}
+			li:last-of-type {
+				margin-bottom: 10px;
+			}
 
-		li {
-			padding-top: 6px;
-			padding-bottom: 6px;
-			border-bottom: 1px solid var(--d2l-color-mica);
-			padding-left: var(--d2l-sequence-nav-padding, 0);
-			padding-right: var(--d2l-sequence-nav-padding, 0);
-		}
+			li {
+				padding-top: 6px;
+			}
 
+			.module-content {
+				padding: 0 30px;
+			}
+
+			@media(max-width: 929px) {
+				.module-content {
+					padding: 0 24px;
+				}
+			}
+
+			@media(max-width: 767px) {
+				.module-content {
+					padding: 0 18px;
+				}
+			}
 		</style>
 		<siren-entity href="[[rootHref]]" token="[[token]]" entity="{{_lessonEntity}}"></siren-entity>
 		<slot name="lesson-header"></slot>
@@ -78,16 +82,34 @@ PolymerElement
 					<template is="dom-if" if="[[childLink.href]]">
 						<li>
 							<template is="dom-if" if="[[!_isActivity(childLink)]]">
-								<d2l-outer-module href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" disabled="[[disabled]]" is-sidebar="[[isSidebar()]]" last-module="[[isLast(subEntities, index)]]"></d2l-outer-module>
+								<d2l-sequence-launcher-module
+									href="[[childLink.href]]"
+									token="[[token]]"
+									current-activity="{{href}}"
+									last-module="[[isLast(subEntities, index)]]"
+									last-viewed-content-object="[[lastViewedContentObject]]"
+									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
+									show-loading-skeleton="[[_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]"
+									is-sidebar="[[isSidebar]]"
+								>
+								</d2l-sequence-launcher-module>
 							</template>
 							<template is="dom-if" if="[[_isActivity(childLink)]]">
-								<d2l-activity-link href="[[childLink.href]]" token="[[token]]" current-activity="{{href}}" before-module$="[[isBeforeModule(subEntities, index)]]"></d2l-activity-link>
+								<d2l-activity-link
+									href="[[childLink.href]]"
+									token="[[token]]"
+									current-activity="{{href}}"
+									show-underline="[[_nextActivitySiblingIsActivity(subEntities, index)]]"
+									on-d2l-content-entity-loaded="checkIfChildrenDoneLoading"
+									show-loading-skeleton="[[_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]"
+								>
+								</d2l-activity-link>
 							</template>
 						</li>
 					</template>
 				</template>
 			</ol>
-			<slot name="end-of-lesson"></slot>
+			<slot name="end-of-unit"></slot>
 		</d2l-labs-accordion>
 		`;
 	}
@@ -98,9 +120,6 @@ PolymerElement
 	static get properties() {
 		return {
 			dataAsvCssVars: String,
-			disabled: {
-				type: Boolean
-			},
 			href: {
 				type: String,
 				reflectToAttribute: true,
@@ -119,8 +138,34 @@ PolymerElement
 			},
 			_lessonEntity:{
 				type: Object
+			},
+			lastViewedContentObject: {
+				type: String
+			},
+			showLoadingSkeleton: {
+				type: Boolean,
+				value: true
+			},
+			_childrenLoading: {
+				type: Boolean,
+				value: true
+			},
+			_childrenLoadingTracker: {
+				type: Object,
+				computed: '_setUpChildrenLoadingTracker(subEntities)'
+			},
+			isSidebar: {
+				type: Boolean,
+				reflectToAttribute: true,
+				value: false
 			}
 		};
+	}
+
+	static get observers() {
+		return [
+			'_checkForEarlyLoadEvent(entity, subEntities)'
+		];
 	}
 
 	ready() {
@@ -153,48 +198,68 @@ PolymerElement
 		return entity && entity.getLinkByRel && entity.getLinkByRel('self') || entity || '';
 	}
 
-	onSidebarScroll() {
-		const sidebarHeader = this.getSideBarHeader();
-		if (this.$.sidebarContent.scrollTop === 0) {
-			if (sidebarHeader && sidebarHeader.classList && sidebarHeader.classList.contains('shadowed')) {
-				sidebarHeader.classList.remove('shadowed');
-			}
-		} else {
-			if (sidebarHeader && sidebarHeader.classList && !sidebarHeader.classList.contains('shadowed')) {
-				sidebarHeader.classList.add('shadowed');
-			}
+	_nextActivitySiblingIsActivity(subEntities, index) {
+		if (index >= subEntities.length) {
+			return false;
 		}
-	}
 
-	getSideBarHeader() {
-		const sidebarHeaderSlot = this.shadowRoot.querySelector('slot');
-		const sidebarHeader = sidebarHeaderSlot.assignedNodes()[0].querySelector('d2l-lesson-header#sidebarHeader');
-		return sidebarHeader;
-	}
+		const nextSibling = subEntities[index + 1];
 
-	isBeforeModule(subEntities, index) {
-		if (index < subEntities.length - 1) {
-			if (!this._isActivity(subEntities[index + 1])) {
-				return true;
-			}
-		}
-		return false;
+		return this._isActivity(nextSibling);
 	}
 
 	isLast(entities, index) {
-		if (entities.length <= index + 1) {
-			return true;
+		return entities.length <= index + 1;
+	}
+
+	_setUpChildrenLoadingTracker(subEntities) {
+		if (!subEntities) {
+			return {};
 		}
-		else {
-			return false;
+
+		return subEntities.reduce((acc, { href }) => {
+			let hasLoaded = false;
+			if (this._childrenLoadingTracker && this._childrenLoadingTracker[href]) {
+				hasLoaded = this._childrenLoadingTracker[href];
+			}
+			return {
+				...acc,
+				[href]: hasLoaded
+			};
+		}, {});
+	}
+
+	checkIfChildrenDoneLoading(contentLoadedEvent) {
+		const childHref = contentLoadedEvent.detail.href;
+
+		if (!this._childrenLoadingTracker || !this._childrenLoading) {
+			return;
+		}
+
+		if (this._childrenLoadingTracker[childHref] !== undefined) {
+			this._childrenLoadingTracker[childHref] = true;
+			contentLoadedEvent.stopPropagation();
+		}
+
+		if (!Object.values(this._childrenLoadingTracker).some(loaded => !loaded)) {
+			this._childrenLoading = false;
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
 		}
 	}
-	isSidebar() {
-		if (this.role === 'navigation') {
-			return true;
+
+	_checkForEarlyLoadEvent(entity, subEntities) {
+		if (entity &&
+			subEntities && (
+			subEntities.length <= 0 ||
+			subEntities.find(({ rel }) => rel && rel.includes('item')))
+		) {
+			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
 		}
-		return false;
+	}
+
+	_showChildSkeletons(showLoadingSkeleton, _childrenLoading) {
+		return showLoadingSkeleton || _childrenLoading;
 	}
 }
 
-window.customElements.define(D2LSequenceNavigator.is, D2LSequenceNavigator);
+window.customElements.define(D2lSequenceNavigator.is, D2lSequenceNavigator);

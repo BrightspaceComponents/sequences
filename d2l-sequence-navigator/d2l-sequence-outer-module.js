@@ -1,5 +1,5 @@
-import '../d2l-sequence-navigator/d2l-inner-module.js';
-import '../d2l-sequence-navigator/d2l-activity-link.js';
+import './d2l-inner-module.js';
+import './d2l-activity-link.js';
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
 import '@brightspace-ui-labs/accordion/accordion.js';
@@ -14,7 +14,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 @mixes D2L.Polymer.Mixins.PolymerASVLaunchMixin
 */
 
-class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
+class D2lSequenceOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	static get template() {
 		return html`
 		<style>
@@ -729,4 +729,4 @@ class D2LSequenceLauncherModule extends PolymerASVLaunchMixin(CompletionStatusMi
 		}
 	}
 }
-customElements.define(D2LSequenceLauncherModule.is, D2LSequenceLauncherModule);
+customElements.define(D2lSequenceOuterModule.is, D2lSequenceOuterModule);

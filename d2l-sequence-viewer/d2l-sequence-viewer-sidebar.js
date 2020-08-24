@@ -2,7 +2,7 @@ import '@polymer/polymer/polymer-legacy.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import 'd2l-colors/d2l-colors.js';
 import 'd2l-typography/d2l-typography.js';
-import '../d2l-sequence-launcher-unit/d2l-sequence-launcher-unit.js';
+import '../d2l-sequence-navigator/d2l-sequence-navigator.js';
 import '../d2l-sequence-navigator/d2l-lesson-header.js';
 import '../d2l-sequence-navigator/d2l-sequence-end.js';
 import '../localize-behavior.js';
@@ -63,7 +63,7 @@ class D2LSequenceViewerSidebar extends mixinBehaviors([
 				</div>
 			</div>
 			<div id="content">
-				<d2l-sequence-launcher-unit
+				<d2l-sequence-outer-module
 					href="{{href}}"
 					token="[[token]]"
 					role="navigation"
@@ -78,7 +78,7 @@ class D2LSequenceViewerSidebar extends mixinBehaviors([
 						text="[[localize('endOfSequence')]]"
 						slot="end-of-unit"
 					/>
-				</d2l-sequence-launcher-unit>
+				</d2l-sequence-outer-module>
 			</div>
 		</div>
 		`;
