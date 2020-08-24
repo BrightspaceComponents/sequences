@@ -10,7 +10,7 @@
   "scripts": {
     "build:lang": "gulp && npm run gen:localize",
     "build": "npm run build:lang",
-    "deps": "madge ./components ./d2l-sequence-navigator",
+    "deps": "madge ./components ./d2l-sequence-navigator ./d2l-sequence-viewer",
     "gen:localize": "plop localize",
     "lint:fix": "eslint *.js {components,mixins,test,demo}/*.js --fix",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
