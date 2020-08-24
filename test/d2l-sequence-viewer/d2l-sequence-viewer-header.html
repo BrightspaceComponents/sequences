@@ -112,7 +112,7 @@
 
 				it('should hide the previous button', (done) => {
 					flush(() => {
-						const previousButton = elem.shadowRoot.querySelector('d2l-sequences-iterator.prev-button');
+						const previousButton = elem.shadowRoot.querySelector('d2l-sequence-viewer-iterator.prev-button');
 						expect(previousButton).to.be.null;
 						done();
 					});
@@ -120,7 +120,7 @@
 
 				it('should hide the next button', (done) =>{
 					flush(() => {
-						const nextButton = elem.shadowRoot.querySelector('d2l-sequences-iterator.next-button');
+						const nextButton = elem.shadowRoot.querySelector('d2l-sequence-viewer-iterator.next-button');
 						expect(nextButton).to.be.null;
 						done();
 					});

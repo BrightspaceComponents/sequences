@@ -1,12 +1,10 @@
-import '../mixins/d2l-sequences-router-mixin.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { D2LSequencesContentEoLMain } from './d2l-sequences-content-eol-main.js';
-import './d2l-sequences-content-file-download.js';
 import { D2LSequencesContentFileHtml } from './d2l-sequences-content-file-html.js';
 import { D2LSequencesContentFilePdf } from './d2l-sequences-content-file-pdf.js';
 import { D2LSequencesContentVideo } from './d2l-sequences-content-video';
 import { D2LSequencesContentAudio } from './d2l-sequences-content-audio';
 import { D2LSequencesContentImage } from './d2l-sequences-content-image';
-import './d2l-sequences-content-file-html.js';
 import { D2LSequencesContentLinkMixed } from './d2l-sequences-content-link-mixed.js';
 import { D2LSequencesContentLinkNewTab } from './d2l-sequences-content-link-new-tab';
 import { D2LSequencesContentLinkScorm } from './d2l-sequences-content-link-scorm.js';
@@ -16,9 +14,9 @@ import { D2LSequencesContentLink } from './d2l-sequences-content-link.js';
 import { D2LSequencesContentUnknown } from './d2l-sequences-content-unknown.js';
 import { D2LSequencesContentFileProcessing } from './d2l-sequences-content-file-processing';
 import { D2LSequencesContentModule } from './d2l-sequences-content-module.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { D2LSequencesContentContentServiceLink } from './d2l-sequences-content-content-service-link.js';
 import { D2LSequencesContentFileDownload } from './d2l-sequences-content-file-download';
+import '../mixins/d2l-sequences-router-mixin.js';
 
 class D2LSequencesContentRouter extends D2L.Polymer.Mixins.Sequences.RouterMixin(getEntityType) {
 	static get template() {
