@@ -13,7 +13,7 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 @mixes SirenEntityMixin
 */
 
-class D2lSequenceNavigator extends mixinBehaviors([
+class D2LSequenceNavigator extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.Sequences.LocalizeBehavior
 ],
@@ -262,4 +262,4 @@ PolymerElement
 	}
 }
 
-window.customElements.define(D2lSequenceNavigator.is, D2lSequenceNavigator);
+window.customElements.define(D2LSequenceNavigator.is, D2LSequenceNavigator);
