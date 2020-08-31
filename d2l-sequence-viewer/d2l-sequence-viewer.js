@@ -18,8 +18,10 @@ import '@brightspace-ui/core/components/button/button-subtle.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import EntityTypeHelper from '../helpers/entity-type-helper.js';
 import TelemetryHelper from '../helpers/telemetry-helper.js';
 import PerformanceHelper from '../helpers/performance-helper.js';
+import { D2LSequencesContentFileHtml } from '../components/d2l-sequences-content-file-html.js';
 
 /*
 * @polymer
@@ -96,17 +98,21 @@ class D2LSequenceViewer extends mixinBehaviors([
 					inexplicably subtracting 12px from the height of the iframe,
 					and fixing that offset here will prevent a double scrollbar */
 					height: calc(100% + 12px);
-					/*Viewframe max width is 1170px, but viewer has 30px
-					inherent padding horizontally to account for.*/
-					max-width: calc(var(--viewer-max-width) + 2*var(--viewframe-horizontal-margin));
-
 					box-sizing: border-box;
 					overflow: auto;
 					display: flex;
 					flex: 2;
-					margin: 0 auto;
 					padding: 18px 0;
 					flex-direction: column;
+				}
+				:host([is-not-html-entity]) #viewframe {
+					/*Viewframe max width is 1170px, but viewer has 30px
+					inherent padding horizontally to account for.*/
+					max-width: calc(var(--viewer-max-width) + 2*var(--viewframe-horizontal-margin));
+					margin: 0 auto;
+				}
+				#viewframe:focus {
+					outline: none;
 				}
 				d2l-button-subtle {
 					margin: 0 0 12px var(--viewframe-horizontal-margin);
@@ -117,10 +123,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 					display: inline-block;
 					height: 100%;
 					overflow-y: auto;
-					margin: 0 var(--viewframe-horizontal-margin);
 				}
-				#viewframe:focus {
-					outline: none;
+				:host([is-not-html-entity]) .viewer {
+					margin: 0 var(--viewframe-horizontal-margin);
 				}
 				.hide {
 					display: none;
@@ -367,6 +372,11 @@ class D2LSequenceViewer extends mixinBehaviors([
 			_docReaderText: {
 				type: String,
 				value: '',
+			},
+			isNotHtmlEntity: {
+				type: Boolean,
+				reflectToAttribute: true,
+				value: true,
 			}
 		};
 	}
@@ -416,6 +426,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 
 	async _onEntityChanged(entity) {
 		this._showDocReaderContent = false;
+		this.isNotHtmlEntity = EntityTypeHelper.getEntityType(entity) !== D2LSequencesContentFileHtml.is;
 
 		//entity is null or not first time loading the page
 		if (!entity || this._loaded) {

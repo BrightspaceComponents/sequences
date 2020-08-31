@@ -1,0 +1,2 @@
+export const VIEWER_MAX_WIDTH = 1170;
+export const VIEWER_HORIZONTAL_MARGIN = 30;

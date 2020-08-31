@@ -1,24 +1,33 @@
 import '../mixins/d2l-sequences-automatic-completion-tracking-mixin.js';
+import { VIEWER_MAX_WIDTH, VIEWER_HORIZONTAL_MARGIN } from '../util/constants';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 export class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
 	static get template() {
 		return html`
-		<style>
-			.d2l-sequences-scroll-container {
-				-webkit-overflow-scrolling: touch;
-				overflow-y: auto;
-				height: 100%;
-			}
-			iframe {
-				width: 100%;
-				height: calc(100% - 12px);
-				overflow: hidden;
-			}
-		</style>
-		<div class="d2l-sequences-scroll-container">
-			<iframe id="content" frameborder="0" src$="[[_fileLocation]]" title$="[[title]]" allowfullscreen allow="microphone *; camera *; display-capture *; encrypted-media *;"></iframe>
-		</div>
-`;
+			<style>
+				.d2l-sequences-content-container {
+					-webkit-overflow-scrolling: touch;
+					overflow-y: auto;
+					height: 100%;
+				}
+				iframe {
+					width: 100%;
+					height: calc(100% - 12px);
+					overflow: hidden;
+				}
+			</style>
+			<div class="d2l-sequences-content-container">
+				<iframe
+					id="content"
+					on-load="_setIframeStyles"
+					frameborder="0"
+					src$="[[_fileLocation]]"
+					title$="[[title]]"
+					allowfullscreen
+					allow="microphone *; camera *; display-capture *; encrypted-media *;"
+				></iframe>
+			</div>
+		`;
 	}
 
 	static get is() {
@@ -57,6 +66,14 @@ export class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.Au
 		super.disconnectedCallback();
 		window.removeEventListener('d2l-sequence-viewer-multipage-navigation', this._navigateMultiPageFileListener);
 		window.postMessage(JSON.stringify({ handler: 'd2l.nav.reset' }), '*');
+	}
+
+	_setIframeStyles() {
+		const htmlIframe = this.$.content;
+		const maxWidth = VIEWER_MAX_WIDTH + (2 * VIEWER_HORIZONTAL_MARGIN);
+		htmlIframe.contentDocument.body.style.maxWidth = `${maxWidth}px`;
+		htmlIframe.contentDocument.body.style.margin = '0 auto';
+		htmlIframe.contentDocument.body.style.padding = `0 ${VIEWER_HORIZONTAL_MARGIN}px`;
 	}
 
 	_scrollToTop() {
