@@ -49,8 +49,8 @@ export class D2LSequencesContentEoLMain extends D2L.Polymer.Mixins.Sequences.Ret
 		</style>
 		<div class="content-eol-main-container">
 			<template is="dom-if" if="[[!hasMissed]]">
-				<d2l-end-of-lesson-progress href="{{_getRootHref(entity)}}" token="[[token]]">
-				</d2l-end-of-lesson-progress>
+				<d2l-sequences-end-of-lesson-progress href="{{_getRootHref(entity)}}" token="[[token]]">
+				</d2l-sequences-end-of-lesson-progress>
 				<h2>
 					[[localize('congratulations')]]
 				</h2>
