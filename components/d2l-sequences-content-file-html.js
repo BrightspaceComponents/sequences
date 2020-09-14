@@ -69,11 +69,16 @@ export class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.Au
 	}
 
 	_setIframeStyles() {
+		// If parent domain does not match fileLocation domain, contentDocument will return null
+		// and log an error in the console. Code is wrapped in if-statement to clean up console errors
+		// and prevent unnecessary errors
 		const htmlIframe = this.$.content;
 		const maxWidth = VIEWER_MAX_WIDTH + (2 * VIEWER_HORIZONTAL_MARGIN);
-		htmlIframe.contentDocument.body.style.maxWidth = `${maxWidth}px`;
-		htmlIframe.contentDocument.body.style.margin = '0 auto';
-		htmlIframe.contentDocument.body.style.padding = `0 ${VIEWER_HORIZONTAL_MARGIN}px`;
+		if (htmlIframe && htmlIframe.contentDocument && htmlIframe.contentDocument.body) {
+			htmlIframe.contentDocument.body.style.maxWidth = `${maxWidth}px`;
+			htmlIframe.contentDocument.body.style.margin = '0 auto';
+			htmlIframe.contentDocument.body.style.padding = `0 ${VIEWER_HORIZONTAL_MARGIN}px`;
+		}
 	}
 
 	_scrollToTop() {
