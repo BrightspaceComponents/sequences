@@ -1,10 +1,26 @@
 import '../mixins/d2l-sequences-automatic-completion-tracking-mixin.js';
 import { VIEWER_MAX_WIDTH, VIEWER_HORIZONTAL_MARGIN } from '../util/constants';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+
+const MAX_WIDTH = VIEWER_MAX_WIDTH + (2 * VIEWER_HORIZONTAL_MARGIN);
+
 export class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.AutomaticCompletionTrackingMixin() {
 	static get template() {
 		return html`
 			<style>
+				:host {
+					--viewer-max-width: 1170px;
+					--viewframe-horizontal-margin: 30px;
+				}
+				:host([back-up-styles]) iframe {
+					margin: 0 auto;
+					max-width: calc(var(--viewer-max-width) + 2*var(--viewframe-horizontal-margin));
+				}
+				:host([back-up-styles]) .d2l-sequences-content-container {
+					display: flex;
+					justify-content: center;
+					margin: 0 var(--viewframe-horizontal-margin);
+				}
 				.d2l-sequences-content-container {
 					-webkit-overflow-scrolling: touch;
 					overflow-y: auto;
@@ -41,6 +57,11 @@ export class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.Au
 				notify: true,
 				observer: '_scrollToTop'
 			},
+			backUpStyles: {
+				type: Boolean,
+				reflectToAttribute: true,
+				value: false
+			},
 			_fileLocation: {
 				type: String,
 				computed: '_getFileLocation(entity)'
@@ -69,15 +90,16 @@ export class D2LSequencesContentFileHtml extends D2L.Polymer.Mixins.Sequences.Au
 	}
 
 	_setIframeStyles() {
-		// If parent domain does not match fileLocation domain, contentDocument will return null
-		// and log an error in the console. Code is wrapped in if-statement to clean up console errors
-		// and prevent unnecessary errors
 		const htmlIframe = this.$.content;
-		const maxWidth = VIEWER_MAX_WIDTH + (2 * VIEWER_HORIZONTAL_MARGIN);
 		if (htmlIframe && htmlIframe.contentDocument && htmlIframe.contentDocument.body) {
-			htmlIframe.contentDocument.body.style.maxWidth = `${maxWidth}px`;
+			htmlIframe.contentDocument.body.style.maxWidth = `${MAX_WIDTH}px`;
 			htmlIframe.contentDocument.body.style.margin = '0 auto';
 			htmlIframe.contentDocument.body.style.padding = `0 ${VIEWER_HORIZONTAL_MARGIN}px`;
+		} else {
+			// If parent domain does not match fileLocation domain, contentDocument will return null
+			// and we cannot properly style the iframe. This backup allows us to style the html doc
+			// but without the scroll bar pushed to the right.
+			this.backUpStyles = true;
 		}
 	}
 
