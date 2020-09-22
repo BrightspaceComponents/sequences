@@ -460,6 +460,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 			return;
 		}
 
+		// Override the 'scroll' property set by the page to remove disabled scrollbar
+		document.body.style.overflow = 'hidden';
+
 		if (!entity) {
 			PerformanceHelper.perfMark('mark-api-call-start');
 		} else {
