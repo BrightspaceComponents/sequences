@@ -420,21 +420,33 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		const startDate = createDateFromObj(startDateObj);
 		const endDate = createDateFromObj(endDateObj);
 
-		return startDate && endDate ? this.localize(
-			`sequenceNavigator.dateRange${tooltipText}`,
-			'startDate',
-			formatFunction(startDate, { format }),
-			'endDate',
-			formatFunction(endDate, { format })
-		) : startDate ? this.localize(
-			`sequenceNavigator.starts${tooltipText}`,
-			'startDate',
-			formatFunction(startDate, { format })
-		) : endDate ? this.localize(
-			`sequenceNavigator.ends${tooltipText}`,
-			'endDate',
-			formatFunction(endDate, { format })
-		) : '';
+		if (startDate && endDate) {
+			return this.localize(
+				`sequenceNavigator.dateRange${tooltipText}`,
+				'startDate',
+				formatFunction(startDate, { format }),
+				'endDate',
+				formatFunction(endDate, { format })
+			);
+		}
+
+		if (startDate) {
+			return this.localize(
+				`sequenceNavigator.starts${tooltipText}`,
+				'startDate',
+				formatFunction(startDate, { format })
+			);
+		}
+
+		if (endDate) {
+			return this.localize(
+				`sequenceNavigator.ends${tooltipText}`,
+				'endDate',
+				formatFunction(endDate, { format })
+			);
+		}
+
+		return '';
 	}
 
 }
