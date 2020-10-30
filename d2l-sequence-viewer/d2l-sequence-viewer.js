@@ -75,7 +75,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 					flex: 1;
 					max-width: var(--sidebar-max-width);
 					position: relative;
-					overflow: hidden;
 					background: white;
 					border: 1px solid var(--d2l-color-mica);
 					border-top: none;
@@ -92,6 +91,9 @@ class D2LSequenceViewer extends mixinBehaviors([
 					-moz-transition: max-width 0.4s ease-in-out;
 					-o-transition: max-width 0.4s ease-in-out;
 					transition: max-width 0.4s ease-in-out;
+				}
+				#sidebar-container.hide-overflow {
+					overflow: hidden;
 				}
 				#viewframe {
 					/* This extra 12px comes from sequences
@@ -252,7 +254,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 			</div>
 		</d2l-sequence-viewer-header>
 		<div id="view-container">
-			<div id="sidebar-container" class="offscreen">
+			<div id="sidebar-container" class="offscreen hide-overflow">
 				<d2l-sequence-viewer-sidebar
 					href="{{href}}"
 					token="[[token]]"
@@ -640,6 +642,15 @@ class D2LSequenceViewer extends mixinBehaviors([
 		const sidebarContainer = this.shadowRoot.getElementById('sidebar-container');
 		const viewframeFogOfWar = this.shadowRoot.getElementById('viewframe-fog-of-war');
 		sidebarContainer.classList.remove('offscreen');
+		/*  I sincerely apologize for this setTimeout.
+			To have date tooltips display correctly, overflow: hidden must be removed from #sidebar-container
+			BUT #sidebar-container has to have overflow:hidden while collapsed (and collapsing) to not display horribly
+			so there's a 0.4s timeout when opening the sidebar before removing the hide-overflow class.
+			That 0.4s is the same length of the opening animation
+		*/
+		setTimeout(() => {
+			sidebarContainer.classList.remove('hide-overflow');
+		}, 400);
 		viewframeFogOfWar.classList.add('show');
 		this._sideNavIconName = 'tier1:close-default';
 		this.isSidebarClosed = false;
@@ -658,6 +669,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		}
 		viewframeFogOfWar.classList.remove('show');
 		sidebarContainer.classList.add('offscreen');
+		sidebarContainer.classList.add('hide-overflow');
 		this._sideNavIconName = 'tier1:menu-hamburger';
 		this.isSidebarClosed = true;
 

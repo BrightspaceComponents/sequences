@@ -4,14 +4,18 @@
 */
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
+import { createDateFromObj } from '../util/util.js';
 import 'd2l-offscreen/d2l-offscreen.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import 'd2l-typography/d2l-typography.js';
 import '@brightspace-ui/core/components/meter/meter-circle.js';
+import '@brightspace-ui/core/components/tooltip/tooltip.js';
 import 'd2l-progress/d2l-progress.js';
 import '@brightspace-ui/core/components/icons/icon.js';
+import { formatDate, formatDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
 import { isColorAccessible } from '@brightspace-ui/core/helpers/contrast.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+
 /*
 @memberOf D2L.Polymer.Mixins;
 @mixes CompletionStatusMixin
@@ -182,29 +186,46 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		div.unit-info {
 			font-size: 14px;
 		}
+
+		div.date-container {
+			border-top: 1px solid white;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		div.date-container > div {
+			font-size: 0.65rem;
+		}
 		</style>
 
 		<siren-entity href="[[_moduleProgressHref]]" token="[[token]]" entity="{{_moduleProgress}}"></siren-entity>
 		<a href="javascript:void(0)" class="d2l-header-lesson-link" on-click="_onHeaderClicked">
-			<div class="title-container">
-				<div class="title">
-					<template is="dom-if" if="[[_useModuleIndex]]">
-						<div class="unit-info">
-							<span>[[_moduleTitle]]</span>
-							<d2l-icon icon="tier1:bullet"></d2l-icon>
-							<span>[[_completionProgress]]</span>
-						</div>
+			<div>
+				<div class="title-container">
+					<div class="title">
+						<template is="dom-if" if="[[_useModuleIndex]]">
+							<div class="unit-info">
+								<span>[[_moduleTitle]]</span>
+								<d2l-icon icon="tier1:bullet"></d2l-icon>
+								<span>[[_completionProgress]]</span>
+							</div>
+						</template>
+						<span class="module-title">[[entity.properties.title]]</span>
+					</div>
+					<template is="dom-if" if="[[_useNewProgressBar]]">
+						<d2l-meter-circle
+							class="d2l-progress"
+							value="[[completionCount.completed]]"
+							max="[[completionCount.total]]"
+							foreground-light$="[[_lightMeter]]">
+						</d2l-meter-circle>
 					</template>
-					<span class="module-title">[[entity.properties.title]]</span>
 				</div>
-				<template is="dom-if" if="[[_useNewProgressBar]]">
-					<d2l-meter-circle
-						class="d2l-progress"
-						value="[[completionCount.completed]]"
-						max="[[completionCount.total]]"
-						foreground-light$="[[_lightMeter]]">
-					</d2l-meter-circle>
-				</template>
+				<div class="date-container">
+					<div></div>
+					<div id="availability-dates">[[_availabilityDateString]]</div>
+					<d2l-tooltip for="availability-dates">[[_availabilityDateTooltip]]</d2l-tooltip>
+				</div>
 			</div>
 			<template is="dom-if" if="[[!_useNewProgressBar]]">
 				<progress id$="[[isLightTheme()]]" class="d2l-progress" value="[[percentCompleted]]" max="100"></progress>
@@ -273,6 +294,16 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 			},
 			_moduleProgress: {
 				type: Object
+			},
+			_availabilityDateString: {
+				type: String,
+				value: '',
+				computed: '_getAvailabilityDateString(entity.properties)'
+			},
+			_availabilityDateTooltip: {
+				type: String,
+				value: '',
+				computed: '_getAvailabilityDateTooltip(entity.properties)'
 			}
 		};
 	}
@@ -364,6 +395,48 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		const rootLink = entity && entity.getLinkByRel('module-progress-info');
 		return rootLink && rootLink.href || '';
 	}
+
+	_getAvailabilityDateString(properties) {
+		if (!properties) {
+			return;
+		}
+		const { startDate, endDate } = properties;
+		return this._formatAvailabilityDateString(startDate, endDate);
+	}
+
+	_getAvailabilityDateTooltip(properties) {
+		if (!properties) {
+			return;
+		}
+		const { startDate, endDate } = properties;
+		return this._formatAvailabilityDateString(startDate, endDate, true);
+	}
+
+	_formatAvailabilityDateString(startDateObj, endDateObj, forTooltip) {
+		const tooltipText = forTooltip ? '.tooltip' : '';
+		const format = forTooltip ? 'medium' : 'shortMonthDay';
+		const formatFunction = forTooltip ? formatDateTime : formatDate;
+
+		const startDate = createDateFromObj(startDateObj);
+		const endDate = createDateFromObj(endDateObj);
+
+		return startDate && endDate ? this.localize(
+			`sequenceNavigator.dateRange${tooltipText}`,
+			'startDate',
+			formatFunction(startDate, { format }),
+			'endDate',
+			formatFunction(endDate, { format })
+		) : startDate ? this.localize(
+			`sequenceNavigator.starts${tooltipText}`,
+			'startDate',
+			formatFunction(startDate, { format })
+		) : endDate ? this.localize(
+			`sequenceNavigator.ends${tooltipText}`,
+			'endDate',
+			formatFunction(endDate, { format })
+		) : '';
+	}
+
 }
 
 window.customElements.define(D2LLessonHeader.is, D2LLessonHeader);

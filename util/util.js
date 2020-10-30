@@ -50,10 +50,27 @@ function redirectCS(redirectCs, csRedirectPath, noRedirectQueryParamString) {
 	}
 }
 
+function createDateFromObj(dateObj) {
+	if (!dateObj) {
+		return null;
+	}
+
+	return new Date(
+		dateObj.Year,
+		dateObj.Month - 1,
+		dateObj.Day,
+		dateObj.Hour,
+		dateObj.Minute,
+		dateObj.Second,
+		dateObj.Millisecond
+	);
+}
+
 export {
 	isMobile,
 	isIOS,
 	isSafari,
 	parseUrlQueryParameters,
-	redirectCS
+	redirectCS,
+	createDateFromObj
 };
