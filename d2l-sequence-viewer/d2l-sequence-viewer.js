@@ -425,6 +425,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 		this._resizeListener = this._resizeElements.bind(this);
 		this._blurListener = this._closeSlidebarOnFocusContent.bind(this);
 		this._onPopStateListener = this._onPopState.bind(this);
+		this._onSidebarTransitionEnd = this._onSidebarTransitionEnd.bind(this);
 	}
 	connectedCallback() {
 		super.connectedCallback();
@@ -434,12 +435,18 @@ class D2LSequenceViewer extends mixinBehaviors([
 		window.addEventListener('blur', this._blurListener);
 		window.addEventListener('popstate', this._onPopStateListener);
 		window.addEventListener('resize', this._resizeListener);
+
+		const sidebarContainer = this.shadowRoot.getElementById('sidebar-container');
+		sidebarContainer.addEventListener('transitionend', this._onSidebarTransitionEnd);
 	}
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		window.removeEventListener('blur', this._blurListener);
 		window.removeEventListener('popstate', this._onPopStateListener);
 		window.removeEventListener('resize', this._resizeListener);
+
+		const sidebarContainer = this.shadowRoot.getElementById('sidebar-container');
+		sidebarContainer.removeEventListener('transitionend', this._onSidebarTransitionEnd);
 	}
 
 	async _onEntityChanged(entity) {
@@ -642,15 +649,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 		const sidebarContainer = this.shadowRoot.getElementById('sidebar-container');
 		const viewframeFogOfWar = this.shadowRoot.getElementById('viewframe-fog-of-war');
 		sidebarContainer.classList.remove('offscreen');
-		/*  I sincerely apologize for this setTimeout.
-			To have date tooltips display correctly, overflow: hidden must be removed from #sidebar-container
-			BUT #sidebar-container has to have overflow:hidden while collapsed (and collapsing) to not display horribly
-			so there's a 0.4s timeout when opening the sidebar before removing the hide-overflow class.
-			That 0.4s is the same length of the opening animation
-		*/
-		setTimeout(() => {
-			sidebarContainer.classList.remove('hide-overflow');
-		}, 400);
 		viewframeFogOfWar.classList.add('show');
 		this._sideNavIconName = 'tier1:close-default';
 		this.isSidebarClosed = false;
@@ -704,6 +702,15 @@ class D2LSequenceViewer extends mixinBehaviors([
 			this._docReaderText = this.localize('closeDocReader');
 		} else {
 			this._docReaderText = this.localize('openDocReader');
+		}
+	}
+
+	_onSidebarTransitionEnd() {
+		debugger; //eslint-disable-line
+		const sidebarContainer = this.shadowRoot.getElementById('sidebar-container');
+
+		if (!this.isSidebarClosed) {
+			sidebarContainer.classList.remove('hide-overflow');
 		}
 	}
 }
