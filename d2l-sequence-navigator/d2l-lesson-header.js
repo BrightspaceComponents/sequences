@@ -221,11 +221,13 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 						</d2l-meter-circle>
 					</template>
 				</div>
-				<div class="date-container">
-					<div id="due-dates"></div>
-					<div id="availability-dates">[[_availabilityDateString]]</div>
-					<d2l-tooltip for="availability-dates">[[_availabilityDateTooltip]]</d2l-tooltip>
-				</div>
+				<template is="dom-if" if="[[_showDates]]">
+					<div class="date-container">
+						<div id="due-dates"></div>
+						<div id="availability-dates">[[_availabilityDateString]]</div>
+						<d2l-tooltip for="availability-dates">[[_availabilityDateTooltip]]</d2l-tooltip>
+					</div>
+				</template>
 			</div>
 			<template is="dom-if" if="[[!_useNewProgressBar]]">
 				<progress id$="[[isLightTheme()]]" class="d2l-progress" value="[[percentCompleted]]" max="100"></progress>
@@ -294,6 +296,11 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 			},
 			_moduleProgress: {
 				type: Object
+			},
+			_showDates: {
+				type: Boolean,
+				value: false,
+				computed: '_getShowDates(entity.properties)'
 			},
 			_availabilityDateString: {
 				type: String,
@@ -394,6 +401,17 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 	_getModuleProgressHref(entity) {
 		const rootLink = entity && entity.getLinkByRel('module-progress-info');
 		return rootLink && rootLink.href || '';
+	}
+
+	_getShowDates(properties) {
+		if (!properties) {
+			return false;
+		}
+
+		// TODO: Add due date to this check
+		const { startDate, endDate } = properties;
+
+		return startDate || endDate;
 	}
 
 	_getAvailabilityDateString(properties) {
