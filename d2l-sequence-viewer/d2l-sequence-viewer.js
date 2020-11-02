@@ -706,7 +706,6 @@ class D2LSequenceViewer extends mixinBehaviors([
 	}
 
 	_onSidebarTransitionEnd() {
-		debugger; //eslint-disable-line
 		const sidebarContainer = this.shadowRoot.getElementById('sidebar-container');
 
 		if (!this.isSidebarClosed) {
