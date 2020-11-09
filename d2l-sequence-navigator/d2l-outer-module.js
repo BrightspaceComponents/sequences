@@ -130,6 +130,10 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				line-height: var(--d2l-body-small-text_-_line-height);
 			}
 
+			d2l-tooltip {
+				color: white;
+			}
+
 			:host([show-loading-skeleton]) .date-container {
 				display: none;
 			}
@@ -224,6 +228,10 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 			#header-container:hover * {
 				color: var(--d2l-color-celestine-minus-1);
+			}
+
+			#header-container:hover d2l-tooltip {
+				color: white;
 			}
 
 			:host([header-focused][accordion-state="closed"]) #header-container {

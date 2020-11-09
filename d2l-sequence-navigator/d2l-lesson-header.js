@@ -4,7 +4,6 @@
 */
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
-import { createDateFromObj } from '../util/util.js';
 import 'd2l-offscreen/d2l-offscreen.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import 'd2l-typography/d2l-typography.js';
@@ -12,9 +11,9 @@ import '@brightspace-ui/core/components/meter/meter-circle.js';
 import '@brightspace-ui/core/components/tooltip/tooltip.js';
 import 'd2l-progress/d2l-progress.js';
 import '@brightspace-ui/core/components/icons/icon.js';
-import { formatDate, formatDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
 import { isColorAccessible } from '@brightspace-ui/core/helpers/contrast.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import '../components/d2l-sequences-availability-dates.js';
 
 /*
 @memberOf D2L.Polymer.Mixins;
@@ -224,8 +223,10 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 				<template is="dom-if" if="[[_showDates]]">
 					<div class="date-container">
 						<div id="due-date"></div>
-						<div id="availability-dates">[[_availabilityDateString]]</div>
-						<d2l-tooltip for="availability-dates">[[_availabilityDateTooltip]]</d2l-tooltip>
+						<d2l-sequences-availability-dates
+							start-date="[[_startDate]]"
+							end-date="[[_endDate]]"
+						></d2l-sequences-availability-dates>
 					</div>
 				</template>
 			</div>
@@ -297,20 +298,18 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 			_moduleProgress: {
 				type: Object
 			},
+			_startDate: {
+				type: Object,
+				computed: '_getStartDate(entity.properties)'
+			},
+			_endDate: {
+				type: Object,
+				computed: '_getEndDate(entity.properties)'
+			},
 			_showDates: {
 				type: Boolean,
 				value: false,
-				computed: '_getShowDates(entity.properties)'
-			},
-			_availabilityDateString: {
-				type: String,
-				value: '',
-				computed: '_getAvailabilityDateString(entity.properties)'
-			},
-			_availabilityDateTooltip: {
-				type: String,
-				value: '',
-				computed: '_getAvailabilityDateTooltip(entity.properties)'
+				computed: '_getShowDates(_startDate, _endDate)'
 			}
 		};
 	}
@@ -403,68 +402,16 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		return rootLink && rootLink.href || '';
 	}
 
-	_getShowDates(properties) {
-		if (!properties) {
-			return false;
-		}
+	_getStartDate(properties) {
+		return (properties || {}).startDate;
+	}
 
-		// TODO: Add due date to this check
-		const { startDate, endDate } = properties;
+	_getEndDate(properties) {
+		return (properties || {}).endDate;
+	}
 
+	_getShowDates(startDate, endDate) {
 		return startDate || endDate;
-	}
-
-	_getAvailabilityDateString(properties) {
-		if (!properties) {
-			return;
-		}
-		const { startDate, endDate } = properties;
-		return this._formatAvailabilityDateString(startDate, endDate);
-	}
-
-	_getAvailabilityDateTooltip(properties) {
-		if (!properties) {
-			return;
-		}
-		const { startDate, endDate } = properties;
-		return this._formatAvailabilityDateString(startDate, endDate, true);
-	}
-
-	_formatAvailabilityDateString(startDateObj, endDateObj, forTooltip) {
-		const tooltipText = forTooltip ? '.tooltip' : '';
-		const format = forTooltip ? 'medium' : 'shortMonthDay';
-		const formatFunction = forTooltip ? formatDateTime : formatDate;
-
-		const startDate = createDateFromObj(startDateObj);
-		const endDate = createDateFromObj(endDateObj);
-
-		if (startDate && endDate) {
-			return this.localize(
-				`sequenceNavigator.dateRange${tooltipText}`,
-				'startDate',
-				formatFunction(startDate, { format }),
-				'endDate',
-				formatFunction(endDate, { format })
-			);
-		}
-
-		if (startDate) {
-			return this.localize(
-				`sequenceNavigator.starts${tooltipText}`,
-				'startDate',
-				formatFunction(startDate, { format })
-			);
-		}
-
-		if (endDate) {
-			return this.localize(
-				`sequenceNavigator.ends${tooltipText}`,
-				'endDate',
-				formatFunction(endDate, { format })
-			);
-		}
-
-		return '';
 	}
 
 }
