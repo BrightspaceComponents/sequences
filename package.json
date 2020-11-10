@@ -49,7 +49,7 @@
     "wct-browser-legacy": "^1.0.1",
     "whatwg-fetch": "^3.0.0"
   },
-  "version": "2.2.21",
+  "version": "2.2.24",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
@@ -65,6 +65,7 @@
   "main": "d2l-sequences.js",
   "dependencies": {
     "@brightspace-ui-labs/accordion": "^2.3.0",
+    "@brightspace-ui-labs/media-player": "^1",
     "@brightspace-ui/core": "^1",
     "@brightspace-ui/intl": "^3.1.0",
     "@d2l/audio": "Brightspace/d2l-audio#semver:^3",

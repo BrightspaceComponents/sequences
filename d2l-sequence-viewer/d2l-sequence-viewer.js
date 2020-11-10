@@ -282,6 +282,8 @@ class D2LSequenceViewer extends mixinBehaviors([
 						redirect-cs=[[redirectCs]]
 						cs-redirect-path=[[csRedirectPath]]
 						no-redirect-query-param-string=[[noRedirectQueryParamString]]
+						use-media-player=[[useMediaPlayer]]
+						allow-media-downloads=[[allowMediaDownloads]]
 					>
 					</d2l-sequences-content-router>
 				</template>
@@ -395,6 +397,16 @@ class D2LSequenceViewer extends mixinBehaviors([
 				type: Boolean,
 				reflectToAttribute: true,
 				value: true,
+			},
+			useMediaPlayer: {
+				type: Boolean,
+				reflectToAttribute: true,
+				value: false
+			},
+			allowMediaDownloads: {
+				type: Boolean,
+				reflectToAttribute: true,
+				value: false
 			}
 		};
 	}
