@@ -1,9 +1,12 @@
 import './d2l-activity-link.js';
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
+import { createDateFromObj } from '../util/util.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
+import '@brightspace-ui/core/components/tooltip/tooltip.js';
 import 'd2l-offscreen/d2l-offscreen.js';
+import { formatDate, formatDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /*
 @memberOf window.D2L.Polymer.Mixins;
@@ -44,9 +47,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			}
 
 			#module-header {
-				display: flex;
-				justify-content: space-between;
-				flex-grow: 1;
 				cursor: pointer;
 				padding: 12px;
 				border-radius: 6px;
@@ -88,6 +88,23 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			#module-header.hide-description,
 			#module-header.hide-description > a {
 				cursor: default;
+			}
+
+			#title-and-completion, #date-container {
+				display: flex;
+				justify-content: space-between;
+				flex-grow: 1;
+			}
+
+			#module-header #date-container d2l-tooltip {
+				color: white;
+			}
+
+			#due-date, #availability-dates {
+				color: var(--d2l-color-ferrite);
+				font-size: 0.65rem;
+				font-weight: var(--d2l-body-small-text_-_font-weight);
+				line-height: var(--d2l-body-small-text_-_line-height);
 			}
 
 			ol {
@@ -137,14 +154,24 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			}
 		</style>
 		<div id="skeleton"></div>
-		<div id="module-header" class$="[[[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked" tabindex="0">
-			<div id="title-container">
-				<d2l-icon icon="tier1:folder"></d2l-icon>
-				<a href="javascript:void(0)" tabindex="-1">[[entity.properties.title]]</a>
+		<div id="module-header" class$="[[_getHideDescriptionClass(_hideDescription)]]" on-click="_onHeaderClicked" tabindex="0">
+			<div id="title-and-completion">
+				<div id="title-container">
+					<d2l-icon icon="tier1:folder"></d2l-icon>
+					<a href="javascript:void(0)" tabindex="-1">[[entity.properties.title]]</a>
+				</div>
+				<span class="count-status" aria-hidden="true">
+					[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
+				</span>
 			</div>
-			<span class="count-status" aria-hidden="true">
-				[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
-			</span>
+			<div id="date-container">
+				<div id="due-date">[[_dueDate]]</div>
+				<div id="availability-dates">[[_availabilityDateString]]</div>
+				<d2l-tooltip
+					for="availability-dates"
+					boundary="[[_availDateTooltipBoundary]]"
+				>[[_availabilityDateTooltip]]</d2l-tooltip>
+			</div>
 		</div>
 		<ol>
 			<template is="dom-repeat" items="[[subEntities]]" as="childLink">
@@ -212,6 +239,25 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				type: Boolean,
 				reflectToAttribute: true,
 				computed: '_getIsCurrentActivity(entity, currentActivity)'
+			},
+			_availDateTooltipBoundary: {
+				type: Object,
+				value: {
+					top: 18,
+					bottom: 18,
+					right: 18,
+					left: 18
+				}
+			},
+			_availabilityDateString: {
+				type: String,
+				value: '',
+				computed: '_getAvailabilityDateString(entity.properties)'
+			},
+			_availabilityDateTooltip: {
+				type: String,
+				value: '',
+				computed: '_getAvailabilityDateTooltip(entity.properties)'
 			}
 		};
 	}
@@ -319,6 +365,59 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			this._childrenLoading = false;
 			this.dispatchEvent(new CustomEvent('d2l-content-entity-loaded', {detail: { href: this.href}}));
 		}
+	}
+
+	_getAvailabilityDateString(properties) {
+		if (!properties) {
+			return;
+		}
+		const { startDate, endDate } = properties;
+		return this._formatAvailabilityDateString(startDate, endDate);
+	}
+
+	_getAvailabilityDateTooltip(properties) {
+		if (!properties) {
+			return;
+		}
+		const { startDate, endDate } = properties;
+		return this._formatAvailabilityDateString(startDate, endDate, true);
+	}
+
+	_formatAvailabilityDateString(startDateObj, endDateObj, forTooltip) {
+		const tooltipText = forTooltip ? '.tooltip' : '';
+		const format = forTooltip ? 'medium' : 'shortMonthDay';
+		const formatFunction = forTooltip ? formatDateTime : formatDate;
+
+		const startDate = createDateFromObj(startDateObj);
+		const endDate = createDateFromObj(endDateObj);
+
+		if (startDate && endDate) {
+			return this.localize(
+				`sequenceNavigator.dateRange${tooltipText}`,
+				'startDate',
+				formatFunction(startDate, { format }),
+				'endDate',
+				formatFunction(endDate, { format })
+			);
+		}
+
+		if (startDate) {
+			return this.localize(
+				`sequenceNavigator.starts${tooltipText}`,
+				'startDate',
+				formatFunction(startDate, { format })
+			);
+		}
+
+		if (endDate) {
+			return this.localize(
+				`sequenceNavigator.ends${tooltipText}`,
+				'endDate',
+				formatFunction(endDate, { format })
+			);
+		}
+
+		return '';
 	}
 }
 customElements.define(D2LInnerModule.is, D2LInnerModule);

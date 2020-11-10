@@ -125,7 +125,7 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 			#due-date, #availability-dates {
 				color: var(--d2l-outer-module-text-color, inherit);
-				font-size: var(--d2l-body-small-text_-_font-size);
+				font-size: 0.65rem;
 				font-weight: var(--d2l-body-small-text_-_font-weight);
 				line-height: var(--d2l-body-small-text_-_line-height);
 			}
@@ -226,8 +226,8 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				color: var(--d2l-color-celestine-minus-1);
 			}
 
-			d2l-tooltip, #header-container div.date-container d2l-tooltip {
-				color: white;
+			d2l-tooltip {
+				color: white !important;
 			}
 
 			:host([header-focused][accordion-state="closed"]) #header-container {
