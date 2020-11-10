@@ -226,6 +226,10 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				color: var(--d2l-color-celestine-minus-1);
 			}
 
+			d2l-tooltip, #header-container div.date-container d2l-tooltip {
+				color: white;
+			}
+
 			:host([header-focused][accordion-state="closed"]) #header-container {
 				background-color: var(--d2l-color-gypsum);
 				box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--d2l-color-celestine);
@@ -293,7 +297,10 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 					<div class="date-container">
 						<div id="due-date">[[_dueDate]]</div>
 						<div id="availability-dates">[[_availabilityDateString]]</div>
-						<d2l-tooltip for="availability-dates">[[_availabilityDateTooltip]]</d2l-tooltip>
+						<d2l-tooltip
+							for="availability-dates"
+							boundary="[[_availDateTooltipBoundary]]"
+						>[[_availabilityDateTooltip]]</d2l-tooltip>
 					</div>
 				</div>
 			</div>
@@ -405,6 +412,15 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				type: String,
 				value: '',
 				computed: '_getAvailabilityDateTooltip(entity.properties)'
+			},
+			_availDateTooltipBoundary: {
+				type: Object,
+				value: {
+					top: 18,
+					bottom: 18,
+					right: 18,
+					left: 18
+				}
 			},
 			showLoadingSkeleton: {
 				type: Boolean,
