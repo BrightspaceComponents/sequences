@@ -2,7 +2,7 @@ import './d2l-inner-module.js';
 import './d2l-activity-link.js';
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
-import { createDateFromObj } from '../util/util.js';
+import { formatAvailabilityDateString } from '../util/util.js';
 import '@brightspace-ui-labs/accordion/accordion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
@@ -664,7 +664,7 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			return;
 		}
 		const { startDate, endDate } = properties;
-		return this._formatAvailabilityDateString(startDate, endDate);
+		return formatAvailabilityDateString(this.localize, startDate, endDate);
 	}
 
 	_getAvailabilityDateTooltip(properties) {
@@ -672,44 +672,7 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			return;
 		}
 		const { startDate, endDate } = properties;
-		return this._formatAvailabilityDateString(startDate, endDate, true);
-	}
-
-	_formatAvailabilityDateString(startDateObj, endDateObj, forTooltip) {
-		const tooltipText = forTooltip ? '.tooltip' : '';
-		const format = forTooltip ? 'medium' : 'shortMonthDay';
-		const formatFunction = forTooltip ? formatDateTime : formatDate;
-
-		const startDate = createDateFromObj(startDateObj);
-		const endDate = createDateFromObj(endDateObj);
-
-		if (startDate && endDate) {
-			return this.localize(
-				`sequenceNavigator.dateRange${tooltipText}`,
-				'startDate',
-				formatFunction(startDate, { format }),
-				'endDate',
-				formatFunction(endDate, { format })
-			);
-		}
-
-		if (startDate) {
-			return this.localize(
-				`sequenceNavigator.starts${tooltipText}`,
-				'startDate',
-				formatFunction(startDate, { format })
-			);
-		}
-
-		if (endDate) {
-			return this.localize(
-				`sequenceNavigator.ends${tooltipText}`,
-				'endDate',
-				formatFunction(endDate, { format })
-			);
-		}
-
-		return '';
+		return formatAvailabilityDateString(this.localize, startDate, endDate, true);
 	}
 
 	_getHideModuleDescription(entity) {
