@@ -2,14 +2,13 @@ import './d2l-inner-module.js';
 import './d2l-activity-link.js';
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
-import { formatAvailabilityDateString } from '../util/util.js';
+import { formatAvailabilityDateString, createDateFromObj } from '../util/util.js';
 import '@brightspace-ui-labs/accordion/accordion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/button/button-subtle.js';
 import '@brightspace-ui/core/components/tooltip/tooltip.js';
 import 'd2l-offscreen/d2l-offscreen.js';
-import { formatDate, formatDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /*
 @memberOf window.D2L.Polymer.Mixins;

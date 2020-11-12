@@ -111,5 +111,6 @@ export {
 	isSafari,
 	parseUrlQueryParameters,
 	redirectCS,
+	createDateFromObj,
 	formatAvailabilityDateString
 };

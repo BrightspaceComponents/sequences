@@ -6,7 +6,6 @@ import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/tooltip/tooltip.js';
 import 'd2l-offscreen/d2l-offscreen.js';
-import { formatDate, formatDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 /*
 @memberOf window.D2L.Polymer.Mixins;

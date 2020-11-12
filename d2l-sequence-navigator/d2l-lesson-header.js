@@ -12,7 +12,6 @@ import '@brightspace-ui/core/components/meter/meter-circle.js';
 import '@brightspace-ui/core/components/tooltip/tooltip.js';
 import 'd2l-progress/d2l-progress.js';
 import '@brightspace-ui/core/components/icons/icon.js';
-import { formatDate, formatDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
 import { isColorAccessible } from '@brightspace-ui/core/helpers/contrast.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
