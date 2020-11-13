@@ -655,7 +655,6 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		const dueDateString = this.formatDate(actualDueDate,  {format: 'medium'});
 
 		return this.localize('sequenceNavigator.due', 'dueDate', dueDateString);
-
 	}
 
 	_getAvailabilityDateString(properties) {
