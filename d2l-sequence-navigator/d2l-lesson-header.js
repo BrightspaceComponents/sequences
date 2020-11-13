@@ -187,9 +187,12 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		}
 
 		div.date-container {
-			border-top: 1px solid white;
 			display: flex;
 			justify-content: space-between;
+		}
+
+		div.date-container.has-dates {
+			border-top: 1px solid white;
 		}
 
 		div.date-container > div {
@@ -220,13 +223,11 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 						</d2l-meter-circle>
 					</template>
 				</div>
-				<template is="dom-if" if="[[_showDates]]">
-					<div class="date-container">
-						<div id="due-date"></div>
-						<div id="availability-dates">[[_availabilityDateString]]</div>
-						<d2l-tooltip for="availability-dates">[[_availabilityDateTooltip]]</d2l-tooltip>
-					</div>
-				</template>
+				<div class="[[_getDateContainerClasses(_showDates)]]">
+					<div id="due-date"></div>
+					<div id="availability-dates">[[_availabilityDateString]]</div>
+					<d2l-tooltip for="availability-dates">[[_availabilityDateTooltip]]</d2l-tooltip>
+				</div>
 			</div>
 			<template is="dom-if" if="[[!_useNewProgressBar]]">
 				<progress id$="[[isLightTheme()]]" class="d2l-progress" value="[[percentCompleted]]" max="100"></progress>
@@ -427,6 +428,15 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		}
 		const { startDate, endDate } = properties;
 		return formatAvailabilityDateString(this.localize, startDate, endDate, true);
+	}
+
+	_getDateContainerClasses(showDates) {
+		const classes = ['date-container'];
+		if (showDates) {
+			classes.push('has-dates');
+		}
+
+		return classes.join(' ');
 	}
 
 }
