@@ -4,7 +4,12 @@
 */
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { ASVFocusWithinMixin } from '../mixins/asv-focus-within-mixin.js';
-import { formatAvailabilityDateString, getDueDateTimeString } from '../util/util.js';
+import {
+	formatAvailabilityDateString,
+	getDueDateTimeString,
+	availDateTooltipSuffix,
+	availDateAriaLabelSuffix
+} from '../util/util.js';
 import 'd2l-offscreen/d2l-offscreen.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import 'd2l-typography/d2l-typography.js';
@@ -240,7 +245,15 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 				</div>
 				<div class$="[[_getDateContainerClasses(_showDates)]]">
 					<div id="due-date-time">[[_dueDateTimeString]]</div>
-					<div id="availability-dates" tabindex$="[[_getTabIndex(_showDates)]]" role="note">[[_availabilityDateString]]</div>
+					<div
+						id="availability-dates"
+						tabindex$="[[_getTabIndex(_showDates)]]"
+						role="note"
+						aria-label$="[[_availabilityDateAriaLabel]]"
+						title$="[[_availabilityDateAriaLabel]]"
+					>
+						[[_availabilityDateString]]
+					</div>
 					<d2l-tooltip for="availability-dates">[[_availabilityDateTooltip]]</d2l-tooltip>
 				</div>
 			</div>
@@ -331,6 +344,11 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 				type: String,
 				value: '',
 				computed: '_getAvailabilityDateTooltip(entity.properties)'
+			},
+			_availabilityDateAriaLabel: {
+				type: String,
+				value: '',
+				computed: '_getAvailabilityDateAriaLabel(entity.properties)'
 			}
 		};
 	}
@@ -453,7 +471,15 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 			return;
 		}
 		const { startDate, endDate } = properties;
-		return formatAvailabilityDateString(this.localize, startDate, endDate, true);
+		return formatAvailabilityDateString(this.localize, startDate, endDate, availDateTooltipSuffix);
+	}
+
+	_getAvailabilityDateAriaLabel(properties) {
+		if (!properties) {
+			return;
+		}
+		const { startDate, endDate } = properties;
+		return formatAvailabilityDateString(this.localize, startDate, endDate, availDateAriaLabelSuffix);
 	}
 
 	_getDateContainerClasses(showDates) {

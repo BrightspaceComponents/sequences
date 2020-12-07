@@ -1,6 +1,11 @@
 import { CompletionStatusMixin } from '../mixins/completion-status-mixin.js';
 import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
-import { formatAvailabilityDateString, getDueDateTimeString } from '../util/util.js';
+import {
+	formatAvailabilityDateString,
+	getDueDateTimeString,
+	availDateTooltipSuffix,
+	availDateAriaLabelSuffix
+} from '../util/util.js';
 import './d2l-completion-status.js';
 import './d2l-completion-requirement.js';
 import '@brightspace-ui/core/components/colors/colors.js';
@@ -222,7 +227,15 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 					</div>
 					<div id="date-container">
 						<div id="due-date-time">[[_dueDateTimeString]]</div>
-						<div id="availability-dates" tabindex$="[[_getTabIndex(_showDates)]]" role="note">[[_availabilityDateString]]</div>
+						<div
+							id="availability-dates"
+							tabindex$="[[_getTabIndex(_showDates)]]"
+							role="note"
+							aria-label$="[[_availabilityDateAriaLabel]]"
+							title$="[[_availabilityDateAriaLabel]]"
+						>
+							[[_availabilityDateString]]
+						</div>
 						<d2l-tooltip
 							for="availability-dates"
 							boundary="[[_availDateTooltipBoundary]]"
@@ -298,6 +311,11 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				type: String,
 				value: '',
 				computed: '_getAvailabilityDateTooltip(entity.properties)'
+			},
+			_availabilityDateAriaLabel: {
+				type: String,
+				value: '',
+				computed: '_getAvailabilityDateAriaLabel(entity.properties)'
 			}
 		};
 	}
@@ -384,7 +402,15 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			return;
 		}
 		const { startDate, endDate } = properties;
-		return formatAvailabilityDateString(this.localize, startDate, endDate, true);
+		return formatAvailabilityDateString(this.localize, startDate, endDate, availDateTooltipSuffix);
+	}
+
+	_getAvailabilityDateAriaLabel(properties) {
+		if (!properties) {
+			return;
+		}
+		const { startDate, endDate } = properties;
+		return formatAvailabilityDateString(this.localize, startDate, endDate, availDateAriaLabelSuffix);
 	}
 
 	_getTabIndex(showDates) {
