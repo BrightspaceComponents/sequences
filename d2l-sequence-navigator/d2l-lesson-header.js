@@ -193,7 +193,7 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		}
 
 		div.date-container.has-dates {
-			border-top: 1px solid white;
+			border-top: 1px solid var(--d2l-lesson-header-text-color);
 		}
 
 		div.date-container > div {
@@ -208,9 +208,10 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		@media (max-width: 415px) {
 			div.date-container {
 				flex-direction: column;
+				align-items: flex-end;
 			}
-			#availability-dates {
-				text-align: end;
+			#due-date-time {
+				width: 100%;
 			}
 		}
 		</style>
