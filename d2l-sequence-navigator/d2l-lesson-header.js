@@ -208,9 +208,10 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		@media (max-width: 415px) {
 			div.date-container {
 				flex-direction: column;
+				align-items: flex-end;
 			}
-			#availability-dates {
-				text-align: end;
+			#due-date-time {
+				width: 100%;
 			}
 		}
 		</style>
