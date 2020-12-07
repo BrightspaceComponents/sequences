@@ -174,9 +174,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				#due-date-time {
 					width: 100%;
 				}
-				#availability-dates {
-					width: fit-content;
-				}
 			}
 
 			@keyframes loadingShimmer {

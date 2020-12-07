@@ -213,9 +213,6 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 			#due-date-time {
 				width: 100%;
 			}
-			#availability-dates {
-				width: fit-content;
-			}
 		}
 		</style>
 

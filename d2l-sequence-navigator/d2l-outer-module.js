@@ -136,9 +136,6 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				#due-date-time {
 					width: 100%;
 				}
-				#availability-dates {
-					width: fit-content;
-				}
 			}
 
 			:host([show-loading-skeleton]) .date-container {

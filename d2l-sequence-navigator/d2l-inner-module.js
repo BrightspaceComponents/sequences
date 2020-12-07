@@ -113,9 +113,6 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				#due-date-time {
 					width: 100%;
 				}
-				#availability-dates {
-					width: fit-content;
-				}
 			}
 
 			ol {
