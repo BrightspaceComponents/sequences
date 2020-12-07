@@ -169,9 +169,13 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			@media (max-width: 525px) {
 				#date-container {
 					flex-direction: column;
+					align-items: flex-end;
+				}
+				#due-date-time {
+					width: 100%;
 				}
 				#availability-dates {
-					text-align: end;
+					width: fit-content;
 				}
 			}
 

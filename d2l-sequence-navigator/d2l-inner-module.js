@@ -108,9 +108,13 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			@media (max-width: 460px) {
 				#date-container {
 					flex-direction: column;
+					align-items: flex-end;
+				}
+				#due-date-time {
+					width: 100%;
 				}
 				#availability-dates {
-					text-align: end;
+					width: fit-content;
 				}
 			}
 
