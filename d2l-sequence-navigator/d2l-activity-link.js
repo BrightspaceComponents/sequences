@@ -391,7 +391,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 	_getAvailabilityDateString(properties) {
 		if (!properties) {
-			return;
+			return '';
 		}
 		const { startDate, endDate } = properties;
 		return formatAvailabilityDateString(this.localize, startDate, endDate);
@@ -399,7 +399,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 	_getAvailabilityDateTooltip(properties) {
 		if (!properties) {
-			return;
+			return '';
 		}
 		const { startDate, endDate } = properties;
 		return formatAvailabilityDateString(this.localize, startDate, endDate, availDateTooltipSuffix);
@@ -407,7 +407,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 	_getAvailabilityDateAriaLabel(properties) {
 		if (!properties) {
-			return;
+			return '';
 		}
 		const { startDate, endDate } = properties;
 		return formatAvailabilityDateString(this.localize, startDate, endDate, availDateAriaLabelSuffix);

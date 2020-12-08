@@ -460,7 +460,7 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 
 	_getAvailabilityDateString(properties) {
 		if (!properties) {
-			return;
+			return '';
 		}
 		const { startDate, endDate } = properties;
 		return formatAvailabilityDateString(this.localize, startDate, endDate);
@@ -468,7 +468,7 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 
 	_getAvailabilityDateTooltip(properties) {
 		if (!properties) {
-			return;
+			return '';
 		}
 		const { startDate, endDate } = properties;
 		return formatAvailabilityDateString(this.localize, startDate, endDate, availDateTooltipSuffix);
@@ -476,7 +476,7 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 
 	_getAvailabilityDateAriaLabel(properties) {
 		if (!properties) {
-			return;
+			return '';
 		}
 		const { startDate, endDate } = properties;
 		return formatAvailabilityDateString(this.localize, startDate, endDate, availDateAriaLabelSuffix);
