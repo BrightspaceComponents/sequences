@@ -369,6 +369,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		if (!properties) {
 			return;
 		}
+
 		const dueDateForDisplay = properties.specialAccessDueDate || properties.dueDate;
 
 		return getDueDateTimeString(dueDateForDisplay, this.localize);
