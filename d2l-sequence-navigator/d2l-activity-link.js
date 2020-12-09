@@ -369,7 +369,6 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		if (!properties) {
 			return;
 		}
-		console.log({properties});
 		const dueDate = properties.specialAccessDueDate || properties.dueDate;
 
 		return getDueDateTimeString(dueDate, this.localize);
@@ -379,8 +378,13 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		if (!properties) {
 			return;
 		}
-		const { startDate, endDate } = properties;
-		return formatAvailabilityDateString(this.localize, startDate, endDate);
+
+		const { startDate, endDate, specialAccessStartDate, specialAccessEndDate } = properties;
+
+		const startDateForDisplay = specialAccessStartDate || startDate;
+		const endDateForDisplay = specialAccessEndDate || endDate;
+
+		return formatAvailabilityDateString(this.localize, startDateForDisplay, endDateForDisplay);
 	}
 
 	_getAvailabilityDateTooltip(properties) {
