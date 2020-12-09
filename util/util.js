@@ -74,15 +74,18 @@ function createDateFromObj(dateObj) {
 function formatAvailabilityDateString(localize, startDateObj, endDateObj, langTermSuffix) {
 	const tooltipText = langTermSuffix ? `.${langTermSuffix}` : '';
 	let format, formatFunction;
-	if (langTermSuffix === availDateTooltipSuffix) {
-		format = 'medium';
-		formatFunction = formatDateTime;
-	} else if (langTermSuffix === availDateAriaLabelSuffix) {
-		format = 'monthDay';
-		formatFunction = formatDate;
-	} else {
-		format = 'shortMonthDay';
-		formatFunction = formatDate;
+	switch (langTermSuffix) {
+		case availDateTooltipSuffix:
+			format = 'medium';
+			formatFunction = formatDateTime;
+			break;
+		case availDateAriaLabelSuffix:
+			format = 'monthDay';
+			formatFunction = formatDate;
+			break;
+		default:
+			format = 'shortMonthDay';
+			formatFunction = formatDate;
 	}
 
 	const startDate = createDateFromObj(startDateObj);
