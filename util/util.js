@@ -1,5 +1,8 @@
 import { formatDate, formatDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
 
+const availDateTooltipSuffix = 'tooltip';
+const availDateAriaLabelSuffix = 'ariaLabel';
+
 function isMobile() {
 	return /iP[ao]d|iPhone|Android|Windows (?:Phone|CE)|PlayBook|BlackBerry|Vodafone|Mobile/.test(window.navigator.userAgent);
 }
@@ -68,10 +71,22 @@ function createDateFromObj(dateObj) {
 	);
 }
 
-function formatAvailabilityDateString(localize, startDateObj, endDateObj, forTooltip) {
-	const tooltipText = forTooltip ? '.tooltip' : '';
-	const format = forTooltip ? 'medium' : 'shortMonthDay';
-	const formatFunction = forTooltip ? formatDateTime : formatDate;
+function formatAvailabilityDateString(localize, startDateObj, endDateObj, langTermSuffix) {
+	const tooltipText = langTermSuffix ? `.${langTermSuffix}` : '';
+	let format, formatFunction;
+	switch (langTermSuffix) {
+		case availDateTooltipSuffix:
+			format = 'medium';
+			formatFunction = formatDateTime;
+			break;
+		case availDateAriaLabelSuffix:
+			format = 'monthDay';
+			formatFunction = formatDate;
+			break;
+		default:
+			format = 'shortMonthDay';
+			formatFunction = formatDate;
+	}
 
 	const startDate = createDateFromObj(startDateObj);
 	const endDate = createDateFromObj(endDateObj);
@@ -123,5 +138,7 @@ export {
 	redirectCS,
 	createDateFromObj,
 	formatAvailabilityDateString,
-	getDueDateTimeString
+	getDueDateTimeString,
+	availDateTooltipSuffix,
+	availDateAriaLabelSuffix
 };
