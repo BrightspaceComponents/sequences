@@ -71,6 +71,10 @@ To build the lang terms:
 npm build:lang
 ```
 
+### Regression Testing
+
+[This document](https://desire2learn.atlassian.net/wiki/spaces/PHOENIX/pages/1175160458/LX+Regression+Test) is a good outline for regression testing LX.
+
 ## Versioning & Releasing
 
 When a pull request is merged, the minor version (0.x) in the `package.json` will be incremented, and a tag and GitHub release will be created.
@@ -90,7 +94,7 @@ Include `[increment major]`, `[increment minor]`, `[increment patch]` or `[skip 
 
 3.  Run
     ```shell
-    npm link 
+    npm link
     ```
     in your `d2l-sequences` folder to add your local sequence viewer to the npm registry.
 
