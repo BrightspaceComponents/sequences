@@ -248,6 +248,15 @@ describe('d2l-lesson-header', () => {
 						.to
 						.equal('Availability starts Oct 29, 2020 11:00 AM');
 				});
+				it('should render correct availability aria-label and title', () => {
+					const availDateText = element.shadowRoot.querySelector('#availability-dates');
+					expect(availDateText.getAttribute('aria-label'))
+						.to
+						.equal('Starts October 29. Read full date and time.');
+					expect(availDateText.getAttribute('title'))
+						.to
+						.equal('Starts October 29. Read full date and time.');
+				});
 			});
 
 			describe('end date', () => {
@@ -267,6 +276,15 @@ describe('d2l-lesson-header', () => {
 						.to
 						.equal('Availability ends Oct 31, 2020 11:00 AM');
 				});
+				it('should render correct availability aria-label and title', () => {
+					const availDateText = element.shadowRoot.querySelector('#availability-dates');
+					expect(availDateText.getAttribute('aria-label'))
+						.to
+						.equal('Ends October 31. Read full date and time.');
+					expect(availDateText.getAttribute('title'))
+						.to
+						.equal('Ends October 31. Read full date and time.');
+				});
 			});
 
 			describe('date range', () => {
@@ -285,6 +303,15 @@ describe('d2l-lesson-header', () => {
 					expect(availDateTooltip.innerText)
 						.to
 						.equal('Available: Oct 20, 2020 11:00 AM - Nov 11, 2020 11:00 AM');
+				});
+				it('should render correct availability aria-label and title', () => {
+					const availDateText = element.shadowRoot.querySelector('#availability-dates');
+					expect(availDateText.getAttribute('aria-label'))
+						.to
+						.equal('October 20 - November 11. Read full date and time.');
+					expect(availDateText.getAttribute('title'))
+						.to
+						.equal('October 20 - November 11. Read full date and time.');
 				});
 			});
 		});
