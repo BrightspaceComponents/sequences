@@ -184,6 +184,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 					role="note"
 					aria-label$="[[_availabilityDateAriaLabel]]"
 					title$="[[_availabilityDateAriaLabel]]"
+					on-click="[[_onDatesClick]]"
 				>
 					[[_availabilityDateString]]
 				</div>
@@ -402,6 +403,12 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			return;
 		}
 		return getDueDateTimeString(properties.dueDate, this.localize);
+	}
+
+	// Prevent navigating/collapsing the background element when
+	// attempting to touch the dates for viewing the tooltip.
+	_onDatesClick(e) {
+		e.stopPropagation();
 	}
 
 	_getAvailabilityDateString(properties) {
