@@ -171,6 +171,28 @@
 		},
 		{
 			"rel": [
+				"alternate"
+			],
+			"type": "text/srt",
+			"class": [
+				"caption",
+				"EN"
+			],
+			"href": "https://raw.githubusercontent.com/andreyvit/subtitle-tools/master/sample.srt"
+		},
+		{
+			"rel": [
+				"alternate"
+			],
+			"type": "text/srt",
+			"class": [
+				"caption",
+				"FR"
+			],
+			"href": "https://raw.githubusercontent.com/andreyvit/subtitle-tools/master/sample.srt"
+		},
+		{
+			"rel": [
 				"next"
 			],
 			"href": "data/l1-m2-activity10.json"

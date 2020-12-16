@@ -15,7 +15,11 @@ export class D2LSequencesContentAudio extends D2L.Polymer.Mixins.Sequences.Autom
 			}
 		</style>
 		<template is="dom-if" if="[[useMediaPlayer]]">
-			<d2l-labs-media-player src="[[_fileLocation]]" allow-download="[[allowMediaDownloads]]"></d2l-labs-media-player>
+			<d2l-labs-media-player src="[[_fileLocation]]" allow-download="[[allowMediaDownloads]]">
+				<template is="dom-repeat" items="[[_fileCaptions]]">
+					<track src$="[[item.src]]" srclang$="[[item.lang]]" label$="[[item.label]]" kind="subtitles">
+				</template>
+			</d2l-labs-media-player>
 		</template>
 		<template is="dom-if" if="[[!useMediaPlayer]]">
 			<d2l-audio src="[[_fileLocation]]" auto-load=""></d2l-audio>
@@ -37,6 +41,10 @@ export class D2LSequencesContentAudio extends D2L.Polymer.Mixins.Sequences.Autom
 			_fileLocation: {
 				type: String,
 				computed: '_getFileLocation(entity)'
+			},
+			_fileCaptions: {
+				type: Array,
+				computed: '_getFileCaptions(entity)'
 			},
 			title: {
 				type: String,
@@ -62,6 +70,11 @@ export class D2LSequencesContentAudio extends D2L.Polymer.Mixins.Sequences.Autom
 	_getFileLocation(entity) {
 		return HypermediaHelper.getFileLocation(entity);
 	}
+
+	_getFileCaptions(entity) {
+		return HypermediaHelper.getFileCaptions(entity);
+	}
+
 	_getTitle(entity) {
 		return entity && entity.properties && entity.properties.title || '';
 	}
