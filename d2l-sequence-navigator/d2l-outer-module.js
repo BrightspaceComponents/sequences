@@ -130,7 +130,6 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			#due-date-time, #availability-dates {
 				color: var(--d2l-color-ferrite);
 				font-size: 0.65rem;
-				line-height: var(--d2l-body-small-text_-_line-height);
 			}
 
 			@media (max-width: 430px) {

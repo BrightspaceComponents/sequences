@@ -207,7 +207,6 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 
 		#due-date-time, #availability-dates {
 			font-size: 0.65rem;
-			line-height: var(--d2l-body-small-text_-_line-height);
 		}
 
 		@media (max-width: 415px) {
