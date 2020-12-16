@@ -184,14 +184,13 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 					role="note"
 					aria-label$="[[_availabilityDateAriaLabel]]"
 					title$="[[_availabilityDateAriaLabel]]"
-					on-click="[[_onDatesClick]]"
+					on-click="_onDatesClick"
 				>
 					[[_availabilityDateString]]
 				</div>
 				<d2l-tooltip
 					for="availability-dates"
 					boundary="[[_availDateTooltipBoundary]]"
-					close-on-click="true" <!-- testing, keep if works -->
 				>[[_availabilityDateTooltip]]</d2l-tooltip>
 			</div>
 		</div>
