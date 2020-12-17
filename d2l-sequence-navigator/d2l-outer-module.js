@@ -321,7 +321,10 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 						<d2l-tooltip
 							for="availability-dates"
 							boundary="[[_availDateTooltipBoundary]]"
-						>[[_availabilityDateTooltip]]</d2l-tooltip>
+							close-on-click="true"
+						>
+							[[_availabilityDateTooltip]]
+						</d2l-tooltip>
 					</div>
 				</div>
 			</div>
@@ -498,7 +501,12 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				type: Boolean,
 				reflectToAttribute: true,
 				computed: '_checkModuleHeaderActive(currentActivity, entity, _hideModuleDescription)'
-			}
+			},
+			_showDates: {
+				type: Boolean,
+				value: false,
+				computed: '_getShowDates(entity.properties)'
+			},
 		};
 	}
 
@@ -679,6 +687,16 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 	// attempting to touch the dates for viewing the tooltip.
 	_onDatesClick(e) {
 		e.stopPropagation();
+	}
+
+	_getShowDates(properties) {
+		if (!properties) {
+			return false;
+		}
+
+		const { startDate, endDate, dueDate } = properties;
+
+		return !!(startDate || endDate || dueDate);
 	}
 
 	_getAvailabilityDateString(properties) {
