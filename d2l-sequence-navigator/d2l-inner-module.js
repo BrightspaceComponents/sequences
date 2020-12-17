@@ -424,9 +424,9 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			return false;
 		}
 
-		const { startDate, endDate, dueDate } = properties;
+		const { startDate, endDate } = properties;
 
-		return !!(startDate || endDate || dueDate);
+		return !!(startDate || endDate);
 	}
 
 	_getAvailabilityDateString(properties) {

@@ -452,9 +452,9 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 			return false;
 		}
 
-		const { startDate, endDate, dueDate } = properties;
+		const { startDate, endDate } = properties;
 
-		return startDate || endDate || dueDate;
+		return startDate || endDate;
 	}
 
 	_getDueDateTimeString(properties) {
