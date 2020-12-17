@@ -257,9 +257,7 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 					</div>
 					<d2l-tooltip
 						for="availability-dates"
-					>
-						[[_availabilityDateTooltip]]
-					</d2l-tooltip>
+					>[[_availabilityDateTooltip]]</d2l-tooltip>
 				</div>
 			</div>
 			<template is="dom-if" if="[[!_useNewProgressBar]]">

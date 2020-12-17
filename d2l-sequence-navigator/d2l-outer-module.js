@@ -321,9 +321,7 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 						<d2l-tooltip
 							for="availability-dates"
 							boundary="[[_availDateTooltipBoundary]]"
-						>
-							[[_availabilityDateTooltip]]
-						</d2l-tooltip>
+						>[[_availabilityDateTooltip]]</d2l-tooltip>
 					</div>
 				</div>
 			</div>
