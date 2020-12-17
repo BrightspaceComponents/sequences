@@ -257,7 +257,6 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 					</div>
 					<d2l-tooltip
 						for="availability-dates"
-						close-on-click="true"
 					>
 						[[_availabilityDateTooltip]]
 					</d2l-tooltip>
