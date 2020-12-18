@@ -168,6 +168,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			#due-date-time, #availability-dates {
 				color: var(--d2l-color-ferrite);
 				font-size: 0.65rem;
+				line-height: var(--d2l-body-small-text_-_line-height);
 			}
 
 			@media (max-width: 525px) {
@@ -229,7 +230,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 						<div id="due-date-time">[[_dueDateTimeString]]</div>
 						<div
 							id="availability-dates"
-							tabindex$="[[_getTabIndex(_showDates)]]"
+							tabindex$="[[_getTabIndex(_showDates, _availabilityDateString)]]"
 							role="note"
 							aria-label$="[[_availabilityDateAriaLabel]]"
 							title$="[[_availabilityDateAriaLabel]]"
@@ -406,9 +407,9 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			return false;
 		}
 
-		const { startDate, endDate } = properties;
+		const { startDate, endDate, dueDate } = properties;
 
-		return startDate || endDate;
+		return !!(startDate || endDate || dueDate);
 	}
 
 	_getAvailabilityDateString(properties) {
@@ -435,8 +436,8 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		return formatAvailabilityDateString(this.localize, startDate, endDate, availDateAriaLabelSuffix);
 	}
 
-	_getTabIndex(showDates) {
-		return showDates ? '0' : '-1';
+	_getTabIndex(showDates, availabilityDateString) {
+		return showDates && availabilityDateString.length ? '0' : '-1';
 	}
 }
 customElements.define(D2LActivityLink.is, D2LActivityLink);

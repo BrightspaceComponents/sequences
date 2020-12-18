@@ -207,6 +207,7 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 
 		#due-date-time, #availability-dates {
 			font-size: 0.65rem;
+			line-height: var(--d2l-body-small-text_-_line-height);
 		}
 
 		@media (max-width: 415px) {
@@ -247,7 +248,7 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 					<div id="due-date-time">[[_dueDateTimeString]]</div>
 					<div
 						id="availability-dates"
-						tabindex$="[[_getTabIndex(_showDates)]]"
+						tabindex$="[[_getTabIndex(_showDates, _availabilityDateString)]]"
 						role="note"
 						aria-label$="[[_availabilityDateAriaLabel]]"
 						title$="[[_availabilityDateAriaLabel]]"
@@ -449,9 +450,9 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 			return false;
 		}
 
-		const { startDate, endDate } = properties;
+		const { startDate, endDate, dueDate } = properties;
 
-		return startDate || endDate;
+		return startDate || endDate || dueDate;
 	}
 
 	_getDueDateTimeString(properties) {
@@ -500,10 +501,9 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		return classes.join(' ');
 	}
 
-	_getTabIndex(showDates) {
-		return showDates ? '0' : '-1';
+	_getTabIndex(showDates, availabilityDateString) {
+		return showDates && availabilityDateString.length ? '0' : '-1';
 	}
-
 }
 
 window.customElements.define(D2LLessonHeader.is, D2LLessonHeader);
