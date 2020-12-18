@@ -181,10 +181,11 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				<div id="due-date-time">[[_dueDateTimeString]]</div>
 				<div
 					id="availability-dates"
-					tabindex$="[[_getTabIndex(_showDates)]]"
+					tabindex$="[[_getTabIndex(_showDates, _availabilityDateString)]]"
 					role="note"
 					aria-label$="[[_availabilityDateAriaLabel]]"
 					title$="[[_availabilityDateAriaLabel]]"
+					on-click="_onDatesClick"
 				>
 					[[_availabilityDateString]]
 				</div>
@@ -289,7 +290,12 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 				type: String,
 				value: '',
 				computed: '_getAvailabilityDateAriaLabel(entity.properties)'
-			}
+			},
+			_showDates: {
+				type: Boolean,
+				value: false,
+				computed: '_getShowDates(entity.properties)'
+			},
 		};
 	}
 
@@ -405,6 +411,22 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		return getDueDateTimeString(properties.dueDate, this.localize);
 	}
 
+	// Prevent navigating/collapsing the background element when
+	// attempting to touch the dates for viewing the tooltip.
+	_onDatesClick(e) {
+		e.stopPropagation();
+	}
+
+	_getShowDates(properties) {
+		if (!properties) {
+			return false;
+		}
+
+		const { startDate, endDate, dueDate } = properties;
+
+		return !!(startDate || endDate || dueDate);
+	}
+
 	_getAvailabilityDateString(properties) {
 		if (!properties) {
 			return '';
@@ -429,8 +451,8 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		return formatAvailabilityDateString(this.localize, startDate, endDate, availDateAriaLabelSuffix);
 	}
 
-	_getTabIndex(showDates) {
-		return showDates ? '0' : '-1';
+	_getTabIndex(showDates, availabilityDateString) {
+		return showDates && availabilityDateString.length ? '0' : '-1';
 	}
 }
 customElements.define(D2LInnerModule.is, D2LInnerModule);

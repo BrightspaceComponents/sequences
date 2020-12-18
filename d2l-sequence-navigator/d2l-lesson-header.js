@@ -248,14 +248,17 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 					<div id="due-date-time">[[_dueDateTimeString]]</div>
 					<div
 						id="availability-dates"
-						tabindex$="[[_getTabIndex(_showDates)]]"
+						tabindex$="[[_getTabIndex(_showDates, _availabilityDateString)]]"
 						role="note"
 						aria-label$="[[_availabilityDateAriaLabel]]"
 						title$="[[_availabilityDateAriaLabel]]"
+						on-click="_onDatesClick"
 					>
 						[[_availabilityDateString]]
 					</div>
-					<d2l-tooltip for="availability-dates">[[_availabilityDateTooltip]]</d2l-tooltip>
+					<d2l-tooltip
+						for="availability-dates"
+					>[[_availabilityDateTooltip]]</d2l-tooltip>
 				</div>
 			</div>
 			<template is="dom-if" if="[[!_useNewProgressBar]]">
@@ -459,6 +462,12 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		return getDueDateTimeString(properties.dueDate, this.localize);
 	}
 
+	// Prevent navigating/collapsing the background element when
+	// attempting to touch the dates for viewing the tooltip.
+	_onDatesClick(e) {
+		e.stopPropagation();
+	}
+
 	_getAvailabilityDateString(properties) {
 		if (!properties) {
 			return '';
@@ -492,10 +501,9 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		return classes.join(' ');
 	}
 
-	_getTabIndex(showDates) {
-		return showDates ? '0' : '-1';
+	_getTabIndex(showDates, availabilityDateString) {
+		return showDates && availabilityDateString.length ? '0' : '-1';
 	}
-
 }
 
 window.customElements.define(D2LLessonHeader.is, D2LLessonHeader);
