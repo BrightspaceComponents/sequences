@@ -393,7 +393,10 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		if (!properties) {
 			return;
 		}
-		return getDueDateTimeString(properties.dueDate, this.localize);
+
+		const dueDateForDisplay = properties.specialAccessDueDate || properties.dueDate;
+
+		return getDueDateTimeString(dueDateForDisplay, this.localize);
 	}
 
 	// Prevent navigating/collapsing the background element when
@@ -416,8 +419,13 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		if (!properties) {
 			return '';
 		}
-		const { startDate, endDate } = properties;
-		return formatAvailabilityDateString(this.localize, startDate, endDate);
+
+		const { startDate, endDate, specialAccessStartDate, specialAccessEndDate } = properties;
+
+		const startDateForDisplay = specialAccessStartDate || startDate;
+		const endDateForDisplay = specialAccessEndDate || endDate;
+
+		return formatAvailabilityDateString(this.localize, startDateForDisplay, endDateForDisplay);
 	}
 
 	_getAvailabilityDateTooltip(properties) {
