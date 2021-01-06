@@ -3,7 +3,8 @@ import { PolymerASVLaunchMixin } from '../mixins/polymer-asv-launch-mixin.js';
 import {
 	formatAvailabilityDateString,
 	getDueDateTimeString,
-	availDateTooltipSuffix
+	availDateTooltipSuffix,
+	availDateAriaLabelSuffix
 } from '../util/util.js';
 import './d2l-completion-status.js';
 import './d2l-completion-requirement.js';
@@ -441,7 +442,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 
 		const { startDateForDisplay, endDateForDisplay } = this._getAvailDatesForDisplay(properties);
 
-		return formatAvailabilityDateString(this.localize, startDateForDisplay, endDateForDisplay, availDateTooltipSuffix);
+		return formatAvailabilityDateString(this.localize, startDateForDisplay, endDateForDisplay, availDateAriaLabelSuffix);
 	}
 
 	_getAvailDatesForDisplay(properties) {
