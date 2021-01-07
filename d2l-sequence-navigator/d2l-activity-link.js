@@ -420,10 +420,7 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 			return '';
 		}
 
-		const { startDate, endDate, specialAccessStartDate, specialAccessEndDate } = properties;
-
-		const startDateForDisplay = specialAccessStartDate || startDate;
-		const endDateForDisplay = specialAccessEndDate || endDate;
+		const { startDateForDisplay, endDateForDisplay } = this._getAvailDatesForDisplay(properties);
 
 		return formatAvailabilityDateString(this.localize, startDateForDisplay, endDateForDisplay);
 	}
@@ -432,16 +429,29 @@ class D2LActivityLink extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 		if (!properties) {
 			return '';
 		}
-		const { startDate, endDate } = properties;
-		return formatAvailabilityDateString(this.localize, startDate, endDate, availDateTooltipSuffix);
+
+		const { startDateForDisplay, endDateForDisplay } = this._getAvailDatesForDisplay(properties);
+
+		return formatAvailabilityDateString(this.localize, startDateForDisplay, endDateForDisplay, availDateTooltipSuffix);
 	}
 
 	_getAvailabilityDateAriaLabel(properties) {
 		if (!properties) {
 			return '';
 		}
-		const { startDate, endDate } = properties;
-		return formatAvailabilityDateString(this.localize, startDate, endDate, availDateAriaLabelSuffix);
+
+		const { startDateForDisplay, endDateForDisplay } = this._getAvailDatesForDisplay(properties);
+
+		return formatAvailabilityDateString(this.localize, startDateForDisplay, endDateForDisplay, availDateAriaLabelSuffix);
+	}
+
+	_getAvailDatesForDisplay(properties) {
+		const { startDate, endDate, specialAccessStartDate, specialAccessEndDate } = properties;
+
+		const startDateForDisplay = specialAccessStartDate || startDate;
+		const endDateForDisplay = specialAccessEndDate || endDate;
+
+		return { startDateForDisplay, endDateForDisplay };
 	}
 
 	_getTabIndex(showDates, availabilityDateString) {
