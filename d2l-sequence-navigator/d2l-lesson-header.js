@@ -251,7 +251,6 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 						tabindex$="[[_getTabIndex(_showDates, _availabilityDateString)]]"
 						role="note"
 						aria-label$="[[_availabilityDateAriaLabel]]"
-						title$="[[_availabilityDateAriaLabel]]"
 						on-click="_onDatesClick"
 					>
 						[[_availabilityDateString]]

@@ -314,7 +314,6 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 							tabindex$="[[_getTabIndex(_showDates, _availabilityDateString)]]"
 							role="note"
 							aria-label$="[[_availabilityDateAriaLabel]]"
-							title$="[[_availabilityDateAriaLabel]]"
 							on-click="_onDatesClick"
 						>
 							[[_availabilityDateString]]
