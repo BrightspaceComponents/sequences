@@ -182,9 +182,6 @@ describe('d2l-activity-link', () => {
 				expect(availDateText.getAttribute('aria-label'))
 					.to
 					.equal('Starts October 29. Read full date and time.');
-				expect(availDateText.getAttribute('title'))
-					.to
-					.equal('Starts October 29. Read full date and time.');
 			});
 		});
 
@@ -210,9 +207,6 @@ describe('d2l-activity-link', () => {
 				expect(availDateText.getAttribute('aria-label'))
 					.to
 					.equal('Ends October 31. Read full date and time.');
-				expect(availDateText.getAttribute('title'))
-					.to
-					.equal('Ends October 31. Read full date and time.');
 			});
 		});
 
@@ -236,9 +230,6 @@ describe('d2l-activity-link', () => {
 			it('should render correct availability aria-label and title', () => {
 				const availDateText = element.shadowRoot.querySelector('#availability-dates');
 				expect(availDateText.getAttribute('aria-label'))
-					.to
-					.equal('October 20 - November 11. Read full date and time.');
-				expect(availDateText.getAttribute('title'))
 					.to
 					.equal('October 20 - November 11. Read full date and time.');
 			});
