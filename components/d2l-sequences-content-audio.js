@@ -15,7 +15,7 @@ export class D2LSequencesContentAudio extends D2L.Polymer.Mixins.Sequences.Autom
 			}
 		</style>
 		<template is="dom-if" if="[[useMediaPlayer]]">
-			<d2l-labs-media-player src="[[_fileLocation]]" allow-download="[[allowMediaDownloads]]">
+			<d2l-labs-media-player src="[[_fileLocation]]" allow-download="[[allowMediaDownloads]]" allow-download-on-error>
 				<template is="dom-repeat" items="[[_fileCaptions]]">
 					<track src$="[[item.src]]" srclang$="[[item.lang]]" label$="[[item.label]]" kind="subtitles">
 				</template>
