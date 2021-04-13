@@ -64,7 +64,7 @@
   "main": "d2l-sequences.js",
   "dependencies": {
     "@brightspace-ui-labs/accordion": "^2.3.0",
-    "@brightspace-ui-labs/media-player": "^1",
+    "@brightspace-ui-labs/media-player": "^1.37.4",
     "@brightspace-ui/core": "^1",
     "@brightspace-ui/intl": "^3.1.0",
     "@d2l/audio": "Brightspace/d2l-audio#semver:^3",
