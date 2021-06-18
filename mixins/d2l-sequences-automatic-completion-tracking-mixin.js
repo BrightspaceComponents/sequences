@@ -28,7 +28,8 @@ function AutomaticCompletionTrackingMixin() {
 
 		ready() {
 			super.ready();
-			this._finishCompletionCallback = this.finishCompletion.bind(this);
+			this._finishCompletionCallback = this.getFinishCompletionHandler().bind(this);
+			this._immediateFinishCompletionCallback = this.getFinishCompletionHandler({ delay: 0 }).bind(this);
 			this._visibilityChangeCallback = function() {
 				if (document.visibilityState === 'hidden') {
 					this._finishCompletionCallback();
@@ -43,6 +44,7 @@ function AutomaticCompletionTrackingMixin() {
 			window.addEventListener('pagehide', this._finishCompletionCallback);
 			window.addEventListener('visibilitychange', this._visibilityChangeCallback);
 			window.addEventListener('beforeunload', this._finishCompletionCallback);
+			window.addEventListener('back-to-content', this._immediateFinishCompletionCallback);
 		}
 
 		disconnectedCallback() {
@@ -51,6 +53,7 @@ function AutomaticCompletionTrackingMixin() {
 			window.removeEventListener('pagehide', this._finishCompletionCallback);
 			window.removeEventListener('visibilitychange', this._visibilityChangeCallback);
 			window.removeEventListener('beforeunload', this._finishCompletionCallback);
+			window.removeEventListener('back-to-content', this._immediateFinishCompletionCallback);
 		}
 
 		_onHrefChanged(href, previousHref) {
