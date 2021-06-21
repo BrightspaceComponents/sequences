@@ -28,15 +28,21 @@ function CompletionTrackingMixin() {
 			};
 		}
 
+		getFinishCompletionHandler({ delay = FINISH_COMPLETION_DELAY } = {}) {
+			// we don't want any chance of a delay if delay was set to 0,
+			// see https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout
+			return delay > 0 ?
+				() => setTimeout(() => this.finishCompletion(), delay) :
+				() => this.finishCompletion();
+		}
+
 		finishCompletion() {
 			if (!this._completionEntity || this._skipCompletion) {
 				return;
 			}
 
-			setTimeout(() => {
-				this._performViewActions(this._completionEntity, 'finish-view-activity')
-					.then(() => { this._completionEntity = null; });
-			}, FINISH_COMPLETION_DELAY);
+			this._performViewActions(this._completionEntity, 'finish-view-activity')
+				.then(() => { this._completionEntity = null; });
 		}
 
 		startCompletion() {

@@ -580,6 +580,7 @@ class D2LSequenceViewer extends mixinBehaviors([
 
 	_onClickBack() {
 		this.telemetryClient.logTelemetryEvent('back-to-content');
+		this.dispatchEvent(new CustomEvent('back-to-content', { bubbles: true, composed: true }));
 
 		if (!this.backToContentLink) {
 			return;
