@@ -72,7 +72,7 @@ function createDateFromObj(dateObj) {
 }
 
 function formatAvailabilityDateString(localize, startDateObj, endDateObj, langTermSuffix) {
-	const tooltipText = langTermSuffix ? `.${langTermSuffix}` : '';
+	const tooltipText = langTermSuffix ? `:${langTermSuffix}` : '';
 	let format, formatFunction;
 	switch (langTermSuffix) {
 		case availDateTooltipSuffix:
