@@ -174,7 +174,7 @@ class D2LInnerModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 					<a href="javascript:void(0)" tabindex="-1">[[entity.properties.title]]</a>
 				</div>
 				<span class="count-status" aria-hidden="true">
-					[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
+					[[localize('sequenceNavigator:countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
 				</span>
 			</div>
 			<div id="date-container">

@@ -262,9 +262,9 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 			</div>
 			<template is="dom-if" if="[[!_useNewProgressBar]]">
 				<progress id$="[[isLightTheme()]]" class="d2l-progress" value="[[percentCompleted]]" max="100"></progress>
-				<div class="module-completion-count" aria-hidden="true">[[localize('sequenceNavigator.completedMofN', 'completed', completionCompleted, 'total', completionTotal)]]</div>
+				<div class="module-completion-count" aria-hidden="true">[[localize('sequenceNavigator:completedMofN', 'completed', completionCompleted, 'total', completionTotal)]]</div>
 			</template>
-			<div><d2l-offscreen>[[localize('sequenceNavigator.requirementsCompleted', 'completed', completionCompleted, 'total', completionTotal)]]</d2l-offscreen></div>
+			<div><d2l-offscreen>[[localize('sequenceNavigator:requirementsCompleted', 'completed', completionCompleted, 'total', completionTotal)]]</d2l-offscreen></div>
 		</a>
 `;
 	}
@@ -401,7 +401,7 @@ class D2LLessonHeader extends ASVFocusWithinMixin(CompletionStatusMixin()) {
 		} else if (moduleProperties && moduleProperties.completionProgressLangTerm) {
 			return moduleProperties.completionProgressLangTerm;
 		} else if (_moduleIndex && _siblingModules) {
-			return this.localize('sequenceNavigator.currentModule', 'current', _moduleIndex, 'total', _siblingModules);
+			return this.localize('sequenceNavigator:currentModule', 'current', _moduleIndex, 'total', _siblingModules);
 		} else {
 			return '';
 		}

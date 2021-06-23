@@ -16,7 +16,7 @@ class D2LCompletionStatus extends CompletionStatusMixin() {
 			}
 		</style>
 		<template is="dom-if" if="[[isComplete]]">
-			<d2l-icon aria-label$="[[localize('sequenceNavigator.completed')]]" icon="tier1:check"></d2l-icon>
+			<d2l-icon aria-label$="[[localize('sequenceNavigator:completed')]]" icon="tier1:check"></d2l-icon>
 		</template>
 `;
 	}
