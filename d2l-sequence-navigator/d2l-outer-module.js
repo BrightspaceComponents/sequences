@@ -287,13 +287,13 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 						<div class="module-completion-count">
 							<template is="dom-if" if="[[showCount]]">
 								<span class="countStatus" aria-hidden="true">
-									[[localize('sequenceNavigator.countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
+									[[localize('sequenceNavigator:countStatus', 'completed', completionCompleted, 'total', completionTotal)]]
 								</span>
-								<d2l-offscreen>[[localize('sequenceNavigator.requirementsCompleted', 'completed', completionCompleted, 'total', completionTotal)]]</d2l-offscreen>
+								<d2l-offscreen>[[localize('sequenceNavigator:requirementsCompleted', 'completed', completionCompleted, 'total', completionTotal)]]</d2l-offscreen>
 							</template>
 							<template is="dom-if" if="[[showCheckmark]]">
 								<span class="completedStatus">
-									<d2l-icon aria-label$="[[localize('sequenceNavigator.completed')]]" icon="tier1:check"></d2l-icon>
+									<d2l-icon aria-label$="[[localize('sequenceNavigator:completed')]]" icon="tier1:check"></d2l-icon>
 								</span>
 							</template>
 							<template is="dom-if" if="[[!showCheckmark]]">
@@ -301,7 +301,7 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 							</template>
 							<template is="dom-if" if="[[showOptional]]">
 								<span class="optionalStatus">
-									[[localize('sequenceNavigator.optional')]]
+									[[localize('sequenceNavigator:optional')]]
 								</span>
 							</template>
 							<d2l-icon id="expand-icon" icon="[[_iconName]]"></d2l-icon>
@@ -332,8 +332,8 @@ class D2LOuterModule extends PolymerASVLaunchMixin(CompletionStatusMixin()) {
 					</template>
 					<template is="dom-if" if="[[!_showChildSkeletons(showLoadingSkeleton, _childrenLoading)]]">
 						<d2l-button-subtle
-							aria-label$="[[localize('sequenceNavigator.launchModule')]]"
-							text="[[localize('sequenceNavigator.launchModule')]]"
+							aria-label$="[[localize('sequenceNavigator:launchModule')]]"
+							text="[[localize('sequenceNavigator:launchModule')]]"
 							icon="tier1:move-to"
 							on-click="_onLaunchModuleButtonClick"
 						></d2l-button-subtle>

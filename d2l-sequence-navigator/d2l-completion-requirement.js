@@ -20,12 +20,12 @@ class D2LCompletionRequirement extends CompletionStatusMixin() {
 		</style>
 		<template is="dom-if" if="[[isExempt]]">
 			<div class="exempt">
-				[[localize('sequenceNavigator.exempt')]]
+				[[localize('sequenceNavigator:exempt')]]
 			</div>
 		</template>
 		<template is="dom-if" if="[[isOptional]]">
 			<div class="optional">
-				[[localize('sequenceNavigator.optional')]]
+				[[localize('sequenceNavigator:optional')]]
 			</div>
 		</template>
 `;

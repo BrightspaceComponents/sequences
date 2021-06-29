@@ -94,7 +94,7 @@ class D2LMissedActivity extends ASVFocusWithinMixin(PolymerASVLaunchMixin(Comple
 	}
 
 	_getSequenceNotFinishedLangTerm(entity) {
-		return entity && entity.properties && entity.properties.sequenceNotFinishedLangTerm || this.localize && this.localize('sequenceNavigator.missedActivitiesListHeader') || '';
+		return entity && entity.properties && entity.properties.sequenceNotFinishedLangTerm || this.localize && this.localize('sequenceNavigator:missedActivitiesListHeader') || '';
 	}
 
 	getnumberOfMissedActivity(subEntities) {

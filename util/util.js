@@ -72,7 +72,7 @@ function createDateFromObj(dateObj) {
 }
 
 function formatAvailabilityDateString(localize, startDateObj, endDateObj, langTermSuffix) {
-	const tooltipText = langTermSuffix ? `.${langTermSuffix}` : '';
+	const tooltipText = langTermSuffix ? `:${langTermSuffix}` : '';
 	let format, formatFunction;
 	switch (langTermSuffix) {
 		case availDateTooltipSuffix:
@@ -93,7 +93,7 @@ function formatAvailabilityDateString(localize, startDateObj, endDateObj, langTe
 
 	if (startDate && endDate) {
 		return localize(
-			`sequenceNavigator.dateRange${tooltipText}`,
+			`sequenceNavigator:dateRange${tooltipText}`,
 			'startDate',
 			formatFunction(startDate, { format }),
 			'endDate',
@@ -103,7 +103,7 @@ function formatAvailabilityDateString(localize, startDateObj, endDateObj, langTe
 
 	if (startDate) {
 		return localize(
-			`sequenceNavigator.starts${tooltipText}`,
+			`sequenceNavigator:starts${tooltipText}`,
 			'startDate',
 			formatFunction(startDate, { format })
 		);
@@ -111,7 +111,7 @@ function formatAvailabilityDateString(localize, startDateObj, endDateObj, langTe
 
 	if (endDate) {
 		return localize(
-			`sequenceNavigator.ends${tooltipText}`,
+			`sequenceNavigator:ends${tooltipText}`,
 			'endDate',
 			formatFunction(endDate, { format })
 		);
@@ -127,7 +127,7 @@ function getDueDateTimeString(dueDateTime, localize) {
 	const actualDueDateTime = createDateFromObj(dueDateTime);
 	const dueDateTimeString = formatDateTime(actualDueDateTime,  {format: 'medium'});
 
-	return localize('sequenceNavigator.due', 'dueDateTime', dueDateTimeString);
+	return localize('sequenceNavigator:due', 'dueDateTime', dueDateTimeString);
 }
 
 export {
